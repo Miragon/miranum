@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Output {
+public class Answer {
 
-    private String erg;
+    private String text;
 
 }

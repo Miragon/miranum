@@ -5,10 +5,10 @@
       <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0yx0bta" sourceRef="StartEvent_1" targetRef="Activity_1dgrmef" />
-    <bpmn:serviceTask id="Activity_1dgrmef" name="test" camunda:type="external" camunda:topic="test">
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:type="external" camunda:topic="sendMessage">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="value">hihi</camunda:inputParameter>
+          <camunda:inputParameter name="value">This is my Message</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>

@@ -29,7 +29,7 @@
     <modules>
         <module>connect</module>
         <module>integrations</module>
-        <module>examples</module>
+        <module>example</module>
     </modules>
 
     <dependencyManagement>

@@ -16,12 +16,6 @@ import org.springframework.context.annotation.Import;
 @Import(ContextInitalizer.class)
 public class BinderAutoConfiguration {
 
-//    @Bean
-//    public ContextInitalizer contextInitalizer(final InitializeUseCase initializeUseCase) throws Exception {
-//        final ContextInitalizer contextInitalizer = new ContextInitalizer(initializeUseCase, new UseCaseInfoMapper());
-//        return contextInitalizer;
-//    }
-
     @Bean
     public UseCaseInfoMapper useCaseInfoMapper() {
         return new UseCaseInfoMapper();

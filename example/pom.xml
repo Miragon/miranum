@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>examples</artifactId>
-    <name>examples</name>
+    <artifactId>example</artifactId>
+    <name>example</name>
     <packaging>pom</packaging>
     <description>miranum integrations</description>
 
@@ -15,7 +15,8 @@
     </parent>
 
     <modules>
-        <module>camunda-7-example</module>
+        <module>example-camunda-7</module>
+        <module>example-core</module>
     </modules>
 
 </project>
