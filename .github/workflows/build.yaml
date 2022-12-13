@@ -1,4 +1,4 @@
-name: build services
+name: build
 
 on:
   push:
@@ -6,11 +6,7 @@ on:
       - '**'
 
 jobs:
-  compliance:
-    runs-on: ubuntu-latest
-
   build-maven:
-    needs: compliance
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
