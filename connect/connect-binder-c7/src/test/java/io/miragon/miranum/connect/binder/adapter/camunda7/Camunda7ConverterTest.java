@@ -1,6 +1,5 @@
-package io.miragon.miranum.connect.binder.camunda7;
+package io.miragon.miranum.connect.binder.adapter.camunda7;
 
-import io.miragon.miranum.connect.binder.adapter.camunda7.Camunda7Mapper;
 import lombok.extern.java.Log;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;

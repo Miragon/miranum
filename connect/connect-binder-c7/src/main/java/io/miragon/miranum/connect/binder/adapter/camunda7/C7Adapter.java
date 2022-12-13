@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-public class C7Adapter implements BindUseCasePort {
+class C7Adapter implements BindUseCasePort {
 
     private final ExternalTaskClient externalTaskClient;
     private final Camunda7Mapper camunda7Mapper;
@@ -23,7 +23,7 @@ public class C7Adapter implements BindUseCasePort {
         this.externalTaskClient.subscribe(useCaseInfo.getType())
                 .handler((externalTask, externalTaskService) -> {
                     //1. convert camunda data into object
-                    final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType()[0], externalTask.getAllVariablesTyped());
+                    final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
                     try {
                         //2. execute method
                         final Object result = this.executeMethodUseCase.execute(value, useCaseInfo);

@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.binder.camunda7;
+package io.miragon.miranum.connect.binder.adapter.camunda7;
 
 import lombok.Builder;
 import lombok.Data;

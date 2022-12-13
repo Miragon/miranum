@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Camunda7Mapper {
+class Camunda7Mapper {
 
     public Object convertInput(final Class<?> inputType, final VariableMap engineData) {
         final Map<String, Object> data = this.fromEngineData(engineData);

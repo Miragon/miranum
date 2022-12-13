@@ -15,7 +15,7 @@ public class UseCaseInfo {
 
     private Method method;
 
-    private Class<?> inputType[];
+    private Class<?> inputType;
 
     private Class<?> outputType;
 
