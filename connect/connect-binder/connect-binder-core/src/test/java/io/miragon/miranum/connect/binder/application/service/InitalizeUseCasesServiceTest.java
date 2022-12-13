@@ -5,6 +5,7 @@ import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
 import io.miragon.miranum.connect.binder.application.service.usecase.DefaultUseCase;
 import io.miragon.miranum.connect.binder.application.service.usecase.Input;
 import io.miragon.miranum.connect.binder.application.service.usecase.Output;
+import io.miragon.miranum.connect.binder.domain.UseCase;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -39,7 +40,7 @@ class InitalizeUseCasesServiceTest {
 
     private List<UseCaseInfo> givenDefaultUseCaseList() throws NoSuchMethodException {
         final DefaultUseCase useCase = new DefaultUseCase();
-        final UseCaseInfo useCaseInfo = new UseCaseInfo("test", useCase, useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
+        final UseCaseInfo useCaseInfo = new UseCaseInfo("test", useCase, useCase.getClass().getMethod("doSomething", Input.class).getAnnotation(UseCase.class), useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
         return List.of(useCaseInfo);
     }
 

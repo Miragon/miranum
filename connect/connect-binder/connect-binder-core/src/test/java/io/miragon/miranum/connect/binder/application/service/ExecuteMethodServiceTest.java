@@ -4,6 +4,7 @@ import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseComma
 import io.miragon.miranum.connect.binder.application.service.usecase.DefaultUseCase;
 import io.miragon.miranum.connect.binder.application.service.usecase.Input;
 import io.miragon.miranum.connect.binder.application.service.usecase.Output;
+import io.miragon.miranum.connect.binder.domain.UseCase;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class ExecuteMethodServiceTest {
 
     private UseCaseInfo givenDefaultUseCase() throws NoSuchMethodException {
         final DefaultUseCase useCase = new DefaultUseCase();
-        return new UseCaseInfo("test", useCase, useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
+        return new UseCaseInfo("test", useCase, useCase.getClass().getMethod("doSomething", Input.class).getAnnotation(UseCase.class), useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
     }
 
 }

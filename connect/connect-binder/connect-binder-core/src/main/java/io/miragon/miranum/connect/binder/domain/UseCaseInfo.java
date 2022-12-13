@@ -13,6 +13,8 @@ public class UseCaseInfo {
 
     private Object instance;
 
+    private UseCase annotationInstance;
+
     private Method method;
 
     private Class<?> inputType;
