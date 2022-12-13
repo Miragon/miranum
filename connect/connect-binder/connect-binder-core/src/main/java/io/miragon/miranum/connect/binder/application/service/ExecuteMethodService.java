@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 
 @Log
 @RequiredArgsConstructor
-public class UseCaseInterceptorService implements ExecuteMethodUseCase {
+public class ExecuteMethodService implements ExecuteMethodUseCase {
 
     @Override
     public Object execute(final Object data, final UseCaseInfo useCaseInfo) throws BusinessException, TechnicalException {

@@ -6,8 +6,8 @@ import io.miragon.miranum.connect.binder.adapter.in.UseCaseInfoMapper;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
 import io.miragon.miranum.connect.binder.application.port.in.InitializeUseCase;
 import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
+import io.miragon.miranum.connect.binder.application.service.ExecuteMethodService;
 import io.miragon.miranum.connect.binder.application.service.InitalizeUseCasesService;
-import io.miragon.miranum.connect.binder.application.service.UseCaseInterceptorService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -23,7 +23,7 @@ public class BinderAutoConfiguration {
 
     @Bean
     public ExecuteMethodUseCase executeMethodUseCase() {
-        return new UseCaseInterceptorService();
+        return new ExecuteMethodService();
     }
 
     @Bean
