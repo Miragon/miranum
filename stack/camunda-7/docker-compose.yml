@@ -1,0 +1,7 @@
+# Use this only in dev environments. It's not intended for production usage.
+version: '3'
+services:
+  camunda:
+    image: camunda/camunda-bpm-platform:7.18.0
+    ports:
+      - 8080:8080
