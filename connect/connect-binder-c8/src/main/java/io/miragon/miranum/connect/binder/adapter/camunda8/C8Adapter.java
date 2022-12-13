@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.binder.adapter.camunda8;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
 import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
@@ -27,7 +28,7 @@ class C8Adapter implements BindUseCasePort {
                                 //1. map values
                                 final Object value = job.getVariablesAsType(useCaseInfo.getInputType());
                                 //2. execute method
-                                final Object result = this.executeMethodUseCase.execute(value, useCaseInfo);
+                                final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
                                 //3. complete
                                 client.newCompleteCommand(job.getKey()).variables(result).send().join();
                             } catch (final BusinessException exception) {

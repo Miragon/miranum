@@ -1,6 +1,7 @@
 package io.miragon.miranum.connect.binder.adapter.camunda7;
 
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
 import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
@@ -26,7 +27,7 @@ class C7Adapter implements BindUseCasePort {
                     final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
                     try {
                         //2. execute method
-                        final Object result = this.executeMethodUseCase.execute(value, useCaseInfo);
+                        final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
                         //3. convert to result map
                         final Map<String, Object> resultMap = this.camunda7Mapper.convertOutput(result);
                         externalTaskService.complete(externalTask, null, resultMap);

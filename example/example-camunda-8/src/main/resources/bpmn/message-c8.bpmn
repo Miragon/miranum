@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sendMessage" />
         <zeebe:ioMapping>
-          <zeebe:input source="= &#34;test&#34;" target="value" />
+          <zeebe:input source="= &#34;gfdsfgdsfdfs&#34;" target="value" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0698bym</bpmn:incoming>
