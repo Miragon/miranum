@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 public class UseCaseInfoMapper {
 
     public UseCaseInfo map(final UseCase useCase, final Object bean, final Method method) {
-        return new UseCaseInfo(useCase.type(), bean, useCase, method, method.getParameterTypes()[0], method.getReturnType());
+        return new UseCaseInfo(useCase.type(), useCase.timeout(), bean, method, method.getParameterTypes()[0], method.getReturnType());
     }
 
 }

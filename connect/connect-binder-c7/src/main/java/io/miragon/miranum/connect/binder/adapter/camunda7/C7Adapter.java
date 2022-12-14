@@ -4,6 +4,7 @@ import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCas
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
 import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
+import io.miragon.miranum.connect.binder.domain.TechnicalException;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Slf4j
@@ -24,6 +26,7 @@ class C7Adapter implements BindUseCasePort {
     @Override
     public void bind(final UseCaseInfo useCaseInfo) {
         this.externalTaskClient.subscribe(useCaseInfo.getType())
+                .lockDuration(useCaseInfo.getTimeout())
                 .handler((task, service) -> this.execute(task, service, useCaseInfo))
                 .open();
     }
@@ -46,9 +49,12 @@ class C7Adapter implements BindUseCasePort {
         } catch (final BusinessException exception) {
             log.error("use case could not be executed", exception);
             service.handleBpmnError(externalTask, exception.getCode());
+        } catch (final TechnicalException error) {
+            log.error("Something went wrong", error);
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
             log.error("Something went wrong", error);
-            //todo retry cycle
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), externalTask.getRetries() - 1, 5000L);
         }
     }
 

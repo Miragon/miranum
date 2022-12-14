@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -28,7 +29,7 @@ public class Camunda7AdapterTest {
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
-        final UseCaseInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase");
+        final UseCaseInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
         final TopicSubscriptionBuilder builder = this.givenTopicSubscriptionBuilder();
 
         given(this.externalTaskClient.subscribe("defaultUseCase")).willReturn(builder);
@@ -40,18 +41,21 @@ public class Camunda7AdapterTest {
 
         then(builder).should().open();
         then(builder).should().handler(any());
+        then(builder).should().lockDuration(100L);
         then(builder).shouldHaveNoMoreInteractions();
     }
 
-    private UseCaseInfo givenDefaultUseCase(final String type) {
+    private UseCaseInfo givenDefaultUseCase(final String type, final Long lockDuration) {
         final UseCaseInfo useCaseInfo = Mockito.mock(UseCaseInfo.class);
         given(useCaseInfo.getType()).willReturn(type);
+        given(useCaseInfo.getTimeout()).willReturn(lockDuration);
         return useCaseInfo;
     }
 
     private TopicSubscriptionBuilder givenTopicSubscriptionBuilder() {
         final TopicSubscriptionBuilder builder = Mockito.mock(TopicSubscriptionBuilder.class);
         given(builder.handler(any())).willReturn(builder);
+        given(builder.lockDuration(anyLong())).willReturn(builder);
         given(builder.open()).willReturn(Mockito.mock(TopicSubscription.class));
         return builder;
     }

@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface UseCase {
     String type();
 
+    long timeout() default 30000L;
+
 }

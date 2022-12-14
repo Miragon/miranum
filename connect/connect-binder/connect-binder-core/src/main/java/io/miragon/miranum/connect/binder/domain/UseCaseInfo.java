@@ -11,9 +11,9 @@ public class UseCaseInfo {
 
     private String type;
 
-    private Object instance;
+    private Long timeout;
 
-    private UseCase annotationInstance;
+    private Object instance;
 
     private Method method;
 
