@@ -13,20 +13,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Camunda7Mapper {
+class Camunda7Mapper {
 
-    public Object convertInput(final Class<?> inputType, final VariableMap engineData) {
+    public Object mapInput(final Class<?> inputType, final VariableMap engineData) {
         final Map<String, Object> data = this.fromEngineData(engineData);
         final ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(data, inputType);
     }
 
-    public Map<String, Object> convertOutput(final Object output) {
+    public Map<String, Object> mapOutput(final Object output) {
+
+        if (output == null) {
+            return new HashMap<>();
+        }
+
         final ObjectMapper mapper = new ObjectMapper();
         final Map<String, Object> result = mapper.convertValue(output, new TypeReference<Map<String, Object>>() {
         });
         return this.toEngineData(result);
     }
+
+    //---------------------------------- helper methods ----------------------------------//
 
     private VariableMap toEngineData(final Map<String, Object> data) {
         final VariableMap variables = Variables.createVariables();
@@ -59,8 +66,6 @@ public class Camunda7Mapper {
         });
         return data;
     }
-
-    //---------------------------------- helper methods ----------------------------------//
 
     private Object fromEngineData(final Object value) throws JsonProcessingException {
         final ObjectMapper mapper = new ObjectMapper();

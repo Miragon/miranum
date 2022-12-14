@@ -11,11 +11,13 @@ public class UseCaseInfo {
 
     private String type;
 
+    private Long timeout;
+
     private Object instance;
 
     private Method method;
 
-    private Class<?> inputType[];
+    private Class<?> inputType;
 
     private Class<?> outputType;
 

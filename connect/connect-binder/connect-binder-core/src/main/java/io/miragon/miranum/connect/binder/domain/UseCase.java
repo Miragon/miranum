@@ -9,4 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface UseCase {
     String type();
+
+    long timeout() default 30000L;
+
 }

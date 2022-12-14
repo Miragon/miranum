@@ -17,6 +17,7 @@
     <modules>
         <module>connect-binder</module>
         <module>connect-binder-c7</module>
+        <module>connect-binder-c8</module>
     </modules>
 
 </project>

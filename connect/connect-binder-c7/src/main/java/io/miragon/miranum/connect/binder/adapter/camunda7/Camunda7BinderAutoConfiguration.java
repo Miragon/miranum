@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 public class Camunda7BinderAutoConfiguration {
 
     @Bean
-    public C7Adapter c7Adapter(final ExternalTaskClient externalTaskClient, final ExecuteMethodUseCase executeMethodUseCase) {
-        return new C7Adapter(externalTaskClient, new Camunda7Mapper(), executeMethodUseCase);
+    public Camunda7Adapter c7Adapter(final ExternalTaskClient externalTaskClient, final ExecuteMethodUseCase executeMethodUseCase) {
+        return new Camunda7Adapter(externalTaskClient, new Camunda7Mapper(), executeMethodUseCase);
     }
 
 }
