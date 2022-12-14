@@ -1,16 +1,16 @@
-package io.miragon.miranum.integrations.example;
+package io.miragon.miranum.integrations.example.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
+@ToString
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Answer {
+public class Message {
 
-    private String text;
+    private String value;
 
 }
