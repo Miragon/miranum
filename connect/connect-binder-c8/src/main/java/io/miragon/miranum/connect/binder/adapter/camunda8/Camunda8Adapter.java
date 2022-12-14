@@ -1,6 +1,7 @@
 package io.miragon.miranum.connect.binder.adapter.camunda8;
 
 import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
@@ -37,7 +38,14 @@ class Camunda8Adapter implements BindUseCasePort {
             //2. execute method
             final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
             //3. complete
-            client.newCompleteCommand(job.getKey()).variables(result).send().join();
+
+            CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
+
+            if (result != null) {
+                cmd = cmd.variables(result);
+            }
+            
+            cmd.send().join();
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);
             client.newThrowErrorCommand(job.getKey()).errorCode(exception.getCode()).send().join();
