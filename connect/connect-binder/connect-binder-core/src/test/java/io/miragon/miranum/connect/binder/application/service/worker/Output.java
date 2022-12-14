@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.binder.application.service.usecase;
+package io.miragon.miranum.connect.binder.application.service.worker;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Input {
+public class Output {
 
     private String data;
 

@@ -4,12 +4,12 @@ import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
-import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
+import io.miragon.miranum.connect.binder.application.port.out.BindWorkerPort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
 import io.miragon.miranum.connect.binder.domain.TechnicalException;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,28 +17,28 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-class Camunda8Adapter implements BindUseCasePort {
+class Camunda8Adapter implements BindWorkerPort {
 
     private final ZeebeClient client;
     private final ExecuteMethodUseCase executeMethodUseCase;
 
     @Override
-    public void bind(final UseCaseInfo useCaseInfo) {
+    public void bind(final WorkerInfo workerInfo) {
         this.client
                 .newWorker()
-                .jobType(useCaseInfo.getType())
-                .handler((client, job) -> this.execute(client, job, useCaseInfo))
-                .name(useCaseInfo.getType())
-                .timeout(useCaseInfo.getTimeout())
+                .jobType(workerInfo.getType())
+                .handler((client, job) -> this.execute(client, job, workerInfo))
+                .name(workerInfo.getType())
+                .timeout(workerInfo.getTimeout())
                 .open();
     }
 
-    public void execute(final JobClient client, final ActivatedJob job, final UseCaseInfo useCaseInfo) {
+    public void execute(final JobClient client, final ActivatedJob job, final WorkerInfo workerInfo) {
         try {
             //1. map values
-            final Object value = job.getVariablesAsType(useCaseInfo.getInputType());
+            final Object value = job.getVariablesAsType(workerInfo.getInputType());
             //2. execute method
-            final Optional<Object> result = Optional.ofNullable(this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo)));
+            final Optional<Object> result = Optional.ofNullable(this.executeMethodUseCase.execute(new ExecuteMethodCommand(value, workerInfo)));
 
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
             //3. add variables if result is not null

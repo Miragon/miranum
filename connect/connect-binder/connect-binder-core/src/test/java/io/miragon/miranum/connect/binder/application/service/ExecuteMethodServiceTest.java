@@ -1,10 +1,10 @@
 package io.miragon.miranum.connect.binder.application.service;
 
-import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
-import io.miragon.miranum.connect.binder.application.service.usecase.DefaultUseCase;
-import io.miragon.miranum.connect.binder.application.service.usecase.Input;
-import io.miragon.miranum.connect.binder.application.service.usecase.Output;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodCommand;
+import io.miragon.miranum.connect.binder.application.service.worker.DefaultWorker;
+import io.miragon.miranum.connect.binder.application.service.worker.Input;
+import io.miragon.miranum.connect.binder.application.service.worker.Output;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ class ExecuteMethodServiceTest {
 
     @Test
     void givenDefaultUseCase_thenOutputIsReturned() throws NoSuchMethodException {
-        final UseCaseInfo useCaseInfo = this.givenDefaultUseCase();
+        final WorkerInfo useCaseInfo = this.givenDefaultUseCase();
         final Input input = new Input("test");
 
-        final ExecuteUseCaseCommand command = new ExecuteUseCaseCommand(input, useCaseInfo);
+        final ExecuteMethodCommand command = new ExecuteMethodCommand(input, useCaseInfo);
 
         final Object result = this.executeMethodService.execute(command);
 
@@ -31,24 +31,24 @@ class ExecuteMethodServiceTest {
 
     @Test
     void givenVoidUseCase_thenNothingIsReturned() throws NoSuchMethodException {
-        final UseCaseInfo useCaseInfo = this.givenVoidUseCase();
+        final WorkerInfo useCaseInfo = this.givenVoidUseCase();
         final Input input = new Input("test");
 
-        final ExecuteUseCaseCommand command = new ExecuteUseCaseCommand(input, useCaseInfo);
+        final ExecuteMethodCommand command = new ExecuteMethodCommand(input, useCaseInfo);
 
         final Object result = this.executeMethodService.execute(command);
 
         assertNull(result);
     }
 
-    private UseCaseInfo givenDefaultUseCase() throws NoSuchMethodException {
-        final DefaultUseCase useCase = new DefaultUseCase();
-        return new UseCaseInfo("test", 30000L, useCase, useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
+    private WorkerInfo givenDefaultUseCase() throws NoSuchMethodException {
+        final DefaultWorker useCase = new DefaultWorker();
+        return new WorkerInfo("test", 30000L, useCase, useCase.getClass().getMethod("doSomething", Input.class), Input.class, Output.class);
     }
 
-    private UseCaseInfo givenVoidUseCase() throws NoSuchMethodException {
-        final DefaultUseCase useCase = new DefaultUseCase();
-        return new UseCaseInfo("test", 30000L, useCase, useCase.getClass().getMethod("doVoid", Input.class), Input.class, Void.class);
+    private WorkerInfo givenVoidUseCase() throws NoSuchMethodException {
+        final DefaultWorker useCase = new DefaultWorker();
+        return new WorkerInfo("test", 30000L, useCase, useCase.getClass().getMethod("doVoid", Input.class), Input.class, Void.class);
     }
 
 }

@@ -1,7 +1,7 @@
 package io.miragon.miranum.connect.binder.adapter.camunda7;
 
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -33,14 +33,14 @@ public class Camunda7AdapterTest {
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
-        final UseCaseInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
+        final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final TopicSubscriptionBuilder builder = this.givenTopicSubscriptionBuilder();
 
-        given(this.externalTaskClient.subscribe("defaultUseCase")).willReturn(builder);
+        given(this.externalTaskClient.subscribe("defaultWorker")).willReturn(builder);
 
-        this.adapter.bind(useCaseInfo);
+        this.adapter.bind(defaultWorker);
 
-        then(this.externalTaskClient).should().subscribe("defaultUseCase");
+        then(this.externalTaskClient).should().subscribe("defaultWorker");
         then(this.externalTaskClient).shouldHaveNoMoreInteractions();
 
         then(builder).should().open();
@@ -54,21 +54,21 @@ public class Camunda7AdapterTest {
     void givenDefaultUseCaseAndSuccessfullTask_thenEverythingGetsExecuted() {
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
-        final UseCaseInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
+        final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         given(this.executeMethodUseCase.execute(any())).willReturn(result);
         given(this.camunda7Mapper.mapOutput(any())).willReturn(result);
 
-        this.adapter.execute(externalTask, service, useCaseInfo);
+        this.adapter.execute(externalTask, service, defaultWorker);
 
         then(service).should().complete(externalTask, null, result);
     }
 
-    private UseCaseInfo givenDefaultUseCase(final String type, final Long lockDuration) {
-        final UseCaseInfo useCaseInfo = Mockito.mock(UseCaseInfo.class);
-        given(useCaseInfo.getType()).willReturn(type);
-        given(useCaseInfo.getTimeout()).willReturn(lockDuration);
-        return useCaseInfo;
+    private WorkerInfo givenDefaultWorker(final String type, final Long lockDuration) {
+        final WorkerInfo workerInfo = Mockito.mock(WorkerInfo.class);
+        given(workerInfo.getType()).willReturn(type);
+        given(workerInfo.getTimeout()).willReturn(lockDuration);
+        return workerInfo;
     }
 
     private ExternalTask givenDefaultTask() {

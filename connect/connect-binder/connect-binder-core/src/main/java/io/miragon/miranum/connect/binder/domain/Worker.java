@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface UseCase {
+public @interface Worker {
     String type();
 
     long timeout() default 30000L;

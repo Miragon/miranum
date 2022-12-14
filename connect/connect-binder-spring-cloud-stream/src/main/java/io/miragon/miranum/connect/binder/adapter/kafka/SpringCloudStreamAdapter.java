@@ -1,12 +1,12 @@
 package io.miragon.miranum.connect.binder.adapter.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
-import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
+import io.miragon.miranum.connect.binder.application.port.out.BindWorkerPort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
 import io.miragon.miranum.connect.binder.domain.TechnicalException;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.function.context.MessageRoutingCallback;
 import org.springframework.messaging.Message;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-class SpringCloudStreamAdapter implements BindUseCasePort, MessageRoutingCallback {
+class SpringCloudStreamAdapter implements BindWorkerPort, MessageRoutingCallback {
 
     private final ExecuteMethodUseCase executeMethodUseCase;
 
@@ -26,7 +26,7 @@ class SpringCloudStreamAdapter implements BindUseCasePort, MessageRoutingCallbac
 
     private final Sinks.Many<Message<CorrelateMessageEvent>> correlateMessageSink;
 
-    private final Map<String, UseCaseInfo> useCases = new HashMap<>();
+    private final Map<String, WorkerInfo> useCases = new HashMap<>();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -42,8 +42,8 @@ class SpringCloudStreamAdapter implements BindUseCasePort, MessageRoutingCallbac
     }
 
     @Override
-    public void bind(final UseCaseInfo useCaseInfo) {
-        this.useCases.put(useCaseInfo.getType(), useCaseInfo);
+    public void bind(final WorkerInfo workerInfo) {
+        this.useCases.put(workerInfo.getType(), workerInfo);
     }
 
 
@@ -51,9 +51,9 @@ class SpringCloudStreamAdapter implements BindUseCasePort, MessageRoutingCallbac
         try {
 
             final String type = (String) message.getHeaders().get("type");
-            final UseCaseInfo useCase = this.useCases.get(type);
+            final WorkerInfo useCase = this.useCases.get(type);
             final Object data = this.objectMapper.convertValue(message.getPayload(), this.useCases.get(type).getInputType());
-            final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(data, useCase));
+            final Object result = this.executeMethodUseCase.execute(new ExecuteMethodCommand(data, useCase));
 
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);

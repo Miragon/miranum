@@ -1,11 +1,11 @@
 package io.miragon.miranum.connect.binder.adapter.camunda7;
 
+import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.binder.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.binder.application.port.in.ExecuteUseCaseCommand;
-import io.miragon.miranum.connect.binder.application.port.out.BindUseCasePort;
+import io.miragon.miranum.connect.binder.application.port.out.BindWorkerPort;
 import io.miragon.miranum.connect.binder.domain.BusinessException;
 import io.miragon.miranum.connect.binder.domain.TechnicalException;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
@@ -17,17 +17,17 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-class Camunda7Adapter implements BindUseCasePort {
+class Camunda7Adapter implements BindWorkerPort {
 
     private final ExternalTaskClient externalTaskClient;
     private final Camunda7Mapper camunda7Mapper;
     private final ExecuteMethodUseCase executeMethodUseCase;
 
     @Override
-    public void bind(final UseCaseInfo useCaseInfo) {
-        this.externalTaskClient.subscribe(useCaseInfo.getType())
-                .lockDuration(useCaseInfo.getTimeout())
-                .handler((task, service) -> this.execute(task, service, useCaseInfo))
+    public void bind(final WorkerInfo workerInfo) {
+        this.externalTaskClient.subscribe(workerInfo.getType())
+                .lockDuration(workerInfo.getTimeout())
+                .handler((task, service) -> this.execute(task, service, workerInfo))
                 .open();
     }
 
@@ -36,13 +36,13 @@ class Camunda7Adapter implements BindUseCasePort {
      *
      * @param externalTask Task that should be executed
      * @param service      Task service to interact with
-     * @param useCaseInfo  usecase that executes the tasks
+     * @param workerInfo   worker info that executes the tasks
      */
-    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final UseCaseInfo useCaseInfo) {
-        final Object value = this.camunda7Mapper.mapInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
+    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final WorkerInfo workerInfo) {
+        final Object value = this.camunda7Mapper.mapInput(workerInfo.getInputType(), externalTask.getAllVariablesTyped());
         try {
             //1. execute method
-            final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
+            final Object result = this.executeMethodUseCase.execute(new ExecuteMethodCommand(value, workerInfo));
             //2. convert to result map
             final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
             //3. complete task

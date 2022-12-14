@@ -1,9 +1,9 @@
 package io.miragon.miranum.connect.binder.adapter.in;
 
-import io.miragon.miranum.connect.binder.application.port.in.InitalizeUseCasesCommand;
+import io.miragon.miranum.connect.binder.application.port.in.InitalizeWorkerCommand;
 import io.miragon.miranum.connect.binder.application.port.in.InitializeUseCase;
-import io.miragon.miranum.connect.binder.domain.UseCase;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.Worker;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,13 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContextInitalizer implements ApplicationContextAware {
     private ApplicationContext ctx;
-    private final InitializeUseCase initalizeUseCasesService;
-    private final UseCaseInfoMapper useCaseInfoMapper;
+    private final InitializeUseCase initializeUseCase;
+    private final WorkerInfoMapper workerInfoMapper;
 
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
-        final List<UseCaseInfo> useCases = this.getAllUseCaseInfos();
-        this.initalizeUseCasesService.initalize(new InitalizeUseCasesCommand(useCases));
+        final List<WorkerInfo> workerInfos = this.getAllWorkerInfos();
+        this.initializeUseCase.initalize(new InitalizeWorkerCommand(workerInfos));
     }
 
     @Override
@@ -32,8 +32,8 @@ public class ContextInitalizer implements ApplicationContextAware {
         this.ctx = applicationContext;
     }
 
-    private List<UseCaseInfo> getAllUseCaseInfos() {
-        final List<UseCaseInfo> useCaseInfos = new ArrayList<>();
+    private List<WorkerInfo> getAllWorkerInfos() {
+        final List<WorkerInfo> workerInfos = new ArrayList<>();
 
         final String[] beanDefinitionNames = this.ctx.getBeanDefinitionNames();
         // Iterate over the list of spring beans and get all methods annotated with the specific annotation
@@ -43,13 +43,13 @@ public class ContextInitalizer implements ApplicationContextAware {
 
             ReflectionUtils.doWithMethods(beanClass, method -> {
                 // Check if the method is annotated with the specific annotation
-                if (method.isAnnotationPresent(UseCase.class)) {
-                    final UseCase annotInstance = method.getAnnotation(UseCase.class);
-                    useCaseInfos.add(this.useCaseInfoMapper.map(annotInstance, bean, method));
+                if (method.isAnnotationPresent(Worker.class)) {
+                    final Worker annotInstance = method.getAnnotation(Worker.class);
+                    workerInfos.add(this.workerInfoMapper.map(annotInstance, bean, method));
                 }
             });
         }
-        return useCaseInfos;
+        return workerInfos;
     }
 
 }

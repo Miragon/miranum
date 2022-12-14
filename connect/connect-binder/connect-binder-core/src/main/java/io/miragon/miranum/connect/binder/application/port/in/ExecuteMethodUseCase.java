@@ -5,6 +5,6 @@ import io.miragon.miranum.connect.binder.domain.TechnicalException;
 
 public interface ExecuteMethodUseCase {
 
-    Object execute(ExecuteUseCaseCommand command) throws BusinessException, TechnicalException;
+    Object execute(ExecuteMethodCommand command) throws BusinessException, TechnicalException;
 
 }

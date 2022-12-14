@@ -1,7 +1,7 @@
 package io.miragon.miranum.connect.binder.adapter.in;
 
-import io.miragon.miranum.connect.binder.domain.UseCase;
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.Worker;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,15 +14,15 @@ import static org.mockito.BDDMockito.given;
 
 public class UseCaseInfoMapperTest {
 
-    private final UseCaseInfoMapper mapper = new UseCaseInfoMapper();
+    private final WorkerInfoMapper mapper = new WorkerInfoMapper();
 
     @Test
     public void givenDefaultUseCase_thenUseCaseInfoIsCreated() throws NoSuchMethodException {
-        final UseCase sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
+        final Worker sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
         final Object bean = new Object();
         final Method method = bean.getClass().getMethod("equals", Object.class);
 
-        final UseCaseInfo useCaseInfo = this.mapper.map(sendMessageUseCase, bean, method);
+        final WorkerInfo useCaseInfo = this.mapper.map(sendMessageUseCase, bean, method);
 
         assertEquals(bean, useCaseInfo.getInstance());
         assertEquals(method, useCaseInfo.getMethod());
@@ -33,11 +33,11 @@ public class UseCaseInfoMapperTest {
 
     @Test
     public void givenDefaultUseCaseWithNoInputParameter_thenUseCaseInfoIsCreated() throws NoSuchMethodException {
-        final UseCase sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
+        final Worker sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
         final Object bean = new Object();
         final Method method = bean.getClass().getMethod("toString");
 
-        final UseCaseInfo useCaseInfo = this.mapper.map(sendMessageUseCase, bean, method);
+        final WorkerInfo useCaseInfo = this.mapper.map(sendMessageUseCase, bean, method);
 
         assertEquals(bean, useCaseInfo.getInstance());
         assertEquals(method, useCaseInfo.getMethod());
@@ -48,7 +48,7 @@ public class UseCaseInfoMapperTest {
 
     @Test
     public void givenDefaultUseCaseWithMoreThanOneInputParameter_thenCreationFails() throws NoSuchMethodException {
-        final UseCase sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
+        final Worker sendMessageUseCase = this.givenDefaultUseCase("sendMessage", 100L);
         final Object bean = new Object();
         final Method method = bean.getClass().getMethod("wait", long.class, int.class);
 
@@ -57,8 +57,8 @@ public class UseCaseInfoMapperTest {
         }, "NumberFormatException was expected");
     }
 
-    public UseCase givenDefaultUseCase(final String type, final Long timeout) {
-        final UseCase useCase = Mockito.mock(UseCase.class);
+    public Worker givenDefaultUseCase(final String type, final Long timeout) {
+        final Worker useCase = Mockito.mock(Worker.class);
         given(useCase.type()).willReturn(type);
         given(useCase.timeout()).willReturn(timeout);
         return useCase;

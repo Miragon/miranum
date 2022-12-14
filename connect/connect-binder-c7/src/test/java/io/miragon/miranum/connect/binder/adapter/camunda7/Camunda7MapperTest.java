@@ -1,5 +1,7 @@
 package io.miragon.miranum.connect.binder.adapter.camunda7;
 
+import io.miragon.miranum.connect.binder.adapter.camunda7.worker.Input;
+import io.miragon.miranum.connect.binder.adapter.camunda7.worker.Output;
 import lombok.extern.java.Log;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
@@ -15,14 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Log
 public class Camunda7MapperTest {
 
-    Camunda7Mapper camunda7Converter = new Camunda7Mapper();
+    private final Camunda7Mapper camunda7Converter = new Camunda7Mapper();
 
     @Test
     public void convertInput() {
         final VariableMap data = Variables.createVariables()
                 .putValueTyped("input", new PrimitiveTypeValueImpl.StringValueImpl("input"))
                 .putValueTyped("inputObj", new JsonValueImpl("{\"input\":\"test\"}"));
-        final MyJobWorker worker = new MyJobWorker();
         final Object result = this.camunda7Converter.mapInput(Input.class, data);
         assertTrue(result instanceof Input);
         final Input input = (Input) result;

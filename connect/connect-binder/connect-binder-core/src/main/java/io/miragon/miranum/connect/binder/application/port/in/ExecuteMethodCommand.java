@@ -1,17 +1,18 @@
 package io.miragon.miranum.connect.binder.application.port.in;
 
-import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
+import io.miragon.miranum.connect.binder.domain.WorkerInfo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class InitalizeUseCasesCommand {
+public class ExecuteMethodCommand {
 
-    private final List<UseCaseInfo> useCases;
+    private final Object data;
+
+    private final WorkerInfo worker;
+
 
 }

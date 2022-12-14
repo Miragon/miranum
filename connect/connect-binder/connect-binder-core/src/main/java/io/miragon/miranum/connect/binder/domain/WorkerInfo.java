@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 @Getter
 @AllArgsConstructor
-public class UseCaseInfo {
+public class WorkerInfo {
 
     private String type;
 
