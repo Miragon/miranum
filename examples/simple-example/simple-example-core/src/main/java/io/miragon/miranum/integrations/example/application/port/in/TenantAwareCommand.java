@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SendMessageCommand extends TenantAwareCommand {
+public abstract class TenantAwareCommand {
 
-    private String value;
-
+    private String tenant;
 
 }

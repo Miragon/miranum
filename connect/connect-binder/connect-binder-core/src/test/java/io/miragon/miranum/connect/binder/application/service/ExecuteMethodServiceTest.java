@@ -7,12 +7,14 @@ import io.miragon.miranum.connect.binder.application.service.usecase.Output;
 import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExecuteMethodServiceTest {
 
     private final ExecuteMethodService executeMethodService =
-            new ExecuteMethodService();
+            new ExecuteMethodService(new ArrayList<>());
 
     @Test
     void givenDefaultUseCase_thenOutputIsReturned() throws NoSuchMethodException {

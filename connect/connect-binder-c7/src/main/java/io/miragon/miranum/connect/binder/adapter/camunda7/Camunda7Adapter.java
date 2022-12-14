@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-class C7Adapter implements BindUseCasePort {
+class Camunda7Adapter implements BindUseCasePort {
 
     private final ExternalTaskClient externalTaskClient;
     private final Camunda7Mapper camunda7Mapper;
@@ -39,12 +39,12 @@ class C7Adapter implements BindUseCasePort {
      * @param useCaseInfo  usecase that executes the tasks
      */
     public void execute(final ExternalTask externalTask, final ExternalTaskService service, final UseCaseInfo useCaseInfo) {
-        final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
+        final Object value = this.camunda7Mapper.mapInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
         try {
             //2. execute method
             final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
             //3. convert to result map
-            final Map<String, Object> resultMap = this.camunda7Mapper.convertOutput(result);
+            final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
             service.complete(externalTask, null, resultMap);
         } catch (final BusinessException exception) {
             log.error("use case could not be executed", exception);

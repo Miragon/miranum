@@ -9,6 +9,7 @@
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="value">This is my Message</camunda:inputParameter>
+          <camunda:inputParameter name="tenant">abc</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>
@@ -21,13 +22,13 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0uvirnq">
-      <bpmndi:BPMNEdge id="Flow_0yx0bta_di" bpmnElement="Flow_0yx0bta">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1lqc6kg_di" bpmnElement="Flow_1lqc6kg">
         <di:waypoint x="370" y="117" />
         <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yx0bta_di" bpmnElement="Flow_0yx0bta">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />

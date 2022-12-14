@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 public class Camunda8BinderAutoConfiguration {
 
     @Bean
-    public C8Adapter c8Adapter(final ZeebeClient zeebeClient, final ExecuteMethodUseCase executeMethodUseCase) {
-        return new C8Adapter(zeebeClient, executeMethodUseCase);
+    public Camunda8Adapter c8Adapter(final ZeebeClient zeebeClient, final ExecuteMethodUseCase executeMethodUseCase) {
+        return new Camunda8Adapter(zeebeClient, executeMethodUseCase);
     }
 
 }

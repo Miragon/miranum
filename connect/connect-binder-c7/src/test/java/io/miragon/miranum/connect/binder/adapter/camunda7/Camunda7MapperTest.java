@@ -23,7 +23,7 @@ public class Camunda7MapperTest {
                 .putValueTyped("input", new PrimitiveTypeValueImpl.StringValueImpl("input"))
                 .putValueTyped("inputObj", new JsonValueImpl("{\"input\":\"test\"}"));
         final MyJobWorker worker = new MyJobWorker();
-        final Object result = this.camunda7Converter.convertInput(Input.class, data);
+        final Object result = this.camunda7Converter.mapInput(Input.class, data);
         assertTrue(result instanceof Input);
         final Input input = (Input) result;
         assertEquals(input.getInput(), "input");
@@ -36,7 +36,7 @@ public class Camunda7MapperTest {
                 .output("output")
                 .outputObj(Output.builder().output("test").build())
                 .build();
-        final Map<String, Object> result = this.camunda7Converter.convertOutput(data);
+        final Map<String, Object> result = this.camunda7Converter.mapOutput(data);
         assertEquals("output", result.get("output"));
         assertEquals("{outputObj=null, output=test}", result.get("outputObj"));
     }

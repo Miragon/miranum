@@ -13,6 +13,7 @@ public class SendMessageService implements SendMessageUseCase {
     @UseCase(type = "sendMessage")
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message.getValue());
+
         return new Answer("answer to: " + message.getValue());
     }
 }
