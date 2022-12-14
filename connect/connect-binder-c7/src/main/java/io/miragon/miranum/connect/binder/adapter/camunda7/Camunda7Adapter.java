@@ -41,10 +41,11 @@ class Camunda7Adapter implements BindUseCasePort {
     public void execute(final ExternalTask externalTask, final ExternalTaskService service, final UseCaseInfo useCaseInfo) {
         final Object value = this.camunda7Mapper.mapInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
         try {
-            //2. execute method
+            //1. execute method
             final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
-            //3. convert to result map
+            //2. convert to result map
             final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
+            //3. complete task
             service.complete(externalTask, null, resultMap);
         } catch (final BusinessException exception) {
             log.error("use case could not be executed", exception);
