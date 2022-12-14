@@ -8,6 +8,8 @@ import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
+import org.camunda.bpm.client.task.ExternalTask;
+import org.camunda.bpm.client.task.ExternalTaskService;
 
 import java.util.Map;
 
@@ -22,23 +24,32 @@ class C7Adapter implements BindUseCasePort {
     @Override
     public void bind(final UseCaseInfo useCaseInfo) {
         this.externalTaskClient.subscribe(useCaseInfo.getType())
-                .handler((externalTask, externalTaskService) -> {
-                    //1. convert camunda data into object
-                    final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
-                    try {
-                        //2. execute method
-                        final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
-                        //3. convert to result map
-                        final Map<String, Object> resultMap = this.camunda7Mapper.convertOutput(result);
-                        externalTaskService.complete(externalTask, null, resultMap);
-                    } catch (final BusinessException exception) {
-                        log.error("use case could not be executed", exception);
-                        externalTaskService.handleBpmnError(externalTask, exception.getCode());
-                    } catch (final Exception error) {
-                        log.error("Something went wrong", error);
-                        //todo retry cycle
-                    }
-                }).open();
+                .handler((task, service) -> this.execute(task, service, useCaseInfo))
+                .open();
+    }
+
+    /**
+     * Executes a task with a specific use case
+     *
+     * @param externalTask Task that should be executed
+     * @param service      Task service to interact with
+     * @param useCaseInfo  usecase that executes the tasks
+     */
+    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final UseCaseInfo useCaseInfo) {
+        final Object value = this.camunda7Mapper.convertInput(useCaseInfo.getInputType(), externalTask.getAllVariablesTyped());
+        try {
+            //2. execute method
+            final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
+            //3. convert to result map
+            final Map<String, Object> resultMap = this.camunda7Mapper.convertOutput(result);
+            service.complete(externalTask, null, resultMap);
+        } catch (final BusinessException exception) {
+            log.error("use case could not be executed", exception);
+            service.handleBpmnError(externalTask, exception.getCode());
+        } catch (final Exception error) {
+            log.error("Something went wrong", error);
+            //todo retry cycle
+        }
     }
 
 }

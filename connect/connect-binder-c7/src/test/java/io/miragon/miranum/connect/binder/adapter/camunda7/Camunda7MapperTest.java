@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Log
-public class Camunda7ConverterTest {
+public class Camunda7MapperTest {
 
     Camunda7Mapper camunda7Converter = new Camunda7Mapper();
 
