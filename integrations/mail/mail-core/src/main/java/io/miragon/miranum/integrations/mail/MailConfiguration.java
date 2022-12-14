@@ -16,7 +16,7 @@ public class MailConfiguration {
 
     @Bean
     public SendMailUseCase sendMailUseCase() {
-        return new SendMailService();
+        return new SendMailService(null);
     }
 
 

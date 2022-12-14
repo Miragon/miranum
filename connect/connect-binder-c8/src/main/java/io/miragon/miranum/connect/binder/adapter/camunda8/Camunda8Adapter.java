@@ -13,6 +13,8 @@ import io.miragon.miranum.connect.binder.domain.UseCaseInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 class Camunda8Adapter implements BindUseCasePort {
@@ -36,15 +38,12 @@ class Camunda8Adapter implements BindUseCasePort {
             //1. map values
             final Object value = job.getVariablesAsType(useCaseInfo.getInputType());
             //2. execute method
-            final Object result = this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo));
-            //3. complete
+            final Optional<Object> result = Optional.ofNullable(this.executeMethodUseCase.execute(new ExecuteUseCaseCommand(value, useCaseInfo)));
 
-            CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
-
-            if (result != null) {
-                cmd = cmd.variables(result);
-            }
-            
+            final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
+            //3. add variables if result is not null
+            result.ifPresent(cmd::variables);
+            //4. complete
             cmd.send().join();
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);
