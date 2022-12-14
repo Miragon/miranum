@@ -21,9 +21,9 @@ public class ExecuteMethodService implements ExecuteMethodUseCase {
     @Override
     public Object execute(final ExecuteUseCaseCommand command) throws BusinessException, TechnicalException {
         try {
-
+            //1. execute interceptors if present
             this.interceptors.forEach(obj -> obj.intercept(command.getData(), command.getUseCase()));
-
+            //2. execute methods
             return command.getUseCase().getMethod().invoke(command.getUseCase().getInstance(), command.getData());
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);

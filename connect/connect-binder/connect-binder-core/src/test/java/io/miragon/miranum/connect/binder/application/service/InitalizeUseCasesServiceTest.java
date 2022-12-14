@@ -25,7 +25,6 @@ class InitalizeUseCasesServiceTest {
 
     @Test
     void givenDefaultUseCase_thenBinderIsCalledOnce() throws NoSuchMethodException {
-
         final List<UseCaseInfo> useCaseInfos = this.givenDefaultUseCaseList();
 
         final InitalizeUseCasesCommand command = new InitalizeUseCasesCommand(useCaseInfos);
@@ -34,7 +33,6 @@ class InitalizeUseCasesServiceTest {
 
         then(this.bindUseCasePort).should().bind(eq(useCaseInfos.get(0)));
         then(this.bindUseCasePort).shouldHaveNoMoreInteractions();
-
     }
 
     private List<UseCaseInfo> givenDefaultUseCaseList() throws NoSuchMethodException {

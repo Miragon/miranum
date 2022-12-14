@@ -22,6 +22,11 @@ class Camunda7Mapper {
     }
 
     public Map<String, Object> mapOutput(final Object output) {
+
+        if (output == null) {
+            return new HashMap<>();
+        }
+
         final ObjectMapper mapper = new ObjectMapper();
         final Map<String, Object> result = mapper.convertValue(output, new TypeReference<Map<String, Object>>() {
         });
@@ -29,7 +34,7 @@ class Camunda7Mapper {
     }
 
     //---------------------------------- helper methods ----------------------------------//
-    
+
     private VariableMap toEngineData(final Map<String, Object> data) {
         final VariableMap variables = Variables.createVariables();
         data.keySet().forEach(key -> {

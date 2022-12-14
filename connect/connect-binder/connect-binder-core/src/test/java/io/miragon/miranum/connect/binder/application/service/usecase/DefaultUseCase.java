@@ -4,9 +4,14 @@ import io.miragon.miranum.connect.binder.domain.UseCase;
 
 public class DefaultUseCase {
 
-    @UseCase(type = "test")
+    @UseCase(type = "doSomething")
     public Output doSomething(final Input input) {
         return new Output("");
+    }
+
+    @UseCase(type = "doVoid")
+    public void doVoid(final Input input) {
+        //
     }
 
 }
