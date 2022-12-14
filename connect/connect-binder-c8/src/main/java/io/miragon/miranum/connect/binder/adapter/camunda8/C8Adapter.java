@@ -41,7 +41,7 @@ class C8Adapter implements BindUseCasePort {
                         }
                 )
                 .name(useCaseInfo.getType())
-                .timeout(Duration.ofSeconds(10))
+                .timeout(Duration.ofMillis(useCaseInfo.getTimeout()))
                 .open();
     }
 
