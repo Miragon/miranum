@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.binder.adapter.camunda7.Camunda7EmbeddedAutoConfiguration
+io.miragon.miranum.connect.binder.adapter.camunda7.worker.Camunda7EmbeddedAutoConfiguration

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.binder.BinderAutoConfiguration
+io.miragon.miranum.connect.binder.adapter.spring.worker.BinderAutoConfiguration
