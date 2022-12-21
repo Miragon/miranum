@@ -9,8 +9,8 @@ public class KafkaAdapterTest {
     private final ExecuteMethodUseCase executeMethodUseCase =
             Mockito.mock(ExecuteMethodUseCase.class);
 
-    private final SpringCloudStreamAdapter adapter =
-            new SpringCloudStreamAdapter(this.executeMethodUseCase, null, null, null);
+    private final SpringCloudStreamWorkerAdapter adapter =
+            new SpringCloudStreamWorkerAdapter(this.executeMethodUseCase, null);
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {

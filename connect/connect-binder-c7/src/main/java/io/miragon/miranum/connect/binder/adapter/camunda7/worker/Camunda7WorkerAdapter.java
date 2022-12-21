@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
+import org.camunda.community.rest.client.api.ExternalTaskApi;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -20,12 +21,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class Camunda7WorkerAdapter implements BindWorkerPort {
 
+    private final ExternalTaskApi api;
     private final ExternalTaskClient externalTaskClient;
     private final Camunda7Mapper camunda7Mapper;
     private final ExecuteMethodUseCase executeMethodUseCase;
 
     @Override
     public void bind(final WorkerInfo workerInfo) {
+
         this.externalTaskClient.subscribe(workerInfo.getType())
                 .lockDuration(workerInfo.getTimeout())
                 .handler((task, service) -> this.execute(task, service, workerInfo))

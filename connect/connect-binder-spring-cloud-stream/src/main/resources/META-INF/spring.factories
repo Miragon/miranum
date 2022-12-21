@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.binder.adapter.scs.worker.SpringCloudStreamAutoConfiguration
+io.miragon.miranum.connect.binder.adapter.scs.SpringCloudStreamAutoConfiguration

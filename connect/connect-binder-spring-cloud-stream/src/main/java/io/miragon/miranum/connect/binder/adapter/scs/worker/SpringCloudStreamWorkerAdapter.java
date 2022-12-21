@@ -2,8 +2,8 @@ package io.miragon.miranum.connect.binder.adapter.scs.worker;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.miragon.miranum.connect.binder.adapter.scs.message.BpmnErrorEvent;
-import io.miragon.miranum.connect.binder.adapter.scs.message.CorrelateMessageEvent;
+import io.miragon.miranum.connect.binder.message.application.port.in.CorrelateMessageCommand;
+import io.miragon.miranum.connect.binder.message.application.port.out.DeliverMessagePort;
 import io.miragon.miranum.connect.binder.worker.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.binder.worker.application.port.in.ExecuteMethodUseCase;
 import io.miragon.miranum.connect.binder.worker.application.port.out.BindWorkerPort;
@@ -11,38 +11,27 @@ import io.miragon.miranum.connect.binder.worker.domain.BusinessException;
 import io.miragon.miranum.connect.binder.worker.domain.TechnicalException;
 import io.miragon.miranum.connect.binder.worker.domain.WorkerInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.function.context.MessageRoutingCallback;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
-import reactor.core.publisher.Sinks;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-class SpringCloudStreamAdapter implements BindWorkerPort, MessageRoutingCallback {
+public class SpringCloudStreamWorkerAdapter implements BindWorkerPort {
 
     private final ExecuteMethodUseCase executeMethodUseCase;
 
-    private final Sinks.Many<Message<BpmnErrorEvent>> bpmnErrorSink;
-
-    private final Sinks.Many<Message<String>> incidentSink;
-
-    private final Sinks.Many<Message<CorrelateMessageEvent>> correlateMessageSink;
+    private final DeliverMessagePort deliverMessagePort;
 
     private final Map<String, WorkerInfo> useCases = new HashMap<>();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public SpringCloudStreamAdapter(
+    public SpringCloudStreamWorkerAdapter(
             final ExecuteMethodUseCase executeMethodUseCase,
-            final Sinks.Many<Message<String>> incidentSink,
-            final Sinks.Many<Message<BpmnErrorEvent>> bpmnErrorSink,
-            final Sinks.Many<Message<CorrelateMessageEvent>> correlateMessageSink) {
+            final DeliverMessagePort deliverMessagePort) {
         this.executeMethodUseCase = executeMethodUseCase;
-        this.incidentSink = incidentSink;
-        this.bpmnErrorSink = bpmnErrorSink;
-        this.correlateMessageSink = correlateMessageSink;
+        this.deliverMessagePort = deliverMessagePort;
     }
 
     @Override
@@ -55,16 +44,27 @@ class SpringCloudStreamAdapter implements BindWorkerPort, MessageRoutingCallback
         try {
 
             final String type = (String) message.getHeaders().get("type");
+            final String messageName = (String) message.getHeaders().get("messageName");
+            final String correlationKey = (String) message.getHeaders().get("correlationKey");
+
             final WorkerInfo useCase = this.useCases.get(type);
             final Object data = this.objectMapper.convertValue(message.getPayload(), this.useCases.get(type).getInputType());
             final Object result = this.executeMethodUseCase.execute(new ExecuteMethodCommand(data, useCase));
 
+            Map<String, Object> resultMap = new HashMap<>();
+
             if (result != null) {
-                final Map<String, Object> resultMap = this.objectMapper.convertValue(result, new TypeReference<Map<String, Object>>() {
+                resultMap = this.objectMapper.convertValue(result, new TypeReference<Map<String, Object>>() {
                 });
-                final Message<Map<String, Object>> answer = MessageBuilder.createMessage(resultMap, message.getHeaders());
-                // this.correlateMessageSink.tryEmitNext(answer).orThrow();
             }
+
+            final CorrelateMessageCommand command = CorrelateMessageCommand.builder()
+                    .messageName(messageName)
+                    .correlationKey(correlationKey)
+                    .variables(resultMap)
+                    .build();
+
+            this.deliverMessagePort.deliverMessage(command);
 
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);
