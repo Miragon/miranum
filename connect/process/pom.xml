@@ -14,6 +14,15 @@
     </parent>
 
     <modules>
+        <module>process-core</module>
+        <module>process-starter</module>
+
+        <module>process-adapter-in-kafka</module>
+        <module>process-adapter-in-rest</module>
+
+        <module>process-adapter-out-c7</module>
+        <module>process-adapter-out-c8</module>
+        <module>process-adapter-out-kafka</module>
     </modules>
 
 </project>

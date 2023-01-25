@@ -15,6 +15,7 @@
 
     <modules>
         <module>message-core</module>
+        <module>message-starter</module>
 
         <module>message-adapter-in-rest</module>
         <module>message-adapter-in-spring-cloud-stream</module>

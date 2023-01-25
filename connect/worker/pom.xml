@@ -15,9 +15,12 @@
 
     <modules>
         <module>worker-core</module>
+        <module>worker-starter</module>
+
         <module>worker-adapter-in-c7</module>
         <module>worker-adapter-in-c8</module>
         <module>worker-adapter-in-kafka</module>
+
         <module>worker-adapter-out-c7</module>
         <module>worker-adapter-out-c8</module>
         <module>worker-adapter-out-message</module>
