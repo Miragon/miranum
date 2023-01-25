@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>message</artifactId>
+        <artifactId>job</artifactId>
         <version>0.13.0-SNAPSHOT</version>
     </parent>
 
