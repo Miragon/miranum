@@ -1,5 +1,4 @@
-package io.miragon.miranum.connect.binder.adapter.camunda7
-        ;
+package io.miragon.miranum.connect.binder.adapter.camunda7;
 
 import io.miragon.miranum.connect.binder.adapter.camunda7.common.Camunda7Mapper;
 import io.miragon.miranum.connect.binder.adapter.camunda7.message.Camunda7CorrelateMessageMapper;
