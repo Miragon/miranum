@@ -2,7 +2,7 @@ package io.miragon.miranum.connect.worker.application.service;
 
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.worker.application.port.out.ExecuteUseCaseInterceptor;
+import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
 import io.miragon.miranum.connect.worker.domain.BusinessException;
 import io.miragon.miranum.connect.worker.domain.TechnicalException;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExecuteMethodService implements ExecuteMethodUseCase {
 
-    private final List<ExecuteUseCaseInterceptor> interceptors;
+    private final List<WorkerInterceptor> interceptors;
 
 
     @Override

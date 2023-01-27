@@ -15,6 +15,7 @@
 
     <modules>
         <module>message-adapter-out-c7</module>
+        <module>worker-adapter-in-c7</module>
     </modules>
 
 </project>

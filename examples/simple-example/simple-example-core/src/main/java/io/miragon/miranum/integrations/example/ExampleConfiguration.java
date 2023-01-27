@@ -1,6 +1,6 @@
 package io.miragon.miranum.integrations.example;
 
-import io.miragon.miranum.connect.binder.worker.application.port.out.ExecuteUseCaseInterceptor;
+import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
 import io.miragon.miranum.integrations.example.application.port.in.FireAndForgetUseCase;
 import io.miragon.miranum.integrations.example.application.port.in.SendMessageUseCase;
 import io.miragon.miranum.integrations.example.application.port.out.TenantInterceptor;
@@ -23,7 +23,7 @@ public class ExampleConfiguration {
     }
 
     @Bean
-    public ExecuteUseCaseInterceptor tenantInterceptor() {
+    public WorkerInterceptor tenantInterceptor() {
         return new TenantInterceptor();
     }
 }

@@ -6,7 +6,7 @@ import io.miragon.miranum.connect.worker.adapter.WorkerInfoMapper;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
 import io.miragon.miranum.connect.worker.application.port.in.InitializeUseCase;
 import io.miragon.miranum.connect.worker.application.port.out.BindWorkerPort;
-import io.miragon.miranum.connect.worker.application.port.out.ExecuteUseCaseInterceptor;
+import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
 import io.miragon.miranum.connect.worker.application.service.ExecuteMethodService;
 import io.miragon.miranum.connect.worker.application.service.InitalizeWorkerService;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Configuration
 @Import(ContextInitalizer.class)
-public class BinderAutoConfiguration {
+public class WorkerAutoConfiguration {
 
     @Bean
     public WorkerInfoMapper useCaseInfoMapper() {
@@ -25,7 +25,7 @@ public class BinderAutoConfiguration {
     }
 
     @Bean
-    public ExecuteMethodUseCase executeMethodUseCase(final List<ExecuteUseCaseInterceptor> interceptors) {
+    public ExecuteMethodUseCase executeMethodUseCase(final List<WorkerInterceptor> interceptors) {
         return new ExecuteMethodService(interceptors);
     }
 

@@ -1,12 +1,12 @@
 package io.miragon.miranum.integrations.example.application.port.out;
 
-import io.miragon.miranum.connect.binder.worker.application.port.out.ExecuteUseCaseInterceptor;
-import io.miragon.miranum.connect.binder.worker.domain.WorkerInfo;
+import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
+import io.miragon.miranum.connect.worker.domain.WorkerInfo;
 import io.miragon.miranum.integrations.example.application.port.in.TenantAwareCommand;
 import lombok.extern.java.Log;
 
 @Log
-public class TenantInterceptor implements ExecuteUseCaseInterceptor {
+public class TenantInterceptor implements WorkerInterceptor {
     @Override
     public void intercept(final Object data, final WorkerInfo useCaseInfo) {
         if (data instanceof TenantAwareCommand) {

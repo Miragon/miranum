@@ -16,7 +16,6 @@
 
     <modules>
         <module>simple-example-camunda-7</module>
-        <module>simple-example-camunda-8</module>
         <module>simple-example-core</module>
     </modules>
 

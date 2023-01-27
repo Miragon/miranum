@@ -1,7 +1,8 @@
 package io.miragon.miranum.connect.worker.application.port.in;
 
-import io.miragon.miranum.connect.binder.worker.domain.BusinessException;
-import io.miragon.miranum.connect.binder.worker.domain.TechnicalException;
+
+import io.miragon.miranum.connect.worker.domain.BusinessException;
+import io.miragon.miranum.connect.worker.domain.TechnicalException;
 
 public interface ExecuteMethodUseCase {
 

@@ -28,7 +28,7 @@
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-binder-c7</artifactId>
+            <artifactId>worker-adapter-in-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
 
