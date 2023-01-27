@@ -15,15 +15,8 @@
     </parent>
 
     <modules>
-        <module>message</module>
-        <module>worker</module>
-        <module>process</module>
-        <module>job</module>
-        <module>connect-binder</module>
-        <module>connect-binder-c7</module>
-        <module>connect-binder-c7-embedded</module>
-        <module>connect-binder-c8</module>
-        <module>connect-binder-spring-cloud-stream</module>
+        <module>connect-c7</module>
+        <module>connect-core</module>
     </modules>
 
 </project>

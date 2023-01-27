@@ -29,8 +29,6 @@
 
     <modules>
         <module>connect</module>
-        <module>integrations</module>
-        <module>examples</module>
     </modules>
 
     <dependencyManagement>
