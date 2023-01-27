@@ -1,15 +1,15 @@
-package io.miragon.miranum.connect.binder.adapter.camunda8.worker;
+package io.miragon.miranum.connect.adapter.in.c8.message;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
-import io.miragon.miranum.connect.binder.worker.application.port.in.ExecuteMethodCommand;
-import io.miragon.miranum.connect.binder.worker.application.port.in.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.binder.worker.application.port.out.BindWorkerPort;
-import io.miragon.miranum.connect.binder.worker.domain.BusinessException;
-import io.miragon.miranum.connect.binder.worker.domain.TechnicalException;
-import io.miragon.miranum.connect.binder.worker.domain.WorkerInfo;
+import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodCommand;
+import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.worker.application.port.out.BindWorkerPort;
+import io.miragon.miranum.connect.worker.domain.BusinessException;
+import io.miragon.miranum.connect.worker.domain.TechnicalException;
+import io.miragon.miranum.connect.worker.domain.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

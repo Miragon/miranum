@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c7.worker;
+package io.miragon.miranum.connect.adapter.in.c8.message;
 
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
 import org.camunda.bpm.client.ExternalTaskClient;
