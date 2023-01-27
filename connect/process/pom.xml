@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <artifactId>process</artifactId>
+    <name>process</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>connect</artifactId>
+        <version>0.13.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>process-core</module>
+        <module>process-starter</module>
+
+        <module>process-adapter-in-kafka</module>
+        <module>process-adapter-in-rest</module>
+
+        <module>process-adapter-out-c7</module>
+        <module>process-adapter-out-c8</module>
+        <module>process-adapter-out-kafka</module>
+    </modules>
+
+</project>

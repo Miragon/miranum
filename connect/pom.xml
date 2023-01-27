@@ -15,6 +15,10 @@
     </parent>
 
     <modules>
+        <module>message</module>
+        <module>worker</module>
+        <module>process</module>
+        <module>job</module>
         <module>connect-binder</module>
         <module>connect-binder-c7</module>
         <module>connect-binder-c7-embedded</module>
