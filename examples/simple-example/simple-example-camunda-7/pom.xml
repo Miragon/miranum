@@ -32,10 +32,21 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>message-adapter-out-c7</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--Camunda-->
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
+            <version>${camunda7.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
             <version>${camunda7.version}</version>
         </dependency>
 

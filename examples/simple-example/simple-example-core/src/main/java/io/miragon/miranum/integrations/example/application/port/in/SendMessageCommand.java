@@ -1,17 +1,16 @@
 package io.miragon.miranum.integrations.example.application.port.in;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class SendMessageCommand extends TenantAwareCommand {
 
-    private String value;
+    private String name;
+    private String key;
 
 
 }

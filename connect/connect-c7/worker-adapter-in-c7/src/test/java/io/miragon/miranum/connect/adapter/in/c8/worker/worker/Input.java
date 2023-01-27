@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.message.worker;
+package io.miragon.miranum.connect.adapter.in.c8.worker.worker;
 
 import lombok.Data;
 

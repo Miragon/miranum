@@ -11,6 +11,6 @@ public class FireAndForgetService implements FireAndForgetUseCase {
     @Override
     @Worker(type = "fireAndForget")
     public void fireAndForget(final SendMessageCommand message) {
-        log.info("Received message: " + message.getValue());
+        log.info("Received message: " + message.getName());
     }
 }

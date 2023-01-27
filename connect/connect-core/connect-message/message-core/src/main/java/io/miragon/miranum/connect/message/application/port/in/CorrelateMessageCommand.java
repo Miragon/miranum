@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.binder.message.application.port.in;
+package io.miragon.miranum.connect.message.application.port.in;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.message.adapter;
+package io.miragon.miranum.connect.adapter.in.c8.worker.adapter;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.ZeebeFuture;
@@ -6,7 +6,7 @@ import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobWorkerBuilderStep1;
-import io.miragon.miranum.connect.adapter.in.c8.message.Camunda8WorkerAdapter;
+import io.miragon.miranum.connect.adapter.in.c8.worker.Camunda8WorkerAdapter;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
 import io.miragon.miranum.connect.worker.domain.WorkerInfo;
 import org.junit.jupiter.api.Test;

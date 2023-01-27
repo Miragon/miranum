@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.worker;
+package io.miragon.miranum.connect.adapter.in.c7.worker;
 
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodCommand;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;

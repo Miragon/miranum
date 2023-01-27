@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.message;
+package io.miragon.miranum.connect.adapter.in.c7.message;
 
 import io.miragon.miranum.connect.binder.message.domain.MessageCorrelationException;
 import io.miragon.miranum.connect.message.application.port.in.CorrelateMessageCommand;

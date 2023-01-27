@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.message;
+package io.miragon.miranum.connect.adapter.in.c7.message;
 
 import org.camunda.community.rest.client.api.MessageApi;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

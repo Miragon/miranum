@@ -1,7 +1,8 @@
-package io.miragon.miranum.connect.adapter.in.c8.message;
+package io.miragon.miranum.connect.adapter.in.c8.worker;
 
-import io.miragon.miranum.connect.adapter.in.c8.message.worker.Input;
-import io.miragon.miranum.connect.adapter.in.c8.message.worker.Output;
+import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7Mapper;
+import io.miragon.miranum.connect.adapter.in.c8.worker.worker.Input;
+import io.miragon.miranum.connect.adapter.in.c8.worker.worker.Output;
 import lombok.extern.java.Log;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;

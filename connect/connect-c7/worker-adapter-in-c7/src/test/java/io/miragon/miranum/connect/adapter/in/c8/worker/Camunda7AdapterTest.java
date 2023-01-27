@@ -1,5 +1,7 @@
-package io.miragon.miranum.connect.adapter.in.c8.message;
+package io.miragon.miranum.connect.adapter.in.c8.worker;
 
+import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7Mapper;
+import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7WorkerAdapter;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
 import io.miragon.miranum.connect.worker.domain.WorkerInfo;
 import org.camunda.bpm.client.ExternalTaskClient;

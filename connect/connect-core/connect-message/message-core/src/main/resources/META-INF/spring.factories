@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.worker.WorkerAutoConfiguration
+io.miragon.miranum.connect.message.MessageAutoConfiguration

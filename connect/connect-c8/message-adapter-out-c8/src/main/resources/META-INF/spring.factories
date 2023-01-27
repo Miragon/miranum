@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.adapter.in.c8.message.Camunda7MessageAutoConfiguration
+io.miragon.miranum.connect.adapter.in.c8.message.Camunda8MessageAutoConfiguration

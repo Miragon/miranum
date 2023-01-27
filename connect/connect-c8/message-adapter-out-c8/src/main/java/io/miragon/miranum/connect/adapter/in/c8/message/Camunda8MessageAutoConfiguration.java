@@ -1,16 +1,15 @@
 package io.miragon.miranum.connect.adapter.in.c8.message;
 
-import org.camunda.community.rest.client.api.MessageApi;
+import io.camunda.zeebe.client.ZeebeClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 @EnableConfigurationProperties
-public class Camunda7MessageAutoConfiguration {
+public class Camunda8MessageAutoConfiguration {
 
     @Bean
-    public Camunda7MessageAdapter camunda7MessageAdapter(final MessageApi messageApi) {
-        return new Camunda7MessageAdapter(new Camunda7CorrelateMessageMapper(), messageApi);
+    public Camunda8MessageAdapter camunda7MessageAdapter(final ZeebeClient zeebeClient) {
+        return new Camunda8MessageAdapter(zeebeClient);
     }
-
 
 }
