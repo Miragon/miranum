@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.message;
+package io.miragon.miranum.connect.adapter.in.c8.worker;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
