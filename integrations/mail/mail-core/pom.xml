@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-binder-core</artifactId>
+            <artifactId>worker-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

@@ -30,6 +30,7 @@
     <modules>
         <module>connect</module>
         <module>examples</module>
+        <module>integrations</module>
     </modules>
 
     <dependencyManagement>
