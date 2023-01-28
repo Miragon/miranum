@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.example.c7;
+package io.miragon.miranum.integrations.example.c8;
 
 import io.camunda.zeebe.spring.client.EnableZeebeClient;
 import io.miragon.miranum.integrations.mail.MailConfiguration;
