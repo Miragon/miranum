@@ -16,6 +16,7 @@
 
     <modules>
         <module>mail</module>
+        <module>user</module>
     </modules>
 
 </project>
