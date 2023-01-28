@@ -31,11 +31,12 @@
             <artifactId>worker-adapter-in-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <!--Camunda-->
         <dependency>
-            <groupId>io.camunda</groupId>
-            <artifactId>spring-zeebe-starter</artifactId>
-            <version>${camunda8.version}</version>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
+            <version>${camunda7.version}</version>
         </dependency>
 
         <dependency>

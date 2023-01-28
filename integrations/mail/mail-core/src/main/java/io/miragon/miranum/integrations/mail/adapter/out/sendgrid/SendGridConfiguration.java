@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class SendGridConfiguration {
 
     @Bean
-    @ConditionalOnProperty(prefix = "miranum.mail", havingValue = "sendgrid")
-    public SendGridAdapter javaMailAdapter(final SendGridAdapter javaMailAdapter) {
+    @ConditionalOnProperty(prefix = "miranum", value = "mail", havingValue = "sendgrid")
+    public SendGridAdapter sendGridAdapter() {
         return new SendGridAdapter();
     }
 

@@ -15,9 +15,7 @@ public class SendMailService implements SendMailUseCase {
     @Override
     @Worker(type = "sendMail")
     public void sendMail(final SendMailCommand command) {
-
-        //template laden und füllen
+        // template laden und füllen
         this.deliverMailPort.deliverMail(new Mail(command.getText(), command.getSubject(), command.getRecipient()));
-
     }
 }
