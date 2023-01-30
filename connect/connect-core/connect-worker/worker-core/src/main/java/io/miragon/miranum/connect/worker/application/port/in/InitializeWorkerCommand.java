@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class InitalizeWorkerCommand {
+public class InitializeWorkerCommand {
 
     private final List<WorkerInfo> workerList;
 
