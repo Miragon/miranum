@@ -1,5 +1,6 @@
 package io.miragon.miranum.integrations.user.application.service;
 
+import io.miragon.miranum.connect.worker.domain.Worker;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadOuTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
@@ -76,6 +77,7 @@ public class SearchForUserService implements SearchForUserQuery {
      * @return the formatted user string
      */
     @Override
+    @Worker(type = "getUserString")
     public String getUserString(final String userId) {
         if (StringUtils.isBlank(userId)) {
             return null;

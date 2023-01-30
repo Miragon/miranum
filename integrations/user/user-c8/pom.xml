@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>mail-core</artifactId>
+            <artifactId>user-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 

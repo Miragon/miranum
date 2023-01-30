@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dolndx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
   <bpmn:process id="Process_0uvirnq" isExecutable="true">
-    <bpmn:extensionElements>
-      <camunda:executionListener class="" event="start" />
-      <camunda:properties>
-        <camunda:property />
-      </camunda:properties>
-    </bpmn:extensionElements>
+    <bpmn:extensionElements />
     <bpmn:startEvent id="StartEvent_1">
-      <bpmn:extensionElements>
-        <camunda:executionListener class="" event="start" />
-        <camunda:properties>
-          <camunda:property />
-        </camunda:properties>
-      </bpmn:extensionElements>
+      <bpmn:extensionElements />
       <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0yx0bta" sourceRef="StartEvent_1" targetRef="Activity_1dgrmef" />
@@ -21,7 +11,7 @@
       <bpmn:incoming>Flow_1lqc6kg</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1lqc6kg" sourceRef="Activity_1dgrmef" targetRef="Event_0xqubhu" />
-    <bpmn:subProcess id="Activity_1dgrmef" name="Send mail">
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Send mail" camunda:type="external" camunda:topic="sendMail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="recipient">info@miragon.io</camunda:inputParameter>
@@ -31,7 +21,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>
       <bpmn:outgoing>Flow_1lqc6kg</bpmn:outgoing>
-    </bpmn:subProcess>
+    </bpmn:serviceTask>
     <bpmn:group id="Group_05a1lhj" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -42,8 +32,11 @@
       <bpmndi:BPMNShape id="Event_0xqubhu_di" bpmnElement="Event_0xqubhu">
         <dc:Bounds x="692" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0cbt2ui_di" bpmnElement="Activity_1dgrmef">
+      <bpmndi:BPMNShape id="Activity_0tv0hq9_di" bpmnElement="Activity_1dgrmef">
         <dc:Bounds x="530" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_05a1lhj_di" bpmnElement="Group_05a1lhj">
+        <dc:Bounds x="160" y="1340" width="300" height="300" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0yx0bta_di" bpmnElement="Flow_0yx0bta">
         <di:waypoint x="475" y="117" />
@@ -53,12 +46,6 @@
         <di:waypoint x="630" y="117" />
         <di:waypoint x="692" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Group_05a1lhj_di" bpmnElement="Group_05a1lhj">
-        <dc:Bounds x="160" y="1340" width="300" height="300" />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_0x2e2s7">
-    <bpmndi:BPMNPlane id="BPMNPlane_0h5mkr1" bpmnElement="Activity_1dgrmef" />
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

@@ -5,7 +5,6 @@ import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.LdapAttribut
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.ldap.filter.*;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 /**
  * Create predefined filters for ldap queries.
  */
-@Component
 @RequiredArgsConstructor
 public class LdapFilterFactory {
 
