@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class LdapUserServiceImpl implements SearchForUserQuery {
+public class SearchForUserService implements SearchForUserQuery {
 
     private final LoadOuTreePort loadOuTreePort;
     private final LoadUserPort loadUserPort;
