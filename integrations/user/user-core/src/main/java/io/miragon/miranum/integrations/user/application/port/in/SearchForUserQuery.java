@@ -19,15 +19,15 @@ public interface SearchForUserQuery {
      * Search users by the given string and groups.
      *
      * @param searchString Search string. is split by a space
-     * @param ous          Groups of the user
+     * @param groupId Groups of the user
      * @return users
      */
-    List<User> searchUser(final String searchString, final String ous);
+    List<User> searchUser(final String searchString, final String groupId);
 
     /**
      * Format a specific user.
      *
-     * @param userId Id of the user
+     * @param userId id of the user
      * @return the formatted user string
      */
     String getUserString(final String userId);
@@ -35,15 +35,15 @@ public interface SearchForUserQuery {
     /**
      * Get user by id.
      *
-     * @param userId Id of the user
+     * @param searchForUserParameter object containing the userId
      * @return user
      */
-    User getUser(final String userId);
+    User getUser(final SearchForUserParameter searchForUserParameter);
 
     /**
      * Get user by id.
      *
-     * @param userId Id of the user
+     * @param userId id of the user
      * @return user optional
      */
     Optional<User> getUserOrNull(final String userId);

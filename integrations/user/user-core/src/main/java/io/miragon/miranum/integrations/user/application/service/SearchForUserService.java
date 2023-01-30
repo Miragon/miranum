@@ -1,6 +1,7 @@
 package io.miragon.miranum.integrations.user.application.service;
 
 import io.miragon.miranum.connect.worker.domain.Worker;
+import io.miragon.miranum.integrations.user.application.port.in.SearchForUserParameter;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadOuTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
@@ -14,11 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Service to query for users.
- *
- * @author externer.dl.horn
- */
 @Profile("!no-ldap")
 @Slf4j
 @Service
@@ -28,33 +24,20 @@ public class SearchForUserService implements SearchForUserQuery {
     private final LoadOuTreePort loadOuTreePort;
     private final LoadUserPort loadUserPort;
 
-    /**
-     * Get groups for the given user id.
-     *
-     * @param userId Id for the user
-     * @return groups in lowercase
-     */
     @Override
     public List<String> getGroups(final String userId) {
-        return this.loadOuTreePort.findOuTree(userId).stream().map(String::toLowerCase).collect(Collectors.toList());
+        return this.loadOuTreePort.findGroupTree(userId).stream().map(String::toLowerCase).collect(Collectors.toList());
     }
 
-    /**
-     * Search users by the given string and groups.
-     *
-     * @param searchString Search string. is split by a space
-     * @param ous          Groups of the user
-     * @return users
-     */
     @Override
-    public List<User> searchUser(final String searchString, final String ous) {
+    public List<User> searchUser(final String searchString, final String groupId) {
         log.debug("Searching user with {}", searchString);
 
         if (StringUtils.isEmpty(searchString)) {
             throw new IllegalArgumentException("Expected value in request: queryString");
         }
 
-        final List<String> oufilterList = ous == null ? Collections.emptyList() : Arrays.asList(ous.split(","));
+        final List<String> oufilterList = groupId == null ? Collections.emptyList() : Arrays.asList(groupId.split(","));
 
         final String[] queryStrings = searchString.strip().split(" ");
         final List<User> userInfos = new ArrayList<>();
@@ -70,14 +53,7 @@ public class SearchForUserService implements SearchForUserQuery {
         return userInfos;
     }
 
-    /**
-     * Format a specific user.
-     *
-     * @param userId Id of the user
-     * @return the formatted user string
-     */
     @Override
-    @Worker(type = "getUserString")
     public String getUserString(final String userId) {
         if (StringUtils.isBlank(userId)) {
             return null;
@@ -91,46 +67,27 @@ public class SearchForUserService implements SearchForUserQuery {
                 ")").orElse(userId);
     }
 
-    /**
-     * Get user by id.
-     *
-     * @param userId Id of the user
-     * @return user
-     */
     @Override
-    public User getUser(final String userId) {
-        return this.loadUserPort.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("User with the id %s does not exist.", userId)));
+    @Worker(type = "getUser")
+    public User getUser(final SearchForUserParameter searchForUserParameter) {
+        var user = this.loadUserPort.findById(searchForUserParameter.getUserId());
+        log.info("Fetched user: {}", user);
+        return user.orElseThrow(() -> new IllegalArgumentException(String.format("User with the id %s does not exist.", searchForUserParameter.getUserId())));
     }
 
-    /**
-     * Get user by id.
-     *
-     * @param userId Id of the user
-     * @return user optional
-     */
     @Override
     public Optional<User> getUserOrNull(final String userId) {
         return this.loadUserPort.findById(userId);
     }
 
-    /**
-     * Get user by username.
-     *
-     * @param username Username of the user
-     * @return user optional
-     */
     @Override
     public Optional<User> getUserByUserName(final String username) {
         return this.loadUserPort.findByUsername(username);
     }
 
-    /**
-     * Get OU by shortname.
-     */
     @Override
     public Optional<User> getOuByShortName(final String shortname) {
-        return this.loadUserPort.findOuByShortName(shortname);
+        return this.loadUserPort.findGroupByShortName(shortname);
     }
 
 }
