@@ -7,14 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Get current camunda authentication informaiton.
+ * Get current camunda authentication information.
  *
  * @author externer.dl.horn
  */
 @Component
 @RequiredArgsConstructor
 public class AppAuthenticationProvider {
-
 
     public List<String> getCurrentUserGroups() {
         // return this.identityService.getCurrentAuthentication().getGroupIds();
