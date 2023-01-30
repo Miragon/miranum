@@ -1,6 +1,6 @@
 package io.miragon.miranum.integrations.user.adapter.out.ldap;
 
-import io.miragon.miranum.integrations.user.application.port.out.LoadOuTreePort;
+import io.miragon.miranum.integrations.user.application.port.out.LoadGroupTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class LhmLdapMockAdapter implements LoadOuTreePort, LoadUserPort {
+public class LhmLdapMockAdapter implements LoadGroupTreePort, LoadUserPort {
 
     private final List<String> groups = List.of("group1");
     private final User user = new User(

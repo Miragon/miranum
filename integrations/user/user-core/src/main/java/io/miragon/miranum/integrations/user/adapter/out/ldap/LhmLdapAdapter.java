@@ -3,7 +3,7 @@ package io.miragon.miranum.integrations.user.adapter.out.ldap;
 import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.LdapAttributeConstants;
 import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.UserAttributesMapper;
 import io.miragon.miranum.integrations.user.adapter.out.ldap.query.LdapQueryFactory;
-import io.miragon.miranum.integrations.user.application.port.out.LoadOuTreePort;
+import io.miragon.miranum.integrations.user.application.port.out.LoadGroupTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * Each section has a different base, "o=Landeshauptstadt München,c=de" for orga and "o=lhm,c=de" for data.
  */
 @Slf4j
-public class LhmLdapAdapter extends LdapTemplate implements LoadOuTreePort, LoadUserPort {
+public class LhmLdapAdapter extends LdapTemplate implements LoadGroupTreePort, LoadUserPort {
 
     public static final String CACHE_USERS = "ldapusers";
     public static final String CACHE_USERBYNAME = "ldapuserbyname";

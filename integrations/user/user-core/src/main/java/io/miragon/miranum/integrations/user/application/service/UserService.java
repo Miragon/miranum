@@ -3,7 +3,7 @@ package io.miragon.miranum.integrations.user.application.service;
 import io.miragon.miranum.connect.worker.domain.Worker;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserParameter;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
-import io.miragon.miranum.integrations.user.application.port.out.LoadOuTreePort;
+import io.miragon.miranum.integrations.user.application.port.out.LoadGroupTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SearchForUserService implements SearchForUserQuery {
+public class UserService implements SearchForUserQuery {
 
-    private final LoadOuTreePort loadOuTreePort;
+    private final LoadGroupTreePort loadGroupTreePort;
     private final LoadUserPort loadUserPort;
 
     @Override
     public List<String> getGroups(final String userId) {
-        return this.loadOuTreePort.findGroupTree(userId).stream().map(String::toLowerCase).collect(Collectors.toList());
+        return this.loadGroupTreePort.findGroupTree(userId).stream().map(String::toLowerCase).collect(Collectors.toList());
     }
 
     @Override

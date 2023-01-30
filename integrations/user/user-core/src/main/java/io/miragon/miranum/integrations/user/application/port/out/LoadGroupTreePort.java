@@ -2,7 +2,7 @@ package io.miragon.miranum.integrations.user.application.port.out;
 
 import java.util.List;
 
-public interface LoadOuTreePort {
+public interface LoadGroupTreePort {
 
     /**
      * Get all groups of an user.
