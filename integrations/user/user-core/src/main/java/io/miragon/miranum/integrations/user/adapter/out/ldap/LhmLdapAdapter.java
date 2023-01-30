@@ -133,7 +133,7 @@ public class LhmLdapAdapter extends LdapTemplate implements LoadOuTreePort, Load
      */
     @Override
     @Cacheable(CACHE_OUTREE)
-    public List<String> findOuTree(final String userid) {
+    public List<String> findGroupTree(final String userid) {
         LOG.debug("Get LDAP ou tree for user {}.", userid);
 
         final List<LdapName> usersObjectPathList = this.searchObjectPaths(userid);
@@ -172,7 +172,7 @@ public class LhmLdapAdapter extends LdapTemplate implements LoadOuTreePort, Load
      */
     @Override
     @Cacheable(CACHE_OUS)
-    public Optional<User> findOuByShortName(final String shortName) {
+    public Optional<User> findGroupByShortName(final String shortName) {
         LOG.debug("Get LDAP ou of {}.", shortName);
         final LdapQuery query = ldapQueryFactory.createOuByShortNameQuery(shortName);
         final List<User> ous = super.search(query, new UserAttributesMapper());

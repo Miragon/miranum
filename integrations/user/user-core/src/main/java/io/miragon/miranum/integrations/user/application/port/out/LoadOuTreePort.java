@@ -10,5 +10,5 @@ public interface LoadOuTreePort {
      * @param id Id of the users
      * @return all groups
      */
-    List<String> findOuTree(String id);
+    List<String> findGroupTree(String id);
 }

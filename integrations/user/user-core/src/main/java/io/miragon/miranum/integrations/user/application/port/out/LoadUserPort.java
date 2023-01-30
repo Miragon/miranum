@@ -46,5 +46,5 @@ public interface LoadUserPort {
     /**
      * Get ou by shortname.
      */
-    Optional<User> findOuByShortName(String shortName);
+    Optional<User> findGroupByShortName(String shortName);
 }

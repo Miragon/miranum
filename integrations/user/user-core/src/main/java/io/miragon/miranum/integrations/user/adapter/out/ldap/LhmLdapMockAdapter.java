@@ -36,7 +36,7 @@ public class LhmLdapMockAdapter implements LoadOuTreePort, LoadUserPort {
     );
 
     @Override
-    public List<String> findOuTree(String id) {
+    public List<String> findGroupTree(String id) {
         return this.groups;
     }
 
@@ -61,7 +61,7 @@ public class LhmLdapMockAdapter implements LoadOuTreePort, LoadUserPort {
     }
 
     @Override
-    public Optional<User> findOuByShortName(String shortName) {
+    public Optional<User> findGroupByShortName(String shortName) {
         return Optional.of(this.user);
     }
 }
