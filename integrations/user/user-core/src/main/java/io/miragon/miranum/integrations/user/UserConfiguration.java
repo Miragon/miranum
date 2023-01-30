@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 public class UserConfiguration {
 
     @Bean
-    public SearchForUserQuery sendMailUseCase(final LoadGroupTreePort loadGroupTreePort, final LoadUserPort loadUserPort) {
+    public SearchForUserQuery searchForUserQuery(final LoadGroupTreePort loadGroupTreePort, final LoadUserPort loadUserPort) {
         return new UserService(loadGroupTreePort, loadUserPort);
     }
 }
