@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap;
+package io.miragon.miranum.integrations.example.ldap;
 
 import io.miragon.miranum.integrations.user.application.port.out.LoadGroupTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;

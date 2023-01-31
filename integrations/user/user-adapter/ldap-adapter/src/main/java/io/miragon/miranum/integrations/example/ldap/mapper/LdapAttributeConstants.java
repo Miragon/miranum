@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.mapper;
+package io.miragon.miranum.integrations.example.ldap.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

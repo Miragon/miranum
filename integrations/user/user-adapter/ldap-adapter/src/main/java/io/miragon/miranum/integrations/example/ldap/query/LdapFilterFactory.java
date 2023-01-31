@@ -1,7 +1,7 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.query;
+package io.miragon.miranum.integrations.example.ldap.query;
 
-import io.miragon.miranum.integrations.user.adapter.out.ldap.configuration.ServiceAuthLdapProperties;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.LdapAttributeConstants;
+import io.miragon.miranum.integrations.example.ldap.configuration.ServiceAuthLdapProperties;
+import io.miragon.miranum.integrations.example.ldap.mapper.LdapAttributeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.ldap.filter.*;

@@ -1,9 +1,9 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.configuration;
+package io.miragon.miranum.integrations.example.ldap.configuration;
 
-import io.miragon.miranum.integrations.user.adapter.out.ldap.LhmLdapAdapter;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.LhmLdapMockAdapter;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.query.LdapFilterFactory;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.query.LdapQueryFactory;
+import io.miragon.miranum.integrations.example.ldap.LhmLdapAdapter;
+import io.miragon.miranum.integrations.example.ldap.LhmLdapMockAdapter;
+import io.miragon.miranum.integrations.example.ldap.query.LdapFilterFactory;
+import io.miragon.miranum.integrations.example.ldap.query.LdapQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.configuration;
+package io.miragon.miranum.integrations.example.ldap.configuration;
 
 import lombok.Getter;
 import lombok.Setter;

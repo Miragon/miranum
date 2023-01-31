@@ -1,20 +1,20 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap;
+package io.miragon.miranum.integrations.example.ldap;
 
-import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.LdapAttributeConstants;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.UserAttributesMapper;
-import io.miragon.miranum.integrations.user.adapter.out.ldap.query.LdapQueryFactory;
+import io.miragon.miranum.integrations.example.ldap.mapper.LdapAttributeConstants;
+import io.miragon.miranum.integrations.example.ldap.mapper.UserAttributesMapper;
+import io.miragon.miranum.integrations.example.ldap.query.LdapQueryFactory;
 import io.miragon.miranum.integrations.user.application.port.out.LoadGroupTreePort;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.query.LdapQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.naming.ldap.LdapName;
 import java.util.*;

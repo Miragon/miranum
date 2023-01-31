@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.mapper;
+package io.miragon.miranum.integrations.example.ldap.mapper;
 
 import io.miragon.miranum.integrations.user.domain.User;
 import org.springframework.ldap.core.AttributesMapper;

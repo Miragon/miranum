@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.out.ldap.model;
+package io.miragon.miranum.integrations.example.ldap.model;
 
 import lombok.Data;
 

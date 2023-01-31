@@ -1,6 +1,5 @@
 package io.miragon.miranum.integrations.user.domain;
 
-import io.miragon.miranum.integrations.user.adapter.out.ldap.mapper.UserAttributesMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,10 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
-/**
- * The class is used by the {@link UserAttributesMapper} to consolidate the found
- * ldap attributes.
- */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
