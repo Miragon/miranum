@@ -1,9 +1,9 @@
 package io.miragon.miranum.integrations.user.common;
 
 import lombok.RequiredArgsConstructor;
+import org.camunda.bpm.engine.IdentityService;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,11 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppAuthenticationProvider {
 
+    private final IdentityService identityService;
+
     public List<String> getCurrentUserGroups() {
-        return Arrays.asList();
+        return this.identityService.getCurrentAuthentication().getGroupIds();
     }
 
     public String getCurrentUserId() {
-        return "current-user-id";
+        return this.identityService.getCurrentAuthentication().getUserId();
     }
 }
