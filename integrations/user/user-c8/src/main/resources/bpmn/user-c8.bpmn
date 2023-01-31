@@ -7,9 +7,9 @@
     <bpmn:sequenceFlow id="Flow_0698bym" sourceRef="StartEvent_1" targetRef="Activity_1vhp7dw" />
     <bpmn:serviceTask id="Activity_1vhp7dw" name="Find user">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="user" />
+        <zeebe:taskDefinition type="getUser" />
         <zeebe:ioMapping>
-          <zeebe:input source="=&#34;test&#34;" target="value" />
+          <zeebe:input source="=&#34;test&#34;" target="userId" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0698bym</bpmn:incoming>

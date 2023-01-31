@@ -19,6 +19,24 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- Adapter  -->
+        <!-- INPUT  -->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>rest-adapter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- INPUT  -->
+
+        <!-- OUTPUT  -->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>ldap-adapter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- OUTPUT  -->
+        <!-- Adapter  -->
+
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>user-core</artifactId>
@@ -37,12 +55,6 @@
             <groupId>io.camunda</groupId>
             <artifactId>spring-zeebe-starter</artifactId>
             <version>${camunda8.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

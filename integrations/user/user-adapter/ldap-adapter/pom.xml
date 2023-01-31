@@ -24,6 +24,12 @@
             <artifactId>user-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

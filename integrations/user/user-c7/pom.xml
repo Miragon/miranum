@@ -20,17 +20,21 @@
         </dependency>
 
         <!-- Adapter  -->
-            <dependency>
-                <groupId>io.miragon.miranum</groupId>
-                <artifactId>ldap-adapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+        <!-- INPUT  -->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>rest-adapter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- INPUT  -->
 
-            <dependency>
-                <groupId>io.miragon.miranum</groupId>
-                <artifactId>rest-adapter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+        <!-- OUTPUT  -->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>ldap-adapter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- OUTPUT  -->
         <!-- Adapter  -->
 
         <dependency>
