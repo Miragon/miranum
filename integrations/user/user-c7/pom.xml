@@ -19,11 +19,19 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>ldap-adapter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!-- Adapter  -->
+            <dependency>
+                <groupId>io.miragon.miranum</groupId>
+                <artifactId>ldap-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.miragon.miranum</groupId>
+                <artifactId>rest-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        <!-- Adapter  -->
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>

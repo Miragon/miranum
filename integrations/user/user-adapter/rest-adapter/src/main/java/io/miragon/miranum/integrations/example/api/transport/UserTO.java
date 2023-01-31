@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.adapter.in.api.transport;
+package io.miragon.miranum.integrations.example.api.transport;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

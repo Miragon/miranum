@@ -1,6 +1,6 @@
-package io.miragon.miranum.integrations.user.adapter.in.api.mapper;
+package io.miragon.miranum.integrations.example.api.mapper;
 
-import io.miragon.miranum.integrations.user.adapter.in.api.transport.UserTO;
+import io.miragon.miranum.integrations.example.api.transport.UserTO;
 import io.miragon.miranum.integrations.user.common.BaseTOMapper;
 import io.miragon.miranum.integrations.user.domain.User;
 import org.mapstruct.Mapper;

@@ -1,8 +1,8 @@
-package io.miragon.miranum.integrations.user.adapter.in.api;
+package io.miragon.miranum.integrations.example.api;
 
-import io.miragon.miranum.integrations.user.adapter.in.api.mapper.UserTOMapper;
-import io.miragon.miranum.integrations.user.adapter.in.api.transport.SearchUserTO;
-import io.miragon.miranum.integrations.user.adapter.in.api.transport.UserTO;
+import io.miragon.miranum.integrations.example.api.mapper.UserTOMapper;
+import io.miragon.miranum.integrations.example.api.transport.SearchUserTO;
+import io.miragon.miranum.integrations.example.api.transport.UserTO;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserParameter;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
 import io.miragon.miranum.integrations.user.common.AppAuthenticationProvider;

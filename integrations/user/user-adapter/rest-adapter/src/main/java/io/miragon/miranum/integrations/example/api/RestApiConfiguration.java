@@ -1,14 +1,13 @@
-package io.miragon.miranum.integrations.user.adapter.in.api;
+package io.miragon.miranum.integrations.example.api;
 
-import io.miragon.miranum.integrations.user.adapter.in.api.mapper.UserTOMapper;
-import io.miragon.miranum.integrations.user.adapter.in.api.mapper.UserTOMapperImpl;
+import io.miragon.miranum.integrations.example.api.mapper.UserTOMapper;
+import io.miragon.miranum.integrations.example.api.mapper.UserTOMapperImpl;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
 import io.miragon.miranum.integrations.user.common.AppAuthenticationProvider;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.impl.IdentityServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.ldap.odm.annotations.Id;
 
 @Configuration
 public class RestApiConfiguration {
@@ -28,7 +27,7 @@ public class RestApiConfiguration {
     }
 
     @Bean
-    UserTOMapper userTOMapper() {
+    public UserTOMapper userTOMapper() {
         return new UserTOMapperImpl();
     }
 }
