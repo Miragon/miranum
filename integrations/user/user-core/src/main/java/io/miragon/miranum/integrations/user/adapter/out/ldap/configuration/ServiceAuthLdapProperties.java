@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "directory.ldap")
+@ConfigurationProperties(prefix = "miranum.ldap")
 public class ServiceAuthLdapProperties {
 
     @NotBlank

@@ -37,7 +37,7 @@ public class LdapTemplateConfiguration {
     }
 
     @Bean
-    public LdapFilterFactory ldapQueryFactory() {
+    public LdapFilterFactory ldapFilterFactory() {
         return new LdapFilterFactory(this.serviceAuthLdapProperties);
     }
 
@@ -59,7 +59,7 @@ public class LdapTemplateConfiguration {
      */
     @Bean
     @ConditionalOnProperty(prefix = "miranum", value = "user", havingValue = "ldap")
-    public LhmLdapAdapter lhmLdapTemplate(final LdapContextSource ldapContextSource, final LdapQueryFactory ldapQueryFactory) {
+    public LhmLdapAdapter lhmLdapTemplate(final LdapQueryFactory ldapQueryFactory) {
         return new LhmLdapAdapter(this.contextSourceTarget(), ldapQueryFactory);
     }
 
