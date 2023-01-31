@@ -4,8 +4,6 @@ import io.miragon.miranum.integrations.user.adapter.in.api.mapper.UserTOMapper;
 import io.miragon.miranum.integrations.user.adapter.in.api.mapper.UserTOMapperImpl;
 import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
 import io.miragon.miranum.integrations.user.common.AppAuthenticationProvider;
-import org.camunda.bpm.engine.IdentityService;
-import org.camunda.bpm.engine.impl.IdentityServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,16 +16,12 @@ public class RestApiConfiguration {
     }
 
     @Bean
-    public IdentityService identityService() {
-        return new IdentityServiceImpl();
+    public AppAuthenticationProvider appAuthenticationProvider() {
+        return new AppAuthenticationProvider();
     }
 
     @Bean
-    public AppAuthenticationProvider appAuthenticationProvider() {
-        return new AppAuthenticationProvider(this.identityService());
-    }
-
-    @Bean UserTOMapper userTOMapper() {
+    UserTOMapper userTOMapper() {
         return new UserTOMapperImpl();
     }
 }
