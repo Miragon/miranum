@@ -25,9 +25,9 @@ public class UserAttributesMapper implements AttributesMapper<User> {
             user.setUsername(LdapAttributeConstants.LDAP_NOATTRIBUTEAVAILABLE);
         }
         try {
-            user.setLhmObjectId((String) attrs.get(LdapAttributeConstants.LDAP_OBJID).get());
+            user.setId((String) attrs.get(LdapAttributeConstants.LDAP_OBJID).get());
         } catch (final Exception e) {
-            user.setLhmObjectId(LdapAttributeConstants.LDAP_NOATTRIBUTEAVAILABLE);
+            user.setId(LdapAttributeConstants.LDAP_NOATTRIBUTEAVAILABLE);
         }
         try {
             user.setForename((String) attrs.get(LdapAttributeConstants.LDAP_GIVENNAME).get());
