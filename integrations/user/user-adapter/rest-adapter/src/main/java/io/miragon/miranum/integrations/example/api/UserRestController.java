@@ -3,8 +3,7 @@ package io.miragon.miranum.integrations.example.api;
 import io.miragon.miranum.integrations.example.api.mapper.UserTOMapper;
 import io.miragon.miranum.integrations.example.api.transport.SearchUserTO;
 import io.miragon.miranum.integrations.example.api.transport.UserTO;
-import io.miragon.miranum.integrations.user.application.port.in.SearchForUserParameter;
-import io.miragon.miranum.integrations.user.application.port.in.SearchForUserQuery;
+import io.miragon.miranum.integrations.user.application.port.in.*;
 import io.miragon.miranum.integrations.user.common.AppAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -25,21 +24,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserRestController {
 
-    private final SearchForUserQuery searchForUserQuery;
-    private final AppAuthenticationProvider userAuthenticationProvider;
-    private final UserTOMapper userMapper;
+    private final SearchByIdQuery searchByIdQuery;
 
-    /**
-     * Search users for the given parameters.
-     *
-     * @param searchUserTO Search information
-     * @return users
-     */
-    @PostMapping("/search")
-    public ResponseEntity<List<UserTO>> getUsers(@RequestBody final SearchUserTO searchUserTO) {
-        val users = this.searchForUserQuery.searchUser(searchUserTO.getSearchString(), searchUserTO.getGroups());
-        return ResponseEntity.ok(this.userMapper.map2TO(users));
-    }
+    private final SearchByNameQuery searchByNameQuery;
+
+    private final AppAuthenticationProvider userAuthenticationProvider;
+
+    private final UserTOMapper userMapper;
 
     /**
      * Get the logged in user.
@@ -48,7 +39,7 @@ public class UserRestController {
      */
     @GetMapping("/info")
     public ResponseEntity<UserTO> userinfo() {
-        val user = this.searchForUserQuery.getUser(new SearchForUserParameter(this.userAuthenticationProvider.getCurrentUserId()));
+        val user = this.searchByIdQuery.searchById(new SearchByIdParameter(this.userAuthenticationProvider.getCurrentUserId()));
         return ResponseEntity.ok(this.userMapper.map2TO(user));
     }
 
@@ -60,13 +51,13 @@ public class UserRestController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<UserTO> getUser(@PathVariable("id") final String id) {
-        val user = this.searchForUserQuery.getUser(new SearchForUserParameter(id));
+        val user = this.searchByIdQuery.searchById(new SearchByIdParameter(id));
         return ResponseEntity.ok(this.userMapper.map2TO(user));
     }
 
-    @GetMapping("/uid/{username}")
-    public ResponseEntity<UserTO> getUserByUsername(@PathVariable("username") final String username) {
-        val user = this.searchForUserQuery.getUserByUserName(username).get();
+    @GetMapping("/uid/{name}")
+    public ResponseEntity<List<UserTO>> getUserByUsername(@PathVariable("name") final String name) {
+        val user = this.searchByNameQuery.searchByName(new SearchByNameParameter(name));
         return ResponseEntity.ok(this.userMapper.map2TO(user));
     }
 }

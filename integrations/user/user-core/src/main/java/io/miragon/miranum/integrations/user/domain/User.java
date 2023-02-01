@@ -2,22 +2,20 @@ package io.miragon.miranum.integrations.user.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@EqualsAndHashCode
 public class User {
 
     private String username;
 
     private String id;
 
-    private String forename;
+    private String firstname;
 
     private String surname;
 

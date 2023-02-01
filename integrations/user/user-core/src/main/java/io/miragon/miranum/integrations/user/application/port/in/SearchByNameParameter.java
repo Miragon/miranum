@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchForUserParameter {
-    private String userId;
+public class SearchByNameParameter {
+    private String name;
 }

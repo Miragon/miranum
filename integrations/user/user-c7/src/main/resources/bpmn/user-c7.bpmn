@@ -5,10 +5,10 @@
       <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0yx0bta" sourceRef="StartEvent_1" targetRef="Activity_1dgrmef" />
-    <bpmn:serviceTask id="Activity_1dgrmef" name="Find user" camunda:type="external" camunda:topic="getUser">
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Find user" camunda:type="external" camunda:topic="searchById">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="userId">test</camunda:inputParameter>
+          <camunda:inputParameter name="id">test</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>
