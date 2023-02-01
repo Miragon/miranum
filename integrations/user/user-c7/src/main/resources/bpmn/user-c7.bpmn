@@ -8,7 +8,7 @@
     <bpmn:serviceTask id="Activity_1dgrmef" name="Find user" camunda:type="external" camunda:topic="searchById">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="id">test</camunda:inputParameter>
+          <camunda:inputParameter name="id">id1</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>

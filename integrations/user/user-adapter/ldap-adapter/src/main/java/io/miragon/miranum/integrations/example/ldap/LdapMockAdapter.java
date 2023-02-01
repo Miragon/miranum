@@ -6,12 +6,13 @@ import io.miragon.miranum.integrations.user.domain.User;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class LdapMockAdapter implements LoadUserPort {
 
-    private final User user = new User(
+    private final User jamesCHarris = new User(
             "JamesCHarris",
-            "F345SDFdf",
+            "id1",
             "James",
             "Harris",
             "JamesCHarris@rhyta.com",
@@ -20,13 +21,30 @@ public class LdapMockAdapter implements LoadUserPort {
             Arrays.asList("group1", "group2")
     );
 
+    private final User lonnieBRitzmann = new User(
+            "LonnieBRitzmann",
+            "id2",
+            "Lonnie",
+            "Ritzmann",
+            "LonnieBRitzmann@armyspy.com",
+            "Mrs",
+            "DEV",
+            Arrays.asList("group1")
+    );
+
+    private final List<User> users = Arrays.asList(jamesCHarris, lonnieBRitzmann);
+
     @Override
     public Optional<User> findById(String id) {
-        return Optional.of(this.user);
+        List<User> users = this.users.stream().filter(user -> user.getId().equals(id)).collect(Collectors.toList());
+        return Optional.ofNullable(users.isEmpty() ? null : users.get(0));
     }
 
     @Override
     public Optional<List<User>> findByName(String name) {
-        return Optional.of(List.of(this.user));
+        List<User> users = this.users.stream().filter(
+                        user -> name.contains(user.getFirstname()) || name.contains(user.getSurname()))
+                .collect(Collectors.toList());
+        return Optional.ofNullable(users);
     }
 }
