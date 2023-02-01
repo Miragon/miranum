@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class JavaMailConfiguration {
 
     @Bean
-    @ConditionalOnProperty(prefix = "miranum.mail", havingValue = "mail")
-    public JavaMailAdapter javaMailAdapter(final JavaMailAdapter javaMailAdapter) {
+    @ConditionalOnProperty(prefix = "miranum", value = "mail", havingValue = "mail")
+    public JavaMailAdapter javaMailAdapter() {
         return new JavaMailAdapter();
     }
 

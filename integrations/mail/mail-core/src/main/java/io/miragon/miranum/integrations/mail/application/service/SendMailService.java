@@ -1,11 +1,21 @@
 package io.miragon.miranum.integrations.mail.application.service;
 
+import io.miragon.miranum.connect.worker.domain.Worker;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailCommand;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailUseCase;
+import io.miragon.miranum.integrations.mail.application.port.out.DeliverMailPort;
+import io.miragon.miranum.integrations.mail.domain.Mail;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class SendMailService implements SendMailUseCase {
+
+    private final DeliverMailPort deliverMailPort;
+
     @Override
-    public void sendMail(SendMailCommand command) {
-        
+    @Worker(type = "sendMail")
+    public void sendMail(final SendMailCommand command) {
+        // template laden und füllen
+        this.deliverMailPort.deliverMail(new Mail(command.getText(), command.getSubject(), command.getRecipient()));
     }
 }
