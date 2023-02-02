@@ -28,28 +28,28 @@ public class LdapTemplateConfiguration {
      *
      * @return The LdapContextSource for a LdapTemplate
      */
-//    @Bean
-//    public LdapContextSource contextSourceTarget() {
-//        final LdapContextSource ldapContextSource = new LdapContextSource();
-//        ldapContextSource.setUrl(this.serviceAuthLdapProperties.getContextSource());
-//        return ldapContextSource;
-//    }
+    @Bean
+    @ConditionalOnProperty(prefix = "miranum", value = "user", havingValue = "ldap")
+    public LdapContextSource contextSourceTarget() {
+        final LdapContextSource ldapContextSource = new LdapContextSource();
+        ldapContextSource.setUrl(this.serviceAuthLdapProperties.getContextSource());
+        return ldapContextSource;
+    }
 
     @Bean
     public LdapQueryFactory ldapQueryFactory() {
         return new LdapQueryFactory(serviceAuthLdapProperties.getPersonSearchBase());
     }
 
-//    @Bean
-//    @ConditionalOnProperty(prefix = "miranum", value = "user", havingValue = "ldap")
-//    public LoadUserPort lhmLdapTemplate(final LdapQueryFactory ldapQueryFactory) {
-//        return new LdapAdapter(this.contextSourceTarget(), ldapQueryFactory);
-//    }
+    @Bean
+    @ConditionalOnProperty(prefix = "miranum", value = "user", havingValue = "ldap")
+    public LoadUserPort lhmLdapTemplate(final LdapQueryFactory ldapQueryFactory) {
+        return new LdapAdapter(this.contextSourceTarget(), ldapQueryFactory);
+    }
 
     @Bean
     @ConditionalOnProperty(prefix = "miranum", value = "user", havingValue = "ldap.mock", matchIfMissing = true)
     public LoadUserPort lhmLdapMockTemplate(final LdapTemplate ldapTemplate) {
         return new LdapMockAdapter(ldapTemplate, ldapQueryFactory());
     }
-
 }
