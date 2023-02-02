@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>public-plan-demo</artifactId>
+    <name>public-plan-demo</name>
+    <packaging>pom</packaging>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>examples</artifactId>
+        <version>0.13.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>public-plan-demo-camunda-7</module>
+    </modules>
+
+</project>

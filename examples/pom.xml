@@ -16,6 +16,7 @@
 
     <modules>
         <module>simple-example</module>
+        <module>public-plan-demo-camunda-8</module>
     </modules>
 
 </project>

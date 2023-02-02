@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>public-plan-demo-camunda-7</artifactId>
+    <name>public-plan-demo-camunda-8</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>public-plan-demo</artifactId>
+        <version>0.13.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>public-plan-demo-core</artifactId>
+            <version>0.13.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--Miranum-->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>worker-adapter-in-c8</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>message-adapter-out-c8</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--Camunda-->
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
+            <version>${camunda7.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
+            <version>${camunda7.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
