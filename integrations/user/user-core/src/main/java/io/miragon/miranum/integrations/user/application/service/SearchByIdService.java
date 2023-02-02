@@ -5,6 +5,7 @@ import io.miragon.miranum.integrations.user.application.port.in.SearchByIdParame
 import io.miragon.miranum.integrations.user.application.port.in.SearchByIdQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
+import io.miragon.miranum.integrations.user.domain.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
