@@ -48,7 +48,7 @@ public class LdapMockAdapter implements LoadUserPort {
     @Override
     public Optional<User> findById(String id) {
         List<User> users = this.users.stream().filter(user -> user.getId().equals(id)).collect(Collectors.toList());
-        return Optional.ofNullable(users.isEmpty() ? null : users.get(0));
+        return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class LdapMockAdapter implements LoadUserPort {
         List<User> users = this.users.stream().filter(
                         user -> name.contains(user.getFirstname()) || name.contains(user.getSurname()))
                 .collect(Collectors.toList());
-        return Optional.ofNullable(users);
+        return users.isEmpty() ? Optional.empty() : Optional.of(users);
     }
 }

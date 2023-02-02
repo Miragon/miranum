@@ -4,14 +4,12 @@ import io.miragon.miranum.connect.worker.domain.Worker;
 import io.miragon.miranum.integrations.user.application.port.in.SearchByNameParameter;
 import io.miragon.miranum.integrations.user.application.port.in.SearchByNameQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
-import io.miragon.miranum.integrations.user.domain.User;
 import io.miragon.miranum.integrations.user.domain.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Slf4j
 @Service

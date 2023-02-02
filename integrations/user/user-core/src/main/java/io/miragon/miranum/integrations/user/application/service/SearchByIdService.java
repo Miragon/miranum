@@ -21,6 +21,6 @@ public class SearchByIdService implements SearchByIdQuery {
     public User searchById(final SearchByIdParameter parameter) {
         var user = this.loadUserPort.findById(parameter.getId());
         log.info("Fetched user: {}", user);
-        return user.orElseThrow(() -> new IllegalArgumentException(String.format("User with the id %s does not exist.", parameter.getId())));
+        return user.orElseThrow(() -> new UserNotFoundException(String.format("User with the id %s does not exist.", parameter.getId())));
     }
 }
