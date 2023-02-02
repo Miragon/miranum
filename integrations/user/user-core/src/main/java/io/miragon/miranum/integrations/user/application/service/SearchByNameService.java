@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -23,6 +23,6 @@ public class SearchByNameService implements SearchByNameQuery {
     public Users searchByName(final SearchByNameParameter parameter) {
         var users = this.loadUserPort.findByName(parameter.getName());
         log.info("Fetched users: {}", users);
-        return new Users(users.orElse(Arrays.asList()));
+        return new Users(users.orElse(List.of()));
     }
 }
