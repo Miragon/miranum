@@ -32,7 +32,18 @@ public class LdapMockAdapter implements LoadUserPort {
             Arrays.asList("group1")
     );
 
-    private final List<User> users = Arrays.asList(jamesCHarris, lonnieBRitzmann);
+    private final User jamesRossback = new User(
+            "JamesRossback",
+            "id3",
+            "James",
+            "Rossback",
+            "JamesRossback@miga.com",
+            "Mr",
+            "ACC",
+            Arrays.asList("group2")
+    );
+
+    private final List<User> users = Arrays.asList(jamesCHarris, lonnieBRitzmann, jamesRossback);
 
     @Override
     public Optional<User> findById(String id) {

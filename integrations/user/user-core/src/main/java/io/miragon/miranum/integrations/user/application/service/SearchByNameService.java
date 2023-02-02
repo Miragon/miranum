@@ -5,6 +5,7 @@ import io.miragon.miranum.integrations.user.application.port.in.SearchByNamePara
 import io.miragon.miranum.integrations.user.application.port.in.SearchByNameQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
 import io.miragon.miranum.integrations.user.domain.User;
+import io.miragon.miranum.integrations.user.domain.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,9 @@ public class SearchByNameService implements SearchByNameQuery {
 
     @Override
     @Worker(type = "searchByName")
-    public List<User> searchByName(final SearchByNameParameter parameter) {
+    public Users searchByName(final SearchByNameParameter parameter) {
         var users = this.loadUserPort.findByName(parameter.getName());
         log.info("Fetched users: {}", users);
-        return users.orElse(Arrays.asList());
+        return new Users(users.orElse(Arrays.asList()));
     }
 }

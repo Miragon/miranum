@@ -1,9 +1,7 @@
 package io.miragon.miranum.integrations.user.application.port.in;
 
-import io.miragon.miranum.integrations.user.domain.User;
-
-import java.util.List;
+import io.miragon.miranum.integrations.user.domain.Users;
 
 public interface SearchByNameQuery {
-    List<User> searchByName(final SearchByNameParameter parameter);
+    Users searchByName(final SearchByNameParameter parameter);
 }

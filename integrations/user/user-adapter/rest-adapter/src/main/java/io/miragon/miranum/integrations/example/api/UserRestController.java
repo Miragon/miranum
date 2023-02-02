@@ -57,7 +57,7 @@ public class UserRestController {
 
     @GetMapping("/uid/{name}")
     public ResponseEntity<List<UserTO>> getUserByUsername(@PathVariable("name") final String name) {
-        val user = this.searchByNameQuery.searchByName(new SearchByNameParameter(name));
-        return ResponseEntity.ok(this.userMapper.map2TO(user));
+        val users = this.searchByNameQuery.searchByName(new SearchByNameParameter(name));
+        return ResponseEntity.ok(this.userMapper.map2TO(users.getUsers()));
     }
 }
