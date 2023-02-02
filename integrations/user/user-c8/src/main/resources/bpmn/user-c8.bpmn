@@ -9,7 +9,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="searchById" />
         <zeebe:ioMapping>
-          <zeebe:input source="=&#34;id2&#34;" target="id" />
+          <zeebe:input source="=&#34;anneH&#34;" target="id" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0698bym</bpmn:incoming>

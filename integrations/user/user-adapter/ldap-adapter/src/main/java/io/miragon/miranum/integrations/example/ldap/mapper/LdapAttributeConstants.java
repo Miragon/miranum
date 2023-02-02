@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LdapAttributeConstants {
 
-    public final static String OBJECT_ID = "oid";
-
     public final static String USERNAME = "un";
 
     public final static String FIRSTNAME = "fn";
 
     public final static String SURNAME = "sn";
 
-    public final static String ID = "id";
+    public final static String ID = "uid";
 
     public final static String EMAIL = "em";
 

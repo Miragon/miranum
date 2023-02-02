@@ -30,6 +30,12 @@
             <artifactId>spring-ldap-core</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+        <!-- Embedded LDAP-Server -->
+        <dependency>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -19,7 +19,7 @@ public class LdapQueryFactory {
         return query()
                 .searchScope(SearchScope.SUBTREE)
                 .base(personSearchBase)
-                .where(LdapAttributeConstants.OBJECT_ID).is(id);
+                .where(LdapAttributeConstants.ID).is(id);
     }
 
     public LdapQuery createPersonByNameQuery(final String name) {
