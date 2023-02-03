@@ -1,5 +1,9 @@
 package io.miragon.publicplandemocore;
 
+import io.miragon.publicplandemocore.application.port.in.GeneratePDFUseCase;
+import io.miragon.publicplandemocore.application.port.in.StorePDFUseCase;
+import io.miragon.publicplandemocore.application.service.GeneratePDFService;
+import io.miragon.publicplandemocore.application.service.StorePDFService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,18 +12,16 @@ import org.springframework.context.annotation.Configuration;
 public class PublicPlanDemoConfiguration {
 
     @Bean
-    public void generatePDFUseCase(){
-
+    public GeneratePDFUseCase generatePDFUseCase(){
+        return new GeneratePDFService();
     }
 
     @Bean
-    public void storePDFUseCase(){
-
+    public StorePDFUseCase storePDFUseCase(){
+        return new StorePDFService();
     }
 
     @Bean
-    public void tenantInterceptor(){
-
-    }
+    public void tenantInterceptor(){}
 
 }

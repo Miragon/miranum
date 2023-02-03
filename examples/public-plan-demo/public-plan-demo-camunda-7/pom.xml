@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>public-plan-demo-camunda-7</artifactId>
-    <name>public-plan-demo-camunda-8</name>
+    <name>public-plan-demo-camunda-7</name>
     <packaging>jar</packaging>
 
     <parent>
@@ -28,12 +28,12 @@
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-adapter-in-c8</artifactId>
+            <artifactId>worker-adapter-in-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>message-adapter-out-c8</artifactId>
+            <artifactId>message-adapter-out-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
 

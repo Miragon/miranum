@@ -14,11 +14,11 @@
     <bpmn2:endEvent id="Event_1iz4s4f" name="Bescheid abgelegt">
       <bpmn2:incoming>Flow_07ifny1</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:serviceTask id="Activity_07iyrle" name="Bescheids PDF generieren" camunda:type="external" camunda:topic="GeneratePDF">
+    <bpmn2:serviceTask id="Activity_07iyrle" name="Bescheids PDF generieren" camunda:type="external" camunda:topic="generatePDF">
       <bpmn2:incoming>Flow_15t4wny</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1c24ggh</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:serviceTask id="Activity_0dig5we" name="PDF ablegen" camunda:type="external" camunda:topic="SavePDF">
+    <bpmn2:serviceTask id="Activity_0dig5we" name="PDF ablegen" camunda:type="external" camunda:topic="storePDF">
       <bpmn2:incoming>Flow_1c24ggh</bpmn2:incoming>
       <bpmn2:outgoing>Flow_07ifny1</bpmn2:outgoing>
     </bpmn2:serviceTask>

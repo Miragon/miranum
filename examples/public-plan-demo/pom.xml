@@ -16,6 +16,7 @@
     </parent>
 
     <modules>
+        <module>public-plan-demo-core</module>
         <module>public-plan-demo-camunda-7</module>
     </modules>
 

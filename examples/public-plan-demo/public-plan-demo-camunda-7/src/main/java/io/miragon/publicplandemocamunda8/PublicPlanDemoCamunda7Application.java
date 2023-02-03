@@ -12,5 +12,4 @@ public class PublicPlanDemoCamunda7Application {
     public static void main(String[] args) {
         SpringApplication.run(PublicPlanDemoCamunda7Application.class, args);
     }
-
 }
