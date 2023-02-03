@@ -26,34 +26,35 @@
 ## About The Project
 
 ```mermaid
-  graph TD;
-      C7-in-->Worker;
-      C8-in-->Worker;
-      Worker-->C7-out;
-      Worker-->C8-out;
+  graph LR;
+      C7-in-->W{{Worker}};
+      C8-in-->W;
+      W-->C7-out;
+      W-->C8-out;
+ 
 ```
 
 ```mermaid
-  graph TD;
-      Rest-->Message;
-      Spring-Cloud-Stream-->Message;
-      Message-->C7-out;
-      Message-->C8-out;
+  graph LR;
+      Rest-->M{{Message}};
+      Spring-Cloud-Stream-->M;
+      M-->C7-out;
+      M-->C8-out;
 ```
 
 ```mermaid
-  graph TD;
-      nativ-->Process;
-      Rest-->Process;
-      Kafka-in-->Process;
-      Process-->C7-out;
-      Process-->C8-out;
-      Process-->Kafka-out;
+  graph LR;
+      nativ-->P{{Process}};
+      Rest-->P;
+      Kafka-in-->P;
+      P-->C7-out;
+      P-->C8-out;
+      P-->Kafka-out;
 ```
 
 ```mermaid
-  graph TD;
-      Job;
+  graph LR;
+      J{{Job}};
 ```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
