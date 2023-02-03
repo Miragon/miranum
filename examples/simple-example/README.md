@@ -25,15 +25,15 @@
 
 ## Simple Example
 
-*This simple example project demonstrated the usage of miranum-core. Here we create a fairly simple process that is going to be automated using 
-miranum-core. The project contains three modules:*
+*This simple example project demonstrates the use of miranum-core. Here we have created a fairly simple process that is automated using 
+miranum-core. The project consists of three modules:*
 - [simple-example_camunda-7](simple-example-camunda-7)
 - [simple-example_camunda-8](simple-example-camunda-8)
 - [simple-example-core](simple-example-core)
 
-*The application and domain logic is implemented in the `simple-example-core` project. It contains the services that get called from a workflow engine.*
-*The process model is using the open standard bpmn.*
-*The following image shows the process that is automated in the project:*
+*TThe application and domain logic is implemented in the `simple-example-core` project. It contains the services that are called by a workflow engine.*
+*The process is modelled using the open standard bpmn.*
+*The following figure shows the process that is automated in the project:*
 
 <div align="center">
    <img src="../../images/simple-example-bpmn.png" alt="simple-example-bpmn">
@@ -55,6 +55,6 @@ miranum-core. The project contains three modules:*
  
 4. Deploy diagram
 
-Now you can simply start the process instance and view the log in the applications console.
+Now you can simply start the process instance and view the log in the application console.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
