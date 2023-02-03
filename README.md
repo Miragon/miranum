@@ -25,7 +25,36 @@
 
 ## About The Project
 
-*Add a description from your project here.*
+```mermaid
+  graph TD;
+      C7-in-->Worker;
+      C8-in-->Worker;
+      Worker-->C7-out;
+      Worker-->C8-out;
+```
+
+```mermaid
+  graph TD;
+      Rest-->Message;
+      Spring-Cloud-Stream-->Message;
+      Message-->C7-out;
+      Message-->C8-out;
+```
+
+```mermaid
+  graph TD;
+      nativ-->Process;
+      Rest-->Process;
+      Kafka-in-->Process;
+      Process-->C7-out;
+      Process-->C8-out;
+      Process-->Kafka-out;
+```
+
+```mermaid
+  graph TD;
+      Job;
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
