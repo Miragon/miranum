@@ -1,6 +1,5 @@
 package io.miragon.miranum.connect.worker;
 
-
 import io.miragon.miranum.connect.worker.adapter.ContextInitializer;
 import io.miragon.miranum.connect.worker.adapter.WorkerInfoMapper;
 import io.miragon.miranum.connect.worker.application.port.in.ExecuteMethodUseCase;
@@ -30,7 +29,7 @@ public class WorkerAutoConfiguration {
     }
 
     @Bean
-    public InitializeWorkerUseCase initalizeUseCasesService(final BindWorkerPort bindUseCasePort) throws Exception {
+    public InitializeWorkerUseCase initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
         return new InitializeWorkerService(bindUseCasePort);
     }
 }
