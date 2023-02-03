@@ -1,5 +1,23 @@
 <div id="top"></div>
 
+## Simple Example
+
+*This simple example project demonstrates the use of miranum-core. Here we have created a fairly simple process that is automated using 
+miranum-core. The project consists of three modules:*
+- [simple-example_camunda-7](simple-example-camunda-7)
+- [simple-example_camunda-8](simple-example-camunda-8)
+- [simple-example-core](simple-example-core)
+
+*TThe application and domain logic is implemented in the `simple-example-core` project. It contains the services that are called by a workflow engine.*
+*The process is modelled using the open standard bpmn.*
+*The following figure shows the process that is automated in the project:*
+
+<div align="center">
+   <img src="../../images/simple-example-bpmn.png" alt="simple-example-bpmn">
+</div>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Getting Started
 
 1. Run this commands to start a `camunda-7` workflow engine running inside a docker container:
