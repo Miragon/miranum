@@ -8,7 +8,7 @@ miranum-core. The project consists of three modules:*
 - [simple-example_camunda-8](simple-example-camunda-8)
 - [simple-example-core](simple-example-core)
 
-*TThe application and domain logic is implemented in the `simple-example-core` project. It contains the services that are called by a workflow engine.*
+*The application and domain logic is implemented in the `simple-example-core` project. It contains the services that are called by a workflow engine.*
 *The process is modelled using the open standard bpmn.*
 *The following figure shows the process that is automated in the project:*
 
