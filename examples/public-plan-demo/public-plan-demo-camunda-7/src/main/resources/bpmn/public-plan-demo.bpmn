@@ -3,7 +3,7 @@
   <bpmn2:collaboration id="Collaboration_1wcpxrz">
     <bpmn2:participant id="Participant_0yn209w" name="Bescheidantrag" processRef="Bescheidsantrag" />
   </bpmn2:collaboration>
-  <bpmn2:process id="Bescheidsantrag" name="Bescheidsantrag" isExecutable="false">
+  <bpmn2:process id="Bescheidsantrag" name="Bescheidsantrag" isExecutable="true">
     <bpmn2:startEvent id="StartEvent_1" name="Bescheid eingegangen">
       <bpmn2:outgoing>Flow_1bq2w9j</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -15,6 +15,13 @@
       <bpmn2:incoming>Flow_07ifny1</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:serviceTask id="Activity_07iyrle" name="Bescheids PDF generieren" camunda:type="external" camunda:topic="generatePDF">
+      <bpmn2:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="bytes">
+            <camunda:list />
+          </camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_15t4wny</bpmn2:incoming>
       <bpmn2:outgoing>Flow_1c24ggh</bpmn2:outgoing>
     </bpmn2:serviceTask>
