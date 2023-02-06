@@ -18,6 +18,7 @@
     <modules>
         <module>public-plan-demo-core</module>
         <module>public-plan-demo-camunda-7</module>
+        <module>public-plan-demo-adapter</module>
     </modules>
 
 </project>

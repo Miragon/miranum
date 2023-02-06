@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  cmis-server:
+    image: srgannav/cmis-in-memory-repository-tomcat
+    ports:
+      - "8888:8080"
