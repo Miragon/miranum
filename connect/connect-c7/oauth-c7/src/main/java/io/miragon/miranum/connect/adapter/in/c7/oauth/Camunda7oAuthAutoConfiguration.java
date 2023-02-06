@@ -34,5 +34,4 @@ public class Camunda7oAuthAutoConfiguration {
         return chain.proceed(requestWithToken);
     }
 
-
 }
