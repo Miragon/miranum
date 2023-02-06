@@ -22,7 +22,7 @@ public class Camunda7oAuthAutoConfiguration {
     }
 
     @Autowired
-    public void createApiClient(final ApiClient apiClient) {
+    public void addOAuthInterceptor(final ApiClient apiClient) {
         apiClient.setHttpClient(apiClient.getHttpClient().newBuilder().addInterceptor(this::intercept).build());
     }
 
