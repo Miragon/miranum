@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dolndx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="Process_0uvirnq" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0yx0bta" sourceRef="StartEvent_1" targetRef="Gateway_1u6m6g0" />
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:type="external" camunda:topic="sendMessage">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="name">myMessage</camunda:inputParameter>
+          <camunda:inputParameter name="tenant">abc</camunda:inputParameter>
+          <camunda:inputParameter name="key">myKey</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0oe625d</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lqc6kg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0xqubhu">
+      <bpmn:incoming>Flow_1lqc6kg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1lqc6kg" sourceRef="Activity_1dgrmef" targetRef="Event_0xqubhu" />
+    <bpmn:sequenceFlow id="Flow_0oe625d" sourceRef="Gateway_1u6m6g0" targetRef="Activity_1dgrmef" />
+    <bpmn:parallelGateway id="Gateway_1u6m6g0">
+      <bpmn:incoming>Flow_0yx0bta</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oe625d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0o27qae</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0o27qae" sourceRef="Gateway_1u6m6g0" targetRef="Event_1q3dhgw" />
+    <bpmn:intermediateCatchEvent id="Event_1q3dhgw" name="Correlate Message">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="correlationKey">myKey</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0o27qae</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gs1gkr</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_01yn84a" messageRef="Message_2dkhtff" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_0u7ju38">
+      <bpmn:incoming>Flow_0cssxbt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1gs1gkr" sourceRef="Event_1q3dhgw" targetRef="Activity_1h54vgz" />
+    <bpmn:sequenceFlow id="Flow_0cssxbt" sourceRef="Activity_1h54vgz" targetRef="Event_0u7ju38" />
+    <bpmn:serviceTask id="Activity_1h54vgz" name="FireAndFOrget" camunda:type="external" camunda:topic="fireAndForget">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="name">messageCorrelated</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gs1gkr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cssxbt</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_2dkhtff" name="myMessage" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0uvirnq">
+      <bpmndi:BPMNEdge id="Flow_0oe625d_di" bpmnElement="Flow_0oe625d">
+        <di:waypoint x="305" y="117" />
+        <di:waypoint x="380" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lqc6kg_di" bpmnElement="Flow_1lqc6kg">
+        <di:waypoint x="480" y="117" />
+        <di:waypoint x="562" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yx0bta_di" bpmnElement="Flow_0yx0bta">
+        <di:waypoint x="198" y="117" />
+        <di:waypoint x="255" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o27qae_di" bpmnElement="Flow_0o27qae">
+        <di:waypoint x="280" y="142" />
+        <di:waypoint x="280" y="230" />
+        <di:waypoint x="412" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gs1gkr_di" bpmnElement="Flow_1gs1gkr">
+        <di:waypoint x="448" y="230" />
+        <di:waypoint x="540" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cssxbt_di" bpmnElement="Flow_0cssxbt">
+        <di:waypoint x="640" y="230" />
+        <di:waypoint x="722" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="162" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kuo48k_di" bpmnElement="Activity_1dgrmef">
+        <dc:Bounds x="380" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xqubhu_di" bpmnElement="Event_0xqubhu">
+        <dc:Bounds x="562" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1yuphv4_di" bpmnElement="Gateway_1u6m6g0">
+        <dc:Bounds x="255" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0u7ju38_di" bpmnElement="Event_0u7ju38">
+        <dc:Bounds x="722" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15hdplm_di" bpmnElement="Activity_1h54vgz">
+        <dc:Bounds x="540" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10pgghf_di" bpmnElement="Event_1q3dhgw">
+        <dc:Bounds x="412" y="212" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="407" y="255" width="46" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -15,8 +15,9 @@
     </parent>
 
     <modules>
-        <module>connect-binder</module>
-        <module>connect-binder-c7</module>
+        <module>connect-c7</module>
+        <module>connect-c8</module>
+        <module>connect-core</module>
     </modules>
 
 </project>

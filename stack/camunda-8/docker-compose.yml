@@ -1,0 +1,26 @@
+ # While the Docker images themselves are supported for production usage,
+# this docker-compose.yaml is designed to be used by developers to run
+# an environment locally. It is not designed to be used in production.
+# We recommend to use Kubernetes in production with our Helm Charts:
+# https://c8.docs.camunda.io/docs/self-managed/platform-deployment/kubernetes-helm/
+# For local development, we recommend using KIND instead of `docker-compose`:
+# https://c8.docs.camunda.io/docs/self-managed/platform-deployment/kubernetes-helm/#installing-the-camunda-helm-chart-locally-using-kind
+
+# This is a lightweight configuration with Zeebe, Operate, Tasklist, and Elasticsearch
+# See docker-compose-all.yml for a configuration that also includes Optimize, Identity, and Keycloak.
+
+services:
+
+  zeebe: # https://docs.camunda.io/docs/self-managed/platform-deployment/docker/#zeebe
+    image: "camunda/zeebe:8.1.6"
+    ports:
+      - "26500:26500"
+      - "5701:5701"
+    environment: # https://docs.camunda.io/docs/self-managed/zeebe-deployment/configuration/environment-variables/
+      ZEEBE_LOG_LEVEL: debug
+    restart: always
+    volumes:
+      - zeebe-miranum:/usr/local/zeebe/data
+
+volumes:
+  zeebe-miranum:
