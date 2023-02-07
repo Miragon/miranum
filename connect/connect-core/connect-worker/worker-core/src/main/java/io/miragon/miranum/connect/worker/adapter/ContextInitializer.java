@@ -1,7 +1,7 @@
 package io.miragon.miranum.connect.worker.adapter;
 
-import io.miragon.miranum.connect.worker.application.port.in.InitalizeWorkerCommand;
-import io.miragon.miranum.connect.worker.application.port.in.InitializeUseCase;
+import io.miragon.miranum.connect.worker.application.port.in.InitializeWorkerCommand;
+import io.miragon.miranum.connect.worker.application.port.in.InitializeWorkerUseCase;
 import io.miragon.miranum.connect.worker.domain.Worker;
 import io.miragon.miranum.connect.worker.domain.WorkerInfo;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ContextInitalizer implements ApplicationContextAware {
+public class ContextInitializer implements ApplicationContextAware {
     private ApplicationContext ctx;
-    private final InitializeUseCase initializeUseCase;
+    private final InitializeWorkerUseCase initializeWorkerUseCase;
     private final WorkerInfoMapper workerInfoMapper;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void doSomethingAfterStartup() {
+    public void initializeWorkerAfterStartup() {
         final List<WorkerInfo> workerInfos = this.getAllWorkerInfos();
-        this.initializeUseCase.initalize(new InitalizeWorkerCommand(workerInfos));
+        this.initializeWorkerUseCase.initialize(new InitializeWorkerCommand(workerInfos));
     }
 
     @Override

@@ -53,7 +53,7 @@ public class Camunda7AdapterTest {
 
 
     @Test
-    void givenDefaultUseCaseAndSuccessfullTask_thenEverythingGetsExecuted() {
+    void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
         final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
@@ -74,13 +74,11 @@ public class Camunda7AdapterTest {
     }
 
     private ExternalTask givenDefaultTask() {
-        final ExternalTask externalTask = Mockito.mock(ExternalTask.class);
-        return externalTask;
+        return Mockito.mock(ExternalTask.class);
     }
 
     private ExternalTaskService givenExternalTaskService() {
-        final ExternalTaskService externalTaskService = Mockito.mock(ExternalTaskService.class);
-        return externalTaskService;
+        return Mockito.mock(ExternalTaskService.class);
     }
 
     private TopicSubscriptionBuilder givenTopicSubscriptionBuilder() {

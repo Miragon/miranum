@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # Fetch and update latest `maven` packages
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "05:00"
+    target-branch: "main"
+    labels:
+      - "Technical Dept"
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
+  # Fetch and update latest `github-actions` packages
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "05:00"
+    target-branch: "main"
+    labels:
+      - "Technical Dept"
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
