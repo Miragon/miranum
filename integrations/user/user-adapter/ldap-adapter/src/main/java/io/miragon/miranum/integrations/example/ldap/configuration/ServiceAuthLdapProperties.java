@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 
-/**
- * This class provides the ldap connection properties given in the application.yml.
- */
 @Getter
 @Setter
 @Component

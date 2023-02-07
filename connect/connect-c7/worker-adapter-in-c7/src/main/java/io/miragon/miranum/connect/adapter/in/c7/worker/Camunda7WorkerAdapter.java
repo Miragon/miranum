@@ -52,10 +52,10 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
             log.error("use case could not be executed", exception);
             service.handleBpmnError(externalTask, exception.getCode());
         } catch (final TechnicalException error) {
-            log.error("Something went wrong: ", error);
+            log.error("Technical error while executing task", error);
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
-            log.error("Something went wrong", error);
+            log.error("Error while executing external task", error);
             int retries = externalTask.getRetries() == null ? 1 : externalTask.getRetries();
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
         }

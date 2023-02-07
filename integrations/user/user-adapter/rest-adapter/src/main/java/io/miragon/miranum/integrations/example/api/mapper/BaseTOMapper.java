@@ -1,4 +1,4 @@
-package io.miragon.miranum.integrations.user.common;
+package io.miragon.miranum.integrations.example.api.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
