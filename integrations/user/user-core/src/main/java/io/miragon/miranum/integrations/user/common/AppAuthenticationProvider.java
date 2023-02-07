@@ -8,8 +8,6 @@ import java.util.List;
 
 /**
  * Get current camunda authentication information.
- *
- * @author externer.dl.horn
  */
 @Component
 @RequiredArgsConstructor
