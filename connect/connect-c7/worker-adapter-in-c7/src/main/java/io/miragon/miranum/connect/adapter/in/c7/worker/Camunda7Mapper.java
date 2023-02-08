@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.adapter.in.c7.worker;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ClassUtils;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
@@ -18,6 +19,7 @@ public class Camunda7Mapper {
     public Object mapInput(final Class<?> inputType, final VariableMap engineData) {
         final Map<String, Object> data = this.fromEngineData(engineData);
         final ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.convertValue(data, inputType);
     }
 
