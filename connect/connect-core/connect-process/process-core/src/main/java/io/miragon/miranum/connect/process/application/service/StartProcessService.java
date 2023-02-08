@@ -5,7 +5,6 @@ import io.miragon.miranum.connect.process.application.port.in.StartProcessUseCas
 import io.miragon.miranum.connect.process.application.port.out.StartProcessPort;
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 public class StartProcessService implements StartProcessUseCase {
 
