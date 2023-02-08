@@ -7,8 +7,8 @@
     <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:type="external" camunda:topic="sendMessage">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="name">myMessage</camunda:inputParameter>
-          <camunda:inputParameter name="key">myKey</camunda:inputParameter>
+          <camunda:inputParameter name="name">${name}</camunda:inputParameter>
+          <camunda:inputParameter name="key">${key}</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1bvu66v</bpmn:incoming>
