@@ -20,10 +20,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine</artifactId>
-            <version>7.17.0</version>
-            <scope>compile</scope>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
+            <version>${camunda7.version}</version>
         </dependency>
     </dependencies>
 
