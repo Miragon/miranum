@@ -24,6 +24,12 @@
             <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
             <version>${camunda7.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>utils-c7</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
