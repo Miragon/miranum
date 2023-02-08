@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.runtime.ProcessInstanceWithVariables;
 
 @RequiredArgsConstructor
 public class Camunda7ProcessAdapter implements StartProcessPort {
@@ -14,10 +13,10 @@ public class Camunda7ProcessAdapter implements StartProcessPort {
     @Override
     public void startProcess(StartProcessCommand startProcessCommand) {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-        RuntimeService runtimeService=processEngine.getRuntimeService();
-
-        ProcessInstanceWithVariables instance = runtimeService.createProcessInstanceByKey(startProcessCommand.getProcessKey())
-                .setVariables(startProcessCommand.getVariables())
-                .executeWithVariablesInReturn();
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        runtimeService.startProcessInstanceByKey(
+                startProcessCommand.getProcessKey(),
+                "default",
+                startProcessCommand.getVariables());
     }
 }

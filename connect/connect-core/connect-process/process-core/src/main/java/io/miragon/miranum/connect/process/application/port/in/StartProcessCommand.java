@@ -12,7 +12,5 @@ import java.util.Map;
 public class StartProcessCommand {
 
     private String processKey;
-
     private Map<String, Object> variables;
-
 }
