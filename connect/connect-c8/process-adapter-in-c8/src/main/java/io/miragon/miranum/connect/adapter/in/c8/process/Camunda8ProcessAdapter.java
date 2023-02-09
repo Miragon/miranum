@@ -19,11 +19,12 @@ public class Camunda8ProcessAdapter implements StartProcessPort {
                 .bpmnProcessId(startProcessCommand.getProcessKey()).latestVersion()
                 .variables(startProcessCommand.getVariables())
                 .send()
-                .whenComplete((a, b) -> {
-                    log.info("Started new process instance with id {}", a.getProcessInstanceKey());
-                })
-                .exceptionally(throwable -> {
-                    throw new ProcessStartingException("Failed to create new process instance.", (Exception) throwable);
+                .whenComplete((result, exception) -> {
+                    if (exception == null) {
+                        log.info("Started new process instance with id {}", result.getProcessInstanceKey());
+                    } else {
+                        throw new ProcessStartingException("Failed to create new process instance.", (Exception) exception);
+                    }
                 });
     }
 }
