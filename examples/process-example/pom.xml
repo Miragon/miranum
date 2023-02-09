@@ -16,6 +16,7 @@
 
     <modules>
         <module>process-example-camunda-7</module>
+        <module>process-example-camunda-8</module>
         <module>process-example-core</module>
     </modules>
 
