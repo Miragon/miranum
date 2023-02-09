@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.process.adapter.in;
+package io.miragon.miranum.examples.process.adapter.in.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

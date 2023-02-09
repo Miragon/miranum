@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 public class Camunda8ProcessAutoConfiguration {
 
     @Bean
-    public Camunda8ProcessAdapter camunda7MessageAdapter(final ZeebeClient zeebeClient) {
+    public Camunda8ProcessAdapter camunda8ProcessAdapter(final ZeebeClient zeebeClient) {
         return new Camunda8ProcessAdapter(zeebeClient);
     }
 }
