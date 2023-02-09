@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.process.c7;
+package io.miragon.miranum.examples.process.adapter.in;
 
 import io.miragon.miranum.connect.process.application.port.in.StartProcessCommand;
 import io.miragon.miranum.connect.process.application.port.out.StartProcessPort;
