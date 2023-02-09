@@ -19,6 +19,13 @@
             <artifactId>process-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--Camunda-->
+        <dependency>
+            <groupId>io.camunda</groupId>
+            <artifactId>zeebe-client-java</artifactId>
+            <version>${camunda8.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

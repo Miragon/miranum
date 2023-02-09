@@ -25,9 +25,9 @@ public class Camunda7ProcessAdapter implements StartProcessPort {
             var processInstance = this.processDefinitionApi.startProcessInstanceByKey(
                     startProcessCommand.getProcessKey(),
                     new StartProcessInstanceDto().variables(variables));
-            log.info("Started process with id {}", processInstance.getId());
+            log.info("Started new process instance with id {}", processInstance.getId());
         } catch (ApiException e) {
-            throw new ProcessStartingException("Failed to start a process.", e);
+            throw new ProcessStartingException("Failed to create new process instance.", e);
         }
     }
 }
