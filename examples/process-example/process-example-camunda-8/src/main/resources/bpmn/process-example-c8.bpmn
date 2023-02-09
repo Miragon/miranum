@@ -13,7 +13,7 @@
       <bpmn:extensionElements>
         <zeebe:ioMapping>
           <zeebe:input source="=key" target="key" />
-          <zeebe:input source="=value" target="value" />
+          <zeebe:input source="=name" target="name" />
         </zeebe:ioMapping>
         <zeebe:taskDefinition type="sendMessage" />
       </bpmn:extensionElements>
