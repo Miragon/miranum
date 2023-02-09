@@ -3,6 +3,7 @@ package io.miragon.miranum.connect.adapter.in.c7.process;
 import io.miragon.miranum.connect.c7.utils.Camunda7BaseVariableValueMapper;
 import io.miragon.miranum.connect.process.application.port.in.StartProcessCommand;
 import io.miragon.miranum.connect.process.application.port.out.StartProcessPort;
+import io.miragon.miranum.connect.process.domain.ProcessStartingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.community.rest.client.api.ProcessDefinitionApi;
@@ -17,7 +18,7 @@ public class Camunda7ProcessAdapter implements StartProcessPort {
     private final Camunda7BaseVariableValueMapper baseVariableMapper;
 
     @Override
-    public void startProcess(StartProcessCommand startProcessCommand) {
+    public void startProcess(StartProcessCommand startProcessCommand) throws ProcessStartingException {
         var variables = baseVariableMapper.map(startProcessCommand.getVariables());
 
         try {
@@ -26,8 +27,7 @@ public class Camunda7ProcessAdapter implements StartProcessPort {
                     new StartProcessInstanceDto().variables(variables));
             log.info("Started process with id {}", processInstance.getId());
         } catch (ApiException e) {
-            // temporarily
-            throw new RuntimeException(e);
+            throw new ProcessStartingException("Failed to start a process.", e);
         }
     }
 }
