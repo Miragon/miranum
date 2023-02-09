@@ -15,7 +15,7 @@ public class Camunda8ProcessAdapter implements StartProcessPort {
 
     @Override
     public void startProcess(StartProcessCommand startProcessCommand) throws ProcessStartingException {
-        var processInstance = zeebeClient.newCreateInstanceCommand()
+        zeebeClient.newCreateInstanceCommand()
                 .bpmnProcessId(startProcessCommand.getProcessKey()).latestVersion()
                 .variables(startProcessCommand.getVariables())
                 .send()
