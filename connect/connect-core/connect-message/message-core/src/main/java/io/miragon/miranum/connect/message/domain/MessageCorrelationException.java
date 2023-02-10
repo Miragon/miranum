@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.binder.message.domain;
+package io.miragon.miranum.connect.message.domain;
 
 public class MessageCorrelationException extends RuntimeException {
 

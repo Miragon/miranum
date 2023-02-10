@@ -16,6 +16,7 @@
     <modules>
         <module>worker-adapter-in-c8</module>
         <module>message-adapter-out-c8</module>
+        <module>process-adapter-in-c8</module>
     </modules>
 
 </project>

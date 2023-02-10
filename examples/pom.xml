@@ -16,6 +16,7 @@
 
     <modules>
         <module>simple-example</module>
+        <module>process-example</module>
     </modules>
 
 </project>

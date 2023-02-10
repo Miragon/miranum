@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.variable.value.TypedValue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Camunda7Mapper {
 
@@ -24,14 +25,12 @@ public class Camunda7Mapper {
     }
 
     public Map<String, Object> mapOutput(final Object output) {
-
-        if (output == null) {
+        if (Objects.isNull(output)) {
             return new HashMap<>();
         }
 
         final ObjectMapper mapper = new ObjectMapper();
-        final Map<String, Object> result = mapper.convertValue(output, new TypeReference<Map<String, Object>>() {
-        });
+        final Map<String, Object> result = mapper.convertValue(output, new TypeReference<>() {});
         return this.toEngineData(result);
     }
 
@@ -41,7 +40,7 @@ public class Camunda7Mapper {
         final VariableMap variables = Variables.createVariables();
         data.keySet().forEach(key -> {
                     final Object value = data.get(key);
-                    if (value == null || ClassUtils.isPrimitiveOrWrapper(value.getClass())) {
+                    if (Objects.isNull(value) || ClassUtils.isPrimitiveOrWrapper(value.getClass())) {
                         variables.putValue(key, value);
                     } else {
                         final JsonValueImpl json = new JsonValueImpl(value.toString());
