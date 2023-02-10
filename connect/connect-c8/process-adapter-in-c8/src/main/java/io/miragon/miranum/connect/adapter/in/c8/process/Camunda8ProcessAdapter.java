@@ -7,6 +7,8 @@ import io.miragon.miranum.connect.process.domain.ProcessStartingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
 @Slf4j
 public class Camunda8ProcessAdapter implements StartProcessPort {
@@ -20,7 +22,7 @@ public class Camunda8ProcessAdapter implements StartProcessPort {
                 .variables(startProcessCommand.getVariables())
                 .send()
                 .whenComplete((result, exception) -> {
-                    if (exception == null) {
+                    if (Objects.isNull(exception)) {
                         log.info("Started new process instance with id {}", result.getProcessInstanceKey());
                     } else {
                         throw new ProcessStartingException("Failed to create new process instance.", (Exception) exception);

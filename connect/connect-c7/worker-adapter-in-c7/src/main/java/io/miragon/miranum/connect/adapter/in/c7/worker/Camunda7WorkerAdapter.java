@@ -14,6 +14,7 @@ import org.camunda.bpm.client.task.ExternalTaskService;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -56,7 +57,7 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
             log.error("Error while executing external task", error);
-            int retries = externalTask.getRetries() == null ? 1 : externalTask.getRetries();
+            int retries = Objects.isNull(externalTask.getRetries()) ? 1 : externalTask.getRetries();
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
         }
     }
