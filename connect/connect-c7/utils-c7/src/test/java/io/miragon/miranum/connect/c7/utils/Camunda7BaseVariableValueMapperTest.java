@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,18 +17,24 @@ public class Camunda7BaseVariableValueMapperTest {
 
     @Test
     public void testMap_ShouldReturnMappedVariables() {
+        final String KEY_1 = "var1";
+        final String KEY_2 = "var2";
+        final String VALUE_1 = "value2";
+        final Integer VALUE_2 = 2;
+
         // Given
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("var1", "value1");
-        variables.put("var2", 2);
+        Map<String, Object> variables = Map.ofEntries(
+                entry(KEY_1, VALUE_1),
+                entry(KEY_2, VALUE_2)
+        );
 
         // When
         Map<String, VariableValueDto> result = mapper.map(variables);
 
         // Then
         assertEquals(2, result.size());
-        assertEquals("value1", result.get("var1").getValue());
-        assertEquals(2, result.get("var2").getValue());
+        assertEquals(VALUE_1, result.get(KEY_1).getValue());
+        assertEquals(VALUE_2, result.get(KEY_2).getValue());
     }
 
     @Test
