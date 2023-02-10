@@ -2,9 +2,11 @@ package io.miragon.miranum.connect.c7.utils;
 
 import org.camunda.community.rest.client.dto.VariableValueDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -49,15 +51,24 @@ public class Camunda7BaseVariableValueMapperTest {
         assertTrue(result.isEmpty());
     }
 
-    @Test
-    public void testCreateValue_ShouldReturnCorrectValue() {
-        // Given
-        Object value = "some value";
-
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"some value"})
+    public void testCreateValueWithStrings_ShouldReturnCorrectValue(String value) {
         // When
         VariableValueDto result = mapper.createValue(value);
 
         // Then
-        assertEquals("some value", result.getValue());
+        assertEquals(value, result.getValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MAX_VALUE, Integer.MAX_VALUE})
+    public void testCreateValueWithStrings_ShouldReturnCorrectValue(Integer value) {
+        // When
+        VariableValueDto result = mapper.createValue(value);
+
+        // Then
+        assertEquals(value, result.getValue());
     }
 }
