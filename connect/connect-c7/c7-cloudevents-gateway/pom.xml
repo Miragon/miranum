@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <artifactId>c7-cloudevents-gateway</artifactId>
+    <name>c7-cloudevents-gateway</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>connect-c7</artifactId>
+        <version>0.13.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--Miranum-->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>message-api-cloudevents</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>message-adapter-c7</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--Camunda-->
+        <dependency>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
+            <version>${camunda7.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

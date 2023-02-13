@@ -18,6 +18,7 @@
         <module>oauth-c7</module>
         <module>process-adapter-c7</module>
         <module>worker-adapter-c7</module>
+        <module>c7-cloudevents-gateway</module>
         <module>utils-c7</module>
     </modules>
 
