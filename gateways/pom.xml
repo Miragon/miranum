@@ -10,6 +10,9 @@
     </parent>
 
     <artifactId>gateways</artifactId>
+    <name>gateways</name>
+    <packaging>pom</packaging>
+    <description>standalone gateways</description>
 
     <modules>
         <module>gateway-c7</module>

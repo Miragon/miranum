@@ -1,4 +1,4 @@
-package io.miragon.miranum.gateway.example.c7;
+package io.miragon.miranum.gateway.c7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GatewayC7Application {
 
     public static void main(final String[] args) {
-        SpringApplication.run(ExampleC7Application.class, args);
+        SpringApplication.run(GatewayC7Application.class, args);
     }
 
 }
