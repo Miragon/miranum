@@ -29,11 +29,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>process-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>
