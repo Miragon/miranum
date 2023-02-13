@@ -1,7 +1,7 @@
 package io.miragon.miranum.integrations.example.application.port.out;
 
-import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
-import io.miragon.miranum.connect.worker.domain.WorkerInfo;
+import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
+import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import io.miragon.miranum.integrations.example.application.port.in.TenantAwareCommand;
 import lombok.extern.java.Log;
 

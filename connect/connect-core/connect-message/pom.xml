@@ -14,7 +14,7 @@
     </parent>
 
     <modules>
-        <module>message-core</module>
+        <module>message-api</module>
     </modules>
 
 </project>

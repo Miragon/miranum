@@ -17,7 +17,7 @@
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-core</artifactId>
+            <artifactId>worker-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>process-core</artifactId>
+            <artifactId>process-api</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
