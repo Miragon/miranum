@@ -11,7 +11,7 @@ public class TaskService implements TaskApi {
     private final CompleteTaskPort deliverMessagePort;
 
     @Override
-    public void correlateMessage(final CompleteTaskCommand command) {
+    public void completeTask(final CompleteTaskCommand command) {
         this.deliverMessagePort.deliverMessage(command);
     }
 }
