@@ -14,7 +14,7 @@
     </parent>
 
     <modules>
-        <module>worker-core</module>
+        <module>worker-api</module>
     </modules>
 
 </project>

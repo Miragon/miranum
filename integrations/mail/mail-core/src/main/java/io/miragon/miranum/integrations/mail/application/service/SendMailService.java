@@ -1,6 +1,6 @@
 package io.miragon.miranum.integrations.mail.application.service;
 
-import io.miragon.miranum.connect.worker.domain.Worker;
+import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailCommand;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailUseCase;
 import io.miragon.miranum.integrations.mail.application.port.out.DeliverMailPort;

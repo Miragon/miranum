@@ -1,6 +1,6 @@
 package io.miragon.miranum.examples.process;
 
-import io.miragon.miranum.connect.process.application.port.out.StartProcessPort;
+import io.miragon.miranum.connect.process.impl.StartProcessPort;
 import io.miragon.miranum.examples.process.adapter.in.rest.StartProcessController;
 import io.miragon.miranum.examples.process.application.port.in.SendMessageUseCase;
 import io.miragon.miranum.examples.process.application.service.SendMessageService;

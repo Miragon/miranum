@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-core</artifactId>
+            <artifactId>worker-api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

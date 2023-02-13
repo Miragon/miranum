@@ -1,6 +1,6 @@
 package io.miragon.miranum.integrations.example;
 
-import io.miragon.miranum.connect.worker.application.port.out.WorkerInterceptor;
+import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
 import io.miragon.miranum.integrations.example.application.port.in.FireAndForgetUseCase;
 import io.miragon.miranum.integrations.example.application.port.in.SendMessageUseCase;
 import io.miragon.miranum.integrations.example.application.port.out.TenantInterceptor;

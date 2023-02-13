@@ -14,6 +14,7 @@
     </parent>
 
     <modules>
+        <module>connect-task</module>
         <module>connect-message</module>
         <module>connect-worker</module>
         <module>connect-process</module>

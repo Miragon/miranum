@@ -14,7 +14,7 @@
     </parent>
 
     <modules>
-        <module>process-core</module>
+        <module>process-api</module>
     </modules>
 
 </project>

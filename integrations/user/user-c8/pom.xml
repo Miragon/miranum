@@ -46,7 +46,7 @@
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-adapter-in-c8</artifactId>
+            <artifactId>worker-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 
