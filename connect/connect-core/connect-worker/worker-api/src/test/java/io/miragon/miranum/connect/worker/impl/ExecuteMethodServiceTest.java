@@ -1,10 +1,7 @@
-package io.miragon.miranum.connect.worker.application.service;
+package io.miragon.miranum.connect.worker.impl;
 
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodService;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -19,20 +16,20 @@ class ExecuteMethodServiceTest {
 
     @Test
     void executeMethod_throwsTechnicalException_whenTechnicalExceptionIsThrownByApplication() throws NoSuchMethodException {
-        var command = new ExecuteMethodCommand(null, getMockedWorker(new TechnicalException("-")));
+        final var command = new ExecuteMethodCommand(null, this.getMockedWorker(new TechnicalException("-")));
         assertThrows(TechnicalException.class, () -> this.executeMethodService.execute(command));
     }
 
     @Test
     void executeMethod_throwsBusinessException_whenBusinessExceptionIsThrownByApplication() throws NoSuchMethodException {
-        var command = new ExecuteMethodCommand(null, getMockedWorker(new BusinessException("-", "-")));
+        final var command = new ExecuteMethodCommand(null, this.getMockedWorker(new BusinessException("-", "-")));
         assertThrows(BusinessException.class, () -> this.executeMethodService.execute(command));
     }
 
-    private WorkerInfo getMockedWorker(Exception exception) throws NoSuchMethodException {
+    private WorkerInfo getMockedWorker(final Exception exception) throws NoSuchMethodException {
 
         class MockService {
-            public String mockServiceMethod(Object ignored) {
+            public String mockServiceMethod(final Object ignored) {
                 throw (RuntimeException) exception;
             }
         }
