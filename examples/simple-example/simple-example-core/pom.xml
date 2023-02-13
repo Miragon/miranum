@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>message-core</artifactId>
+            <artifactId>message-api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
