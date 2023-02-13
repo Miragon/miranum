@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.process.domain;
+package io.miragon.miranum.examples.pizzaorder.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

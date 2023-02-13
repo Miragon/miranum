@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.process.application.port.in;
+package io.miragon.miranum.examples.pizzaorder.application.port.in;
 
 import lombok.Getter;
 import lombok.Setter;

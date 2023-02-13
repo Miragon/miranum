@@ -16,7 +16,6 @@
 
     <modules>
         <module>pizza-order-core</module>
-        <module>waiter</module>
 </modules>
 
 </project>

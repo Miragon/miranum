@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.process;
+package io.miragon.miranum.examples.pizzaorder;
 
 import org.springframework.context.annotation.Configuration;
 
