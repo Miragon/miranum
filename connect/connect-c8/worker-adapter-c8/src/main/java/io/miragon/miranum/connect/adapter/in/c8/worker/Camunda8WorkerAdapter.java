@@ -4,11 +4,11 @@ import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodUseCase;
-import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
+import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
+import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
+import io.miragon.miranum.connect.worker.impl.MethodExecutor;
 import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class Camunda8WorkerAdapter implements BindWorkerPort {
 
     private final ZeebeClient client;
-    private final ExecuteMethodUseCase executeMethodUseCase;
+    private final MethodExecutor methodExecutor;
 
     @Override
     public void bind(final WorkerInfo workerInfo) {
@@ -38,7 +38,7 @@ public class Camunda8WorkerAdapter implements BindWorkerPort {
             //1. map values
             final Object value = job.getVariablesAsType(workerInfo.getInputType());
             //2. execute method
-            final Optional<Object> result = Optional.ofNullable(this.executeMethodUseCase.execute(new ExecuteMethodCommand(value, workerInfo)));
+            final Optional<Object> result = Optional.ofNullable(this.methodExecutor.execute(new ExecuteMethodCommand(value, workerInfo)));
 
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
             //3. add variables if result is not null

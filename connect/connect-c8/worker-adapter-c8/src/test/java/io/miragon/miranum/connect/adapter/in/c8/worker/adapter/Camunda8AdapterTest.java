@@ -7,7 +7,7 @@ import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobWorkerBuilderStep1;
 import io.miragon.miranum.connect.adapter.in.c8.worker.Camunda8WorkerAdapter;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.worker.impl.MethodExecutor;
 import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,11 +24,11 @@ public class Camunda8AdapterTest {
     private final ZeebeClient zeebeClient =
             Mockito.mock(ZeebeClient.class);
 
-    private final ExecuteMethodUseCase executeMethodUseCase =
-            Mockito.mock(ExecuteMethodUseCase.class);
+    private final MethodExecutor methodExecutor =
+            Mockito.mock(MethodExecutor.class);
 
     private final Camunda8WorkerAdapter adapter =
-            new Camunda8WorkerAdapter(this.zeebeClient, this.executeMethodUseCase);
+            new Camunda8WorkerAdapter(this.zeebeClient, this.methodExecutor);
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
@@ -55,7 +55,7 @@ public class Camunda8AdapterTest {
         final WorkerInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         final JobClient client = this.givenDefaultClient(result);
-        given(this.executeMethodUseCase.execute(any())).willReturn(result);
+        given(this.methodExecutor.execute(any())).willReturn(result);
 
         this.adapter.execute(client, job, useCaseInfo);
 

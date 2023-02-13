@@ -15,13 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContextInitializer implements ApplicationContextAware {
     private ApplicationContext ctx;
-    private final InitializeWorkerUseCase initializeWorkerUseCase;
+    private final WorkerInitalizer workerInitalizer;
     private final WorkerInfoMapper workerInfoMapper;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initializeWorkerAfterStartup() {
         final List<WorkerInfo> workerInfos = this.getAllWorkerInfos();
-        this.initializeWorkerUseCase.initialize(new InitializeWorkerCommand(workerInfos));
+        this.workerInitalizer.initialize(new InitializeWorkerCommand(workerInfos));
     }
 
     @Override

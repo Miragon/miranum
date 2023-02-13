@@ -2,7 +2,7 @@ package io.miragon.miranum.connect.adapter.in.c8.worker;
 
 import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7Mapper;
 import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7WorkerAdapter;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.worker.impl.MethodExecutor;
 import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
@@ -27,11 +27,11 @@ public class Camunda7AdapterTest {
     private final Camunda7Mapper camunda7Mapper =
             Mockito.mock(Camunda7Mapper.class);
 
-    private final ExecuteMethodUseCase executeMethodUseCase =
-            Mockito.mock(ExecuteMethodUseCase.class);
+    private final MethodExecutor methodExecutor =
+            Mockito.mock(MethodExecutor.class);
 
     private final Camunda7WorkerAdapter adapter =
-            new Camunda7WorkerAdapter(this.externalTaskClient, this.camunda7Mapper, this.executeMethodUseCase);
+            new Camunda7WorkerAdapter(this.externalTaskClient, this.camunda7Mapper, this.methodExecutor);
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
@@ -58,7 +58,7 @@ public class Camunda7AdapterTest {
         final ExternalTaskService service = this.givenExternalTaskService();
         final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final Map<String, Object> result = Map.of("value", "test");
-        given(this.executeMethodUseCase.execute(any())).willReturn(result);
+        given(this.methodExecutor.execute(any())).willReturn(result);
         given(this.camunda7Mapper.mapOutput(any())).willReturn(result);
 
         this.adapter.execute(externalTask, service, defaultWorker);

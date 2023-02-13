@@ -11,12 +11,10 @@ import java.util.List;
 
 @Log
 @RequiredArgsConstructor
-public class ExecuteMethodService implements ExecuteMethodUseCase {
+public class MethodExecutor {
 
     private final List<WorkerInterceptor> interceptors;
 
-
-    @Override
     public Object execute(final ExecuteMethodCommand command) throws BusinessException, TechnicalException {
         try {
             // 1. execute interceptors if present

@@ -12,7 +12,7 @@ import static org.mockito.BDDMockito.given;
 
 class ExecuteMethodServiceTest {
 
-    private final ExecuteMethodService executeMethodService = new ExecuteMethodService(List.of());
+    private final MethodExecutor executeMethodService = new MethodExecutor(List.of());
 
     @Test
     void executeMethod_throwsTechnicalException_whenTechnicalExceptionIsThrownByApplication() throws NoSuchMethodException {

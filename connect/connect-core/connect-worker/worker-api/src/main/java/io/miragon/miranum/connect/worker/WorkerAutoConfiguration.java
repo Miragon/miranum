@@ -18,12 +18,12 @@ public class WorkerAutoConfiguration {
     }
 
     @Bean
-    public ExecuteMethodUseCase executeMethodUseCase(final List<WorkerInterceptor> interceptors) {
-        return new ExecuteMethodService(interceptors);
+    public MethodExecutor executeMethodUseCase(final List<WorkerInterceptor> interceptors) {
+        return new MethodExecutor(interceptors);
     }
 
     @Bean
-    public InitializeWorkerUseCase initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
-        return new InitializeWorkerService(bindUseCasePort);
+    public WorkerInitalizer initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
+        return new WorkerInitalizer(bindUseCasePort);
     }
 }

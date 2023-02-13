@@ -4,7 +4,7 @@ import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
 import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodUseCase;
+import io.miragon.miranum.connect.worker.impl.MethodExecutor;
 import io.miragon.miranum.connect.worker.impl.WorkerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
 
     private final ExternalTaskClient externalTaskClient;
     private final Camunda7Mapper camunda7Mapper;
-    private final ExecuteMethodUseCase executeMethodUseCase;
+    private final MethodExecutor methodExecutor;
 
     @Override
     public void bind(final WorkerInfo workerInfo) {
@@ -44,7 +44,7 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
         final Object value = this.camunda7Mapper.mapInput(workerInfo.getInputType(), externalTask.getAllVariablesTyped());
         try {
             //1. execute method
-            final Object result = this.executeMethodUseCase.execute(new ExecuteMethodCommand(value, workerInfo));
+            final Object result = this.methodExecutor.execute(new ExecuteMethodCommand(value, workerInfo));
             //2. convert to result map
             final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
             //3. complete task
