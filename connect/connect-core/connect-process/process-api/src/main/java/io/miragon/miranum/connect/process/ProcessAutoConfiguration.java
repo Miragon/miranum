@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ProcessAutoConfiguration {
 
     @Bean
-    public ProcessService startProcessService(final StartProcessPort startProcessPort) {
+    public ProcessService miranumProcessService(final StartProcessPort startProcessPort) {
         return new ProcessService(startProcessPort);
     }
 }

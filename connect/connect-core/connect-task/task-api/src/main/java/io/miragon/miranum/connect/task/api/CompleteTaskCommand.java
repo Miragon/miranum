@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.message.api;
+package io.miragon.miranum.connect.task.api;
 
 import lombok.*;
 
@@ -9,11 +9,9 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CorrelateMessageCommand {
+public class CompleteTaskCommand {
 
-    private String messageName;
-
-    private String correlationKey;
+    private String taskId;
 
     private Map<String, Object> variables;
 

@@ -1,6 +1,6 @@
-package io.miragon.miranum.connect.message.api;
+package io.miragon.miranum.connect.task.api;
 
-public interface MessageApi {
+public interface TaskApi {
 
-    void correlateMessage(CorrelateMessageCommand command);
+    void correlateMessage(CompleteTaskCommand command);
 }

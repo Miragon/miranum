@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-public class CorrelateMessageService implements MessageApi {
+public class MessageService implements MessageApi {
 
     private final DeliverMessagePort deliverMessagePort;
 

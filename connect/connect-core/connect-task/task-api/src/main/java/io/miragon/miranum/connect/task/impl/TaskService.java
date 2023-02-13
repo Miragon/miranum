@@ -1,17 +1,17 @@
-package io.miragon.miranum.connect.message.impl;
+package io.miragon.miranum.connect.task.impl;
 
-import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
-import io.miragon.miranum.connect.message.api.MessageApi;
+import io.miragon.miranum.connect.task.api.CompleteTaskCommand;
+import io.miragon.miranum.connect.task.api.TaskApi;
 import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-public class CorrelateMessageService implements MessageApi {
+public class TaskService implements TaskApi {
 
-    private final DeliverMessagePort deliverMessagePort;
+    private final CompleteTaskPort deliverMessagePort;
 
     @Override
-    public void correlateMessage(final CorrelateMessageCommand command) {
+    public void correlateMessage(final CompleteTaskCommand command) {
         this.deliverMessagePort.deliverMessage(command);
     }
 }
