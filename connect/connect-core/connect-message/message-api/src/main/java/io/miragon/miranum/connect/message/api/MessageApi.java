@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.message.api;
 
-public interface CorrelateMessageUseCase {
+public interface MessageApi {
 
     void correlateMessage(CorrelateMessageCommand command);
 }
