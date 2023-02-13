@@ -1,0 +1,11 @@
+{
+  "$id": "io.miranum.bpmn.command.v1.PublishMessageResponse",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "key": {
+      "description": "the unique ID of the message that was published",
+      "type": "number"
+    }
+  }
+}

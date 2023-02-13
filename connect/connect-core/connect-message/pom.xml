@@ -15,7 +15,7 @@
 
     <modules>
         <module>message-api</module>
-        <module>message-api-cloudevents</module>
+        <module>message-api-gateway</module>
     </modules>
 
 </project>
