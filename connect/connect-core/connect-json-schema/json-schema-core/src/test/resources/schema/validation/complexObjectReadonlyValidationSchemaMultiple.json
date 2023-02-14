@@ -1,0 +1,1060 @@
+{
+  "type": "object",
+  "allOf": [
+    {
+      "title": "Antrag (Test: einige Validierungen sind ausgeschaltet)",
+      "key": "aff6a146-d495-4525-ab78-6cce7b3eb630",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "title": "Antrag-Gruppe",
+          "containerType": "objectGroup",
+          "key": "9f56b8ee-442f-4115-b3ee-8846a08057d7",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "antragsdaten": {
+              "key": "antragsdaten",
+              "fieldType": "object",
+              "title": "Antragsdaten (Testing: Validierung ausgeschaltet)",
+              "type": "object",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [],
+              "properties": {
+                "antragTyp": {
+                  "fieldType": "select",
+                  "type": "string",
+                  "key": "antragTyp",
+                  "title": "Antragstyp",
+                  "anyOf": [
+                    {
+                      "const": "BEWOHNERPARKAUSWEIS",
+                      "title": "Bewohnerparkausweis"
+                    },
+                    {
+                      "const": "BETRIEB_HANDWERKER",
+                      "title": "Betrieb/Handwerker"
+                    }
+                  ],
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "datumAntragstellung": {
+                  "fieldType": "date",
+                  "title": "Datum der Antragstellung",
+                  "type": "string",
+                  "format": "date",
+                  "key": "datumAntragstellung",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "gueltigerFuehrerschein": {
+                  "fieldType": "boolean",
+                  "title": "Gültiger Führerschein vorhanden?",
+                  "type": "boolean",
+                  "key": "gueltigerFuehrerschein",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "gueltigerParkausweis": {
+                  "fieldType": "boolean",
+                  "title": "Gültiger Parkausweis vorhanden?",
+                  "type": "boolean",
+                  "key": "gueltigerParkausweis",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "bauartFahrzeug": {
+                  "fieldType": "select",
+                  "title": "Bauart des Fahrzeugs/der Fahrzeuge",
+                  "type": "string",
+                  "key": "bauartFahrzeug",
+                  "anyOf": [
+                    {
+                      "title": "Ich möchte einen PKW oder ein Motorrad in den Parkausweis eintragen.",
+                      "const": "PKW_ODER_MOTORRAD"
+                    },
+                    {
+                      "title": "Ich möchte ein aufgrund der Bauart vorrangig zur gewerblichen Nutzung vorgesehenes Fahrzeug in den Parkausweis eintragen.",
+                      "const": "GEWERBLICH"
+                    }
+                  ],
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "stellplatzVorhanden": {
+                  "fieldType": "boolean",
+                  "title": "Stellplatz vorhanden?",
+                  "type": "boolean",
+                  "key": "stellplatzVorhanden",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "begruendungParkausweis": {
+                  "fieldType": "textarea",
+                  "title": "Begründung",
+                  "x-display": "textarea",
+                  "type": "string",
+                  "key": "begruendungParkausweis",
+                  "description": "Pflichtfeld, wenn stellplatzVorhanden == true",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            },
+            "lizenzdaten": {
+              "key": "lizenzdaten",
+              "fieldType": "object",
+              "title": "Lizenzdaten (Testing: Validierung ausgeschaltet)",
+              "type": "object",
+              "description": "Lizenzdaten",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [],
+              "properties": {
+                "dauer": {
+                  "fieldType": "select",
+                  "title": "Dauer",
+                  "type": "string",
+                  "key": "dauer",
+                  "anyOf": [
+                    {
+                      "title": "6 Monate",
+                      "const": "6 Monate"
+                    },
+                    {
+                      "title": "12 Monate",
+                      "const": "12 Monate"
+                    },
+                    {
+                      "title": "24 Monate",
+                      "const": "24 Monate"
+                    }
+                  ],
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "gebuehr": {
+                  "fieldType": "select",
+                  "title": "Gebühr",
+                  "type": "string",
+                  "key": "gebuehr",
+                  "anyOf": [
+                    {
+                      "title": "30,00 €",
+                      "const": "3000"
+                    },
+                    {
+                      "title": "60,00 €",
+                      "const": "6000"
+                    },
+                    {
+                      "title": "120,00 €",
+                      "const": "12000"
+                    }
+                  ],
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "name": {
+                  "fieldType": "text",
+                  "title": "Gebietname",
+                  "type": "string",
+                  "key": "name",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 10,
+                      "sm": 10,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "nummer": {
+                  "fieldType": "integer",
+                  "title": "Gebietnummer",
+                  "type": "integer",
+                  "key": "nummer",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 2,
+                      "sm": 2,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            },
+            "antragsteller": {
+              "key": "antragsteller",
+              "fieldType": "object",
+              "title": "Antragsteller",
+              "type": "object",
+              "description": "Antragsteller",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [
+                "required"
+              ],
+              "properties": {
+                "vorname": {
+                  "fieldType": "text",
+                  "title": "Vorname",
+                  "type": "string",
+                  "key": "vorname",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 4,
+                      "sm": 4,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "name": {
+                  "fieldType": "text",
+                  "title": "Familienname",
+                  "type": "string",
+                  "key": "name",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 5,
+                      "sm": 5,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "geburtsdatum": {
+                  "fieldType": "date",
+                  "title": "Geburtsdatum",
+                  "type": "string",
+                  "format": "date",
+                  "key": "geburtsdatum",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 3,
+                      "messages": {},
+                      "sm": 3
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "strassenname": {
+                  "fieldType": "text",
+                  "title": "Straßenname",
+                  "type": "string",
+                  "key": "strassenname",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "messages": {},
+                      "sm": 6
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "hausnummer": {
+                  "fieldType": "text",
+                  "title": "Hausnummer",
+                  "type": "string",
+                  "key": "hausnummer",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 2,
+                      "sm": 2,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "postleitzahl": {
+                  "fieldType": "text",
+                  "title": "Postleitzahl",
+                  "type": "string",
+                  "key": "postleitzahl",
+                  "x-options": {
+                    "fieldColProps": {
+                      "messages": {},
+                      "sm": 2,
+                      "cols": 2
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "ort": {
+                  "fieldType": "text",
+                  "title": "Ort",
+                  "type": "string",
+                  "key": "ort",
+                  "x-options": {
+                    "fieldColProps": {
+                      "messages": {},
+                      "cols": 2,
+                      "sm": 2
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "mailadresse": {
+                  "fieldType": "text",
+                  "title": "Mailadresse",
+                  "type": "string",
+                  "key": "mailadresse",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "telefonnummer": {
+                  "fieldType": "text",
+                  "title": "Telefonnummer",
+                  "type": "string",
+                  "key": "telefonnummer",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            },
+            "vermieter": {
+              "key": "vermieter",
+              "fieldType": "object",
+              "title": "Vermieter (Testing: Validierung ausgeschaltet)",
+              "type": "object",
+              "description": "Vermieter",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [],
+              "properties": {
+                "name": {
+                  "fieldType": "text",
+                  "title": "Name",
+                  "type": "string",
+                  "key": "name",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "strassenname": {
+                  "fieldType": "text",
+                  "title": "Straßenname",
+                  "type": "string",
+                  "key": "strassenname",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 6,
+                      "sm": 6,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "hausnummer": {
+                  "fieldType": "text",
+                  "title": "Hausnummer",
+                  "type": "string",
+                  "key": "hausnummer",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 2,
+                      "sm": 2,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "postleitzahl": {
+                  "fieldType": "text",
+                  "title": "Postleitzahl",
+                  "type": "string",
+                  "key": "postleitzahl",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 2,
+                      "sm": 2,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "ort": {
+                  "fieldType": "text",
+                  "title": "Ort",
+                  "type": "string",
+                  "key": "ort",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 2,
+                      "sm": 2,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            },
+            "fahrzeugdaten": {
+              "key": "fahrzeugdaten",
+              "fieldType": "object",
+              "title": "Fahrzeuge (Testing: Validierung ausgeschaltet)",
+              "type": "object",
+              "description": "Fahrzeuge",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [
+                "required"
+              ],
+              "properties": {
+                "fahrzeuge": {
+                  "key": "fahrzeuge",
+                  "readOnly": true,
+                  "fieldType": "arrayObject",
+                  "title": "Fahrzeug",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "deutschesKennzeichen": {
+                        "fieldType": "boolean",
+                        "title": "Deutsches Kennzeichen?",
+                        "type": "boolean",
+                        "key": "deutschesKennzeichen",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "kennzeichen": {
+                        "fieldType": "text",
+                        "title": "Kennzeichen",
+                        "type": "string",
+                        "x-display": "custom-text-component",
+                        "key": "kennzeichen",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "bestaetigungZollamt": {
+                        "fieldType": "boolean",
+                        "title": "Bestätigung vom Zollamt vorhanden?",
+                        "type": "boolean",
+                        "key": "bestaetigungZollamt",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "filenameBestaetigungZollamt": {
+                        "fieldType": "text",
+                        "title": "Dateiname Bestätigung Zollamt",
+                        "type": "string",
+                        "key": "filenameBestaetigungZollamt",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "zulassung": {
+                        "fieldType": "select",
+                        "title": "Zugelassen auf",
+                        "type": "string",
+                        "key": "zulassung",
+                        "anyOf": [
+                          {
+                            "const": "Antragsteller*in",
+                            "title": "Antragsteller*in"
+                          },
+                          {
+                            "const": "Arbeitsstelle",
+                            "title": "Arbeitsstelle"
+                          },
+                          {
+                            "title": "Familienangehörige",
+                            "const": "Familienangehörige"
+                          },
+                          {
+                            "const": "Anderes (z.B. Car-Sharing Organisation)",
+                            "title": "Anderes (z.B. Car-Sharing Organisation)"
+                          }
+                        ],
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "filenameNutzungserklaerungFahrzeugueberlassung": {
+                        "fieldType": "text",
+                        "title": "Nutzungserklärung zur Fahrzeugüberlassung",
+                        "type": "string",
+                        "key": "filenameNutzungserklaerungFahrzeugueberlassung",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "filenameMitgliedschaftsnachweis": {
+                        "fieldType": "text",
+                        "title": "Mitgliedschaftsnachweis",
+                        "type": "string",
+                        "key": "filenameMitgliedschaftsnachweis",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      },
+                      "filenameZulassungsbescheinigung": {
+                        "fieldType": "text",
+                        "title": "Zulassungsbescheinigung",
+                        "type": "string",
+                        "key": "filenameZulassungsbescheinigung",
+                        "x-options": {
+                          "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12,
+                            "messages": {}
+                          }
+                        },
+                        "x-props": {
+                          "outlined": true,
+                          "dense": true
+                        },
+                        "x-rules": []
+                      }
+                    }
+                  },
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  }
+                },
+                "weiteresFahrzeug": {
+                  "fieldType": "boolean",
+                  "title": "Weiteres Fahrzeug vorhanden?",
+                  "type": "boolean",
+                  "key": "weiteresFahrzeug",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "erklaerungWeiteresFahrzeug": {
+                  "fieldType": "textarea",
+                  "title": "Erklärung",
+                  "x-display": "textarea",
+                  "type": "string",
+                  "key": "erklaerungWeiteresFahrzeug",
+                  "description": "Pflichtfeld, wenn weiteresFahrzeug== true",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            },
+            "datenschutz": {
+              "key": "datenschutz",
+              "fieldType": "object",
+              "title": "Datenschutz (Testing: Validierung ausgeschaltet)",
+              "type": "object",
+              "description": "Datenschutz",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [
+                "required"
+              ],
+              "properties": {
+                "datenschutzerklaerung": {
+                  "fieldType": "boolean",
+                  "title": "Datenschutzerklärung",
+                  "type": "boolean",
+                  "key": "datenschutzerklaerung",
+                  "description": "Ich habe die Datenschutzerklärung und die Hinweise zur elektronischen Kommunikation zur Kenntnis genommen.",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "elektronischeKommunikation": {
+                  "fieldType": "boolean",
+                  "title": "Elektronische Kommunikation",
+                  "type": "boolean",
+                  "key": "elektronischeKommunikation",
+                  "description": "Mir ist bewusst, dass die elektronische Kommunikation risikobehaftet ist, ich möchte aber dennoch, dass mir die Antragsbestätigung per E-Mail zugesendet wird. Wir weisen insbesondere darauf hin, dass die Datenübertragung über das Internet ungesichert erfolgt und die übertragenen Daten somit von Unbefugten zur Kenntnis genommen und auch verfälscht werden können. Wenn keine Zustimmung erteilt wird, muss die Antragsbestätigung postalisch zugesendet werden.",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "datenverwendungBearbeitung": {
+                  "fieldType": "boolean",
+                  "title": "Datenverwendung zur Bearbeitung",
+                  "type": "boolean",
+                  "key": "datenverwendungBearbeitung",
+                  "description": "Hiermit bin ich damit einverstanden, dass meine eingegebenen Daten für die Bearbeitung des Antrages verwendet werden",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "falscheAngaben": {
+                  "fieldType": "boolean",
+                  "title": "falsche Angaben / kostenpflichtige Rückname",
+                  "type": "boolean",
+                  "key": "falscheAngaben",
+                  "description": "Mir ist bewusst, dass falsche Angaben die kostenpflichtige Rücknahme des Bewohnerparkausweises zur Folge haben können.",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "sectionKey1",
+      "title": "Erster Abschnitt",
+      "type": "object",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "key": "feldgruppe1",
+          "title": "Erste Gruppe",
+          "type": "object",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "stringProp1": {
+              "fieldType": "FieldType.Text",
+              "title": "Ich bin ein Text",
+              "type": "string",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 6
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "numberProp1": {
+              "fieldType": "FieldType.Integer",
+              "type": "integer",
+              "title": "Ich bin eine Ganzzahl",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 6
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "textarea1": {
+              "fieldType": "FieldType.Textarea",
+              "type": "string",
+              "x-display": "textarea",
+              "title": "Ich bin eine Textarea",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "booleanprop": {
+              "fieldType": "FieldType.Checkbox",
+              "type": "boolean",
+              "title": "Ich bin eine Checkbox",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "dateprop": {
+              "fieldType": "FieldType.Date",
+              "type": "string",
+              "format": "date",
+              "title": "Ich bin ein Date",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "objectProp": {
+              "type": "object",
+              "properties": {
+                "stringProp1": {
+                  "fieldType": "FieldType.Text",
+                  "title": "Ich bin ein Text",
+                  "type": "string",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 6
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

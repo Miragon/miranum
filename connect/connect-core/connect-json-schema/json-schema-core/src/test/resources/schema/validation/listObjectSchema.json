@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "x-display": " ",
+  "allOf": [
+    {
+      "key": "sectionKey1",
+      "title": "Eingangszahlung",
+      "type": "object",
+      "description": "Eingangszahlung",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "title": "Neue Gruppe",
+          "description": "",
+          "type": "object",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "eingangsdatum": {
+              "fieldType": "text",
+              "title": "Eingangsdatum",
+              "type": "string",
+              "readOnly": true,
+              "key": "eingangsdatum",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "FormField_Empfaenger": {
+              "fieldType": "user-input",
+              "title": "Empfänger*in",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "key": "FormField_Empfaenger",
+              "x-display": "custom-multi-user-input",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            }
+          },
+          "key": "49b8a9af-82dd-4c8b-a40d-217015c761c8"
+        }
+      ]
+    }
+  ]
+}
+

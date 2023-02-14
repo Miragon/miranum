@@ -1,0 +1,12 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "stringProp1": {
+      "readOnly": false,
+      "type": "string"
+    },
+    "stringProp2": {
+      "type": "string"
+    }
+  }
+}

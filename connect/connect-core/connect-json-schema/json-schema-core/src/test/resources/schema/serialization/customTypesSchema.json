@@ -1,0 +1,128 @@
+{
+  "key": "SonstigeProzesse_GruesseVersenden_Startformular_V1",
+  "type": "object",
+  "x-display": " ",
+  "allOf": [
+    {
+      "key": "sectionKey1",
+      "type": "object",
+      "title": " ",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "font-weight-bold"
+        ]
+      },
+      "allOf": [
+        {
+          "key": "feldgruppe1",
+          "title": "Hinweise",
+          "type": "object",
+          "description": "Mit diesem Workflow können Sie Grüße versenden. Bitte beachten Sie, dass die Grüße nicht anonym versendet werden. Geben Sie in das entsprechende Feld einen Grußtext ein und wählen Sie die Art des Grußes aus.",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {}
+        },
+        {
+          "title": "Daten zum Gruß",
+          "type": "object",
+          "key": "e267be11-e07b-435e-ab58-b3861d6b370a",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "FormField_Empfaenger": {
+              "fieldType": "user-input",
+              "title": "Empfänger*in",
+              "type": "string",
+              "key": "FormField_Empfaenger",
+              "x-display": "custom-user-input",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "FormField_ArtDesGrusses": {
+              "fieldType": "select",
+              "title": "Ich möchte einen Gruß versenden zum",
+              "type": "string",
+              "key": "FormField_ArtDesGrusses",
+              "anyOf": [
+                {
+                  "title": "Geburtstag",
+                  "const": "Value_Geburtstag"
+                },
+                {
+                  "title": "Namenstag",
+                  "const": "Value_Namenstag"
+                },
+                {
+                  "title": "Dienstjubiläum",
+                  "const": "Value_Dienstjubilaeum"
+                }
+              ],
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 6,
+                  "sm": 6,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "FormField_Zugehoerigkeit": {
+              "fieldType": "integer",
+              "title": "Zugehörigkeit zur LHM",
+              "type": "integer",
+              "key": "FormField_Zugehoerigkeit",
+              "x-if": "root.FormField_ArtDesGrusses == 'Value_Dienstjubilaeum'",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 6,
+                  "sm": 6,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "FormField_Grusstext": {
+              "fieldType": "textarea",
+              "title": "Grußtext (ohne Anrede)",
+              "x-display": "textarea",
+              "type": "string",
+              "key": "FormField_Grusstext",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [
+                "required"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "type": "object",
+  "x-display": " ",
+  "allOf": [
+    {
+      "key": "sectionKey1",
+      "title": "Abschnitt",
+      "type": "object",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "title": "Gruppe",
+          "description": "",
+          "containerType": "group",
+          "type": "object",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "textarea": {
+              "fieldType": "textarea",
+              "title": "Textarea",
+              "x-display": "textarea",
+              "type": "string",
+              "key": "textarea",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "textfeld": {
+              "fieldType": "text",
+              "title": "Textfeld",
+              "type": "string",
+              "key": "textfeld",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "FormField_Empfaenger": {
+              "fieldType": "user-input",
+              "title": "Empfänger*in",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "key": "FormField_Empfaenger",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true
+              }
+            },
+            "zahl": {
+              "fieldType": "integer",
+              "title": "Zahl",
+              "type": "integer",
+              "key": "zahl",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            }
+          },
+          "key": "9f329ac8-bbd2-409d-94a5-ec6fa79289ad"
+        },
+        {
+          "title": "Objektgruppe",
+          "containerType": "objectGroup",
+          "type": "object",
+          "key": "8cc59fa8-72bb-43f9-bf0e-4136c62337ef",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "objekt1": {
+              "key": "d6d8d7a1-e812-42ac-9135-8242f93b6158",
+              "fieldType": "object",
+              "title": "Dynamisches Objekt",
+              "type": "object",
+              "description": "fsdafsdafsad",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": [],
+              "properties": {
+                "objektTextfeld": {
+                  "fieldType": "text",
+                  "title": "Textfeld",
+                  "type": "string",
+                  "key": "objektTextfeld",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                },
+                "objektSchalter": {
+                  "fieldType": "switch",
+                  "title": "Schalter",
+                  "x-display": "switch",
+                  "type": "boolean",
+                  "key": "ObjektSchalter",
+                  "x-options": {
+                    "fieldColProps": {
+                      "cols": 12,
+                      "sm": 12,
+                      "messages": {}
+                    }
+                  },
+                  "x-props": {
+                    "outlined": true,
+                    "dense": true
+                  },
+                  "x-rules": []
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "required": [
+    "numberProp1"
+  ],
+  "properties": {
+    "numberProp1": {
+      "type": "number"
+    },
+    "stringProp1": {
+      "pattern": "^.{1,30}$",
+      "type": "string"
+    }
+  }
+}
