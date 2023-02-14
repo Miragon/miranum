@@ -1,6 +1,6 @@
 package io.miragon.miranum.examples.process.application.service;
 
-import io.miragon.miranum.connect.worker.domain.Worker;
+import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.examples.process.application.port.in.SendMessageCommand;
 import io.miragon.miranum.examples.process.application.port.in.SendMessageUseCase;
 import lombok.RequiredArgsConstructor;

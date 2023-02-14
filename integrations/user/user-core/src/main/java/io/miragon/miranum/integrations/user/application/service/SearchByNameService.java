@@ -1,6 +1,6 @@
 package io.miragon.miranum.integrations.user.application.service;
 
-import io.miragon.miranum.connect.worker.domain.Worker;
+import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.integrations.user.application.port.in.SearchByNameParameter;
 import io.miragon.miranum.integrations.user.application.port.in.SearchByNameQuery;
 import io.miragon.miranum.integrations.user.application.port.out.LoadUserPort;
