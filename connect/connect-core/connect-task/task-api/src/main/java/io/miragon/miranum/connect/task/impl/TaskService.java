@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskService implements TaskApi {
 
-    private final CompleteTaskPort deliverMessagePort;
+    private final CompleteTaskPort completeTaskPort;
 
     @Override
-    public void correlateMessage(final CompleteTaskCommand command) {
-        this.deliverMessagePort.deliverMessage(command);
+    public void completeTask(final CompleteTaskCommand command) {
+        this.completeTaskPort.completeTask(command);
     }
 }
