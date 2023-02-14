@@ -2,6 +2,9 @@
   "key": "MyStartForm",
   "type": "object",
   "x-display": "stepper",
+  "required": [
+    "numberProp1"
+  ],
   "allOf": [
     {
       "key": "sectionKey1",
@@ -40,6 +43,7 @@
               "fieldType": "integer",
               "type": "integer",
               "title": "Ich bin eine Ganzzahl",
+              "readOnly": true,
               "x-options": {
                 "fieldColProps": {
                   "cols": 12,
@@ -52,7 +56,7 @@
               }
             },
             "textarea1": {
-              "fieldType": "textarea",
+              "fieldType": "FieldType.Textarea",
               "type": "string",
               "x-display": "textarea",
               "title": "Ich bin eine Textarea",
@@ -62,16 +66,17 @@
               }
             },
             "booleanprop": {
-              "fieldType": "boolean",
+              "fieldType": "FieldType.Checkbox",
               "type": "boolean",
               "title": "Ich bin eine Checkbox",
+              "readOnly": true,
               "x-props": {
                 "outlined": true,
                 "dense": true
               }
             },
             "dateprop": {
-              "fieldType": "date",
+              "fieldType": "FieldType.Date",
               "type": "string",
               "format": "date",
               "title": "Ich bin ein Date",
@@ -83,77 +88,6 @@
           }
         }
       ]
-    },
-    {
-      "title": "Abschnitt",
-      "description": "",
-      "type": "object",
-      "x-options": {
-        "sectionsTitlesClasses": [
-          "d-none"
-        ]
-      },
-      "allOf": [
-        {
-          "containerType": "group",
-          "title": "Group",
-          "description": "",
-          "x-options": {
-            "childrenClass": "pl-0"
-          },
-          "properties": {
-            "area1": {
-              "fieldType": "textarea",
-              "title": "Textarea",
-              "x-display": "textarea",
-              "type": "string",
-              "key": "area1",
-              "x-options": {
-                "fieldColProps": {
-                  "cols": 12,
-                  "sm": 12,
-                  "messages": {}
-                }
-              },
-              "x-props": {
-                "outlined": true,
-                "dense": true
-              },
-              "x-rules": []
-            },
-            "selection": {
-              "fieldType": "select",
-              "title": "Auswahl",
-              "type": "string",
-              "key": "selection",
-              "anyOf": [
-                {
-                  "title": "test",
-                  "const": "test"
-                },
-                {
-                  "title": "test2",
-                  "const": "test2"
-                }
-              ],
-              "x-options": {
-                "fieldColProps": {
-                  "cols": 12,
-                  "sm": 12,
-                  "messages": {}
-                }
-              },
-              "x-props": {
-                "outlined": true,
-                "dense": true
-              },
-              "x-rules": []
-            }
-          },
-          "key": "62bd3030-204f-4e4b-b952-71eead06cf7d"
-        }
-      ],
-      "key": "90af56e4-46d4-4801-9d9e-b501d0578367"
     }
   ]
 }

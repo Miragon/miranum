@@ -1,10 +1,11 @@
 package io.miragon.miranum.connect.jsonschema.api;
 
+import java.util.List;
+
 public interface JsonSchema {
 
-    void validateData(Object data);
-    
-    void mergeData(Object source, Object target);
+    List<ValidationResult> validate(Object data);
 
+    List<ValidationResult> validate(Object data, Object rootData);
 
 }
