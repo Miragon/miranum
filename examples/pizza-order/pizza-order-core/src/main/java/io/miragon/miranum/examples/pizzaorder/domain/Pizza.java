@@ -6,6 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Pizza {
-    private String id;
     private String name;
 }

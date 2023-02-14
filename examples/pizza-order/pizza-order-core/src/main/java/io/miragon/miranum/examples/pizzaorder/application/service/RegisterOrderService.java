@@ -1,6 +1,6 @@
 package io.miragon.miranum.examples.pizzaorder.application.service;
 
-import io.miragon.miranum.connect.worker.domain.Worker;
+import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.examples.pizzaorder.application.port.in.OrderCommand;
 import io.miragon.miranum.examples.pizzaorder.application.port.in.RegisterOrderUseCase;
 import lombok.extern.java.Log;

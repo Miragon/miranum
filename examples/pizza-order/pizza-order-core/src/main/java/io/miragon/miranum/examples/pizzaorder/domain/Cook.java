@@ -11,8 +11,9 @@ public class Cook {
         var random = new Random();
         try {
             log.info("Started making pizza...");
-            var timeToPrepareInSeconds = random.nextInt() % 10;
-            Thread.sleep(timeToPrepareInSeconds);
+            var timeToPrepareInSeconds = Math.abs(random.nextInt()) % 10;
+            log.info("Preparation time: " + timeToPrepareInSeconds + "s");
+            Thread.sleep(timeToPrepareInSeconds * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

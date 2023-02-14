@@ -17,12 +17,12 @@
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-core</artifactId>
+            <artifactId>worker-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>message-core</artifactId>
+            <artifactId>message-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
