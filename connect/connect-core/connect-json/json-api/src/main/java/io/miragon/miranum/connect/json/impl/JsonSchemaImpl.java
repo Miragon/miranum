@@ -1,10 +1,10 @@
-package io.miragon.miranum.connect.jsonschema.impl;
+package io.miragon.miranum.connect.json.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.ValidationMessage;
-import io.miragon.miranum.connect.jsonschema.api.JsonSchema;
-import io.miragon.miranum.connect.jsonschema.api.ValidationResult;
+import io.miragon.miranum.connect.json.api.JsonSchema;
+import io.miragon.miranum.connect.json.api.ValidationResult;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

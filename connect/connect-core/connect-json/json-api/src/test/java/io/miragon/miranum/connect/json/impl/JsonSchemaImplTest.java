@@ -1,7 +1,7 @@
-package io.miragon.miranum.connect.jsonschema.impl;
+package io.miragon.miranum.connect.json.impl;
 
-import io.miragon.miranum.connect.jsonschema.api.JsonSchema;
-import io.miragon.miranum.connect.jsonschema.api.ValidationResult;
+import io.miragon.miranum.connect.json.api.JsonSchema;
+import io.miragon.miranum.connect.json.api.ValidationResult;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import static io.miragon.miranum.connect.jsonschema.utils.JsonSchemaTestUtils.getSchemaString;
+import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonSchemaImplTest {

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.task.TaskAutoConfiguration
+io.miragon.miranum.connect.json.JsonAutoConfiguration

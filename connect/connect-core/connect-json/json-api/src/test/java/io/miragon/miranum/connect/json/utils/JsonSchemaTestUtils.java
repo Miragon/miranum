@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.jsonschema.utils;
+package io.miragon.miranum.connect.json.utils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

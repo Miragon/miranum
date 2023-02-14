@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.jsonschema.api;
+package io.miragon.miranum.connect.json.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,10 @@
-package io.miragon.miranum.connect.jsonschema.impl;
+package io.miragon.miranum.connect.json.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.miragon.miranum.connect.jsonschema.api.JsonApi;
+import io.miragon.miranum.connect.json.api.JsonApi;
+import io.miragon.miranum.connect.json.api.JsonSchema;
 
 import java.util.Iterator;
 
@@ -12,8 +13,13 @@ public class JsonApiImpl implements JsonApi {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void getSchema(final String schemaKey) {
+    public JsonSchema getSchema(final String schemaKey) {
+        return null;
+    }
 
+    @Override
+    public JsonSchema createSchema(final String schemaContent) {
+        return JsonSchemaFactory.createJsonSchema(schemaContent);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.jsonschema.impl;
+package io.miragon.miranum.connect.json.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.schema.*;

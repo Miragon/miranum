@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.jsonschema.impl;
+package io.miragon.miranum.connect.json.impl;
 
 import com.networknt.schema.*;
 
@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 public class JsonSchemaFactory {
 
-    public io.miragon.miranum.connect.jsonschema.api.JsonSchema createJsonSchema(final String rawSchema) {
+    public static io.miragon.miranum.connect.json.api.JsonSchema createJsonSchema(final String rawSchema) {
 
-        final JsonMetaSchema metaSchema = new Version7().getInstance();
+        final JsonMetaSchema metaSchema = new MirnaumJsonSchemaVersion().getInstance();
 
         final com.networknt.schema.JsonSchema schema = com.networknt.schema.JsonSchemaFactory.builder()
                 .defaultMetaSchemaURI(metaSchema.getUri())
@@ -19,7 +19,7 @@ public class JsonSchemaFactory {
         return new JsonSchemaImpl(schema);
     }
 
-    class Version7 extends JsonSchemaVersion {
+    static class MirnaumJsonSchemaVersion extends JsonSchemaVersion {
         private static final String URI = "https://json-schema.org/draft-07/schema";
         private static final String ID = "$id";
 
