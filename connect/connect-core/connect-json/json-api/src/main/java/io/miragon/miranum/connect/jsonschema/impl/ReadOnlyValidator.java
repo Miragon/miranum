@@ -15,7 +15,6 @@ public class ReadOnlyValidator extends BaseJsonValidator implements JsonValidato
     public ReadOnlyValidator(final String schemaPath, final JsonNode schemaNode, final JsonSchema parentSchema, final ValidationContext validationContext) {
         super(schemaPath, schemaNode, parentSchema, ValidatorTypeCode.READ_ONLY, validationContext);
 
-
         this.parseErrorCode(this.getValidatorType().getErrorCodeKey());
     }
 

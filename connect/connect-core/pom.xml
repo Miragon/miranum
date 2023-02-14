@@ -18,7 +18,7 @@
         <module>connect-message</module>
         <module>connect-worker</module>
         <module>connect-process</module>
-        <module>connect-json-schema</module>
+        <module>connect-json</module>
     </modules>
 
 </project>
