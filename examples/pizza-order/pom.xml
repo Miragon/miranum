@@ -17,6 +17,6 @@
     <modules>
         <module>kitchen</module>
         <module>waiter</module>
-</modules>
+    </modules>
 
 </project>
