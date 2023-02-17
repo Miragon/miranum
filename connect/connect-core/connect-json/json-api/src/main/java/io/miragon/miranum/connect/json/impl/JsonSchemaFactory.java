@@ -1,10 +1,15 @@
 package io.miragon.miranum.connect.json.impl;
 
 import com.networknt.schema.*;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
+import java.util.List;
 
+@RequiredArgsConstructor
 public class JsonSchemaFactory {
+
+    private final List<AbstractKeyword> keywordValidators;
 
     public static io.miragon.miranum.connect.json.api.JsonSchema createJsonSchema(final String rawSchema) {
 
@@ -49,6 +54,7 @@ public class JsonSchemaFactory {
                             new NonValidationKeyword("message")
                     ))
                     .addKeyword(new ReadOnlyKeyword())
+                    // .addKeyword(new HttpValidator())
                     .build();
         }
     }
