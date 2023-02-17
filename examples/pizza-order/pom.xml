@@ -17,6 +17,7 @@
     <modules>
         <module>kitchen</module>
         <module>waiter</module>
+        <module>kitchen-c8</module>
     </modules>
 
 </project>

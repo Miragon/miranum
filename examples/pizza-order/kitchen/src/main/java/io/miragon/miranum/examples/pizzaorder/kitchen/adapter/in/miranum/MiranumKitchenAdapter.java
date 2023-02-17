@@ -6,7 +6,7 @@ import io.miragon.miranum.examples.pizzaorder.kitchen.application.port.in.Prepar
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class MiranumAdapter {
+public class MiranumKitchenAdapter {
 
     private final PreparePizzaUseCase preparePizzaUseCase;
 
