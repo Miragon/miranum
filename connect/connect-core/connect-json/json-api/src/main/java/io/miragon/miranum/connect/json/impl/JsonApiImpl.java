@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.miragon.miranum.connect.json.api.JsonApi;
 import io.miragon.miranum.connect.json.api.JsonSchema;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Iterator;
 
@@ -12,9 +14,16 @@ public class JsonApiImpl implements JsonApi {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+
+    @Value("${miranum.schema.registry.url}")
+    private String schemaRegistryUrl;
+
     @Override
-    public JsonSchema getSchema(final String schemaKey) {
-        return null;
+    public JsonSchema getSchema(final String schemaRef) {
+        final RestTemplate restTemplate = new RestTemplate();
+        final JsonNode schema = restTemplate.getForEntity(this.schemaRegistryUrl + schemaRef, JsonNode.class)
+                .getBody();
+        return JsonSchemaFactory.createJsonSchema(schema.toString());
     }
 
     @Override

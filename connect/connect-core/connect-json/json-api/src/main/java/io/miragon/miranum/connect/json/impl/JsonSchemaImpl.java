@@ -33,6 +33,11 @@ public class JsonSchemaImpl implements JsonSchema {
                 .map(this::map).toList();
     }
 
+    @Override
+    public JsonNode getSchema() {
+        return this.schema.getSchemaNode();
+    }
+
     private ValidationResult map(final ValidationMessage obj) {
         return new ValidationResult(
                 obj.getType(),

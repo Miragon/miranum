@@ -1,0 +1,7 @@
+server:
+  port: 8082
+
+miranum:
+  schema:
+    registry:
+      url: http://localhost:8081/schema/

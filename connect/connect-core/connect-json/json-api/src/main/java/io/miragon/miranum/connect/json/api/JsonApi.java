@@ -6,8 +6,7 @@ public interface JsonApi {
 
     JsonNode merge(Object source, Object update);
 
-    //Todo Naming überarbeiten
-    JsonSchema getSchema(String schemaKey);
+    JsonSchema getSchema(String schemaRef);
 
     JsonSchema createSchema(String schemaContent);
 
