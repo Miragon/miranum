@@ -15,7 +15,7 @@ public class PreparePizzaService implements PreparePizzaUseCase {
 
     @Override
     public void preparePizza(PreparePizzaCommand preparePizzaCommand) {
-        var pizzaList = preparePizzaCommand.getPizza().stream().map(Pizza::new).collect(Collectors.toList());
+        var pizzaList = preparePizzaCommand.getFood().stream().map(Pizza::new).collect(Collectors.toList());
         kitchen.makePizza(pizzaList);
     }
 }

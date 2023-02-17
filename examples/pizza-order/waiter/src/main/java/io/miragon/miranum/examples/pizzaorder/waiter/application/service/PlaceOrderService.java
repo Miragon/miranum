@@ -19,7 +19,7 @@ public class PlaceOrderService implements PlaceOrderUseCase {
     public void placeOrder(PlaceOrderInCommand placeOrderInCommand) {
         var objectMapper = new ObjectMapper();
         Map<String, Object> variables = objectMapper.convertValue(placeOrderInCommand, new TypeReference<>() {});
-        var placeOrderOutCommand = new PlaceOrderOutCommand("placeOrder", variables); ;
+        var placeOrderOutCommand = new PlaceOrderOutCommand("OrderPizza_C8", variables); ;
         placeOrderPort.placeOrder(placeOrderOutCommand);
     }
 }
