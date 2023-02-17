@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 public class PlaceOrderInCommand {
 
+    private String name;
     private String email;
     private List<String> food;
     private List<String> drinks;

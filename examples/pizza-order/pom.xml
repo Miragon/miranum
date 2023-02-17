@@ -17,6 +17,7 @@
     <modules>
         <module>kitchen</module>
         <module>waiter</module>
+        <module>email</module>
         <module>kitchen-c8</module>
         <module>waiter-c8</module>
         <module>email-c8</module>

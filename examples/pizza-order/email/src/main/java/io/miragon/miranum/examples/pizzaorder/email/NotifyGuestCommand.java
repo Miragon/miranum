@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.pizzaorder.waiter.adapter.in.rest;
+package io.miragon.miranum.examples.pizzaorder.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class PlaceOrderRequestDto {
+public class NotifyGuestCommand {
 
     private String name;
     private String email;

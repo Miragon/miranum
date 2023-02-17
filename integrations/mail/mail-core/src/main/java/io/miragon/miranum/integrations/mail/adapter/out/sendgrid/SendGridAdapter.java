@@ -9,6 +9,6 @@ public class SendGridAdapter implements DeliverMailPort {
     @Override
     public void deliverMail(final Mail mail) {
         // TODO: Implement
-        log.info("deliver sendgrid mail");
+        log.info("Deliver sendgrid mail:\n" + mail);
     }
 }

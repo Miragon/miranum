@@ -18,8 +18,11 @@ public class PlaceOrderController {
 
     @PostMapping
     public ResponseEntity<String> placeOrder(@RequestBody PlaceOrderRequestDto placeOrderRequestDto) {
-        var placeOrderInCommand = new PlaceOrderInCommand(placeOrderRequestDto.getEmail(),
-                placeOrderRequestDto.getFood(), placeOrderRequestDto.getDrinks());
+        var placeOrderInCommand = new PlaceOrderInCommand(
+                placeOrderRequestDto.getName(),
+                placeOrderRequestDto.getEmail(),
+                placeOrderRequestDto.getFood(),
+                placeOrderRequestDto.getDrinks());
         placeOrderUseCase.placeOrder(placeOrderInCommand);
         // TODO: Should return OrderObject
         return ResponseEntity.ok("successful");

@@ -9,6 +9,6 @@ public class JavaMailAdapter implements DeliverMailPort {
     @Override
     public void deliverMail(final Mail mail) {
         // TODO: Implement
-        log.info("deliver java mail");
+        log.info("Deliver java mail:\n" + mail);
     }
 }
