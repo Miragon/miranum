@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>kitchen</artifactId>
+            <artifactId>waiter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -34,6 +34,11 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>message-adapter-c8</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>process-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 

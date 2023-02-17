@@ -5,7 +5,7 @@ import io.miragon.miranum.examples.pizzaorder.waiter.application.port.in.*;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class MiranumAdapter {
+public class MiranumWaiterAdapter {
 
     private final ServeDrinksUseCase serveDrinksUseCase;
     private final ServeFoodUseCase serveFoodUseCase;
