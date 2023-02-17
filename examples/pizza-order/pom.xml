@@ -19,6 +19,7 @@
         <module>waiter</module>
         <module>kitchen-c8</module>
         <module>waiter-c8</module>
+        <module>email-c8</module>
     </modules>
 
 </project>
