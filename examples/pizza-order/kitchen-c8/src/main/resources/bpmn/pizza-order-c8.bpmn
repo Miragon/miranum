@@ -32,11 +32,11 @@
       <bpmn:outgoing>Flow_151yq64</bpmn:outgoing>
       <bpmn:outgoing>Flow_0eycgy9</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="Event_1gz2ygc" name="After 15s">
+    <bpmn:intermediateCatchEvent id="Event_1gz2ygc" name="After 30s">
       <bpmn:incoming>Flow_0eycgy9</bpmn:incoming>
       <bpmn:outgoing>Flow_058fe0m</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_02cgys2">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:endEvent id="Event_05eni0s" name="Order cancelled">
@@ -44,7 +44,7 @@
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_0zzsbld" name="Serve pizza">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="servePizza" />
+        <zeebe:taskDefinition type="serveFood" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0cvoxer</bpmn:incoming>
       <bpmn:outgoing>Flow_0xok02k</bpmn:outgoing>
@@ -74,9 +74,9 @@
     <bpmn:sequenceFlow id="Flow_0xok02k" sourceRef="Activity_0zzsbld" targetRef="Activity_0etdda4" />
     <bpmn:sequenceFlow id="Flow_19x2sei" sourceRef="Activity_0etdda4" targetRef="Event_1mqmjv4" />
   </bpmn:process>
-  <bpmn:message id="Message_37rv78a" name="Message_WaitForPizza">
+  <bpmn:message id="Message_37rv78a" name="PizzaPrepared">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=&#34;pizzaReady&#34;" />
+      <zeebe:subscription correlationKey="=email" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -179,6 +179,13 @@
         <dc:Bounds x="1211" y="487" width="301" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_11rhvrd_di" bpmnElement="Flow_11rhvrd">
+        <di:waypoint x="501" y="225" />
+        <di:waypoint x="501" y="487" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="773" y="426" width="76" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08b5p57_di" bpmnElement="Flow_08b5p57">
         <di:waypoint x="799" y="225" />
         <di:waypoint x="799" y="487" />
@@ -191,13 +198,6 @@
         <di:waypoint x="1329" y="487" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1275" y="423" width="30" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_11rhvrd_di" bpmnElement="Flow_11rhvrd">
-        <di:waypoint x="501" y="225" />
-        <di:waypoint x="501" y="487" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="773" y="426" width="76" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

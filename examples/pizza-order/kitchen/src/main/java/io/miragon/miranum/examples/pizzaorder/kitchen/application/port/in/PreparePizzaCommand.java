@@ -11,5 +11,6 @@ import java.util.List;
 @Getter
 public class PreparePizzaCommand {
 
+    private String email;
     private List<String> food;
 }
