@@ -1,14 +1,18 @@
 package io.miragon.miranum.connect.json.impl;
 
+import com.fasterxml.jackson.core.JsonPointer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.networknt.schema.ValidatorTypeCode;
 import io.miragon.miranum.connect.json.api.JsonApi;
 import io.miragon.miranum.connect.json.api.JsonSchema;
+import io.miragon.miranum.connect.json.api.ValidationResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class JsonApiImpl implements JsonApi {
 
@@ -56,6 +60,30 @@ public class JsonApiImpl implements JsonApi {
         }
 
         return sourceNode;
+    }
+
+    @Override
+    public JsonNode filter(final JsonSchema schema, final Object data) {
+        final JsonNode jsonData = this.mapper.valueToTree(data);
+
+        final List<ValidationResult> result = schema.validate(jsonData);
+
+        final List<ValidationResult> additionalProperties = result.stream()
+                .filter(validationResult -> validationResult.getCode().equals(ValidatorTypeCode.ADDITIONAL_PROPERTIES.getErrorCode()))
+                .toList();
+
+        additionalProperties.forEach(validationResult -> {
+            final String path = validationResult.getPath();
+            String pointerString = path.replaceAll("\\$", "");
+            pointerString = pointerString.replaceAll("\\.", "/");
+            final JsonPointer pointer = JsonPointer.compile(pointerString);
+            final JsonNode node = jsonData.at(pointer);
+            if (node instanceof ObjectNode objectNode) {
+                objectNode.remove(validationResult.getArguments()[0]);
+            }
+        });
+
+        return jsonData;
     }
 
 }

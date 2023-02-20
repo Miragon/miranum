@@ -1,84 +1,35 @@
 package io.miragon.miranum.connect.json.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import io.miragon.miranum.connect.json.api.JsonApi;
 import io.miragon.miranum.connect.json.api.JsonSchema;
-import io.miragon.miranum.connect.json.api.ValidationResult;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Map;
 
 import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JsonSchemaFilterTest {
 
+    private final JsonApi jsonApi = new JsonApiImpl();
 
     @Test
-    public void test_readonly_error() throws IOException, URISyntaxException {
+    public void filter_additional_property() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
         final Map<String, Object> actualData = Map.of(
                 "stringProp1", "fsdafsda",
                 "numberProp1", 1,
-                "booleanprop", false
+                "stringProp5", 1
         );
 
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
-        );
+        final JsonNode node = this.jsonApi.filter(schema, actualData);
 
-        final List<ValidationResult> result = schema.validate(actualData, previousData);
-
-        assertEquals(1, result.size());
-    }
-
-    @Test
-    public void test_data_valid() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
-
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1
-        );
-
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
-        );
-
-        final List<ValidationResult> result = schema.validate(actualData, previousData);
-
-        assertEquals(0, result.size());
-    }
-
-    @Test
-    public void test_additional_data() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
-
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1,
-                "notInSchemaKey", 1
-        );
-
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
-        );
-
-        final List<ValidationResult> result = schema.validate(actualData, previousData);
-
-
-        assertEquals(2, result.size());
+        assertNull(node.get("stringProp5"));
     }
 
     @Test
@@ -91,14 +42,14 @@ public class JsonSchemaFilterTest {
                         "name", "Dom",
                         "street_address", "Augstreet 1",
                         "state", "Bavaria",
+                        "additionalData", "additionalData",
                         "mail", "test@mail.de")
 
         );
 
-        final List<ValidationResult> result = schema.validate(actualData);
+        final JsonNode node = this.jsonApi.filter(schema, actualData);
 
-
-        assertEquals(0, result.size());
+        assertNull(node.get("additionalData"));
     }
 
     protected JsonSchema getSchemaFronString(final String schemaContent) {
