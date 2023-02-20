@@ -8,7 +8,7 @@ $("#form").submit(async function (event) {
         "food": $("#order-food").val().split(",")
     };
 
-    const response = await fetch("http://localhost:8080/api/place-order",
+    const response = await fetch(waiterUrl,
         {
             method: "POST",
             headers: {

@@ -6,20 +6,25 @@ import io.miragon.miranum.examples.pizzaorder.waiter.application.port.in.PlaceOr
 import io.miragon.miranum.examples.pizzaorder.waiter.application.port.in.PlaceOrderUseCase;
 import io.miragon.miranum.examples.pizzaorder.waiter.application.port.out.PlaceOrderOutCommand;
 import io.miragon.miranum.examples.pizzaorder.waiter.application.port.out.PlaceOrderPort;
-import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
-@AllArgsConstructor
 public class PlaceOrderService implements PlaceOrderUseCase {
 
     private final PlaceOrderPort placeOrderPort;
+    private final String processId = "PizzaOrder";
+
+    public PlaceOrderService(PlaceOrderPort placeOrderPort) {
+        this.placeOrderPort = placeOrderPort;
+    }
 
     @Override
     public void placeOrder(PlaceOrderInCommand placeOrderInCommand) {
         var objectMapper = new ObjectMapper();
-        Map<String, Object> variables = objectMapper.convertValue(placeOrderInCommand, new TypeReference<>() {});
-        var placeOrderOutCommand = new PlaceOrderOutCommand("OrderPizza_C8", variables); ;
+        Map<String, Object> variables = objectMapper.convertValue(placeOrderInCommand, new TypeReference<>() {
+        });
+        var placeOrderOutCommand = new PlaceOrderOutCommand(processId, variables);
+        ;
         placeOrderPort.placeOrder(placeOrderOutCommand);
     }
 }
