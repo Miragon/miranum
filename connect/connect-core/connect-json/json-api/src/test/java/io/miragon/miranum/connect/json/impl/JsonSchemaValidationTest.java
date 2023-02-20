@@ -150,6 +150,44 @@ public class JsonSchemaValidationTest {
         assertEquals(2, results.size());
     }
 
+    @Test
+    public void object_schema_list_valid() throws IOException, URISyntaxException {
+        final String rawSchema = getSchemaString("/schema/object-list-schema.json");
+        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+
+        final Map<String, Object> actualData = Map.of(
+                "person", List.of(
+                        Map.of(
+                                "vorname", "Dom",
+                                "nachname", "Hrn")
+                )
+        );
+
+        final List<ValidationResult> result = schema.validate(actualData);
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void object_schema_list_invalid() throws IOException, URISyntaxException {
+        final String rawSchema = getSchemaString("/schema/object-list-schema.json");
+        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+
+        final Map<String, Object> actualData = Map.of(
+                "person", List.of(
+                        Map.of(
+                                "vorname", "Dom",
+                                "nachname", "Hrn"),
+                        Map.of(
+                                "vorname", "Dom",
+                                "street", "InvalidStreet",
+                                "nachname", "Hrn")
+                )
+        );
+
+        final List<ValidationResult> result = schema.validate(actualData);
+        assertEquals(1, result.size());
+    }
+
     protected JsonSchema getSchemaFronString(final String schemaContent) {
         return JsonSchemaFactory.createJsonSchema(schemaContent);
     }

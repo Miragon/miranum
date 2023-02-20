@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 
 import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
@@ -50,6 +51,30 @@ public class JsonSchemaFilterTest {
         final JsonNode node = this.jsonApi.filter(schema, actualData);
 
         assertNull(node.get("additionalData"));
+    }
+
+    @Test
+    public void object_schema_list_invalid() throws IOException, URISyntaxException {
+        final String rawSchema = getSchemaString("/schema/object-list-schema.json");
+        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+
+        final Map<String, Object> actualData = Map.of(
+                "person", List.of(
+                        Map.of(
+                                "vorname", "Dom",
+                                "nachname", "Hrn"),
+                        Map.of(
+                                "vorname", "Dom",
+                                "street", "InvalidStreet",
+                                "nachname", "Hrn")
+                )
+        );
+
+        final JsonNode node = this.jsonApi.filter(schema, actualData);
+
+        assertNull(node.get("person").get(1).get("street"));
+
+
     }
 
     protected JsonSchema getSchemaFronString(final String schemaContent) {

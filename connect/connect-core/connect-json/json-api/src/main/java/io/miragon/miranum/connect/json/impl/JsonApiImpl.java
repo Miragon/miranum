@@ -76,6 +76,9 @@ public class JsonApiImpl implements JsonApi {
             final String path = validationResult.getPath();
             String pointerString = path.replaceAll("\\$", "");
             pointerString = pointerString.replaceAll("\\.", "/");
+            pointerString = pointerString.replaceAll("\\[", "/");
+            pointerString = pointerString.replaceAll("]", "/");
+            pointerString = pointerString.endsWith("/") ? pointerString.substring(0, pointerString.length() - 1) : pointerString;
             final JsonPointer pointer = JsonPointer.compile(pointerString);
             final JsonNode node = jsonData.at(pointer);
             if (node instanceof ObjectNode objectNode) {
