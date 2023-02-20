@@ -12,6 +12,12 @@ public class MiranumCustomerNotificationAdapter {
     @Worker(type = "notifyGuest")
     public void notifyCustomer(NotifyGuestCommand notifyGuestCommand) {
         var sendMailCommand = SendMailCommandFactory.create(notifyGuestCommand);
+        // Simulate delay
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         sendMailUseCase.sendMail(sendMailCommand);
     }
 }
