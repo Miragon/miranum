@@ -2,7 +2,7 @@
 
 *This example demonstrates how to use miranum connect and how you can decouple micro-services using it.*
 
-There are 4 services in total:
+There are four services in total:
 
 * `waiter`: responsible for placing the order, serving beverages and issuing the check
 * `kitchen`: responsible for the cooking
@@ -22,12 +22,20 @@ There are 4 services in total:
 </div>
 <br>
 
-Now you can start a new order by filling out the form. Provide food (one or a comma separated list), food (also one or a comma separated list)
+Now you can start a new order by filling out the form. Provide food (one or a comma separated list), drinks
 your name and your email address. The email is not actually sent. For the sake of this example it is just a print on the console of the email service.
 
-*Info: When using any jetbrains related IDE you can start all 4 services by adding a compound run configuration.*
+*Info: When using any jetbrains related IDE you can start all four services by adding a compound run configuration.*
 
-After submitting your order, you should be able to follow the logs on the different consoles of the services.
+After submitting your order, you should notice the success message below.
+
+<br>
+<div align="center">
+    <img src="./../../images/pizza-order-success-msg.png" alt="pizza-order-success-message" width="300" align="center">
+</div>
+<br>
+
+You now can follow the logs in the different service consoles.
 
 ## The process
 
