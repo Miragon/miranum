@@ -17,6 +17,7 @@
     <modules>
         <module>core</module>
         <module>camunda8</module>
+        <module>pizza-order-frontend</module>
     </modules>
 
 </project>
