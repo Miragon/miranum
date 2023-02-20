@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>pizza-order</artifactId>
+        <artifactId>core</artifactId>
         <version>0.13.0-SNAPSHOT</version>
     </parent>
 
