@@ -56,11 +56,53 @@ public class JsonSchemaImplTest {
         final List<ValidationResult> result = schema.validate(actualData, previousData);
 
         assertEquals(0, result.size());
+    }
 
+    @Test
+    public void test_additional_data() throws IOException, URISyntaxException {
+        final String rawSchema = getSchemaString("/schema/serialization/schema.json");
+        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+
+        final Map<String, Object> actualData = Map.of(
+                "stringProp1", "fsdafsda",
+                "numberProp1", 1,
+                "notInSchemaKey", 1
+        );
+
+        final Map<String, Object> previousData = Map.of(
+                "dateprop", "20",
+                "numberProp1", 1,
+                "booleanprop", true
+        );
+
+        final List<ValidationResult> result = schema.validate(actualData, previousData);
+
+
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void test_user_schema() throws IOException, URISyntaxException {
+        final String rawSchema = getSchemaString("/schema/serialization/additional-data-schema.json");
+        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+
+        final Map<String, Object> actualData = Map.of(
+                "addressOrUser", Map.of("city", "Augsburg",
+                        "name", "Dom",
+                        "street_address", "Augstreet 1",
+                        "state", "Bavaria",
+                        "mail", "test@mail.de")
+
+        );
+
+        final List<ValidationResult> result = schema.validate(actualData);
+
+
+        assertEquals(0, result.size());
     }
 
     protected JsonSchema getSchemaFronString(final String schemaContent) {
-        return new JsonSchemaFactory().createJsonSchema(schemaContent);
+        return JsonSchemaFactory.createJsonSchema(schemaContent);
     }
 
 }

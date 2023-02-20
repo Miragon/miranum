@@ -51,7 +51,7 @@ public class JsonSchemaFactory {
                             new NonValidationKeyword("message")
                     ))
                     .addKeyword(new ReadOnlyKeyword())
-                    // .addKeyword(new HttpValidator())
+                    .addKeyword(new AllOfKeyword())
                     .build();
         }
     }

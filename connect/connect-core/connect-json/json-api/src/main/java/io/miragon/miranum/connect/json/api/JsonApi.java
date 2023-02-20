@@ -8,6 +8,6 @@ public interface JsonApi {
 
     JsonSchema getSchema(String schemaRef);
 
-    JsonSchema createSchema(String schemaContent);
+    JsonSchema buildSchema(String schemaContent);
 
 }

@@ -1,6 +1,5 @@
 {
   "key": "MyStartForm",
-  "type": "object",
   "x-display": "stepper",
   "required": [
     "numberProp1"
@@ -9,7 +8,6 @@
     {
       "key": "sectionKey1",
       "title": "Erster Abschnitt",
-      "type": "object",
       "x-options": {
         "sectionsTitlesClasses": [
           "d-none"
@@ -17,9 +15,9 @@
       },
       "allOf": [
         {
+          "additionalProperties": false,
           "key": "feldgruppe1",
           "title": "Erste Gruppe",
-          "type": "object",
           "x-options": {
             "childrenClass": "pr-5 pl-0"
           },
@@ -80,6 +78,31 @@
               "type": "string",
               "format": "date",
               "title": "Ich bin ein Date",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "key": "feldgruppe1",
+          "title": "Erste Gruppe",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "testProp": {
+              "fieldType": "text",
+              "title": "Ich bin ein Text",
+              "type": "string",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 6
+                }
+              },
               "x-props": {
                 "outlined": true,
                 "dense": true

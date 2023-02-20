@@ -27,7 +27,7 @@ public class JsonApiImpl implements JsonApi {
     }
 
     @Override
-    public JsonSchema createSchema(final String schemaContent) {
+    public JsonSchema buildSchema(final String schemaContent) {
         return JsonSchemaFactory.createJsonSchema(schemaContent);
     }
 
