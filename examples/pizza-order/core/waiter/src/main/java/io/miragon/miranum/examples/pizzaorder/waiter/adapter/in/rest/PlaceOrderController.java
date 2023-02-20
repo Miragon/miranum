@@ -4,10 +4,7 @@ import io.miragon.miranum.examples.pizzaorder.waiter.application.port.in.PlaceOr
 import io.miragon.miranum.examples.pizzaorder.waiter.application.port.in.PlaceOrderUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/place-order")
@@ -16,6 +13,7 @@ public class PlaceOrderController {
 
     private final PlaceOrderUseCase placeOrderUseCase;
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<String> placeOrder(@RequestBody PlaceOrderRequestDto placeOrderRequestDto) {
         var placeOrderInCommand = new PlaceOrderInCommand(
