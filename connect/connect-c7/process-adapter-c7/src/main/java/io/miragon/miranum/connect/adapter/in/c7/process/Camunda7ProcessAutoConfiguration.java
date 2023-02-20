@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 public class Camunda7ProcessAutoConfiguration {
 
     @Bean
-    public Camunda7ProcessAdapter camunda7MessageAdapter(final ProcessDefinitionApi processDefinitionApi, final Camunda7BaseVariableValueMapper camunda7BaseVariableValueMapper) {
+    public Camunda7ProcessAdapter camunda7ProcessAdapter(final ProcessDefinitionApi processDefinitionApi, final Camunda7BaseVariableValueMapper camunda7BaseVariableValueMapper) {
         return new Camunda7ProcessAdapter(processDefinitionApi, camunda7BaseVariableValueMapper);
     }
 }
