@@ -35,7 +35,7 @@ After submitting your order, you should notice the success message below.
 </div>
 <br>
 
-You now can follow the logs in the different service consoles to get a better view on what is happening in the different services.
+You now can follow the logs in the different service consoles to get a better overview on what is happening in the different services.
 
 ## The process
 
