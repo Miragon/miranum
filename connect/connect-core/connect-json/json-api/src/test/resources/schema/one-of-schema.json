@@ -5,6 +5,7 @@
   "oneOf": [
     {
       "title": "I'm a sub-schema",
+      "additionalProperties": false,
       "properties": {
         "schemaKey": {
           "type": "string",
@@ -18,6 +19,7 @@
     },
     {
       "title": "I'm another sub-schema",
+      "additionalProperties": false,
       "properties": {
         "schemaKey": {
           "type": "string",

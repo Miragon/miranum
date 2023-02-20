@@ -12,12 +12,12 @@ import java.util.Map;
 import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonSchemaImplTest {
+public class JsonSchemaFilterTest {
 
 
     @Test
     public void test_readonly_error() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/serialization/schema.json");
+        final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
         final Map<String, Object> actualData = Map.of(
@@ -39,7 +39,7 @@ public class JsonSchemaImplTest {
 
     @Test
     public void test_data_valid() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/serialization/schema.json");
+        final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
         final Map<String, Object> actualData = Map.of(
@@ -60,7 +60,7 @@ public class JsonSchemaImplTest {
 
     @Test
     public void test_additional_data() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/serialization/schema.json");
+        final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
         final Map<String, Object> actualData = Map.of(
@@ -83,7 +83,7 @@ public class JsonSchemaImplTest {
 
     @Test
     public void test_user_schema() throws IOException, URISyntaxException {
-        final String rawSchema = getSchemaString("/schema/serialization/additional-data-schema.json");
+        final String rawSchema = getSchemaString("/schema/additional-data-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
         final Map<String, Object> actualData = Map.of(
