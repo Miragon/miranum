@@ -130,8 +130,24 @@ The `PlaceOrderUseCase` is implemented by a `PlaceOrderService` in the waiter se
 the `PlaceOrderPort`. This is an outgoing dependency, so we as a service just use it and don't have to care who implements it.\
 As an outgoing adapter there is a `ProcessAdapter` implementation, which uses the miranum process implementation to start a process.
 This use-case to start a process is implemented by miranum and for the user of this use-case it is independent of any supported engine.
-<br/><br/>
 
+### Kitchen
+
+The kitchen service is equally designed as the `waiter`-service using the hexagonal approach.
+The kitchen is responsible for making the ordered food. It exposes the `PreparePizzaUseCase` which is used by a `MiranumAdapter`
+which registers the function as an external task.
+
+<img src="./../../images/kitchen-service-architecture.png" alt="kitchen-service-architecture.png" width="450">
+
+### Email
+
+The email service is responsible for notifying the guest after he placed an order using the `frontend`.
+This service uses an email integration that is provided by miranum. For now this integration is not fully implemented and
+only logs the email content to the console.\
+One of the goals of miranum is to implement a number of useful and common integrations that you can use out of the box
+in your application.
+
+<img src="./../../images/email-service-architecture.png" alt="email-service-architecture.png" width="450">
 
 
 
