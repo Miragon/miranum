@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1wsvxhu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
   <bpmn:collaboration id="Collaboration_1np1rfs">
-    <bpmn:participant id="template-ticket-booking-participant" name="PizzeOrdering" processRef="OrderPizza_C8" />
+    <bpmn:participant id="template-ticket-booking-participant" name="PizzeOrdering" processRef="PizzaOrder" />
     <bpmn:participant id="Participant_1l2gxa0" name="Cook" />
     <bpmn:participant id="Participant_0y2e8ja" name="Waiter" />
     <bpmn:participant id="Participant_1i465kq" name="Waiter" />
@@ -11,7 +11,7 @@
     <bpmn:messageFlow id="Flow_11rhvrd" sourceRef="Activity_1g89uec" targetRef="Participant_0y2e8ja" />
     <bpmn:messageFlow id="Flow_0amdf5a" sourceRef="Activity_00pavwk" targetRef="Participant_1wbxue1" />
   </bpmn:collaboration>
-  <bpmn:process id="OrderPizza_C8" isExecutable="true">
+  <bpmn:process id="PizzaOrder" isExecutable="true">
     <bpmn:startEvent id="Event_016pcdn">
       <bpmn:outgoing>Flow_19ebf54</bpmn:outgoing>
     </bpmn:startEvent>
@@ -185,10 +185,6 @@
         <di:waypoint x="480" y="185" />
         <di:waypoint x="580" y="185" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_0whvqa2_di" bpmnElement="Participant_1i465kq" isHorizontal="true">
-        <dc:Bounds x="1211" y="487" width="301" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1xi7sa7_di" bpmnElement="Participant_1l2gxa0" isHorizontal="true">
         <dc:Bounds x="790" y="487" width="300" height="60" />
         <bpmndi:BPMNLabel />
@@ -197,17 +193,14 @@
         <dc:Bounds x="480" y="487" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0whvqa2_di" bpmnElement="Participant_1i465kq" isHorizontal="true">
+        <dc:Bounds x="1211" y="487" width="301" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0h515tf" bpmnElement="Participant_1wbxue1" isHorizontal="true">
         <dc:Bounds x="160" y="487" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_11rhvrd_di" bpmnElement="Flow_11rhvrd">
-        <di:waypoint x="630" y="225" />
-        <di:waypoint x="630" y="487" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="773" y="426" width="76" height="40" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08b5p57_di" bpmnElement="Flow_08b5p57">
         <di:waypoint x="841" y="225" />
         <di:waypoint x="841" y="487" />
@@ -220,6 +213,13 @@
         <di:waypoint x="1329" y="487" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1275" y="423" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11rhvrd_di" bpmnElement="Flow_11rhvrd">
+        <di:waypoint x="630" y="225" />
+        <di:waypoint x="630" y="487" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="773" y="426" width="76" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0amdf5a_di" bpmnElement="Flow_0amdf5a">
