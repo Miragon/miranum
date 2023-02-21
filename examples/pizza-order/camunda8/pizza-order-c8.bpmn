@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1wsvxhu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
   <bpmn:collaboration id="Collaboration_1np1rfs">
-    <bpmn:participant id="template-ticket-booking-participant" name="PizzeOrdering" processRef="PizzaOrder" />
-    <bpmn:participant id="Participant_1l2gxa0" name="Cook" />
+    <bpmn:participant id="template-ticket-booking-participant" name="Pizza order" processRef="PizzaOrder" />
+    <bpmn:participant id="Participant_1l2gxa0" name="Kitchen" />
     <bpmn:participant id="Participant_0y2e8ja" name="Waiter" />
     <bpmn:participant id="Participant_1i465kq" name="Waiter" />
     <bpmn:participant id="Participant_1wbxue1" name="Email" />
