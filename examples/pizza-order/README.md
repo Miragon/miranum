@@ -104,13 +104,34 @@ public void serveDrinks(ServeDrinksCommand serveDrinksCommand) {
 ...
 ```
 
-<br/>
-This annotation is provided by miranum, and lets you register external tasks. The type of property maps to the task-definition type in the camunda modeler.<br/>
+\
+This annotation is provided by miranum, and lets you register external tasks. The type of property maps to the task-definition type in the camunda modeler.
+Every service that want to be registered as an external task has to have a miranum input adapter. Of course, you can move
+the @Worker annotation into your services, but this would add the dependency to your services which is not recommended.
+<br/><br/>
 Notice that your service application does not have to know anything about the caller, here namely miranum.
 The application can be implemented following DDD principles perfectly.
-<br/>
-
+<br/><br/>
 Depending on which workflow engine you are willing to use miranum will handle all the communication in the background.
 Currently, we support Camunda 7 and Camunda 8, but we are planning on integrating other engines in near future.
+<br/><br/>
+Also notice that the waiter service has four incoming ports and one outgoing port. We define our incoming ports as use-cases.
+So instead of `ServeDrinksPort` we call it a `ServeDrinkUseCase`. The outgoing interfaces are still named with the `port` postfix.
+<br/><br/>
 
-<br/>
+Because the waiter is also responsible for placing the guests order, he exposes a `PlaceOrderUseCase` which can be called
+by any incoming system. Here a REST-Adapter uses this use-case to place an order.
+
+### Frontend
+
+The frontend is fairly simple. It is just a spring-boot-web application serving a static template with some css and javascript.
+It just calls the REST-Endpoint which uses the waiters `PlaceOrderUseCase` to place an order.\
+The `PlaceOrderUseCase` is implemented by a `PlaceOrderService` in the waiter service. This service calls an outgoing port,
+the `PlaceOrderPort`. This is an outgoing dependency, so we as a service just use it and don't have to care who implements it.\
+As an outgoing adapter there is a `ProcessAdapter` implementation, which uses the miranum process implementation to start a process.
+This use-case to start a process is implemented by miranum and for the user of this use-case it is independent of any supported engine.
+<br/><br/>
+
+
+
+
