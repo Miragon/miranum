@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div style="text-align:center">
+<div align="center">
     <a href="#">
         <img src="/images/logo.png" alt="Logo" height="50">
     </a>
@@ -30,7 +30,7 @@ The project is built with technologies:
 
 * Spring Boot
 
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 
@@ -40,13 +40,13 @@ The project is built with technologies:
 
 See the [open issues](#) for a full list of proposed features (and known issues).
 
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting started
 
 *how can I start and fly this project*
 
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 <!-- CONTRIBUTING -->
 
 ## Contributing
@@ -67,7 +67,7 @@ star! Thanks again!
 
 More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
@@ -76,4 +76,4 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
 Distributed under the MIT License. See `LICENSE` file for more information.
 
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
