@@ -22,7 +22,7 @@
 
 Miranum-Connect is a library which enables developers to build reusable and technology neutral connectors and integrations between products.
 Please find our official docs <a href="https://miranum.com/docs/components/miranum-connect/intro-miranum-connect">here</a>.
-<p style="text-align:right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
