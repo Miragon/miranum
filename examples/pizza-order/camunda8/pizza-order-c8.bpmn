@@ -10,9 +10,10 @@
     <bpmn:messageFlow id="Flow_02bhzx9" sourceRef="Activity_0etdda4" targetRef="Participant_1i465kq" />
     <bpmn:messageFlow id="Flow_11rhvrd" sourceRef="Activity_1g89uec" targetRef="Participant_0y2e8ja" />
     <bpmn:messageFlow id="Flow_0amdf5a" sourceRef="Activity_00pavwk" targetRef="Participant_1wbxue1" />
+    <bpmn:messageFlow id="Flow_0j0yo3a" sourceRef="Activity_0zzsbld" targetRef="Participant_1i465kq" />
   </bpmn:collaboration>
   <bpmn:process id="PizzaOrder" isExecutable="true">
-    <bpmn:startEvent id="Event_016pcdn">
+    <bpmn:startEvent id="Event_016pcdn" name="Place order">
       <bpmn:outgoing>Flow_19ebf54</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:eventBasedGateway id="Gateway_1i857tl">
@@ -97,6 +98,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1flo467" bpmnElement="Event_016pcdn">
         <dc:Bounds x="263" y="167" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="253" y="210" width="57" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1iw0mrx_di" bpmnElement="Gateway_1i857tl">
         <dc:Bounds x="944" y="160" width="50" height="50" />
@@ -193,12 +197,12 @@
         <dc:Bounds x="480" y="487" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_0whvqa2_di" bpmnElement="Participant_1i465kq" isHorizontal="true">
-        <dc:Bounds x="1211" y="487" width="301" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0h515tf" bpmnElement="Participant_1wbxue1" isHorizontal="true">
         <dc:Bounds x="160" y="487" width="300" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0whvqa2_di" bpmnElement="Participant_1i465kq" isHorizontal="true">
+        <dc:Bounds x="1110" y="487" width="301" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_08b5p57_di" bpmnElement="Flow_08b5p57">
@@ -225,6 +229,10 @@
       <bpmndi:BPMNEdge id="Flow_0amdf5a_di" bpmnElement="Flow_0amdf5a">
         <di:waypoint x="430" y="225" />
         <di:waypoint x="430" y="487" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0j0yo3a_di" bpmnElement="Flow_0j0yo3a">
+        <di:waypoint x="1139" y="225" />
+        <di:waypoint x="1139" y="487" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
