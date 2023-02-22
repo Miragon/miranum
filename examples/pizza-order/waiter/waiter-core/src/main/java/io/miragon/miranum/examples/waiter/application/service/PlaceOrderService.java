@@ -24,7 +24,6 @@ public class PlaceOrderService implements PlaceOrderUseCase {
         Map<String, Object> variables = objectMapper.convertValue(placeOrderInCommand, new TypeReference<>() {
         });
         var placeOrderOutCommand = new PlaceOrderOutCommand(processId, variables);
-        ;
         placeOrderPort.placeOrder(placeOrderOutCommand);
     }
 }

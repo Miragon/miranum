@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.waiter.adapter.in.rest;
+package io.miragon.miranum.examples.waiter.adapter.in.rest.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

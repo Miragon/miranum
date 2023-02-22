@@ -1,7 +1,6 @@
 package io.miragon.miranum.examples.waiter;
 
 import io.miragon.miranum.examples.waiter.adapter.in.miranum.MiranumWaiterAdapterAutoConfiguration;
-import io.miragon.miranum.examples.waiter.adapter.in.rest.PlaceOrderControllerAutoConfiguration;
 import io.miragon.miranum.examples.waiter.adapter.out.ProcessAdapterAutoConfiguration;
 import io.miragon.miranum.examples.waiter.application.port.in.*;
 import io.miragon.miranum.examples.waiter.application.port.out.PlaceOrderPort;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({
         MiranumWaiterAdapterAutoConfiguration.class,
-        PlaceOrderControllerAutoConfiguration.class,
         ProcessAdapterAutoConfiguration.class
 })
 public class WaiterAutoConfiguration {
