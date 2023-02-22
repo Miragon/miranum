@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableZeebeClient
-public class EmailC8Application {
+public class NotificationC8Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(EmailC8Application.class, args);
+        SpringApplication.run(NotificationC8Application.class, args);
     }
 }
