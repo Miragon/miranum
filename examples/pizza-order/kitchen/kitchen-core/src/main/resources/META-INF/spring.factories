@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.examples.pizzaorder.kitchen.KitchenAutoConfiguration
+io.miragon.miranum.examples.kitchen.KitchenAutoConfiguration

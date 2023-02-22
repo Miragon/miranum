@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.examples.pizzaorder.waiter.WaiterAutoConfiguration
+io.miragon.miranum.examples.waiter.WaiterAutoConfiguration
