@@ -15,9 +15,9 @@
     </parent>
 
     <modules>
-        <module>core</module>
-        <module>camunda8</module>
-        <module>camunda7</module>
+        <module>waiter</module>
+        <module>kitchen</module>
+        <module>notification</module>
         <module>pizza-order-frontend</module>
     </modules>
 

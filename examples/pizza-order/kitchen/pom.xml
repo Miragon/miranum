@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>camunda8</artifactId>
-    <name>pizza-order-camunda8</name>
+    <artifactId>kitchen</artifactId>
+    <name>kitchen</name>
     <packaging>pom</packaging>
-    <description>Camunda8 services</description>
+    <description>Kitchen microservice</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
@@ -15,9 +15,9 @@
     </parent>
 
     <modules>
+        <module>kitchen-c7</module>
         <module>kitchen-c8</module>
-        <module>waiter-c8</module>
-        <module>email-c8</module>
+        <module>kitchen-core</module>
     </modules>
 
 </project>

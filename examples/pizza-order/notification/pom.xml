@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>core</artifactId>
-    <name>pizza-order-core</name>
+    <artifactId>notification</artifactId>
+    <name>notification</name>
     <packaging>pom</packaging>
-    <description>Core project for the pizza-order-example</description>
+    <description>Notification microservice</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
@@ -15,9 +15,9 @@
     </parent>
 
     <modules>
-        <module>kitchen</module>
-        <module>waiter</module>
-        <module>email</module>
+        <module>notification-c7</module>
+        <module>notification-c8</module>
+        <module>notification-core</module>
     </modules>
 
 </project>
