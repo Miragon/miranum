@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.pizzaorder.email;
+package io.miragon.miranum.examples.pizzaorder.notification;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
