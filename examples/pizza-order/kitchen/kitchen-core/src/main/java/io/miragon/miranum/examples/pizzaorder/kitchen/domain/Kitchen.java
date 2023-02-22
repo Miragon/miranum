@@ -14,7 +14,7 @@ public class Kitchen {
             log.info("Started making pizza...");
             for (var pizza : pizzaList) {
                 log.info(String.format("Preparing pizza %s", pizza.getName()));
-                var timeToPrepareInSeconds = Math.abs(random.nextInt()) % 5; // TODO: 1 to 10 secs
+                var timeToPrepareInSeconds = 1 + Math.abs(random.nextInt()) % 10;
                 Thread.sleep(timeToPrepareInSeconds * 1000);
             }
         } catch (InterruptedException e) {
