@@ -40,4 +40,8 @@ public class Waiter {
     public void issueCheck(List<OrderElement> order) {
         log.info("Issue check");
     }
+
+    public void reassureGuest(String guestName) {
+        log.info("Reassuring guest " + guestName + "...");
+    }
 }

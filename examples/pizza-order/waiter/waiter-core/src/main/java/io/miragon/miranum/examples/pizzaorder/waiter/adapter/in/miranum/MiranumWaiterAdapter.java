@@ -10,6 +10,7 @@ public class MiranumWaiterAdapter {
     private final ServeDrinksUseCase serveDrinksUseCase;
     private final ServeFoodUseCase serveFoodUseCase;
     private final IssueCheckUseCase issueCheckUseCase;
+    private final ReassureGuestUseCase reassureGuestUseCase;
 
     @Worker(type = "serveDrinks")
     public void serveDrinks(ServeDrinksCommand serveDrinksCommand) {
@@ -24,5 +25,10 @@ public class MiranumWaiterAdapter {
     @Worker(type = "issueCheck")
     public void issueCheck(IssueCheckCommand issueCheckCommand) {
         issueCheckUseCase.issueCheck(issueCheckCommand);
+    }
+
+    @Worker(type = "reassureGuest")
+    public void reassureGuest(ReassureGuestCommand reassureGuestCommand) {
+        reassureGuestUseCase.reassureGuest(reassureGuestCommand);
     }
 }
