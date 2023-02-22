@@ -12,7 +12,7 @@ There are four services in total:
 ## Run the project
 
 1. Start all services, namely the `WaiterC8Application`, `KitchenC8Application`, `EmailC8Application` and the `PizzaOrderFrontEnd`
-2. Make sure that you have a running instance of the Camunda8 Engine running. <br> *If not, just start the camunda-8 stack under `stack/camunda-8`.*
+2. Make sure that you have a running instance of the Camunda Platform 8 engine running. <br> *If not, just start the [camunda-8 stack](../../stack/camunda-8/docker-compose.yml).*
 3. Also make sure to deploy the `pizza-order-c8.bpmn` to the running Camunda8-Engine.
 4. Now navigate to http://localhost:5050 to view the Frontend-Application. You will end up seeing something like this:
 
@@ -25,7 +25,7 @@ There are four services in total:
 Now you can start a new order by filling out the form. Provide food (one or a comma separated list), drinks
 your name and your email address. The email is not actually sent. For the sake of this example it is just a print on the console of the email service.
 
-*Info: When using any jetbrains related IDE you can start all four services by adding a compound run configuration.*
+*Hint: When using IntelliJ you can start all four services by adding a compound run configuration.*
 
 After submitting your order, you should notice the success message below.
 
@@ -42,30 +42,30 @@ You now can follow the logs in the different service consoles to get a better ov
 <img src="./../../images/pizza-order-bpmn.png" alt="pizza-order-bpmn">
 
 The order pizza example demonstrates a simple modern pizza order process.
-The process starts with the order placement by the guest. This is a REST-call and for now 
-After that the following steps will follow:
+The process starts with the order placement by the guest.
+Afterwards the following steps will be executed:
 
 1. The `Notify guest` Task calls an independent email service which will handle the guest notification by mail 
 *(This will just print to the email service console for now)* 
 2. The `Waiter` will be called to serve the drinks
 3. The `Prepare Pizza` process calls the kitchen service to make the pizza
 4. If the cook in the kitchen takes too long to prepare the pizza gets bad and have to be disposed. As a result of that the order gets canceled
-5. If the cook works fast, the kitchen service sends a message to the worker to come and serve the pizza to the guest
+5. If the cook works fast, the kitchen service sends a message to the waiter to come and serve the pizza to the guest
 6. Finally, the waiter issues the check. The dinner was successful and the guest hopefully satisfied.
 
 ## Services and Architecture
 
-The architecture we recommend to use for building integrations with miranum is the hexagonal architecture, also referred to as ports and adapters.
+We recommend using the hexagonal architecture aka ports and adapters for building integrations.
 The goal of it is to decouple your domain from incoming and outgoing dependencies. Incoming dependencies are dependencies that
 call our domain (e.g. REST-calls), outgoing dependencies get called by our domain (e.g. persistence layer).
-An also common type of architecture to do so is the layer architecture. It usually looks something like this:
+A common way to do so is by using a layered architecture.It usually looks something like this:
 
 <br/>
 <img src="./../../images/layer-architecture.png" alt="layer-architecture">
 <br/>
 
 A problem with that - also discussed in "Get Your Hands Dirty On Clean Architecture" by Tom Hombergs - is that you still have
-that outgoing dependency to your Data Access Layer which can lead to Database-Driven development instead of the Domain 
+that outgoing dependency to your data access layer which can lead to database-driven development instead of the Domain 
 leading the development.
 The suggested architecture that we also use to build the services looks roughly like this:
 
@@ -105,9 +105,8 @@ public void serveDrinks(ServeDrinksCommand serveDrinksCommand) {
 ```
 
 \
-This annotation is provided by miranum, and lets you register external tasks. The type of property maps to the task-definition type in the camunda modeler.
-Every service that want to be registered as an external task has to have a miranum input adapter. Of course, you can move
-the @Worker annotation into your services, but this would add the dependency to your services which is not recommended.
+This annotation is provided by miranum, and lets you register external tasks. The type of property maps to the task-definition type or topic in Camunda7/8.
+Every service that want to be registered as an external task has to have a miranum input adapter. 
 <br/><br/>
 Notice that your service application does not have to know anything about the caller, here namely miranum.
 The application can be implemented following DDD principles perfectly.
@@ -119,7 +118,7 @@ Also notice that the waiter service has four incoming ports and one outgoing por
 So instead of `ServeDrinksPort` we call it a `ServeDrinkUseCase`. The outgoing interfaces are still named with the `port` postfix.
 <br/><br/>
 
-Because the waiter is also responsible for placing the guests order, he exposes a `PlaceOrderUseCase` which can be called
+Because the waiter is responsible for placing the guests order, he exposes a `PlaceOrderUseCase` which can be called
 by any incoming system. Here a REST-Adapter uses this use-case to place an order.
 
 ### Frontend
