@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.notification;
+package io.miragon.miranum.examples.notification.adapter.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

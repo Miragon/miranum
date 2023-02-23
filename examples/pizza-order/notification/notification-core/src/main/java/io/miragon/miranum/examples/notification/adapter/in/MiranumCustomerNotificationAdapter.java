@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.notification;
+package io.miragon.miranum.examples.notification.adapter.in;
 
 import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailUseCase;

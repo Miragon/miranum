@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.examples.notification.MiranumCustomerNotificationAdapterConfiguration
+io.miragon.miranum.examples.notification.adapter.in.MiranumCustomerNotificationAdapterConfiguration

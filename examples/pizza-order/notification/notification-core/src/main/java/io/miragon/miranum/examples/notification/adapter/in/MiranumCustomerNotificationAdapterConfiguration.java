@@ -1,4 +1,4 @@
-package io.miragon.miranum.examples.notification;
+package io.miragon.miranum.examples.notification.adapter.in;
 
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailUseCase;
 import org.springframework.context.annotation.Bean;
