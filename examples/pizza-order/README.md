@@ -47,11 +47,11 @@ Afterwards the following steps will be executed:
 
 1. The `Notify guest` Task calls an independent email service which will handle the guest notification by mail 
 *(This will just print to the email service console for now)* 
-2. The `Waiter` will be called to serve the drinks
-3. The `Prepare Pizza` process calls the kitchen service to make the pizza
-4. If the cook in the kitchen takes too long to prepare the pizza gets bad and have to be disposed. As a result of that the order gets canceled
-5. If the cook works fast, the kitchen service sends a message to the waiter to come and serve the pizza to the guest
-6. Finally, the waiter issues the check. The dinner was successful and the guest hopefully satisfied.
+2. The `Waiter` will be called to serve the drinks and simultaneously the `Prepare Pizza` process calls the kitchen service to make the pizza
+3. After serving the drinks the waiter will wait for the kitchen to prepare the pizza
+4. If the pizza is prepared, the kitchen service sends a message to the waiter to come and serve the pizza to the guest
+5. Finally, the waiter issues the check. The dinner was successful and the guest hopefully satisfied.
+6. Additionally, every 20s the waiter reassures the guest
 
 ## Services and Architecture
 
@@ -81,10 +81,10 @@ For more references see:
 
 ### Waiter
 
-The waiter is responsible for placing the order, serving the food and the drinks and lastly issuing the check.
+The waiter is responsible for placing the order, serving the food and the drinks, issuing the check and also for reassuring the guest.
 
 <br/>
-<img src="./../../images/waiter-service-architecture.drawio.png" alt="waiter-service-architecture.drawio.png">
+<img src="./../../images/pizza-order-waiter-service-architecture.png" alt="waiter-service-architecture">
 <br/>
 
 You notice the `MiranumAdapter` at the top of the diagram. This adapter is an incoming adapter, which is calling our service,
