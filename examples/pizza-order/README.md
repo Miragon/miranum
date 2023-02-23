@@ -6,15 +6,14 @@ There are four services in total:
 
 * `waiter`: responsible for placing the order, serving beverages and issuing the check
 * `kitchen`: responsible for the cooking
-* `email`: responsible for notifying the customer for the order confirmation
+* `notification`: responsible for notifying the customer for the order confirmation
 * `frontend`: frontend to place order to the waiter service by REST
 
 ## Run the project
 
-1. Start all services, namely the `WaiterC8Application`, `KitchenC8Application`, `EmailC8Application` and the `PizzaOrderFrontEnd`
+1. Start all services, either the Camunda 7 or Camunda 8 ones (e.g. `WaiterC8Application`, `KitchenC8Application`, `NotificationC8Application`) and the `PizzaOrderFrontEnd`
 2. Make sure that you have a running instance of the Camunda Platform 8 engine running. <br> *If not, just start the [camunda-8 stack](../../stack/camunda-8/docker-compose.yml).*
-3. Also make sure to deploy the `pizza-order-c8.bpmn` to the running Camunda8-Engine.
-4. Now navigate to http://localhost:5050 to view the Frontend-Application. You will end up seeing something like this:
+3. Now navigate to http://localhost:5050 to view the Frontend-Application. You will end up seeing something like this:
 
 <br>
 <div align="center">
@@ -23,7 +22,7 @@ There are four services in total:
 <br>
 
 Now you can start a new order by filling out the form. Provide food (one or a comma separated list), drinks
-your name and your email address. The email is not actually sent. For the sake of this example it is just a print on the console of the email service.
+your name and your email address. The email is not actually sent. For the sake of this example it is just a print on the console of the notification service.
 
 *Hint: When using IntelliJ you can start all four services by adding a compound run configuration.*
 
@@ -46,7 +45,7 @@ The process starts with the order placement by the guest.
 Afterwards the following steps will be executed:
 
 1. The `Notify guest` Task calls an independent email service which will handle the guest notification by mail 
-*(This will just print to the email service console for now)* 
+*(This will just print to the notification service console for now)* 
 2. The `Waiter` will be called to serve the drinks and simultaneously the `Prepare Pizza` process calls the kitchen service to make the pizza
 3. After serving the drinks the waiter will wait for the kitchen to prepare the pizza
 4. If the pizza is prepared, the kitchen service sends a message to the waiter to come and serve the pizza to the guest
@@ -147,6 +146,3 @@ One of the goals of miranum is to implement a number of useful and common integr
 in your application.
 
 <img src="./../../images/email-service-architecture.png" alt="email-service-architecture.png" width="450">
-
-
-
