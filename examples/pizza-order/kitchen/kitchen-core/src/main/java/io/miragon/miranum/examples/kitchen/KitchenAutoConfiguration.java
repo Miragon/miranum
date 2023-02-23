@@ -1,6 +1,6 @@
 package io.miragon.miranum.examples.kitchen;
 
-import io.miragon.miranum.examples.kitchen.adapter.in.miranum.MiranumKitchenAdapterAutoConfiguration;
+import io.miragon.miranum.examples.kitchen.adapter.in.MiranumKitchenAdapterAutoConfiguration;
 import io.miragon.miranum.examples.kitchen.application.port.in.PreparePizzaUseCase;
 import io.miragon.miranum.examples.kitchen.application.service.PreparePizzaService;
 import io.miragon.miranum.examples.kitchen.domain.Kitchen;
