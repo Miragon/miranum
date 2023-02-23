@@ -73,7 +73,6 @@ public class JsonSchemaFilterTest {
         );
 
         final JsonNode node = this.jsonApi.filter(schema, actualData);
-
         assertNull(node.get("person").get(1).get("street"));
     }
 
