@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+}
+
+.interaction-container {
+    margin: auto;
+}
+
+.jumbotron {
+    padding: 4rem 2rem 2rem 2rem;
+    margin-bottom: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.submit-button {
+    display: flex;
+    justify-content: right;
+    margin-top: 40px;
+}

@@ -16,5 +16,4 @@ public class CorrelateMessageCommand {
     private String correlationKey;
 
     private Map<String, Object> variables;
-
 }

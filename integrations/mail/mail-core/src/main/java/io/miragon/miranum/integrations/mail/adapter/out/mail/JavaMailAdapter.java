@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 public class JavaMailAdapter implements DeliverMailPort {
     @Override
     public void deliverMail(final Mail mail) {
-        log.info("deliver java mail");
+        // TODO: Implement
+        log.info("Deliver java mail:\n" + mail);
     }
 }
