@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
+import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonSchemaValidationTest {
@@ -20,16 +21,16 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1,
-                "booleanprop", false
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("stringProp1", "fsdafsda"),
+                entry("numberProp1", 1),
+                entry("booleanprop", false)
         );
 
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
+        final Map<String, Object> previousData = Map.ofEntries(
+                entry("dateprop", "20"),
+                entry("numberProp1", 1),
+                entry("booleanprop", true)
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
@@ -41,15 +42,15 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("stringProp1", "fsdafsda"),
+                entry("numberProp1", 1)
         );
 
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
+        final Map<String, Object> previousData = Map.ofEntries(
+                entry("dateprop", "20"),
+                entry("numberProp1", 1),
+                entry("booleanprop", true)
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
@@ -61,16 +62,16 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1,
-                "notInSchemaKey", 1
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("stringProp1", "fsdafsda"),
+                entry("numberProp1", 1),
+                entry("notInSchemaKey", 1)
         );
 
-        final Map<String, Object> previousData = Map.of(
-                "dateprop", "20",
-                "numberProp1", 1,
-                "booleanprop", true
+        final Map<String, Object> previousData = Map.ofEntries(
+                entry("dateprop", "20"),
+                entry("numberProp1", 1),
+                entry("booleanprop", true)
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
@@ -83,13 +84,13 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/additional-data-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "addressOrUser", Map.of("city", "Augsburg",
-                        "name", "Dom",
-                        "street_address", "Augstreet 1",
-                        "state", "Bavaria",
-                        "mail", "test@mail.de")
-
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("addressOrUser", Map.ofEntries(
+                        entry("city", "Augsburg"),
+                        entry("name", "Dom"),
+                        entry("street_address", "Augstreet 1"),
+                        entry("state", "Bavaria"),
+                        entry("mail", "test@mail.de")))
         );
 
         final List<ValidationResult> result = schema.validate(actualData);
@@ -98,9 +99,9 @@ public class JsonSchemaValidationTest {
 
     @Test
     public void textarea_with_maxlength_is_valid() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.of(
-                "numberProp1", 12,
-                "GrundDienstlNotwendigkeit", "fdsfsdafsdafadsfsadfsdafd"
+        final Map<String, Object> acutalData = Map.ofEntries(
+                entry("numberProp1", 12),
+                entry("GrundDienstlNotwendigkeit", "fdsfsdafsdafadsfsadfsdafd")
         );
         final String rawSchema = getSchemaString("/schema/text-area-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
@@ -113,8 +114,8 @@ public class JsonSchemaValidationTest {
 
     @Test
     public void one_of_is_valid() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.of(
-                "stringProp1", "stringprop"
+        final Map<String, Object> acutalData = Map.ofEntries(
+                entry("stringProp1", "stringprop")
         );
         final String rawSchema = getSchemaString("/schema/one-of-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
@@ -126,8 +127,8 @@ public class JsonSchemaValidationTest {
 
     @Test
     public void one_of_is_invalid() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.of(
-                "stringProp3", "stringprop"
+        final Map<String, Object> acutalData = Map.ofEntries(
+                entry("stringProp3", "stringprop")
         );
         final String rawSchema = getSchemaString("/schema/one-of-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
@@ -139,9 +140,9 @@ public class JsonSchemaValidationTest {
 
     @Test
     public void select_schema_with_wrong_data_fails() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.of(
-                "stringProp1", "fdsfsdafsdafadsfsadfsdafd",
-                "selection", "test3"
+        final Map<String, Object> acutalData = Map.ofEntries(
+                entry("stringProp1", "fdsfsdafsdafadsfsadfsdafd"),
+                entry("selection", "test3")
         );
         final String rawSchema = getSchemaString("/schema/complex-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
@@ -155,11 +156,13 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/object-list-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "person", List.of(
-                        Map.of(
-                                "vorname", "Dom",
-                                "nachname", "Hrn")
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("person", List.of(
+                                Map.ofEntries(
+                                        entry("vorname", "Dom"),
+                                        entry("nachname", "Hrn")
+                                )
+                        )
                 )
         );
 
@@ -172,15 +175,16 @@ public class JsonSchemaValidationTest {
         final String rawSchema = getSchemaString("/schema/object-list-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "person", List.of(
-                        Map.of(
-                                "vorname", "Dom",
-                                "nachname", "Hrn"),
-                        Map.of(
-                                "vorname", "Dom",
-                                "street", "InvalidStreet",
-                                "nachname", "Hrn")
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("person", List.of(
+                                Map.ofEntries(
+                                        entry("vorname", "Dom"),
+                                        entry("nachname", "Hrn")),
+                                Map.ofEntries(
+                                        entry("vorname", "Dom"),
+                                        entry("street", "InvalidStreet"),
+                                        entry("nachname", "Hrn"))
+                        )
                 )
         );
 

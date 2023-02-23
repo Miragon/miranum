@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.miragon.miranum.connect.json.utils.JsonSchemaTestUtils.getSchemaString;
+import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JsonSchemaFilterTest {
@@ -22,14 +23,13 @@ public class JsonSchemaFilterTest {
         final String rawSchema = getSchemaString("/schema/schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "stringProp1", "fsdafsda",
-                "numberProp1", 1,
-                "stringProp5", 1
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("stringProp1", "fsdafsda"),
+                entry("numberProp1", 1),
+                entry("stringProp5", 1)
         );
 
         final JsonNode node = this.jsonApi.filter(schema, actualData);
-
         assertNull(node.get("stringProp5"));
     }
 
@@ -38,18 +38,20 @@ public class JsonSchemaFilterTest {
         final String rawSchema = getSchemaString("/schema/additional-data-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "addressOrUser", Map.of("city", "Augsburg",
-                        "name", "Dom",
-                        "street_address", "Augstreet 1",
-                        "state", "Bavaria",
-                        "additionalData", "additionalData",
-                        "mail", "test@mail.de")
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("addressOrUser", Map.ofEntries(
+                                entry("city", "Augsburg"),
+                                entry("name", "Dom"),
+                                entry("street_address", "Augstreet 1"),
+                                entry("state", "Bavaria"),
+                                entry("additionalData", "additionalData"),
+                                entry("mail", "test@mail.de")
+                        )
+                )
 
         );
 
         final JsonNode node = this.jsonApi.filter(schema, actualData);
-
         assertNull(node.get("additionalData"));
     }
 
@@ -58,23 +60,21 @@ public class JsonSchemaFilterTest {
         final String rawSchema = getSchemaString("/schema/object-list-schema.json");
         final JsonSchema schema = this.getSchemaFronString(rawSchema);
 
-        final Map<String, Object> actualData = Map.of(
-                "person", List.of(
-                        Map.of(
-                                "vorname", "Dom",
-                                "nachname", "Hrn"),
-                        Map.of(
-                                "vorname", "Dom",
-                                "street", "InvalidStreet",
-                                "nachname", "Hrn")
-                )
+        final Map<String, Object> actualData = Map.ofEntries(
+                entry("person", List.of(
+                        Map.ofEntries(
+                                entry("vorname", "Dom"),
+                                entry("nachname", "Hrn")),
+                        Map.ofEntries(
+                                entry("vorname", "Dom"),
+                                entry("street", "InvalidStreet"),
+                                entry("nachname", "Hrn"))
+                ))
         );
 
         final JsonNode node = this.jsonApi.filter(schema, actualData);
 
         assertNull(node.get("person").get(1).get("street"));
-
-
     }
 
     protected JsonSchema getSchemaFronString(final String schemaContent) {
