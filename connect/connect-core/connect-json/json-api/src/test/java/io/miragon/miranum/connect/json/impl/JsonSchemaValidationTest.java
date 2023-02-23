@@ -34,6 +34,7 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
+        
         assertEquals(1, result.size());
     }
 
@@ -54,6 +55,7 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
+
         assertEquals(0, result.size());
     }
 
@@ -94,6 +96,7 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData);
+
         assertEquals(0, result.size());
     }
 
@@ -167,6 +170,7 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData);
+
         assertEquals(0, result.size());
     }
 
@@ -189,6 +193,7 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData);
+
         assertEquals(1, result.size());
     }
 
