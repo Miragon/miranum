@@ -8,7 +8,7 @@ $("#form").submit(async function (event) {
         "food": $("#order-food").val().split(",")
     };
 
-    const response = await fetch(waiterUrl,
+    fetch(waiterUrl,
         {
             method: "POST",
             headers: {
@@ -16,10 +16,14 @@ $("#form").submit(async function (event) {
             },
             body: JSON.stringify(data)
         }
-    );
-
-    response.text().then(response => {
-        const text = `Your order was ${response}, you will be notified soon!`;
+    ).then(resp => {
+        console.log(resp.status);
+        if (resp.status === 201) {
+            return resp.json();
+        }
+        throw new Error("Order not successful");
+    }).then(resp => {
+        const text = `Your order was successful, you will be notified soon!`;
         $('.response').append('<br><p style="border:2px solid green; text-align: center">' + text + '</p>');
         cleanInputs();
     }).catch(err => {
