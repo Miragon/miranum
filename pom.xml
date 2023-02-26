@@ -31,7 +31,6 @@
         <module>connect</module>
         <module>examples</module>
         <module>integrations</module>
-        <module>gateways</module>
     </modules>
 
     <dependencyManagement>
