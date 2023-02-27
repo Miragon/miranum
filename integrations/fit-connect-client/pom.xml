@@ -14,7 +14,33 @@
         <version>0.13.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <openapi-generator-version>6.2.1</openapi-generator-version>
+    </properties>
+
     <dependencies>
+        <!--SPRING-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -25,47 +51,21 @@
             <artifactId>jackson-databind-nullable</artifactId>
             <version>0.2.1</version>
         </dependency>
+
+        <!-- Validation -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.3.25</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.9.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.9.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>5.3.25</version>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
-            <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.6.6</version>
-            <scope>compile</scope>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -74,39 +74,52 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.6</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <!-- RELEASE_VERSION -->
-                <version>6.0.0</version>
-                <!-- /RELEASE_VERSION -->
+                <version>${openapi-generator-version}</version>
                 <executions>
                     <execution>
+                        <id>fit-connect-api</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/submission-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/spec/submission-api.yaml</inputSpec>
+                            <library>webclient</library>
                             <generatorName>java</generatorName>
-                            <skipValidateSpec>true</skipValidateSpec>
-                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <output>${project.basedir}</output>
 
-                            <artifactId>io.miragon.miranum.fitconnect.client</artifactId>
-                            <groupId>io.miragon.miranum</groupId>
-                            <apiPackage>io.miragon.miranum.fitconnect.client.api</apiPackage>
-                            <modelPackage>io.miragon.miranum.fitconnect.client.model</modelPackage>
-                            <library>resttemplate</library>
+                            <skipValidateSpec>true</skipValidateSpec>
+
+                            <apiPackage>io.miragon.miraum.fitconnect.integration.gen.api</apiPackage>
+                            <modelPackage>io.miragon.miraum.fitconnect.integration.gen.model</modelPackage>
+                            <invokerPackage>io.miragon.miraum.fitconnect.integration.gen</invokerPackage>
+
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+
+                            <globalProperties>
+                                <supportingFiles>
+                                    ApiClient.java,JavaTimeFormatter.java,Authentication.java,OAuth.java,ApiKeyAuth.java,HttpBasicAuth.java,HttpBearerAuth.java,RFC3339DateFormat.java
+                                </supportingFiles>
+                            </globalProperties>
+
                         </configuration>
                     </execution>
                 </executions>
