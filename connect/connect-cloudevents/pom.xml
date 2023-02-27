@@ -15,7 +15,7 @@
 
     <modules>
         <module>cloudevents-kafka</module>
-        <module>cloudevents-spring</module>
+        <module>cloudevents-spring-webmvc</module>
     </modules>
 
     <properties>

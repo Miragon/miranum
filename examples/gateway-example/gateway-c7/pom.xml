@@ -57,7 +57,7 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>cloudevents-spring</artifactId>
+            <artifactId>cloudevents-spring-webmvc</artifactId>
             <version>0.13.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
