@@ -18,7 +18,6 @@ public class JsonApiImpl implements JsonApi {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-
     @Value("${miranum.schema.registry.url}")
     private String schemaRegistryUrl;
 
@@ -56,7 +55,6 @@ public class JsonApiImpl implements JsonApi {
                     ((ObjectNode) sourceNode).replace(fieldName, value);
                 }
             }
-
         }
 
         return sourceNode;

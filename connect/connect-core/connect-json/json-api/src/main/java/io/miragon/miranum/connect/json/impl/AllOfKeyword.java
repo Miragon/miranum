@@ -23,6 +23,9 @@ public class AllOfKeyword extends AbstractKeyword {
     }
 
 
+    /**
+     * This class is copied from com.networknt.schema.AllOfValidator
+     */
     static class AllOfValidator extends BaseJsonValidator implements JsonValidator {
         private static final Logger logger = LoggerFactory.getLogger(com.networknt.schema.AllOfValidator.class);
 
@@ -115,6 +118,8 @@ public class AllOfKeyword extends AbstractKeyword {
                     }
                 }
             }
+
+            //The par was changed to make it work with the Miranum JSON API
 
             // exclude additional property errors
             final Set<ValidationMessage> errorsWithoutAddtionalProperties = childSchemaErrors.stream()

@@ -22,6 +22,7 @@ public class ReadOnlyKeyword extends AbstractKeyword {
     }
 
 
+    // This class is copied from com.networknt.schema.RequiredValidator
     static class ReadOnlyValidator extends BaseJsonValidator implements JsonValidator {
         private static final Logger logger = LoggerFactory.getLogger(RequiredValidator.class);
 
@@ -31,6 +32,7 @@ public class ReadOnlyKeyword extends AbstractKeyword {
             this.parseErrorCode(this.getValidatorType().getErrorCodeKey());
         }
 
+        // This method was changed to make it work with the Miranum JSON API
         public Set<ValidationMessage> validate(final JsonNode node, final JsonNode rootNode, final String at) {
             this.debug(logger, node, rootNode, at);
 
