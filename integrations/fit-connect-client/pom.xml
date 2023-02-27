@@ -4,7 +4,6 @@
 
     <artifactId>fit-connect-client</artifactId>
     <name>fit-connect-client</name>
-    <version>0.0.1-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
