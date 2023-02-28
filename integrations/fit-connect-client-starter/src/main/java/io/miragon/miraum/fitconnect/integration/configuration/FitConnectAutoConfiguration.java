@@ -1,24 +1,33 @@
 package io.miragon.miraum.fitconnect.integration.configuration;
 
 import io.miragon.miraum.fitconnect.integration.gen.ApiClient;
+import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsbermittlungApi;
+import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
-import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class FitConnectAutoConfiguration {
 
     @Bean
+    public EinreichungsbermittlungApi einreichungsbermittlungApi(final ApiClient apiClient) {
+        return new EinreichungsbermittlungApi(apiClient);
+    }
+
+    @Bean
+    public EinreichungsempfangApi einreichungsempfangApi(final ApiClient apiClient) {
+        return new EinreichungsempfangApi(apiClient);
+    }
+
+    @Bean
     public ApiClient fitConnectClient(final ClientRegistrationRepository clientRegistrationRepository,
                                       final OAuth2AuthorizedClientService authorizedClientService) {
-        final ApiClient apiClient = new ApiClient(this.webClient(clientRegistrationRepository, authorizedClientService));
-        apiClient.setBasePath("https://submission-api-testing.fit-connect.fitko.dev");
-        return apiClient;
+        return new ApiClient(webClient(clientRegistrationRepository, authorizedClientService));
     }
 
     private WebClient webClient(
@@ -30,15 +39,9 @@ public class FitConnectAutoConfiguration {
                         clientRegistrationRepository, authorizedClientService
                 )
         );
-        oauth.setDefaultClientRegistrationId("fit-connect");
+        oauth.setDefaultClientRegistrationId("fitconnect");
         return WebClient.builder()
-                .baseUrl("https://submission-api-testing.fit-connect.fitko.dev")
-                .exchangeStrategies(ExchangeStrategies.builder()
-                        .codecs(configurer -> configurer
-                                .defaultCodecs()
-                                .maxInMemorySize(32 * 1024 * 1024))
-                        .build())
-                .apply(oauth.oauth2Configuration())
+                .filter(oauth)
                 .build();
     }
 }
