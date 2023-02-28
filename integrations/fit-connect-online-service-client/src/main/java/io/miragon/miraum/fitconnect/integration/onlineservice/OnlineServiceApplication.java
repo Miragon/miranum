@@ -15,8 +15,10 @@ public class OnlineServiceApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(OnlineServiceApplication.class, args);
 
+        var destinationId = context.getEnvironment().getProperty("fitconnect.destination-id");
+
         var api = context.getBean(EinreichungsbermittlungApi.class);
-        var info = api.getDestinationInfo(UUID.fromString("<destination-id>")).block();
+        var info = api.getDestinationInfo(UUID.fromString(destinationId)).block();
         log.info(info.toString());
     }
 }
