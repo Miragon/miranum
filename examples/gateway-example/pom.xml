@@ -3,22 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>examples</artifactId>
-    <name>examples</name>
+    <artifactId>gateway-example</artifactId>
+    <name>gateway-example</name>
     <packaging>pom</packaging>
-    <description>miranum integrations</description>
+    <description>miranum gateway examples</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>miranum</artifactId>
+        <artifactId>examples</artifactId>
         <version>0.13.0-SNAPSHOT</version>
     </parent>
 
     <modules>
-        <module>gateway-example</module>
-        <module>simple-example</module>
-        <module>process-example</module>
-        <module>pizza-order</module>
+        <module>gateway-c7</module>
     </modules>
 
 </project>

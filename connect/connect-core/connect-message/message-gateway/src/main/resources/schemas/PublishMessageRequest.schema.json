@@ -1,0 +1,27 @@
+{
+  "$id": "io.miranum.bpmn.command.v1.PublishMessageRequest",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "the name of the message",
+      "type": "string"
+    },
+    "correlationKey": {
+      "description": "the correlation key of the message",
+      "type": "string"
+    },
+    "timeToLive": {
+      "description": "how long the message should be buffered on the broker, in milliseconds",
+      "type": "number"
+    },
+    "messageId": {
+      "description": "the unique ID of the message; can be omitted. only useful to ensure only one message\nwith the given ID will ever be published (during its lifetime)",
+      "type": "string"
+    },
+    "variables": {
+      "description": "the message variables as a JSON document; to be valid, the root of the document must be an\nobject, e.g. { \"a\": \"foo\" }. [ \"foo\" ] would not be valid.",
+      "type": "string"
+    }
+  }
+}
