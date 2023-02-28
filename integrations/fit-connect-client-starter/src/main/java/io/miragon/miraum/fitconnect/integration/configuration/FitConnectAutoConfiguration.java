@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2A
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
@@ -39,9 +40,11 @@ public class FitConnectAutoConfiguration {
                         clientRegistrationRepository, authorizedClientService
                 )
         );
+
         oauth.setDefaultClientRegistrationId("fitconnect");
         return WebClient.builder()
-                .filter(oauth)
+                .baseUrl("https://submission-api-testing.fit-connect.fitko.dev")
+                .apply(oauth.oauth2Configuration())
                 .build();
     }
 }
