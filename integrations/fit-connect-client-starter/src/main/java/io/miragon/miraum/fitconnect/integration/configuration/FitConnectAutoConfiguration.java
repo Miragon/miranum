@@ -3,7 +3,8 @@ package io.miragon.miraum.fitconnect.integration.configuration;
 import io.miragon.miraum.fitconnect.integration.gen.ApiClient;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsbermittlungApi;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
@@ -13,7 +14,11 @@ import org.springframework.security.oauth2.client.web.reactive.function.client.S
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
+@EnableConfigurationProperties(FitConnectProperties.class)
+@AllArgsConstructor
 public class FitConnectAutoConfiguration {
+
+    private final FitConnectProperties fitConnectProperties;
 
     @Bean
     public EinreichungsbermittlungApi einreichungsbermittlungApi(final ApiClient apiClient) {
@@ -24,9 +29,6 @@ public class FitConnectAutoConfiguration {
     public EinreichungsempfangApi einreichungsempfangApi(final ApiClient apiClient) {
         return new EinreichungsempfangApi(apiClient);
     }
-
-    @Value("${fitconnect.base-url}")
-    private String baseUrl;
 
     @Bean
     public ApiClient fitConnectClient(final ClientRegistrationRepository clientRegistrationRepository,
@@ -46,7 +48,7 @@ public class FitConnectAutoConfiguration {
 
         oauth.setDefaultClientRegistrationId("fitconnect");
         return WebClient.builder()
-                .baseUrl(baseUrl)
+                .baseUrl(fitConnectProperties.getBaseUrl())
                 .apply(oauth.oauth2Configuration())
                 .build();
     }
