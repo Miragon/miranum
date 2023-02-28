@@ -396,3 +396,5 @@ gradle-app.setting
 /digiwf-schema-registry/digiwf-schema-registry-client/.swagger-codegen-ignore
 **/pom.xml.versionsBackup
 **/application-internal.*
+
+/integrations/fit-connect-online-service-client/src/main/resources/credentials.properties
