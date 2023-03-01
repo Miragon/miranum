@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-@EnableScheduling
 @Log
 @AllArgsConstructor
 @EnableConfigurationProperties(AuthorityProperties.class)
@@ -35,7 +34,6 @@ public class AuthorityApi {
     private final EinreichungsempfangApi apiClient;
     private final AuthorityProperties authorityProperties;
 
-    @Scheduled(fixedRate = 10000)
     public void pollForPickupReadySubmissions() throws JOSEException, ParseException, IOException {
         log.info("Fetch submissions...");
         var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(authorityProperties.getDestinationId()), 100, 0).block();

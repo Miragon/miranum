@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.examples.waiter.FitConnectExampleAutoConfiguration
+io.miragon.miranum.examples.fitconnect.adapter.in.MiranumFitConnectExampleAdapterAutoConfiguration

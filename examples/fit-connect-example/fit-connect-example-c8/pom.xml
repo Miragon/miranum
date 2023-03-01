@@ -25,6 +25,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>fit-connect-authority-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
