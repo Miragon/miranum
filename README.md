@@ -60,7 +60,7 @@ To pull dependencies from there, maven snapshot repo needs to be part of the set
             <repositories>
                <repository>
                   <id>snapshots-repo</id>
-                  <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                  <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                   <releases>
                      <enabled>false</enabled>
                   </releases>
