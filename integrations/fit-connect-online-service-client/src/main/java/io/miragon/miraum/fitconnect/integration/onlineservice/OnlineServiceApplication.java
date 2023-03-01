@@ -3,7 +3,6 @@ package io.miragon.miraum.fitconnect.integration.onlineservice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.RSADecrypter;
 import com.nimbusds.jose.crypto.RSAEncrypter;
 import com.nimbusds.jose.jwk.KeyOperation;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -17,7 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @SpringBootApplication
