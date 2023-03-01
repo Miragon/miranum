@@ -5,7 +5,7 @@ import io.miragon.miranum.connect.process.api.StartProcessCommand;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ProcessService implements ProcessApi {
+public class ProcessApiImpl implements ProcessApi {
 
     private final StartProcessPort startProcessPort;
 

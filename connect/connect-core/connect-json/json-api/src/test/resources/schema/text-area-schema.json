@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "required": [
+    "numberProp1"
+  ],
+  "properties": {
+    "numberProp1": {
+      "type": "number"
+    },
+    "GrundDienstlNotwendigkeit": {
+      "fieldType": "textarea",
+      "title": "Ausführliche Begründung",
+      "x-display": "textarea",
+      "type": "string",
+      "key": "GrundDienstlNotwendigkeit",
+      "x-options": {
+        "fieldColProps": {
+          "cols": 12,
+          "sm": 12,
+          "messages": {}
+        }
+      },
+      "x-props": {
+        "outlined": true,
+        "dense": true
+      },
+      "x-rules": [
+        "required"
+      ],
+      "maxLength": 2000,
+      "pattern": "^[a-zA-Z0-9.;:,?!-_'§%\\/()@€=#äöüÄÜÖ]"
+    }
+  }
+}

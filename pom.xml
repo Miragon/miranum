@@ -25,6 +25,7 @@
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <maven.surfire.plugin.version>2.22.2</maven.surfire.plugin.version>
+        <okhttp.version>4.8.1</okhttp.version>
     </properties>
 
     <modules>
@@ -66,6 +67,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
