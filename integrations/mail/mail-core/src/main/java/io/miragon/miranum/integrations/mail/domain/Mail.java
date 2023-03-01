@@ -15,4 +15,12 @@ public class Mail {
 
     private String recipient;
 
+    @Override
+    public String toString() {
+        return String.format(
+                "recipient: %s\nsubject: %s \n %s",
+                recipient,
+                subject,
+                text);
+    }
 }

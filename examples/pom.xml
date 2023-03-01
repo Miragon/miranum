@@ -11,13 +11,15 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum</artifactId>
-        <version>0.13.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
+        <module>gateway-example</module>
         <module>simple-example</module>
         <module>process-example</module>
         <module>schema-client-example</module>
+        <module>pizza-order</module>
     </modules>
 
 </project>

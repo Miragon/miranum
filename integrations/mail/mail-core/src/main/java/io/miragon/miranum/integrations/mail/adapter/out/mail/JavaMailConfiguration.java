@@ -12,5 +12,4 @@ public class JavaMailConfiguration {
     public JavaMailAdapter javaMailAdapter() {
         return new JavaMailAdapter();
     }
-
 }

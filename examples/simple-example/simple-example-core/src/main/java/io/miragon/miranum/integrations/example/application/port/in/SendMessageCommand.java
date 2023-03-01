@@ -11,6 +11,4 @@ public class SendMessageCommand extends TenantAwareCommand {
 
     private String name;
     private String key;
-
-
 }

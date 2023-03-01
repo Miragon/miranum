@@ -11,12 +11,13 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum</artifactId>
-        <version>0.13.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
         <module>connect-c7</module>
         <module>connect-c8</module>
+        <module>connect-cloudevents</module>
         <module>connect-core</module>
     </modules>
 

@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 public class SendGridAdapter implements DeliverMailPort {
     @Override
     public void deliverMail(final Mail mail) {
-        log.info("deliver sendgrid mail");
+        // TODO: Implement
+        log.info("Deliver sendgrid mail:\n" + mail);
     }
 }

@@ -1,5 +1,6 @@
 package io.miragon.miranum.integrations.mail;
 
+import io.miragon.miranum.integrations.mail.adapter.in.miranum.MiranumEmailAdapterConfiguration;
 import io.miragon.miranum.integrations.mail.adapter.out.mail.JavaMailConfiguration;
 import io.miragon.miranum.integrations.mail.adapter.out.sendgrid.SendGridConfiguration;
 import io.miragon.miranum.integrations.mail.application.port.in.SendMailUseCase;
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.Import;
 @EnableConfigurationProperties(MailProperties.class)
 @Import({
         JavaMailConfiguration.class,
-        SendGridConfiguration.class
+        SendGridConfiguration.class,
+        MiranumEmailAdapterConfiguration.class
 })
 public class MailConfiguration {
 

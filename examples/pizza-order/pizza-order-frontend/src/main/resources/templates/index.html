@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="css/style.css" th:src="@{/css/style.css}">
+    <title>Your favorite pizza place</title>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        const waiterUrl = /*[[${@environment.getProperty('miranum.waiter.url')}]]*/ null;
+
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="interaction-container">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to your favorite pizza place &#127829;</h1>
+            <hr class="my-4">
+            <form id="form">
+                <div class="input-group mb-3">
+                    <label>What would you like to eat?</label>
+                    <input required type="text" id="order-food" name="order-drinks" class="form-control" placeholder="Pizza1,Pizza2"
+                           aria-label="Type something" aria-describedby="button-addon2">
+                </div>
+                <div class="input-group mb-3">
+                    <label>What would you like to drink?</label>
+                    <input required type="text" id="order-drinks" name="order-drinks" class="form-control" placeholder="Water,Diet Coke"
+                           aria-label="Type something" aria-describedby="button-addon2">
+                </div>
+                <div class="input-group mb-3">
+                    <label>Name</label>
+                    <input required type="text" id="name" name="name" class="form-control" placeholder="What's your name?"
+                           aria-label="Your name" aria-describedby="button-addon2">
+                </div>
+                <div class="input-group mb-3">
+                    <label>E-Mail</label>
+                    <input required type="email" id="email" name="email" class="form-control" placeholder="john.doe@mail.com"
+                           aria-label="Your name" aria-describedby="button-addon2">
+                </div>
+                <div class="submit-button mb-3">
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="response"></div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" th:src="@{https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js}"></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js}"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script src="js/index.js" th:src="@{/js/index.js}"></script>
+</body>
+</html>

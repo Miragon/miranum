@@ -1,31 +1,27 @@
 <div id="top"></div>
 
-<!-- PROJECT SHIELDS -->
-
-<!-- END OF PROJECT SHIELDS -->
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="#">
-    <img src="/images/logo.png" alt="Logo" height="200">
-  </a>
-
-<h3 align="center">Miranum</h3>
-
-  <p align="center">
-    <i>One connector to rule them all</i>
-    <br /><a href="https://github.com/flowsquad/miranum/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/flowsquad/miranum/issues">Request Feature</a>
-  </p>
+    <a href="#">
+        <img src="/images/logo.png" alt="Logo" height="50">
+    </a>
+    <h3 ><a href="https://miranum.com/">Miranum Connect</a> <i>by <a href="https://miragon.io/">Miragon</a></i></h3>
+    <p>
+        <i>Simplifying the complexity of process automation.</i>
+        <br />
+        <a href="https://github.com/flowsquad/miranum/issues">Report Bug</a>
+        ·
+        <a href="https://github.com/flowsquad/miranum/issues">Request Feature</a>
+    </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-*Add a description from your project here.*
+Miranum-Connect is a library which enables developers to build reusable and technology neutral connectors and integrations between products.
+Please find our official docs <a href="https://miranum.com/docs/components/miranum-connect/intro-miranum-connect">here</a>.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
