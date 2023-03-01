@@ -1,12 +1,15 @@
 package io.miragon.miraum.fitconnect.integration.authority;
 
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JWEAlgorithm;
-import com.nimbusds.jose.JWEObject;
+import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSADecrypter;
+import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.KeyOperation;
 import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
+import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
 import lombok.extern.java.Log;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -31,6 +36,7 @@ public class AuthorityApplication {
         var apiClient = context.getBean(EinreichungsempfangApi.class);
         var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(destinationId, 100, 0).block();
 
+        // TODO: Verify submission, see https://docs.fitko.de/fit-connect/docs/receiving/verification
         for (var submission : submissionsForPickupResponse.getSubmissions()) {
             var submissionData = apiClient.getSubmission(submission.getSubmissionId()).block();
 
@@ -51,6 +57,45 @@ public class AuthorityApplication {
 
                 log.info("Decrypted attachment payload: " + jweObject.getPayload().toString());
             }
+
+            var signedAndSerializedSET = createSignedAndSerializedAcceptSet(destinationIdStr, submission);
+            apiClient.sendCaseEvent(submission.getCaseId(), signedAndSerializedSET).block();
+        }
+    }
+
+    private static String createSignedAndSerializedAcceptSet(String destinationIdStr, SubmissionForPickup submission) throws ParseException, IOException {
+        JWK signaturePrivateKey = RSAKey.parse(Files.readString(Paths.get("/path/to/privateKey_signing.json")));
+        String issuer = destinationIdStr; // our own destinationId (MUST match destinationId of this submission)
+        String subject = "submission:" + submission.getSubmissionId();
+        String event ="https://schema.fitko.de/fit-connect/events/accept-submission";
+        String transactionId = "case:" + submission.getCaseId();
+
+        try {
+            JWSSigner signer = new RSASSASigner(signaturePrivateKey.toRSAKey());
+            JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+                    .issuer(issuer)
+                    .issueTime(new Date())
+                    .jwtID(UUID.randomUUID().toString())
+                    .subject(subject)
+                    .claim("events", Map.of(event, Map.of()))
+                    .claim("txn", transactionId)
+                    .build();
+
+            JWSHeader header = JWSHeader.parse(Map.of(
+                    "typ", "secevent+jwt",
+                    "kid", signaturePrivateKey.getKeyID(),
+                    "alg", "PS512"
+            ));
+
+            SignedJWT signedJWT = new SignedJWT(
+                    header,
+                    claimsSet);
+
+            signedJWT.sign(signer);
+
+            return signedJWT.serialize();
+        } catch (JOSEException e) {
+            throw new RuntimeException("Could not generate SET");
         }
     }
 
