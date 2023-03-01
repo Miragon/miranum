@@ -13,6 +13,10 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <openapi-generator-version>6.2.1</openapi-generator-version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,10 +54,113 @@
             <optional>true</optional>
         </dependency>
 
+        <!--SPRING-->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>fit-connect-client</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+
+        <!-- Validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.6</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-version}</version>
+                <executions>
+                    <execution>
+                        <id>fit-connect-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <configOptions>
+                                <sourceFolder>src/gen/java/main</sourceFolder>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+
+                            <inputSpec>${project.basedir}/spec/submission-api.yaml</inputSpec>
+                            <library>webclient</library>
+                            <generatorName>java</generatorName>
+
+                            <skipValidateSpec>true</skipValidateSpec>
+
+                            <apiPackage>io.miragon.miraum.fitconnect.integration.gen.api</apiPackage>
+                            <modelPackage>io.miragon.miraum.fitconnect.integration.gen.model</modelPackage>
+                            <invokerPackage>io.miragon.miraum.fitconnect.integration.gen</invokerPackage>
+
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+
+                            <globalProperties>
+                                <supportingFiles>
+                                    ApiClient.java,JavaTimeFormatter.java,Authentication.java,OAuth.java,ApiKeyAuth.java,HttpBasicAuth.java,HttpBearerAuth.java,RFC3339DateFormat.java
+                                </supportingFiles>
+                            </globalProperties>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
