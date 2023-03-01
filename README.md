@@ -24,15 +24,60 @@ Miranum-Connect is a library which enables developers to build reusable and tech
 Please find our official docs <a href="https://miranum.com/docs/components/miranum-connect/intro-miranum-connect">here</a>.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Built With
+## Get Started
 
-The project is built with technologies:
+Miranum-Connect is currently available as [snapshot in maven-central](https://s01.oss.sonatype.org/content/repositories/snapshots/io/miragon/miranum/).
+You can import all java moduls as dependencies. For Example:
 
-* Spring Boot
+```xml
+<dependency>
+    <groupId>io.miragon.miranum</groupId>
+    <artifactId>json-api</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+</dependency>
+```
+
+To pull dependencies from there, maven snapshot repo needs to be part of the settings.xml at your user profile:
+
+<details>
+  <summary><code>~/.m2/settings.xml</code></summary>
+
+   ``` xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+      <localRepository />
+      <interactiveMode />
+      <offline />
+      <pluginGroups />
+      <servers />
+      <mirrors />
+      <proxies />
+      <profiles>
+         <profile>
+            <id>allow-snapshots</id>
+            <activation>
+               <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+               <repository>
+                  <id>snapshots-repo</id>
+                  <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                  <releases>
+                     <enabled>false</enabled>
+                  </releases>
+                  <snapshots>
+                     <enabled>true</enabled>
+                  </snapshots>
+               </repository>
+            </repositories>
+         </profile>
+      </profiles>
+      <activeProfiles />
+   </settings>
+   ```
+</details>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ROADMAP -->
 
 ## Roadmap
 
@@ -42,11 +87,6 @@ See the [open issues](#) for a full list of proposed features (and known issues)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Getting started
-
-*how can I start and fly this project*
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 <!-- CONTRIBUTING -->
 
 ## Contributing
