@@ -25,7 +25,7 @@ public class OnlineServiceApplication {
     public static void main(String[] args) throws ParseException, JOSEException, JsonProcessingException {
         ConfigurableApplicationContext context = SpringApplication.run(OnlineServiceApplication.class, args);
 
-        var destinationIdStr = context.getEnvironment().getProperty("fitconnect.destination-id");
+        var destinationIdStr = context.getEnvironment().getProperty("fitconnect.sender.destination-id");
         var destinationId = UUID.fromString(destinationIdStr);
 
         var apiClient = context.getBean(EinreichungsbermittlungApi.class);
