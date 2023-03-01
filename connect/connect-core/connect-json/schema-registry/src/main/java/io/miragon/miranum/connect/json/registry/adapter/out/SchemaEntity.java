@@ -6,7 +6,7 @@ package io.miragon.miranum.connect.json.registry.adapter.out;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Entity representation of a form.
@@ -30,5 +30,5 @@ public class SchemaEntity {
     @Column(name = "schema_", columnDefinition = "CLOB")
     private String schema;
 
- 
+
 }
