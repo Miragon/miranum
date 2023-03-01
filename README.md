@@ -27,6 +27,7 @@ Please find our official docs <a href="https://miranum.com/docs/components/miran
 ## Get Started
 
 Miranum-Connect is currently available as [snapshot in maven-central](https://s01.oss.sonatype.org/content/repositories/snapshots/io/miragon/miranum/).
+You can import all java moduls as dependencies. For Example:
 
 ```xml
 <dependency>
