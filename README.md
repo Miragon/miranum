@@ -31,7 +31,7 @@ Miranum-Connect is currently available as [snapshot in maven-central](https://s0
 ```xml
 <dependency>
     <groupId>io.miragon.miranum</groupId>
-    <artifactId>connect-core</artifactId>
+    <artifactId>json-api</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
