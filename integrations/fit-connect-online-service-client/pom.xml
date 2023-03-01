@@ -4,7 +4,6 @@
 
     <artifactId>fit-connect-online-service-client</artifactId>
     <name>fit-connect-online-service-client</name>
-    <version>0.0.1-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
