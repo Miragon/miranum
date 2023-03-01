@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-public class TaskService implements TaskApi {
+public class TaskApiImpl implements TaskApi {
 
     private final CompleteTaskPort completeTaskPort;
 

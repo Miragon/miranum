@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <artifactId>connect-cloudevents</artifactId>
+    <name>connect-cloudevents</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>connect</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>cloudevents-core</module>
+        <module>cloudevents-kafka</module>
+        <module>cloudevents-spring-webmvc</module>
+    </modules>
+
+    <properties>
+        <io.cloudevents.version>2.4.1</io.cloudevents.version>
+    </properties>
+
+</project>

@@ -10,11 +10,12 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-core</artifactId>
-        <version>0.13.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
         <module>message-api</module>
+        <module>message-gateway</module>
     </modules>
 
 </project>

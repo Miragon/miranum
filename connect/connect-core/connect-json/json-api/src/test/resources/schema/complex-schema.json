@@ -1,0 +1,159 @@
+{
+  "key": "MyStartForm",
+  "type": "object",
+  "x-display": "stepper",
+  "allOf": [
+    {
+      "key": "sectionKey1",
+      "title": "Erster Abschnitt",
+      "type": "object",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "key": "feldgruppe1",
+          "title": "Erste Gruppe",
+          "type": "object",
+          "x-options": {
+            "childrenClass": "pr-5 pl-0"
+          },
+          "properties": {
+            "stringProp1": {
+              "fieldType": "text",
+              "title": "Ich bin ein Text",
+              "type": "string",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 6
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "numberProp1": {
+              "fieldType": "integer",
+              "type": "integer",
+              "title": "Ich bin eine Ganzzahl",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 6
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "textarea1": {
+              "fieldType": "textarea",
+              "type": "string",
+              "x-display": "textarea",
+              "title": "Ich bin eine Textarea",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "booleanprop": {
+              "fieldType": "boolean",
+              "type": "boolean",
+              "title": "Ich bin eine Checkbox",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            },
+            "dateprop": {
+              "fieldType": "date",
+              "type": "string",
+              "format": "date",
+              "title": "Ich bin ein Date",
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Abschnitt",
+      "description": "",
+      "type": "object",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "containerType": "group",
+          "title": "Group",
+          "description": "",
+          "x-options": {
+            "childrenClass": "pl-0"
+          },
+          "properties": {
+            "area1": {
+              "fieldType": "textarea",
+              "title": "Textarea",
+              "x-display": "textarea",
+              "type": "string",
+              "key": "area1",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "selection": {
+              "fieldType": "select",
+              "title": "Auswahl",
+              "type": "string",
+              "key": "selection",
+              "anyOf": [
+                {
+                  "title": "test",
+                  "const": "test"
+                },
+                {
+                  "title": "test2",
+                  "const": "test2"
+                }
+              ],
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            }
+          },
+          "key": "62bd3030-204f-4e4b-b952-71eead06cf7d"
+        }
+      ],
+      "key": "90af56e4-46d4-4801-9d9e-b501d0578367"
+    }
+  ]
+}
