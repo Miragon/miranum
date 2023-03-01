@@ -10,8 +10,13 @@ public class MiranumFitConnectExampleAdapter {
 
     private final SendMailUseCase sendMailUseCase;
 
-    @Worker(type = "sendMail")
-    public void sendMail(SendMailCommand sendMailCommand) {
+    @Worker(type = "sendNotification")
+    public void sendNotification(UserInput userInput) {
+        var sendMailCommand = new SendMailCommand(
+                String.format("%s.%s%s@gmail.com", userInput.getFirstname(), userInput.getAge(), userInput.getLastname()),
+                "Test notification",
+                "Fit-Connect-Process test notification."
+        );
         sendMailUseCase.sendMail(sendMailCommand);
     }
 }

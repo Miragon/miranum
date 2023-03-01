@@ -1,5 +1,6 @@
 package io.miragon.miraum.fitconnect.integration.authority;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSADecrypter;
 import com.nimbusds.jose.crypto.RSASSASigner;
@@ -8,13 +9,13 @@ import com.nimbusds.jose.jwk.KeyOperation;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import io.miragon.miranum.connect.process.api.ProcessApi;
+import io.miragon.miranum.connect.process.api.StartProcessCommand;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
 import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class AuthorityApi {
 
     private final EinreichungsempfangApi apiClient;
     private final AuthorityProperties authorityProperties;
+    private final ProcessApi processApi;
 
     public void pollForPickupReadySubmissions() throws JOSEException, ParseException, IOException {
         log.info("Fetch submissions...");
@@ -58,9 +60,16 @@ public class AuthorityApi {
                 jweObject.decrypt(new RSADecrypter(jwk));
 
                 log.info("Decrypted attachment payload: " + jweObject.getPayload().toString());
+
+                var objectMapper = new ObjectMapper();
+                Map<String, Object> payloadAsMap = objectMapper.readValue(jweObject.getPayload().toString(), Map.class);
+
+                var startProcessCommand = new StartProcessCommand(authorityProperties.getProcessKey(), payloadAsMap);
+                processApi.startProcess(startProcessCommand);
             }
 
             var signedAndSerializedSET = createSignedAndSerializedAcceptSet(authorityProperties.getDestinationId(), submission);
+
             apiClient.sendCaseEvent(submission.getCaseId(), signedAndSerializedSET).block();
         }
     }

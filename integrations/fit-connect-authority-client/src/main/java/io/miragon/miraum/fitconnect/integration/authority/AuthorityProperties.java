@@ -12,4 +12,5 @@ public class AuthorityProperties {
     private String destinationId;
     private String privateKeyDecryptionPath;
     private String privateKeySigningPath;
+    private String processKey;
 }
