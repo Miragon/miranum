@@ -16,11 +16,8 @@
 
     <modules>
         <module>mail</module>
-        <module>fit-connect-client</module>
-        <module>fit-connect-client-starter</module>
-        <module>fit-connect-online-service-client</module>
-        <module>fit-connect-authority-client</module>
         <module>user</module>
+        <module>fit-connect</module>
     </modules>
 
 </project>

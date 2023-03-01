@@ -42,8 +42,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>mail-core</artifactId>
-            <version>0.13.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
