@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.miragon.miranum</groupId>
     <artifactId>miranum</artifactId>
-    <version>0.13.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>miranum</name>
     <packaging>pom</packaging>
     <description>Miranum</description>
     <url>https://github.com/flowsquad/miranum</url>
 
     <properties>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
-        <java.version>11</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.7.8</spring.boot.version>
         <camunda7.version>7.18.0</camunda7.version>

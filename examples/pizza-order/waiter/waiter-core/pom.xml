@@ -10,7 +10,7 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>waiter</artifactId>
-        <version>0.13.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>process-api</artifactId>
-            <version>0.13.0-SNAPSHOT</version>
+            <version>0.1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
