@@ -7,6 +7,7 @@ Miranum Connect is powered by maven. To set up the moduls run `mvn build`.
 Start the example projects.
 
 ## Publishing
+If you want to publish a new Snapshot-Release, you can skip step 1 & 2 and overwrite the current snapshot version.
 
 1. Increase Maven version
     ``` bash
