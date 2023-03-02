@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>fit-connect-authority-client</artifactId>
+            <artifactId>fit-connect-destination-connector</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
 

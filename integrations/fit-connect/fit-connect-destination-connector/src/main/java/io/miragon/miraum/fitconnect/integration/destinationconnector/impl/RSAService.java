@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority.impl;
+package io.miragon.miraum.fitconnect.integration.destinationconnector.impl;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEAlgorithm;

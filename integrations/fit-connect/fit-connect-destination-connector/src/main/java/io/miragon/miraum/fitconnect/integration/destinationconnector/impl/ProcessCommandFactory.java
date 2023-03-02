@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority.impl;
+package io.miragon.miraum.fitconnect.integration.destinationconnector.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

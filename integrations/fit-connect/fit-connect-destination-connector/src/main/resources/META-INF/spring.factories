@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.miragon.miraum.fitconnect.integration.destinationconnector.AuthorityApiAutoConfiguration

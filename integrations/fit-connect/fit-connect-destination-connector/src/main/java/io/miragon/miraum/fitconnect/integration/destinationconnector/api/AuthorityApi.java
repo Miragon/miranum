@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority.api;
+package io.miragon.miraum.fitconnect.integration.destinationconnector.api;
 
 import java.io.IOException;
 import java.text.ParseException;

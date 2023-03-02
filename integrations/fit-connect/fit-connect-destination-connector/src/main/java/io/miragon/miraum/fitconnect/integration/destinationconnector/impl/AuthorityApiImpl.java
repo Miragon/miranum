@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority.impl;
+package io.miragon.miraum.fitconnect.integration.destinationconnector.impl;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSHeader;
@@ -9,8 +9,8 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.miragon.miranum.connect.process.api.ProcessApi;
-import io.miragon.miraum.fitconnect.integration.authority.AuthorityProperties;
-import io.miragon.miraum.fitconnect.integration.authority.api.AuthorityApi;
+import io.miragon.miraum.fitconnect.integration.destinationconnector.AuthorityProperties;
+import io.miragon.miraum.fitconnect.integration.destinationconnector.api.AuthorityApi;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
 import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
 import lombok.AllArgsConstructor;

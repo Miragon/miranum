@@ -14,7 +14,7 @@
     </parent>
 
     <modules>
-        <module>fit-connect-authority-client</module>
+        <module>fit-connect-destination-connector</module>
         <module>fit-connect-client-starter</module>
     </modules>
 

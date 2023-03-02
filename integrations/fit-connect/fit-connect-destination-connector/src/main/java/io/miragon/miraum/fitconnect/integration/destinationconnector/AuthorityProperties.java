@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority;
+package io.miragon.miraum.fitconnect.integration.destinationconnector;
 
 import lombok.Getter;
 import lombok.Setter;
