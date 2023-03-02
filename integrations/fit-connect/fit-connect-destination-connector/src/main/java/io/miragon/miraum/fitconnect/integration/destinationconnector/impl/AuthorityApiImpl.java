@@ -38,33 +38,37 @@ public class AuthorityApiImpl implements AuthorityApi {
     private final ProcessApi processApi;
 
     @Override
-    @Scheduled(fixedRateString = "${fitconnect.subscriber.fixedRate}")
+    @Scheduled(fixedRateString = "${fitconnect.subscriber.fixed-rate}")
     public void pollAndAcceptPickupReadySubmissions() throws ParseException, IOException {
         log.info("Fetch submissions...");
-        var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(authorityProperties.getDestinationId()), 100, 0).block();
+        for (var processKey : authorityProperties.getProcesskeyToDestinationMap().keySet()) {
 
-        // TODO: Verify submission, see https://docs.fitko.de/fit-connect/docs/receiving/verification
-        for (var submission : submissionsForPickupResponse.getSubmissions()) {
-            var submissionData = apiClient.getSubmission(submission.getSubmissionId()).block();
+            var destinationId = authorityProperties.getProcesskeyToDestinationMap().get(processKey);
+            var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(destinationId), 100, 0).block();
 
-            for (var attachmentId : submissionData.getAttachments()) {
-                var attachment = apiClient.getSubmissionAttachment(submission.getSubmissionId(), attachmentId).block();
+            // TODO: Verify submission, see https://docs.fitko.de/fit-connect/docs/receiving/verification
+            for (var submission : submissionsForPickupResponse.getSubmissions()) {
+                var submissionData = apiClient.getSubmission(submission.getSubmissionId()).block();
 
-                log.info("Encrypted attachment payload: " + attachment);
+                for (var attachmentId : submissionData.getAttachments()) {
+                    var attachment = apiClient.getSubmissionAttachment(submission.getSubmissionId(), attachmentId).block();
 
-                var rsaService = new RSAService(Paths.get(authorityProperties.getPrivateKeyDecryptionPath()));
-                rsaService.validateRsaKey();
-                var decryptedPayload = rsaService.decrypt(attachment);
+                    log.info("Encrypted attachment payload: " + attachment);
 
-                log.info("Decrypted attachment payload: " + decryptedPayload);
+                    var rsaService = new RSAService(Paths.get(authorityProperties.getPrivateKeyDecryptionPath()));
+                    rsaService.validateRsaKey();
+                    var decryptedPayload = rsaService.decrypt(attachment);
 
-                var startProcessCommand = ProcessCommandFactory.create(decryptedPayload, authorityProperties.getProcessKey());
-                processApi.startProcess(startProcessCommand);
+                    log.info("Decrypted attachment payload: " + decryptedPayload);
+
+                    var startProcessCommand = ProcessCommandFactory.create(decryptedPayload, processKey);
+                    processApi.startProcess(startProcessCommand);
+                }
+
+                var signedAndSerializedSET = createSignedAndSerializedAcceptSet(destinationId, submission);
+
+                apiClient.sendCaseEvent(submission.getCaseId(), signedAndSerializedSET).block();
             }
-
-            var signedAndSerializedSET = createSignedAndSerializedAcceptSet(authorityProperties.getDestinationId(), submission);
-
-            apiClient.sendCaseEvent(submission.getCaseId(), signedAndSerializedSET).block();
         }
     }
 

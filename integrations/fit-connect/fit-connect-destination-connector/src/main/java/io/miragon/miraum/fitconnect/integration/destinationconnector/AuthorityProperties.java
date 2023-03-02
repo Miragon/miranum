@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Map;
+
 @ConfigurationProperties(prefix = "fitconnect.subscriber")
 @Getter
 @Setter
 public class AuthorityProperties {
 
-    private String destinationId;
-    private String processKey;
+    private Map<String, String> processkeyToDestinationMap;
     private long fixedRate = 60_000;
     private String privateKeyDecryptionPath;
     private String privateKeySigningPath;
