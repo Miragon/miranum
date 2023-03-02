@@ -10,7 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class AuthorityProperties {
 
     private String destinationId;
+    private String processKey;
+    private long fixedRate = 60_000;
     private String privateKeyDecryptionPath;
     private String privateKeySigningPath;
-    private String processKey;
 }

@@ -16,6 +16,7 @@ import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class AuthorityApiImpl implements AuthorityApi {
     private final ProcessApi processApi;
 
     @Override
+    @Scheduled(fixedRateString = "${fitconnect.subscriber.fixedRate}")
     public void pollAndAcceptPickupReadySubmissions() throws ParseException, IOException {
         log.info("Fetch submissions...");
         var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(authorityProperties.getDestinationId()), 100, 0).block();
