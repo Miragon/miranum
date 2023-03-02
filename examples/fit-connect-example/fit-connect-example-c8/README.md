@@ -1,5 +1,7 @@
 # Fit-Connect C8 example
 
+*This example polls fit-connect submissions from a specified destination and starts a process with the submission attachment data using miranum-connect.*
+
 ## Make it run
 
 1. First of all you need to create a fit-connect sender and subscriber client and a destination. \
