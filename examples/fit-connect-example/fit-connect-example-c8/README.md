@@ -22,6 +22,6 @@ fitconnect.subscriber.privateKey-signing-path=<path-to-private-signing-key-json>
 ```
 The token uri for the testing environment is https://auth-testing.fit-connect.fitko.dev/token.
 
-To create and submit submissions you can use the [fit-connect online-service client](../../../integrations/fit-connect/fit-connect-online-service-client/README.md).
+To create and submit submissions you can use the [fit-connect online-service client](../fit-connect-online-service-client/README.md).
 
 *For more information, please refer to the [fit-connect documentation](https://docs.fitko.de/fit-connect/docs).*

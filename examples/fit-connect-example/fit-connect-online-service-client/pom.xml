@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>fit-connect</artifactId>
+        <artifactId>fit-connect-example</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 

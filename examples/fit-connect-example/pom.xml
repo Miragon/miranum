@@ -16,6 +16,7 @@
     <modules>
         <module>fit-connect-example-c8</module>
         <module>fit-connect-example-core</module>
+        <module>fit-connect-online-service-client</module>
     </modules>
 
 </project>
