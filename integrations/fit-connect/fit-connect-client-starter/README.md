@@ -1,5 +1,7 @@
 # Fit-Connect client starter
 
+*This application generates and exposes the fit-connect submission-api clients as spring beans.*
+
 ## Generate openapi fit-connect client
 
 ```shell
