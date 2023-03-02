@@ -26,12 +26,14 @@
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <maven.surfire.plugin.version>2.22.2</maven.surfire.plugin.version>
         <okhttp.version>4.8.1</okhttp.version>
+        <jacoco.version>0.8.8</jacoco.version>
     </properties>
 
     <modules>
         <module>connect</module>
         <module>examples</module>
         <module>integrations</module>
+        <module>miranum-coverage</module>
     </modules>
 
     <dependencyManagement>
@@ -316,6 +318,21 @@
                                         <arg>loopback</arg>
                                     </gpgArguments>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Jacoco Code Coverage Plugin -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
