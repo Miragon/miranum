@@ -2,7 +2,7 @@ package io.miragon.miranum.examples;
 
 import com.nimbusds.jose.JOSEException;
 import io.camunda.zeebe.spring.client.EnableZeebeClient;
-import io.miragon.miraum.fitconnect.integration.authority.AuthorityApi;
+import io.miragon.miraum.fitconnect.integration.authority.api.AuthorityApi;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,9 +22,8 @@ public class FitConnectExampleC8Application {
 
     @Scheduled(fixedRate = 10_000)
     void pollForPickupReadySubmissions() throws ParseException, IOException, JOSEException {
-        authorityApi.pollForPickupReadySubmissions();
+        authorityApi.pollAndAcceptPickupReadySubmissions();
     }
-
 
     public static void main(String[] args) {
         SpringApplication.run(FitConnectExampleC8Application.class, args);

@@ -1,4 +1,4 @@
-package io.miragon.miraum.fitconnect.integration.authority;
+package io.miragon.miraum.fitconnect.integration.authority.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
@@ -11,6 +11,8 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.miragon.miranum.connect.process.api.ProcessApi;
 import io.miragon.miranum.connect.process.api.StartProcessCommand;
+import io.miragon.miraum.fitconnect.integration.authority.AuthorityProperties;
+import io.miragon.miraum.fitconnect.integration.authority.api.AuthorityApi;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
 import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
 import lombok.AllArgsConstructor;
@@ -30,13 +32,14 @@ import java.util.UUID;
 @Log
 @AllArgsConstructor
 @EnableConfigurationProperties(AuthorityProperties.class)
-public class AuthorityApi {
+public class AuthorityApiImpl implements AuthorityApi {
 
     private final EinreichungsempfangApi apiClient;
     private final AuthorityProperties authorityProperties;
     private final ProcessApi processApi;
 
-    public void pollForPickupReadySubmissions() throws JOSEException, ParseException, IOException {
+    @Override
+    public void pollAndAcceptPickupReadySubmissions() throws JOSEException, ParseException, IOException {
         log.info("Fetch submissions...");
         var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(authorityProperties.getDestinationId()), 100, 0).block();
 
