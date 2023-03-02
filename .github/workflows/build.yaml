@@ -24,7 +24,7 @@ jobs:
         with:
           directory: ./miranum-coverage/target/coverage/
           fail_ci_if_error: true
-          files: ./jacoco.xml
+          files: ./miranum-coverage/target/coverage/jacoco.xml
           name: miranum-connect
           path_to_write_report: codecov_report.txt
           verbose: true
