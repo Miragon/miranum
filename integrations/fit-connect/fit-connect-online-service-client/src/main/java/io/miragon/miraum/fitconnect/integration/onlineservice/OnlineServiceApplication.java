@@ -85,6 +85,7 @@ public class OnlineServiceApplication {
 
         var caseEventResponse = apiClient.getCaseEvents(caseId, 100, 0).block();
         log.info(caseEventResponse.toString());
+        log.info("Submission submitted successfully!");
     }
 
     public static void validateRSAKey(RSAKey RSAKey, boolean isPrivate){
