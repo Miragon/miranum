@@ -42,13 +42,11 @@ public class OnlineServiceApplication {
         var publicKey = RSAKey.parse(publicKeyJsonString);
         validateRSAKey(publicKey, false);
 
-        var attachmentId = UUID.randomUUID();
-        var attachment = "{\"firstname\":\"test_firstname\", \"lastname\":\"test_lastname\", \"age\": 40}";
+        var data = "{\"firstname\":\"test_firstname\", \"lastname\":\"test_lastname\", \"age\": 40}";
 
         // Create submission
         var createSubmission = new CreateSubmission();
         createSubmission.setDestinationId(destinationId);
-        createSubmission.addAnnouncedAttachmentsItem(attachmentId);
         createSubmission.setServiceType(
                 new Verwaltungsleistung()
                         .name("Test")
@@ -62,22 +60,16 @@ public class OnlineServiceApplication {
 
         // Encrypt attachments using the public key of the destination
         JWEHeader header = new JWEHeader.Builder(JWEAlgorithm.RSA_OAEP_256, EncryptionMethod.A256GCM).build();
-        Payload payload = new Payload(attachment);
+        Payload payload = new Payload(data);
 
         JWEObject jweObject = new JWEObject(header, payload);
         jweObject.encrypt(new RSAEncrypter(publicKey));
-        String encryptedAttachment = jweObject.serialize();
-
-        // Add submission (upload attachments)
-        var addSubmissionResponse = apiClient.addSubmissionAttachment(
-                submissionId,
-                attachmentId,
-                encryptedAttachment).block();
+        String encryptedData = jweObject.serialize();
 
         // Submit submission
         var submitSubmission = new SubmitSubmission();
-        submitSubmission.setEncryptedMetadata(encryptedAttachment);
-        submitSubmission.setEncryptedData(encryptedAttachment);
+        submitSubmission.setEncryptedMetadata(encryptedData);
+        submitSubmission.setEncryptedData(encryptedData);
         var submitSubmissionResponse = apiClient.submitSubmission(
                 submissionId , submitSubmission).block();
 

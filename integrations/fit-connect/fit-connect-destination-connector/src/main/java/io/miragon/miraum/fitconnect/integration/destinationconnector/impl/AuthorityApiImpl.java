@@ -50,20 +50,17 @@ public class AuthorityApiImpl implements AuthorityApi {
             for (var submission : submissionsForPickupResponse.getSubmissions()) {
                 var submissionData = apiClient.getSubmission(submission.getSubmissionId()).block();
 
-                for (var attachmentId : submissionData.getAttachments()) {
-                    var attachment = apiClient.getSubmissionAttachment(submission.getSubmissionId(), attachmentId).block();
+                var encryptedData = submissionData.getEncryptedData();
+                log.info("Encrypted payload: " + encryptedData);
 
-                    log.info("Encrypted attachment payload: " + attachment);
+                var rsaService = new RSAService(Paths.get(authorityProperties.getPrivateKeyDecryptionPath()));
+                rsaService.validateRsaKey();
+                var decryptedPayload = rsaService.decrypt(encryptedData);
 
-                    var rsaService = new RSAService(Paths.get(authorityProperties.getPrivateKeyDecryptionPath()));
-                    rsaService.validateRsaKey();
-                    var decryptedPayload = rsaService.decrypt(attachment);
+                log.info("Decrypted payload: " + decryptedPayload);
 
-                    log.info("Decrypted attachment payload: " + decryptedPayload);
-
-                    var startProcessCommand = ProcessCommandFactory.create(decryptedPayload, processKey);
-                    processApi.startProcess(startProcessCommand);
-                }
+                var startProcessCommand = ProcessCommandFactory.create(decryptedPayload, processKey);
+                processApi.startProcess(startProcessCommand);
 
                 var signedAndSerializedSET = createSignedAndSerializedAcceptSet(destinationId, submission);
 
