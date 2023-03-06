@@ -11,7 +11,7 @@ import java.util.Map;
 @Setter
 public class AuthorityProperties {
 
-    private Map<String, String> processkeyToDestinationMap;
+    private Map<String, String> processDestinationMap;
     private long fixedRate = 60_000;
     private String privateKeyDecryptionPath;
     private String privateKeySigningPath;

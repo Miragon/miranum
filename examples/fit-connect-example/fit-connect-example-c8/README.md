@@ -16,7 +16,10 @@ spring.security.oauth2.client.registration.fitconnect.client-id=<client-id>
 spring.security.oauth2.client.registration.fitconnect.client-secret=<client-secret>
 spring.security.oauth2.client.provider.fitconnect.token-uri=<token-uri>
 
-fitconnect.subscriber.destination-id=<fit-connect-destination-id>
+# This property specifies which process should be started for submissions received by a specific destination ID.
+# You can add multiple key value pairs to listen for submissions of multiple destinations.
+fitconnect.subscriber.process-destination-map.<process-key>=<destination-id>
+
 fitconnect.subscriber.privateKey-decryption-path=<path-to-private-decryption-key-json>
 fitconnect.subscriber.privateKey-signing-path=<path-to-private-signing-key-json>
 ```

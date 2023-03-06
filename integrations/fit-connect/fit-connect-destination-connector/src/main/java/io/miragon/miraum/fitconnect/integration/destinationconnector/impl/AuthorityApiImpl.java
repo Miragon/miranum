@@ -41,9 +41,9 @@ public class AuthorityApiImpl implements AuthorityApi {
     @Scheduled(fixedRateString = "${fitconnect.subscriber.fixed-rate}")
     public void pollAndAcceptPickupReadySubmissions() throws ParseException, IOException {
         log.info("Fetch submissions...");
-        for (var processKey : authorityProperties.getProcesskeyToDestinationMap().keySet()) {
+        for (var processKey : authorityProperties.getProcessDestinationMap().keySet()) {
 
-            var destinationId = authorityProperties.getProcesskeyToDestinationMap().get(processKey);
+            var destinationId = authorityProperties.getProcessDestinationMap().get(processKey);
             var submissionsForPickupResponse = apiClient.getSubmissionsForPickup(UUID.fromString(destinationId), 100, 0).block();
 
             // TODO: Verify submission, see https://docs.fitko.de/fit-connect/docs/receiving/verification
