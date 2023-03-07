@@ -18,7 +18,7 @@ public class JsonApiImpl implements JsonApi {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Value("${miranum.schema.registry.url}")
+    @Value("${miranum.schema.registry.url:}")
     private String schemaRegistryUrl;
 
     @Override
