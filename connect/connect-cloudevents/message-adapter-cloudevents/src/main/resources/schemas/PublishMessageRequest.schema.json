@@ -1,7 +1,7 @@
 {
-  "$id": "io.miranum.bpmn.command.v1.PublishMessageRequest",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "required": ["name"],
   "properties": {
     "name": {
       "description": "the name of the message",
