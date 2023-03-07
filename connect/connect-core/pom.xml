@@ -20,6 +20,7 @@
         <module>connect-process</module>
         <module>connect-json</module>
         <module>connect-element-templates</module>
+        <module>connect-shared</module>
     </modules>
 
 </project>

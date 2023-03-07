@@ -1,7 +1,6 @@
 package io.miragon.miranum.connect.worker.impl;
 
-
-import io.miragon.miranum.connect.worker.api.ToManyParametersExecption;
+import io.miragon.miranum.connect.shared.ToManyParametersException;
 import io.miragon.miranum.connect.worker.api.Worker;
 
 import java.lang.reflect.Method;
@@ -13,7 +12,7 @@ public class WorkerInfoMapper {
         final Class<?>[] inputParameterTypes = method.getParameterTypes();
 
         if (inputParameterTypes.length > 1) {
-            throw new ToManyParametersExecption(worker);
+            throw new ToManyParametersException(worker);
         }
 
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
