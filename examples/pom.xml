@@ -15,10 +15,7 @@
     </parent>
 
     <modules>
-        <module>gateway-example</module>
         <module>simple-example</module>
-        <module>process-example</module>
-        <module>schema-client-example</module>
     </modules>
 
 </project>
