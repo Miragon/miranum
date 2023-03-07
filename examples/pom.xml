@@ -19,7 +19,6 @@
         <module>simple-example</module>
         <module>process-example</module>
         <module>schema-client-example</module>
-        <module>pizza-order</module>
     </modules>
 
 </project>

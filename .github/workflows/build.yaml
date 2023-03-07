@@ -19,3 +19,13 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./miranum-coverage/target/coverage/
+          fail_ci_if_error: true
+          files: ./miranum-coverage/target/coverage/jacoco.xml
+          name: miranum-connect
+          path_to_write_report: codecov_report.txt
+          verbose: true
