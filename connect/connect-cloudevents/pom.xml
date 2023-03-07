@@ -17,6 +17,7 @@
         <module>cloudevents-core</module>
         <module>cloudevents-kafka</module>
         <module>cloudevents-spring-webmvc</module>
+        <module>message-adapter-cloudevents</module>
     </modules>
 
     <properties>
