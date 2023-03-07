@@ -2,24 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>connect-core</artifactId>
-    <name>connect-core</name>
+    <artifactId>connect-element-templates</artifactId>
+    <name>connect-element-templates</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>connect</artifactId>
+        <artifactId>connect-core</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
-        <module>connect-task</module>
-        <module>connect-message</module>
-        <module>connect-worker</module>
-        <module>connect-process</module>
-        <module>connect-json</module>
-        <module>connect-element-templates</module>
+        <module>element-template-api</module>
     </modules>
 
 </project>
