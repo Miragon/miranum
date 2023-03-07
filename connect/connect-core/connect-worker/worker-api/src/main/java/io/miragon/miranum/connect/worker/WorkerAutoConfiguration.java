@@ -23,7 +23,7 @@ public class WorkerAutoConfiguration {
     }
 
     @Bean
-    public WorkerInitalizer initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
-        return new WorkerInitalizer(bindUseCasePort);
+    public WorkerInitializer initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
+        return new WorkerInitializer(bindUseCasePort);
     }
 }
