@@ -22,7 +22,7 @@
         <!--Camunda-->
         <dependency>
             <groupId>io.camunda</groupId>
-            <artifactId>zeebe-client-java</artifactId>
+            <artifactId>spring-zeebe-starter</artifactId>
             <version>${camunda8.version}</version>
             <scope>provided</scope>
         </dependency>

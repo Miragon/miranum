@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.miragon.miranum.connect.adapter.in.c7.process.Camunda7ProcessAutoConfiguration
-
