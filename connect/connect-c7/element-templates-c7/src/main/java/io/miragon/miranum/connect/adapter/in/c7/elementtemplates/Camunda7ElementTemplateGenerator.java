@@ -2,6 +2,9 @@ package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Binding;
+import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Camunda7ElementTemplate;
+import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Property;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
