@@ -6,7 +6,7 @@
     <artifactId>simple-example</artifactId>
     <name>simple-example</name>
     <packaging>pom</packaging>
-    <description>miranum integrations</description>
+    <description>Simple example for miranum-connect</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
