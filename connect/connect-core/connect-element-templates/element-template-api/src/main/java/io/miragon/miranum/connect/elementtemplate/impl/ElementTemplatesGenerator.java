@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 @AllArgsConstructor
-public class ElementTemplateGenerator {
+public class ElementTemplatesGenerator {
 
     private final GenerateElementTemplatePort generateElementTemplatePort;
 

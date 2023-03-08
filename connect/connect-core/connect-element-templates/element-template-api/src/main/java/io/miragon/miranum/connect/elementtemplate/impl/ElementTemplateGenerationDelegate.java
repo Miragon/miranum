@@ -16,13 +16,13 @@ import java.util.List;
 public class ElementTemplateGenerationDelegate implements ApplicationContextAware {
 
     private ApplicationContext ctx;
-    private final ElementTemplateGenerator elementTemplateGenerator;
+    private final ElementTemplatesGenerator elementTemplatesGenerator;
     private final ElementTemplateInfoMapper elementTemplateInfoMapper;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initializeWorkerAfterStartup() {
         final List<ElementTemplateInfo> elementTemplateInfos = this.getAllElementTemplateInfos();
-        this.elementTemplateGenerator.generate(new GenerateElementTemplatesCommand(elementTemplateInfos));
+        this.elementTemplatesGenerator.generate(new GenerateElementTemplatesCommand(elementTemplateInfos));
     }
 
     @Override
