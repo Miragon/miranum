@@ -6,7 +6,7 @@
     <artifactId>examples</artifactId>
     <name>examples</name>
     <packaging>pom</packaging>
-    <description>miranum integrations</description>
+    <description>miranum examples collection</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
