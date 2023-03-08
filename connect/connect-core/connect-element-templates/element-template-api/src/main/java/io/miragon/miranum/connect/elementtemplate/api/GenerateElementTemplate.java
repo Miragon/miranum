@@ -14,5 +14,5 @@ public @interface GenerateElementTemplate {
 
     String appliesTo();
 
-    int version();
+    String version();
 }

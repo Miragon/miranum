@@ -9,7 +9,7 @@ public class ElementTemplateInfo {
 
     private String name;
     private String id;
-    private int version;
+    private String version;
     private String appliesTo;
     private Class<?> inputType;
     private Class<?> outputType;
