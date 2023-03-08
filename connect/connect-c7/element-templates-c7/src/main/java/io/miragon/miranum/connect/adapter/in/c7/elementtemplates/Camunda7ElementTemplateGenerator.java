@@ -2,11 +2,12 @@ package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.impl.GenerateElementTemplatePort;
 
-import java.util.List;
+import java.util.Arrays;
 
 public class Camunda7ElementTemplateGenerator implements GenerateElementTemplatePort {
 
@@ -19,7 +20,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         var elementTemplate = new Camunda7ElementTemplate();
         elementTemplate.setName(elementTemplateInfo.getName());
         elementTemplate.setId(elementTemplateInfo.getId());
-        elementTemplate.setAppliesTo(List.of(elementTemplateInfo.getAppliesTo().split(";")));
+        elementTemplate.setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
         elementTemplate.setSchema(SCHEMA);
 
         for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {

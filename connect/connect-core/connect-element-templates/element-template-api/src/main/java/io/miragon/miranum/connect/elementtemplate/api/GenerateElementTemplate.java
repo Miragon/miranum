@@ -9,10 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface GenerateElementTemplate {
     String name();
-
     String id();
-
-    String appliesTo();
-
+    BPMNElementType[] appliesTo();
     String version();
 }
