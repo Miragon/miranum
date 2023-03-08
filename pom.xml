@@ -33,6 +33,8 @@
         <module>examples</module>
         <module>integrations</module>
         <module>miranum-coverage</module>
+        <module>starters</module>
+        <module>starters/spring-web-starters/spring-web-c7</module>
     </modules>
 
     <dependencyManagement>
