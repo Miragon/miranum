@@ -1,7 +1,9 @@
 package io.miragon.miranum.connect.elementtemplate.api;
 
 public enum BPMNElementType {
-    BPMN_SERVICE_TASK("bpmn:ServiceTask");
+    BPMN_SERVICE_TASK("bpmn:ServiceTask"),
+    BPMN_SEND_TASK("bpmn:SendTask"),
+    BPMN_INTERMEDIATE_THROW_EVENT("bpmn:IntermediateThrowEvent");
 
     private final String value;
 
