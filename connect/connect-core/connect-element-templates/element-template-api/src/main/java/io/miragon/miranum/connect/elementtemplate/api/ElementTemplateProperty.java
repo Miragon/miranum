@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface ElementTemplateProperty {
 
-    String name() default "";
     String type() default "";
-    boolean isEmpty() default false;
+    String label() default "";
+    boolean notEmpty();
 }

@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-class Constraints {
+public class Constraints {
     private boolean notEmpty;
 }

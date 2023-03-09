@@ -19,6 +19,7 @@ class Camunda7ElementTemplateGeneratorTest {
                 "Test",
                 "test",
                 "1.0.0",
+                "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 TestInput.class, TestOutput.class);
 

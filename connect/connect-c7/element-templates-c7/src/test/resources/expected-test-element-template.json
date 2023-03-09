@@ -4,46 +4,76 @@
   "id" : "test",
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
+    "label" : "Implementation Type",
+    "type" : "String",
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:type",
+      "source" : ""
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "value" : "external"
+  }, {
+    "label" : "Topic",
+    "type" : "String",
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:topic",
+      "source" : ""
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "value" : "test"
+  }, {
     "label" : "name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "name"
+      "name" : "name",
+      "source" : ""
     },
     "constraints" : {
       "notEmpty" : true
-    }
+    },
+    "value" : ""
   }, {
     "label" : "id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "id"
+      "name" : "id",
+      "source" : ""
     },
     "constraints" : {
       "notEmpty" : true
-    }
+    },
+    "value" : ""
   }, {
     "label" : "name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
+      "name" : "",
       "source" : "${name}"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "name"
+    "value" : "nameResult"
   }, {
     "label" : "id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
+      "name" : "",
       "source" : "${id}"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "id"
+    "value" : "idResult"
   } ]
 }

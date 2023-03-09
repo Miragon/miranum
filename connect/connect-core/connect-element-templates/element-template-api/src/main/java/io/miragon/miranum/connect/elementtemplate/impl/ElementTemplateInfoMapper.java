@@ -20,6 +20,7 @@ public class ElementTemplateInfoMapper {
         return new ElementTemplateInfo(generateElementTemplate.name(),
                 generateElementTemplate.id(),
                 generateElementTemplate.version(),
+                generateElementTemplate.type(),
                 generateElementTemplate.appliesTo(),
                 inputParameter,
                 method.getReturnType());
