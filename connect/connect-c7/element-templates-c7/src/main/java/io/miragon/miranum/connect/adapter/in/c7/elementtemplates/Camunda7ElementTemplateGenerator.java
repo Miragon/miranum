@@ -43,29 +43,32 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
-        for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
-            var property = createPropertyWithAnnotation(field.getName(),
-                    field.getType().getSimpleName(),
-                    "",
-                    field.getAnnotation(ElementTemplateProperty.class));
+        if (!Objects.isNull(elementTemplateInfo.getInputType())) {
+            for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
+                var property = createPropertyWithAnnotation(field.getName(),
+                        field.getType().getSimpleName(),
+                        "",
+                        field.getAnnotation(ElementTemplateProperty.class));
 
-            var binding = new Binding(INPUT_PARAMETER, "", field.getName());
+                var binding = new Binding(INPUT_PARAMETER, "", field.getName());
 
-            property.setBinding(binding);
-            elementTemplate.getProperties().add(property);
+                property.setBinding(binding);
+                elementTemplate.getProperties().add(property);
+            }
         }
 
-        for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
+        if (!Objects.isNull(elementTemplateInfo.getOutputType())) {
+            for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
+                var property = createPropertyWithAnnotation(field.getName(),
+                        field.getType().getSimpleName(),
+                        field.getName() + "Result",
+                        field.getAnnotation(ElementTemplateProperty.class));
 
-            var property = createPropertyWithAnnotation(field.getName(),
-                    field.getType().getSimpleName(),
-                    field.getName() + "Result",
-                    field.getAnnotation(ElementTemplateProperty.class));
+                var binding = new Binding(OUTPUT_PARAMETER, String.format("${%s}", field.getName()), "");
 
-            var binding = new Binding(OUTPUT_PARAMETER, String.format("${%s}", field.getName()), "");
-
-            property.setBinding(binding);
-            elementTemplate.getProperties().add(property);
+                property.setBinding(binding);
+                elementTemplate.getProperties().add(property);
+            }
         }
 
         var objectMapper = new ObjectMapper();
