@@ -8,72 +8,70 @@
     "type" : "String",
     "binding" : {
       "type" : "property",
-      "name" : "camunda:type",
-      "source" : ""
+      "name" : "camunda:type"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "external"
+    "value" : "external",
+    "editable" : false
   }, {
     "label" : "Topic",
     "type" : "String",
     "binding" : {
       "type" : "property",
-      "name" : "camunda:topic",
-      "source" : ""
+      "name" : "camunda:topic"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "test"
+    "value" : "test",
+    "editable" : true
   }, {
     "label" : "name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "name",
-      "source" : ""
+      "name" : "name"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : ""
+    "editable" : true
   }, {
     "label" : "id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "id",
-      "source" : ""
+      "name" : "id"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : ""
+    "editable" : true
   }, {
     "label" : "name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "name" : "",
       "source" : "${name}"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "nameResult"
+    "value" : "nameResult",
+    "editable" : true
   }, {
     "label" : "id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "name" : "",
       "source" : "${id}"
     },
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "idResult"
+    "value" : "idResult",
+    "editable" : true
   } ]
 }

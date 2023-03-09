@@ -12,4 +12,5 @@ public @interface ElementTemplateProperty {
     String type() default "";
     String label() default "";
     boolean notEmpty();
+    boolean editable() default true;
 }

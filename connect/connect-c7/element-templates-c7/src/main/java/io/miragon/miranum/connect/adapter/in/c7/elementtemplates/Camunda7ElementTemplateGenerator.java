@@ -33,6 +33,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         elementTemplate.setSchema(SCHEMA);
 
         var implementationProperty = createProperty("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
+        implementationProperty.setEditable(false);
         var implementationBinding = createBinding("property", "", IMPLEMENTATION_TYPE);
         implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
@@ -83,6 +84,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         if (!Objects.isNull(propertyAnnotation)) {
             property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());
             property.setType(propertyAnnotation.type().isEmpty() ? type : propertyAnnotation.type());
+            property.setEditable(propertyAnnotation.editable());
 
             var constraints = new Constraints();
             constraints.setNotEmpty(propertyAnnotation.notEmpty());

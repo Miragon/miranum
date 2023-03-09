@@ -12,10 +12,12 @@ class Property {
     private String type;
     private Binding binding;
     private Constraints constraints;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String value;
+    private boolean editable;
 
     public Property() {
+        this.editable = true;
         this.constraints = new Constraints();
         this.constraints.setNotEmpty(true);
     }
