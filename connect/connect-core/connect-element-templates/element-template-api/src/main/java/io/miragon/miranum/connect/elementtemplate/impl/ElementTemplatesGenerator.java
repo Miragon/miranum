@@ -1,6 +1,7 @@
 package io.miragon.miranum.connect.elementtemplate.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 @AllArgsConstructor
+@Slf4j
 public class ElementTemplatesGenerator {
 
     private final GenerateElementTemplatePort generateElementTemplatePort;
@@ -20,6 +22,8 @@ public class ElementTemplatesGenerator {
 
                     var filename = elementTemplateInfo.getId() + "-" + elementTemplateInfo.getVersion() + ".json";
                     saveElementTemplateToFile(filename, json);
+
+                    log.info("Generated element template: {}", filename);
                 }
         );
     }
@@ -27,14 +31,11 @@ public class ElementTemplatesGenerator {
     private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult json) {
         var dir = "element-templates";
         try {
-            var classLoader = getClass().getClassLoader();
-            var dirPath = Path.of(Objects.requireNonNull(classLoader.getResource(".")).getFile(), dir);
-            if (!dirPath.toFile().exists()) {
-                dirPath.toFile().mkdir();
-            }
+            var dirPath = Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getFile(), dir);
+            var dirCreationSuccess = dirPath.toFile().mkdirs();
             var filePath = Path.of(String.valueOf(dirPath), filename);
             var file = new File(String.valueOf(filePath));
-            var success = file.createNewFile();
+            var fileCreationSuccess = file.createNewFile();
             Files.writeString(filePath, json.getJsonString());
         } catch (IOException e) {
             throw new RuntimeException(e);
