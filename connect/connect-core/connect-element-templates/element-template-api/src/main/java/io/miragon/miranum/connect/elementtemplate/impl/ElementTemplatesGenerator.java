@@ -32,10 +32,10 @@ public class ElementTemplatesGenerator {
         var dir = "element-templates";
         try {
             var dirPath = Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getFile(), dir);
-            var dirCreationSuccess = dirPath.toFile().mkdirs();
+            dirPath.toFile().mkdirs();
             var filePath = Path.of(String.valueOf(dirPath), filename);
             var file = new File(String.valueOf(filePath));
-            var fileCreationSuccess = file.createNewFile();
+            file.createNewFile();
             Files.writeString(filePath, json.getJsonString());
         } catch (IOException e) {
             throw new RuntimeException(e);
