@@ -1,4 +1,4 @@
-package io.miragon.miranum.starter.spring.web.c7;
+package io.miragon.miranum.spring.starter.example;
 
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;
@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class CloudEventTest2Handler implements CloudEventHandler {
+public class CloudEventExampleHandler implements CloudEventHandler {
 
     @Override
     public String getType() {
-        return "test2";
+        return "io.miragon.miranum.starter.web.common.CloudEventExampleRequest";
     }
 
     @Override
@@ -22,7 +22,7 @@ public class CloudEventTest2Handler implements CloudEventHandler {
         return Optional.of(CloudEventBuilder.from(cloudEvent)
                 .withId(UUID.randomUUID().toString())
                 .withSource(URI.create("https://spring.io/foos"))
-                .withType("io.spring.event.Test2")
+                .withType("io.miragon.miranum.starter.web.common.CloudEventExampleResponse")
                 .withData(cloudEvent.getData().toBytes())
                 .build());
 
