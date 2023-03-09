@@ -21,4 +21,10 @@ class Property {
         this.constraints = new Constraints();
         this.constraints.setNotEmpty(true);
     }
+    public Property(String label, String type, String value) {
+        this();
+        this.label = label;
+        this.type = type;
+        this.value = value;
+    }
 }

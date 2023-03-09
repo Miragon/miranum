@@ -32,24 +32,24 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         elementTemplate.setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
         elementTemplate.setSchema(SCHEMA);
 
-        var implementationProperty = createProperty("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
+        var implementationProperty = new Property("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
         implementationProperty.setEditable(false);
-        var implementationBinding = createBinding("property", "", IMPLEMENTATION_TYPE);
+        var implementationBinding = new Binding("property", "", IMPLEMENTATION_TYPE);
         implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
 
-        var implementationTopicProperty = createProperty("Topic", "String", elementTemplateInfo.getType());
-        var implementationTopicBinding = createBinding("property", "", IMPLEMENTATION_TOPIC);
+        var implementationTopicProperty = new Property("Topic", "String", elementTemplateInfo.getType());
+        var implementationTopicBinding = new Binding("property", "", IMPLEMENTATION_TOPIC);
         implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
         for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
-            var property = createProperty(field.getName(),
+            var property = createPropertyWithAnnotation(field.getName(),
                     field.getType().getSimpleName(),
                     "",
                     field.getAnnotation(ElementTemplateProperty.class));
 
-            var binding = createBinding(INPUT_PARAMETER, "", field.getName());
+            var binding = new Binding(INPUT_PARAMETER, "", field.getName());
 
             property.setBinding(binding);
             elementTemplate.getProperties().add(property);
@@ -57,12 +57,12 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
 
         for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
 
-            var property = createProperty(field.getName(),
+            var property = createPropertyWithAnnotation(field.getName(),
                     field.getType().getSimpleName(),
                     field.getName() + "Result",
                     field.getAnnotation(ElementTemplateProperty.class));
 
-            var binding = createBinding(OUTPUT_PARAMETER, String.format("${%s}", field.getName()), "");
+            var binding = new Binding(OUTPUT_PARAMETER, String.format("${%s}", field.getName()), "");
 
             property.setBinding(binding);
             elementTemplate.getProperties().add(property);
@@ -78,8 +78,8 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         return new ElementTemplateGenerationResult(json);
     }
 
-    private Property createProperty(String label, String type, String value, ElementTemplateProperty propertyAnnotation) {
-        var property = createProperty(label, type, value);
+    private Property createPropertyWithAnnotation(String label, String type, String value, ElementTemplateProperty propertyAnnotation) {
+        var property = new Property(label, type, value);
 
         if (!Objects.isNull(propertyAnnotation)) {
             property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());
@@ -92,23 +92,5 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         }
 
         return property;
-    }
-
-    private Property createProperty(String label, String type, String value) {
-        var property = new Property();
-
-        property.setLabel(label);
-        property.setType(type);
-        property.setValue(value);
-
-        return property;
-    }
-
-    private Binding createBinding(String type, String source, String name) {
-        var binding = new Binding();
-        binding.setType(type);
-        binding.setSource(source);
-        binding.setName(name);
-        return binding;
     }
 }

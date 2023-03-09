@@ -13,4 +13,10 @@ class Binding {
     private String name;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String source;
+
+    public Binding(String type, String source, String name) {
+        this.type = type;
+        this.source = source;
+        this.name = name;
+    }
 }
