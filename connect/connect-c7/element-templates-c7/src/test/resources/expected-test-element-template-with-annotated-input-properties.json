@@ -1,77 +1,70 @@
 {
-  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json",
   "name" : "Test",
   "id" : "test",
+  "version" : 1.0,
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
+    "value" : "external",
     "label" : "Implementation Type",
     "type" : "String",
+    "editable" : false,
+    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:type"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "external",
-    "editable" : false
+    }
   }, {
+    "value" : "test",
     "label" : "Topic",
     "type" : "String",
+    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "test",
-    "editable" : true
+    }
   }, {
+    "value" : "",
     "label" : "Property1",
     "type" : "Text",
+    "editable" : true,
+    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
     },
     "constraints" : {
       "notEmpty" : true
-    },
-    "editable" : true
+    }
   }, {
+    "value" : "",
     "label" : "Property2",
     "type" : "String",
+    "editable" : true,
+    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "id"
     },
     "constraints" : {
       "notEmpty" : false
-    },
-    "editable" : true
+    }
   }, {
+    "value" : "nameResult",
     "label" : "name",
     "type" : "String",
+    "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "name"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "nameResult",
-    "editable" : true
+    }
   }, {
+    "value" : "idResult",
     "label" : "id",
     "type" : "String",
+    "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "id"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "idResult",
-    "editable" : true
+    }
   } ]
 }

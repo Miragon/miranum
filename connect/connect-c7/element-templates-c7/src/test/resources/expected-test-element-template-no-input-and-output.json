@@ -1,31 +1,26 @@
 {
-  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json",
   "name" : "Test",
   "id" : "test",
+  "version" : 1.0,
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
+    "value" : "external",
     "label" : "Implementation Type",
     "type" : "String",
+    "editable" : false,
+    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:type"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "external",
-    "editable" : false
+    }
   }, {
+    "value" : "test",
     "label" : "Topic",
     "type" : "String",
+    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "value" : "test",
-    "editable" : true
+    }
   } ]
 }
