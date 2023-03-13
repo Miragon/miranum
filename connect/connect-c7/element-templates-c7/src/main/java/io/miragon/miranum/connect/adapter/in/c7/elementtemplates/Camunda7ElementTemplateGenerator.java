@@ -71,6 +71,10 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
             }
         }
 
+        return new ElementTemplateGenerationResult(convertToJsonString(elementTemplate));
+    }
+
+    private String convertToJsonString(Camunda7ElementTemplate elementTemplate) {
         var objectMapper = new ObjectMapper();
         var json = "";
         try {
@@ -78,7 +82,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return new ElementTemplateGenerationResult(json);
+        return json;
     }
 
     private Property createPropertyWithAnnotation(String label, String type, String value, ElementTemplateProperty propertyAnnotation) {
