@@ -54,7 +54,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "${name}"
+      "source" : "name"
     },
     "constraints" : {
       "notEmpty" : true
@@ -66,7 +66,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "${id}"
+      "source" : "id"
     },
     "constraints" : {
       "notEmpty" : true
