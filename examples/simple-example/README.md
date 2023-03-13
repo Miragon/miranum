@@ -52,7 +52,7 @@ To be able to use this annotation you have to add the miranum-core dependency or
 </dependency>
 ```
 
-When using the @GenerateElementTemplate annotation you have to specify some properties of your element template. \
+When using the @GenerateElementTemplate annotation you have to specify some properties of your element template.
 
 ```java
 @Worker(type = "sendMessage")
@@ -91,8 +91,11 @@ class SendMessageCommand {
 }
 ```
 
-The element templates are currently stored in the resource folder inside the `element-templates` directory. \
+The element templates are then generated on startup of the main project. \
+Currently they are stored inside the `element-templates` directory in the resource folder of the main project.
 
-*For more information about element templates, please see the [camunda documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/about-templates/).*
+After generating the element templates you can start using them in your bpmn diagrams inside the Camunda Modeler.
+
+*To see how to use element templates and for more information on this topic, please refer to the [camunda documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/about-templates/).*
 
 <p align="right">(<a href="#top">back to top</a>)</p>
