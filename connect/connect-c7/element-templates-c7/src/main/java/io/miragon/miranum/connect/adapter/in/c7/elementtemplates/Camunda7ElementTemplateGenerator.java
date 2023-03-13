@@ -15,9 +15,6 @@ import java.util.Objects;
 public class Camunda7ElementTemplateGenerator implements GenerateElementTemplatePort {
 
     private static final String SCHEMA = "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json";
-    private static final String IMPLEMENTATION_TYPE = "camunda:type";
-    private static final String IMPLEMENTATION_TYPE_VALUE = "external";
-    private static final String IMPLEMENTATION_TOPIC = "camunda:topic";
 
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
@@ -27,17 +24,20 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         elementTemplate.setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
         elementTemplate.setSchema(SCHEMA);
 
-        var implementationProperty = new Property("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
+        // Add external task property
+        var implementationProperty = new Property("Implementation Type", "String", "external");
         implementationProperty.setEditable(false);
-        var implementationBinding = new Binding(BindingType.PROPERTY, IMPLEMENTATION_TYPE);
+        var implementationBinding = new Binding(BindingType.PROPERTY, "camunda:type");
         implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
 
+        // Add property for the topic of the external task
         var implementationTopicProperty = new Property("Topic", "String", elementTemplateInfo.getType());
-        var implementationTopicBinding = new Binding(BindingType.PROPERTY, IMPLEMENTATION_TOPIC);
+        var implementationTopicBinding = new Binding(BindingType.PROPERTY, "camunda:topic");
         implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
+        // Add properties for input parameters
         if (!Objects.isNull(elementTemplateInfo.getInputType())) {
             for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
                 var property = createPropertyWithAnnotation(field.getName(),
@@ -45,13 +45,14 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                         "",
                         field.getAnnotation(ElementTemplateProperty.class));
 
-                var binding = new Binding(BindingType.INPUT_PARAMETER, "", field.getName());
+                var binding = new Binding(BindingType.INPUT_PARAMETER, field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
             }
         }
 
+        // Add properties for output parameters
         if (!Objects.isNull(elementTemplateInfo.getOutputType())) {
             for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
                 var property = createPropertyWithAnnotation(field.getName(),

@@ -22,7 +22,6 @@ class Binding {
 
     public Binding(BindingType type, String name) {
         this.type = type;
-        this.source = source;
         this.name = name;
     }
 }
