@@ -29,12 +29,12 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
 
         var implementationProperty = new Property("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
         implementationProperty.setEditable(false);
-        var implementationBinding = new Binding(BindingType.PROPERTY, "", IMPLEMENTATION_TYPE);
+        var implementationBinding = new Binding(BindingType.PROPERTY, IMPLEMENTATION_TYPE);
         implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
 
         var implementationTopicProperty = new Property("Topic", "String", elementTemplateInfo.getType());
-        var implementationTopicBinding = new Binding(BindingType.PROPERTY, "", IMPLEMENTATION_TOPIC);
+        var implementationTopicBinding = new Binding(BindingType.PROPERTY, IMPLEMENTATION_TOPIC);
         implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
