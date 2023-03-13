@@ -6,8 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public
-class Binding {
+public class Binding {
     private BindingType type;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;

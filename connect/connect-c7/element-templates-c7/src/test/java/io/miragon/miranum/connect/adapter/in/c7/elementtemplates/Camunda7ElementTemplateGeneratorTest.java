@@ -1,6 +1,8 @@
 package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
+import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
 import org.junit.jupiter.api.Test;
 
@@ -53,6 +55,35 @@ class Camunda7ElementTemplateGeneratorTest {
         // Assert
         assertNotNull(result.getJsonString());
         assertEquals(expectedJsonResult, result.getJsonString());
+    }
+
+    @Test
+    void generateCamunda7ElementTemplate_withAnnotatedInputProperties_shouldReturnValidOutputWithInputAndOutputProperties() throws IOException {
+        // Arrange
+        Camunda7ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda7ElementTemplateGenerator();
+        var elementTemplateInfo = new ElementTemplateInfo(
+                "Test",
+                "test",
+                "1.0.0",
+                "test",
+                new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
+                TestInputWithElementTemplatePropertyAnnotation.class, TestOutput.class);
+
+        var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-with-annotated-input-properties.json"));
+
+        // Act
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+
+        // Assert
+        assertNotNull(result.getJsonString());
+        assertEquals(expectedJsonResult, result.getJsonString());
+    }
+
+    private static class TestInputWithElementTemplatePropertyAnnotation {
+        @ElementTemplateProperty(label = "Property1", type = PropertyType.TEXT, notEmpty = true)
+        private String name;
+        @ElementTemplateProperty(label = "Property2", type = PropertyType.STRING)
+        private String id;
     }
 
     private static class TestInput {

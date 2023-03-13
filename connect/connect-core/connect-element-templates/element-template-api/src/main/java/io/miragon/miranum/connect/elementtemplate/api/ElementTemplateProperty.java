@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface ElementTemplateProperty {
 
-    String type() default "";
+    PropertyType type();
     String label() default "";
-    boolean notEmpty();
+    boolean notEmpty() default false;
     boolean editable() default true;
 }
