@@ -8,7 +8,7 @@ public class CamundaC7ElementTemplateConverter {
 
     public static String toJsonString(CamundaC7ElementTemplate elementTemplate) {
         var objectMapper = new ObjectMapper();
-        var json = "";
+        String json;
         try {
             json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(elementTemplate);
         } catch (JsonProcessingException e) {
