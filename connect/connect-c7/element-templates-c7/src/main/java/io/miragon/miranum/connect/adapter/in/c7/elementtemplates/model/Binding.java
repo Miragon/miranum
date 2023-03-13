@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 public
 class Binding {
-    private String type;
+    private BindingType type;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String source;
 
-    public Binding(String type, String source, String name) {
+    public Binding(BindingType type, String source, String name) {
         this.type = type;
         this.source = source;
         this.name = name;

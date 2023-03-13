@@ -2,10 +2,7 @@ package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Binding;
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Camunda7ElementTemplate;
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Constraints;
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.Property;
+import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model.*;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateGenerationResult;
@@ -18,8 +15,6 @@ import java.util.Objects;
 public class Camunda7ElementTemplateGenerator implements GenerateElementTemplatePort {
 
     private static final String SCHEMA = "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json";
-    private static final String INPUT_PARAMETER = "camunda:inputParameter";
-    private static final String OUTPUT_PARAMETER = "camunda:outputParameter";
     private static final String IMPLEMENTATION_TYPE = "camunda:type";
     private static final String IMPLEMENTATION_TYPE_VALUE = "external";
     private static final String IMPLEMENTATION_TOPIC = "camunda:topic";
@@ -34,12 +29,12 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
 
         var implementationProperty = new Property("Implementation Type", "String", IMPLEMENTATION_TYPE_VALUE);
         implementationProperty.setEditable(false);
-        var implementationBinding = new Binding("property", "", IMPLEMENTATION_TYPE);
+        var implementationBinding = new Binding(BindingType.PROPERTY, "", IMPLEMENTATION_TYPE);
         implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
 
         var implementationTopicProperty = new Property("Topic", "String", elementTemplateInfo.getType());
-        var implementationTopicBinding = new Binding("property", "", IMPLEMENTATION_TOPIC);
+        var implementationTopicBinding = new Binding(BindingType.PROPERTY, "", IMPLEMENTATION_TOPIC);
         implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
@@ -50,7 +45,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                         "",
                         field.getAnnotation(ElementTemplateProperty.class));
 
-                var binding = new Binding(INPUT_PARAMETER, "", field.getName());
+                var binding = new Binding(BindingType.INPUT_PARAMETER, "", field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -64,7 +59,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                         field.getName() + "Result",
                         field.getAnnotation(ElementTemplateProperty.class));
 
-                var binding = new Binding(OUTPUT_PARAMETER, field.getName(), "");
+                var binding = new Binding(BindingType.OUTPUT_PARAMETER, field.getName(), "");
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
