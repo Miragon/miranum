@@ -2,10 +2,10 @@ package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
-import io.miragon.miranum.connect.c7.elementtemplates.gen.ElementTemplatesJsonSchema010;
-import io.miragon.miranum.connect.c7.elementtemplates.gen.Property;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Binding;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.Property;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
@@ -23,10 +23,11 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
 
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
-        var elementTemplate = new ElementTemplatesJsonSchema010();
+        var elementTemplate = new CamundaC7ElementTemplate();
         elementTemplate.setName(elementTemplateInfo.getName());
         elementTemplate.setId(elementTemplateInfo.getId());
         elementTemplate.setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
+        elementTemplate.setVersion(1.0);
 
         // Add external task property
         var implementationProperty = new Property();
@@ -94,7 +95,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         return new ElementTemplateGenerationResult(convertToJsonString(elementTemplate));
     }
 
-    private String convertToJsonString(ElementTemplatesJsonSchema010 elementTemplate) {
+    private String convertToJsonString(CamundaC7ElementTemplate elementTemplate) {
         var objectMapper = new ObjectMapper();
         var json = "";
         try {
