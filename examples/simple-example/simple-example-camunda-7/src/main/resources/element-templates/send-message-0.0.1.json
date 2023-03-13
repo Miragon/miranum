@@ -1,7 +1,7 @@
 {
   "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json",
   "name" : "Send Message",
-  "id" : "sendMsg",
+  "id" : "send-message",
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
     "label" : "Implementation Type",
@@ -25,7 +25,7 @@
     "constraints" : {
       "notEmpty" : true
     },
-    "value" : "fireAndForget",
+    "value" : "sendMessage",
     "editable" : true
   }, {
     "label" : "name",

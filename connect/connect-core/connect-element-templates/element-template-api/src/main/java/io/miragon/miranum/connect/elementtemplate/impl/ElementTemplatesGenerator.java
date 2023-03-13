@@ -30,8 +30,10 @@ public class ElementTemplatesGenerator {
 
     private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult json) {
         var dir = "element-templates";
+        var resourcePath = Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getFile();
+        var elementTemplateDirPath = Path.of("..", "..", "src", "main", "resources", dir);
         try {
-            var dirPath = Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource(".")).getFile(), dir);
+            var dirPath = Path.of(resourcePath, elementTemplateDirPath.toString());
             dirPath.toFile().mkdirs();
             var filePath = Path.of(String.valueOf(dirPath), filename);
             var file = new File(String.valueOf(filePath));

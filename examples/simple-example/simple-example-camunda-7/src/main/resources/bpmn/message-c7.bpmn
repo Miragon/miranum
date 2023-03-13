@@ -5,7 +5,7 @@
       <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0yx0bta" sourceRef="StartEvent_1" targetRef="Gateway_1u6m6g0" />
-    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:modelerTemplate="sendMsg" camunda:type="external" camunda:topic="sendMessage">
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:modelerTemplate="send-message" camunda:asyncBefore="true" camunda:type="external" camunda:topic="sendMessage">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="name">myMessage</camunda:inputParameter>

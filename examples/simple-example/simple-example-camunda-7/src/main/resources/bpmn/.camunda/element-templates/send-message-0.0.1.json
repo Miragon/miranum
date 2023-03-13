@@ -1,0 +1,74 @@
+{
+  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.10.0/resources/schema.json",
+  "name" : "Send Message",
+  "id" : "send-message",
+  "appliesTo" : [ "bpmn:ServiceTask" ],
+  "properties" : [ {
+    "label" : "Implementation Type",
+    "type" : "String",
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:type"
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "value" : "external",
+    "editable" : false
+  }, {
+    "label" : "Topic",
+    "type" : "String",
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:topic"
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "value" : "sendMessage",
+    "editable" : true
+  }, {
+    "label" : "name",
+    "type" : "String",
+    "binding" : {
+      "type" : "camunda:inputParameter",
+      "name" : "name"
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "editable" : true
+  }, {
+    "label" : "key",
+    "type" : "String",
+    "binding" : {
+      "type" : "camunda:inputParameter",
+      "name" : "key"
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "editable" : true
+  },
+    {
+      "label": "Async before?",
+      "type": "Boolean",
+      "binding": {
+        "type": "property",
+        "name": "camunda:asyncBefore"
+      }
+    },
+    {
+    "label" : "text",
+    "type" : "String",
+    "binding" : {
+      "type" : "camunda:outputParameter",
+      "source" : "text"
+    },
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "value" : "textResult",
+    "editable" : true
+  } ]
+}
