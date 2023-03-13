@@ -50,7 +50,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         // Add properties for input parameters
         if (!Objects.isNull(elementTemplateInfo.getInputType())) {
             for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
-                var type = getType(field.getType());
+                var type = PropertyType.getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
                 var property = createPropertyWithPossibleAnnotation(
                         field.getName(),
@@ -70,7 +70,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         // Add properties for output parameters
         if (!Objects.isNull(elementTemplateInfo.getOutputType())) {
             for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
-                var type = getType(field.getType());
+                var type = PropertyType.getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
                 var property = createPropertyWithPossibleAnnotation(
                         field.getName(),
@@ -108,12 +108,5 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         }
 
         return property;
-    }
-
-    private PropertyType getType(Class<?> type) {
-        if (type != String.class) {
-            log.warning(String.format("Unsupported type \"%s\". PropertyType String is assumed.", type.getName()));
-        }
-        return PropertyType.STRING;
     }
 }
