@@ -21,7 +21,11 @@ public class SendMessageService implements SendMessageUseCase {
 
     @Override
     @Worker(type = "sendMessage")
-    @GenerateElementTemplate(name = "Send Message", id = "sendMsg", type = "fireAndForget", appliesTo = {BPMNElementType.BPMN_SERVICE_TASK}, version = "1.0.0")
+    @GenerateElementTemplate(name = "Send Message",
+            id = "send-message",
+            type = "sendMessage",
+            appliesTo = {BPMNElementType.BPMN_SERVICE_TASK},
+            version = "0.0.1")
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message);
 
