@@ -1,7 +1,5 @@
 package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Binding;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
@@ -30,28 +28,26 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         elementTemplate.setVersion(1.0);
 
         // Add external task property
-        var implementationProperty = new Property();
-        implementationProperty.setLabel("Implementation Type");
-        implementationProperty.setType(PropertyType.STRING.getType());
-        implementationProperty.setValue("external");
-        implementationProperty.setEditable(false);
+        var implementationProperty = new Property()
+                .withLabel("Implementation Type")
+                .withType(PropertyType.STRING.getType())
+                .withValue("external")
+                .withEditable(false)
+                .withBinding(new Binding()
+                        .withType(Binding.Type.PROPERTY)
+                        .withName("camunda:type"));
 
-        var implementationBinding = new Binding();
-        implementationBinding.setType(Binding.Type.PROPERTY);
-        implementationBinding.setName("camunda:type");
-        implementationProperty.setBinding(implementationBinding);
         elementTemplate.getProperties().add(implementationProperty);
 
         // Add property for the topic of the external task
-        var implementationTopicProperty = new Property();
-        implementationTopicProperty.setLabel("Topic");
-        implementationTopicProperty.setType(PropertyType.STRING.getType());
-        implementationTopicProperty.setValue(elementTemplateInfo.getType());
+        var implementationTopicProperty = new Property()
+                .withLabel("Topic")
+                .withType(PropertyType.STRING.getType())
+                .withValue(elementTemplateInfo.getType())
+                .withBinding(new Binding()
+                        .withType(Binding.Type.PROPERTY)
+                        .withName("camunda:topic"));
 
-        var implementationTopicBinding = new Binding();
-        implementationTopicBinding.setType(Binding.Type.PROPERTY);
-        implementationTopicBinding.setName("camunda:topic");
-        implementationTopicProperty.setBinding(implementationTopicBinding);
         elementTemplate.getProperties().add(implementationTopicProperty);
 
         // Add properties for input parameters
@@ -64,9 +60,9 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                         "",
                         field.getAnnotation(ElementTemplateProperty.class));
 
-                var binding = new Binding();
-                binding.setType(Binding.Type.CAMUNDA_INPUT_PARAMETER);
-                binding.setName(field.getName());
+                var binding = new Binding()
+                        .withType(Binding.Type.CAMUNDA_INPUT_PARAMETER)
+                        .withName(field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -83,34 +79,24 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                         field.getName() + "Result",
                         field.getAnnotation(ElementTemplateProperty.class));
 
-                var binding = new Binding();
-                binding.setType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER);
-                binding.setSource(field.getName());
+                var binding = new Binding()
+                        .withType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER)
+                        .withSource(field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
             }
         }
 
-        return new ElementTemplateGenerationResult(convertToJsonString(elementTemplate));
-    }
-
-    private String convertToJsonString(CamundaC7ElementTemplate elementTemplate) {
-        var objectMapper = new ObjectMapper();
-        var json = "";
-        try {
-            json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(elementTemplate);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Could not generate json string!", e);
-        }
-        return json;
+        var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
+        return new ElementTemplateGenerationResult(json);
     }
 
     private Property createPropertyWithAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
-        var property = new Property();
-        property.setLabel(label);
-        property.setType(type.getType());
-        property.setValue(value);
+        var property = new Property()
+                .withLabel(label)
+                .withType(type.getType())
+                .withValue(value);
 
         if (!Objects.isNull(propertyAnnotation)) {
             property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());

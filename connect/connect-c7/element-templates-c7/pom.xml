@@ -8,8 +8,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-template-api</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -34,6 +33,8 @@
                 <configuration>
                     <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
                     <targetPackage>io.miragon.miranum.connect.c7.elementtemplates.gen</targetPackage>
+                    <generateBuilders>true</generateBuilders>
+                    <useJakartaValidation>true</useJakartaValidation>
                 </configuration>
                 <executions>
                     <execution>

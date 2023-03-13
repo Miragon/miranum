@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c7.elementtemplates.model;
+package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
