@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.elementtemplate.impl;
 
-import io.miragon.miranum.connect.shared.ToManyParametersException;
+import io.miragon.miranum.connect.shared.TooManyParametersException;
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
 
 import java.lang.reflect.Method;
@@ -12,7 +12,7 @@ public class ElementTemplateInfoMapper {
         final Class<?>[] inputParameterTypes = method.getParameterTypes();
 
         if (inputParameterTypes.length > 1) {
-            throw new ToManyParametersException(generateElementTemplate);
+            throw new TooManyParametersException(generateElementTemplate);
         }
 
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
