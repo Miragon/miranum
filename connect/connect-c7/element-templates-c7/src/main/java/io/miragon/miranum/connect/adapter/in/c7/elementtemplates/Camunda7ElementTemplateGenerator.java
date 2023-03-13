@@ -52,7 +52,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
             for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
                 var type = getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
-                var property = createProperty(
+                var property = createPropertyWithPossibleAnnotation(
                         field.getName(),
                         type,
                         "",
@@ -72,7 +72,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
             for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
                 var type = getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
-                var property = createProperty(
+                var property = createPropertyWithPossibleAnnotation(
                         field.getName(),
                         type,
                         field.getName() + "Result",
@@ -91,7 +91,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         return new ElementTemplateGenerationResult(json);
     }
 
-    private Property createProperty(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
+    private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
         var property = new Property()
                 .withLabel(label)
                 .withType(type.getType())
