@@ -18,14 +18,13 @@ import java.util.Objects;
 @Log
 public class Camunda7ElementTemplateGenerator implements GenerateElementTemplatePort {
 
-
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
         var elementTemplate = new CamundaC7ElementTemplate();
         elementTemplate.setName(elementTemplateInfo.getName());
         elementTemplate.setId(elementTemplateInfo.getId());
         elementTemplate.setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
-        elementTemplate.setVersion(1.0);
+        elementTemplate.setVersion(elementTemplateInfo.getVersion());
 
         // Add external task property
         var implementationProperty = new Property()

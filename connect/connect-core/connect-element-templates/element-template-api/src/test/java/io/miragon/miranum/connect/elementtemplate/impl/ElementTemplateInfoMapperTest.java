@@ -18,7 +18,7 @@ class ElementTemplateInfoMapperTest {
         ElementTemplateInfo expected = new ElementTemplateInfo(
                 "name",
                 "id",
-                "0.0.1",
+                0.1,
                 "type",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 null,
@@ -34,7 +34,7 @@ class ElementTemplateInfoMapperTest {
         ElementTemplateInfo expected = new ElementTemplateInfo(
                 "name",
                 "id",
-                "0.0.1",
+                0.1,
                 "type",
                 new BPMNElementType[]{BPMNElementType.BPMN_SEND_TASK},
                 String.class,
@@ -47,7 +47,7 @@ class ElementTemplateInfoMapperTest {
         ElementTemplateInfoMapper mapper = new ElementTemplateInfoMapper();
         Method method = getMethod("methodWithToManyParameters", String.class, Integer.class);
         GenerateElementTemplate generateElementTemplate = method.getAnnotation(GenerateElementTemplate.class);
-        TooManyParametersException exception = Assertions.assertThrows(TooManyParametersException.class, () -> {
+        Assertions.assertThrows(TooManyParametersException.class, () -> {
             mapper.map(generateElementTemplate, method);
         });
     }
@@ -60,12 +60,12 @@ class ElementTemplateInfoMapperTest {
         }
     }
 
-    @GenerateElementTemplate(name = "name", id = "id", version = "0.0.1", type = "type")
+    @GenerateElementTemplate(name = "name", id = "id", version = 0.1, type = "type")
     public void methodWithNoParameters() {}
 
-    @GenerateElementTemplate(name = "name", id = "id", version = "0.0.1", type = "type", appliesTo = {BPMNElementType.BPMN_SEND_TASK})
+    @GenerateElementTemplate(name = "name", id = "id", version = 0.1, type = "type", appliesTo = {BPMNElementType.BPMN_SEND_TASK})
     public void methodWithSingleParameter(String parameter) {}
 
-    @GenerateElementTemplate(name = "name", id = "id", version = "0.0.1", type = "type")
+    @GenerateElementTemplate(name = "name", id = "id", version = 0.1, type = "type")
     public void methodWithToManyParameters(String parameter1, Integer parameter2) {}
 }

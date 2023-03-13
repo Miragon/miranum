@@ -12,5 +12,5 @@ public @interface GenerateElementTemplate {
     String id();
     String type();
     BPMNElementType[] appliesTo() default {BPMNElementType.BPMN_SERVICE_TASK};
-    String version();
+    double version();
 }
