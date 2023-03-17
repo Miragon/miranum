@@ -3,6 +3,7 @@ package io.miragon.miranum.connect.worker.impl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @Getter
@@ -20,5 +21,17 @@ public class WorkerInfo {
     private Class<?> inputType;
 
     private Class<?> outputType;
+
+    /**
+     * Executes the worker.
+     *
+     * @param data data to be processed
+     * @return result of the worker
+     * @throws InvocationTargetException if the underlying method throws an exception.
+     * @throws IllegalAccessException    if this Method object is enforcing Java language access control and the underlying method is inaccessible.
+     */
+    public Object execute(final Object data) throws InvocationTargetException, IllegalAccessException {
+        return this.getMethod().invoke(this.instance, data);
+    }
 
 }

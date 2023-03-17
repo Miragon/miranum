@@ -1,29 +1,26 @@
 package io.miragon.miranum.connect.worker;
 
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
-import io.miragon.miranum.connect.worker.impl.*;
+import io.miragon.miranum.connect.worker.impl.WorkerExecuteApiImpl;
+import io.miragon.miranum.connect.worker.impl.WorkerInitializer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 @Configuration
-@Import(ContextInitializer.class)
 public class WorkerAutoConfiguration {
 
-    @Bean
-    public WorkerInfoMapper useCaseInfoMapper() {
-        return new WorkerInfoMapper();
-    }
+        @Bean
+        @ConditionalOnMissingBean
+        public WorkerExecuteApi workerExecuteApi(final List<WorkerInterceptor> workerInterceptors) {
+            return new WorkerExecuteApiImpl(workerInterceptors);
+        }
 
-    @Bean
-    public MethodExecutor executeMethodUseCase(final List<WorkerInterceptor> interceptors) {
-        return new MethodExecutor(interceptors);
-    }
-
-    @Bean
-    public WorkerInitalizer initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
-        return new WorkerInitalizer(bindUseCasePort);
-    }
+        @Bean
+        public WorkerInitializer workerInitializer(final WorkerExecuteApi workerExecuteApi) {
+            return new WorkerInitializer(workerExecuteApi);
+        }
 }
