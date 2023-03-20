@@ -8,7 +8,6 @@
     "label" : "Implementation Type",
     "type" : "String",
     "editable" : false,
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:type"
@@ -17,7 +16,6 @@
     "value" : "test",
     "label" : "Topic",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"

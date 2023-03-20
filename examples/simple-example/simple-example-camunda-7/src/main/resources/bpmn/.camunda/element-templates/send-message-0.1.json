@@ -1,4 +1,5 @@
 {
+  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
   "name" : "Send Message",
   "id" : "send-message",
   "appliesTo" : [ "bpmn:ServiceTask" ],
@@ -7,7 +8,6 @@
     "label" : "Implementation Type",
     "type" : "String",
     "editable" : false,
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:type"
@@ -16,7 +16,6 @@
     "value" : "sendMessage",
     "label" : "Topic",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
@@ -25,7 +24,6 @@
     "value" : "",
     "label" : "name",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
@@ -34,7 +32,6 @@
     "value" : "",
     "label" : "key",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "key"
@@ -43,11 +40,9 @@
     "value" : "textResult",
     "label" : "text",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "text"
     }
-  } ],
-  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json"
+  } ]
 }

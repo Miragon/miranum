@@ -8,7 +8,6 @@
     "label" : "Implementation Type",
     "type" : "String",
     "editable" : false,
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:type"
@@ -17,7 +16,6 @@
     "value" : "test",
     "label" : "Topic",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
@@ -26,7 +24,6 @@
     "value" : "",
     "label" : "name",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
@@ -35,7 +32,6 @@
     "value" : "",
     "label" : "id",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "id"
@@ -44,7 +40,6 @@
     "value" : "nameResult",
     "label" : "name",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "name"
@@ -53,7 +48,6 @@
     "value" : "idResult",
     "label" : "id",
     "type" : "String",
-    "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "id"
