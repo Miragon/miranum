@@ -1,6 +1,6 @@
 {
-  "name" : "Test",
-  "id" : "test",
+  "name" : "Send Message",
+  "id" : "send-message",
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
     "value" : "external",
@@ -13,7 +13,7 @@
       "name" : "camunda:type"
     }
   }, {
-    "value" : "test",
+    "value" : "sendMessage",
     "label" : "Topic",
     "type" : "String",
     "choices" : [ ],
@@ -23,47 +23,30 @@
     }
   }, {
     "value" : "",
-    "label" : "Property1",
-    "type" : "Text",
-    "editable" : true,
-    "choices" : [ ],
-    "binding" : {
-      "type" : "camunda:inputParameter",
-      "name" : "name"
-    },
-    "constraints" : {
-      "notEmpty" : true
-    }
-  }, {
-    "value" : "",
-    "label" : "Property2",
-    "type" : "String",
-    "editable" : true,
-    "choices" : [ ],
-    "binding" : {
-      "type" : "camunda:inputParameter",
-      "name" : "id"
-    },
-    "constraints" : {
-      "notEmpty" : false
-    }
-  }, {
-    "value" : "nameResult",
     "label" : "name",
     "type" : "String",
     "choices" : [ ],
     "binding" : {
-      "type" : "camunda:outputParameter",
-      "source" : "name"
+      "type" : "camunda:inputParameter",
+      "name" : "name"
     }
   }, {
-    "value" : "idResult",
-    "label" : "id",
+    "value" : "",
+    "label" : "key",
+    "type" : "String",
+    "choices" : [ ],
+    "binding" : {
+      "type" : "camunda:inputParameter",
+      "name" : "key"
+    }
+  }, {
+    "value" : "textResult",
+    "label" : "text",
     "type" : "String",
     "choices" : [ ],
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "id"
+      "source" : "text"
     }
   } ],
   "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json"

@@ -1,7 +1,6 @@
 {
   "name" : "Test",
   "id" : "test",
-  "version" : 1.0,
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
     "value" : "external",
@@ -58,5 +57,6 @@
       "type" : "camunda:outputParameter",
       "source" : "id"
     }
-  } ]
+  } ],
+  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json"
 }
