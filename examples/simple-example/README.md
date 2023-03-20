@@ -92,7 +92,7 @@ class SendMessageCommand {
 ```
 
 The element templates are then generated on startup of the main project. \
-Currently they are stored inside the `element-templates` directory in the resource folder of the main project.
+Currently they are stored inside `classes/element-templates` directory in the `target` folder of the main project.
 
 After generating the element templates you can start using them in your bpmn diagrams inside the Camunda Modeler.
 
