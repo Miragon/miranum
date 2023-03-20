@@ -37,6 +37,7 @@ Now you can simply start the process instance and view the log in the applicatio
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Generate element templates
+(*note: this feature is currently only available for Camunda 7.*)
 
 This examples also demonstrates how you can make use of the miranum element-templates generation feature
 which lets you generate element templates for your worker definitions. \
