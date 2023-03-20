@@ -41,7 +41,7 @@ Now you can simply start the process instance and view the log in the applicatio
 
 This examples also demonstrates how you can make use of the miranum element-templates generation feature
 which lets you generate element templates for your worker definitions. \
-To use the element template generation feature you have to add the @GenerateElementTemplates annotation to your worker definition method.
+To use the element template generation you have to add the @GenerateElementTemplates annotation to the method of your Miranum worker.
 
 To be able to use this annotation you have to add the miranum-core dependency or just the element-template-api dependency to your maven project.
 
@@ -69,7 +69,7 @@ public Answer sendMessage(final SendMessageCommand message) {
 
 Additionally, when deciding for which Workflow-Engine you are going to build your project for you have to add the concrete
 dependency of the element-templates generator to your maven project. \
-Here for Camunda 7:
+Below is the maven dependency needed for Camunda Platform 7::
 
 ```xml
 <dependency>
@@ -93,10 +93,8 @@ class SendMessageCommand {
 ```
 
 The element templates are then generated on startup of the main project. \
-Currently they are stored inside `classes/element-templates` directory in the `target` folder of the main project.
+Currently they are stored in the `classes/element-templates` directory inside the `target` folder of the main project.
 
-After generating the element templates you can start using them in your bpmn diagrams inside the Camunda Modeler.
-
-*To see how to use element templates and for more information on this topic, please refer to the [camunda documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/about-templates/).*
+*To use element templates in the Camunda Modeler, please refer to the [camunda documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/about-templates/).*
 
 <p align="right">(<a href="#top">back to top</a>)</p>
