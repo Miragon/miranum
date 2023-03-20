@@ -41,7 +41,8 @@ public @interface GenerateElementTemplate {
     BPMNElementType[] appliesTo() default {BPMNElementType.BPMN_SERVICE_TASK};
     /**
      * The version of the element template.
-     * Corresponds to the version property of the element template.
+     * Is only used to generate the file name of the element template and
+     * is therefore not included in the element template.
      * @return the version of the element template
      */
     double version();
