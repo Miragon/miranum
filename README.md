@@ -21,6 +21,15 @@
 Miranum-Connect is a library which enables developers to build reusable and technology neutral connectors and integrations between products.
 More information can be found in the [official documentation](https://miranum.com/docs/components/miranum-connect/intro-miranum-connect).
 
+Content of this readme:
+* [Version Compatibility](#version-compatibility)
+* [Miranum-Worker](#miranum-worker)
+* [Miranum-Process](#miranum-process)
+* [Miranum-Message](#miranum-message)
+* [Contribution](#contributing)
+* [Code of Conduct](#code-of-conduct)
+* [License](#license)
+
 ## Version Compatibility
 | Miranum Connect Version | JDK  | Camunda Platform Versions | Compatible Spring Boot versions  |
 |-------------------------|------|---------------------------|----------------------------------|
@@ -102,6 +111,7 @@ public void doSomething(DoSomethingCommand doSomethingCommand) {
     doSomethingUseCase.doSomething(doSomethingCommand);
 }
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ### Miranum-Process
@@ -137,6 +147,7 @@ public class StartProcessController {
     }
 }
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ### Miranum-Message
@@ -163,6 +174,8 @@ public void correlateMessage(CorrelateMessageCommand message) {
     log.info(message + " successfully correlated")
 }
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
