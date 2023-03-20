@@ -1,4 +1,5 @@
 {
+  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
   "name" : "Test",
   "id" : "test",
   "appliesTo" : [ "bpmn:ServiceTask" ],
@@ -21,6 +22,5 @@
       "type" : "property",
       "name" : "camunda:topic"
     }
-  } ],
-  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json"
+  } ]
 }

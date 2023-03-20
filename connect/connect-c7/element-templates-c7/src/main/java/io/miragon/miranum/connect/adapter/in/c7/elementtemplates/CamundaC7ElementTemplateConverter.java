@@ -1,7 +1,9 @@
 package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 
 public class CamundaC7ElementTemplateConverter {
@@ -9,9 +11,11 @@ public class CamundaC7ElementTemplateConverter {
     private static final String $SCHEMA = "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json";
 
     public static String toJsonString(CamundaC7ElementTemplate elementTemplate) {
-        var objectMapper = new ObjectMapper();
-        objectMapper.addMixIn(CamundaC7ElementTemplate.class, SchemaMixin.class);
-        var objectWriter = objectMapper.writerFor(CamundaC7ElementTemplate.class)
+        var mapper = JsonMapper.builder()
+                .configure(MapperFeature.SORT_CREATOR_PROPERTIES_FIRST, true)
+                .addMixIn(CamundaC7ElementTemplate.class, SchemaMixin.class)
+                .build();
+        var objectWriter = mapper.writerFor(CamundaC7ElementTemplate.class)
                 .withAttribute("$schema", $SCHEMA);
         String json;
         try {
