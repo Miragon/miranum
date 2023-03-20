@@ -8,5 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ElementTemplateGenerationResult {
+
+    private String name;
+    private double version;
     private String jsonString;
 }

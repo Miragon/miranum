@@ -23,8 +23,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         var elementTemplate = new CamundaC7ElementTemplate()
                 .withName(elementTemplateInfo.getName())
                 .withId(elementTemplateInfo.getId())
-                .withAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList())
-                .withVersion(elementTemplateInfo.getVersion());
+                .withAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
 
         // Add external task property
         var implementationProperty = new Property()
@@ -88,7 +87,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
         }
 
         var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
-        return new ElementTemplateGenerationResult(json);
+        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json);
     }
 
     private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
