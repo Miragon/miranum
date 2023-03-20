@@ -3,7 +3,7 @@ package io.miragon.miranum.connect.worker.impl;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class WorkerInitalizer {
+public class WorkerInitializer {
 
     private final BindWorkerPort bindWorkerPort;
 

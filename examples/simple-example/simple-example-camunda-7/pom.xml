@@ -38,6 +38,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>element-templates-c7</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--Camunda-->
         <dependency>
             <groupId>org.camunda.community</groupId>

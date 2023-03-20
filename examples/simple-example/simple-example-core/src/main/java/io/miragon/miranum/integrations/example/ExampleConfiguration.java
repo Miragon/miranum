@@ -1,5 +1,6 @@
 package io.miragon.miranum.integrations.example;
 
+import io.miragon.miranum.connect.message.api.MessageApi;
 import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
 import io.miragon.miranum.integrations.example.application.port.in.FireAndForgetUseCase;
 import io.miragon.miranum.integrations.example.application.port.in.SendMessageUseCase;
@@ -13,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class ExampleConfiguration {
 
     @Bean
-    public SendMessageUseCase sendMessageUseCase() {
-        return new SendMessageService();
+    public SendMessageUseCase sendMessageUseCase(final MessageApi messageApi) {
+        return new SendMessageService(messageApi);
     }
 
     @Bean
