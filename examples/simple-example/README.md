@@ -39,7 +39,7 @@ Now you can simply start the process instance and view the log in the applicatio
 ### Generate element templates
 (*note: this feature is currently only available for Camunda 7.*)
 
-This examples also demonstrates how you can make use of the miranum element-templates generation feature
+This example also demonstrates how you can make use of the miranum element-templates generation feature
 which lets you generate element templates for your worker definitions. \
 To use the element template generation you have to add the @GenerateElementTemplates annotation to the method of your Miranum worker.
 
@@ -53,7 +53,7 @@ To be able to use this annotation you have to add the miranum-core dependency or
 </dependency>
 ```
 
-When using the @GenerateElementTemplate annotation you have to specify some properties of your element template.
+Some properties are required when using the @GenerateElementTemplate annotation:
 
 ```java
 @Worker(type = "sendMessage")
