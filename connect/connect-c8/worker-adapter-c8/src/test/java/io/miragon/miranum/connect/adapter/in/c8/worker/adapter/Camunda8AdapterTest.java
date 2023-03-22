@@ -8,7 +8,7 @@ import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobWorkerBuilderStep1;
 import io.miragon.miranum.connect.adapter.in.c8.worker.Camunda8WorkerAdapter;
 import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -33,7 +33,7 @@ public class Camunda8AdapterTest {
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
 
-        final WorkerInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
+        final WorkerExecutor useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
         final JobWorkerBuilderStep1 step1 = Mockito.mock(JobWorkerBuilderStep1.class);
         final JobWorkerBuilderStep1.JobWorkerBuilderStep2 step2 = Mockito.mock(JobWorkerBuilderStep1.JobWorkerBuilderStep2.class);
         final JobWorkerBuilderStep1.JobWorkerBuilderStep3 step3 = Mockito.mock(JobWorkerBuilderStep1.JobWorkerBuilderStep3.class);
@@ -52,7 +52,7 @@ public class Camunda8AdapterTest {
     @Test
     void givenDefaultUseCaseAndSuccessfullTask_thenEverythingGetsExecuted() {
         final ActivatedJob job = this.givenDefaultJob(1L);
-        final WorkerInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
+        final WorkerExecutor useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         final JobClient client = this.givenDefaultClient(result);
         given(this.methodExecutor.execute(any())).willReturn(result);
@@ -77,8 +77,8 @@ public class Camunda8AdapterTest {
         return client;
     }
 
-    private WorkerInfo givenDefaultUseCase(final String type, final Long lockDuration) {
-        final WorkerInfo useCaseInfo = Mockito.mock(WorkerInfo.class);
+    private WorkerExecutor givenDefaultUseCase(final String type, final Long lockDuration) {
+        final WorkerExecutor useCaseInfo = Mockito.mock(WorkerExecutor.class);
         given(useCaseInfo.getType()).willReturn(type);
         given(useCaseInfo.getTimeout()).willReturn(lockDuration);
         return useCaseInfo;

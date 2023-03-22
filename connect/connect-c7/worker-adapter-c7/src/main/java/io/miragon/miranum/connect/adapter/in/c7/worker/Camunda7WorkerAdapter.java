@@ -5,7 +5,7 @@ import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
 import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
 import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
@@ -25,11 +25,11 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
     private final MethodExecutor methodExecutor;
 
     @Override
-    public void bind(final WorkerInfo workerInfo) {
+    public void bind(final WorkerExecutor workerExecutor) {
 
-        this.externalTaskClient.subscribe(workerInfo.getType())
-                .lockDuration(workerInfo.getTimeout())
-                .handler((task, service) -> this.execute(task, service, workerInfo))
+        this.externalTaskClient.subscribe(workerExecutor.getType())
+                .lockDuration(workerExecutor.getTimeout())
+                .handler((task, service) -> this.execute(task, service, workerExecutor))
                 .open();
     }
 
@@ -38,13 +38,13 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
      *
      * @param externalTask Task that should be executed
      * @param service      Task service to interact with
-     * @param workerInfo   worker info that executes the tasks
+     * @param workerExecutor   worker info that executes the tasks
      */
-    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final WorkerInfo workerInfo) {
-        final Object value = this.camunda7Mapper.mapInput(workerInfo.getInputType(), externalTask.getAllVariablesTyped());
+    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final WorkerExecutor workerExecutor) {
+        final Object value = this.camunda7Mapper.mapInput(workerExecutor.getInputType(), externalTask.getAllVariablesTyped());
         try {
             //1. execute method
-            final Object result = this.methodExecutor.execute(new ExecuteMethodCommand(value, workerInfo));
+            final Object result = this.methodExecutor.execute(new ExecuteMethodCommand(value, workerExecutor));
             //2. convert to result map
             final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
             //3. complete task

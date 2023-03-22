@@ -26,12 +26,12 @@ public class WorkerInitializer implements ApplicationContextAware {
 
     /**
      * Initializes all workers after the application has started using the spring application ready event.
-     * All beans with the {@link WorkerInfo} annotation are registered as Workers.
+     * All beans with the {@link WorkerExecutor} annotation are registered as Workers.
      */
     @EventListener(ApplicationReadyEvent.class)
     public void initializeWorkersAfterStartup() {
-        final List<WorkerInfo> workerInfos = this.getWorkers();
-        workerInfos.forEach(this.workerExecuteApi::register);
+        final List<WorkerExecutor> workerExecutors = this.getWorkers();
+        workerExecutors.forEach(this.workerExecuteApi::register);
     }
 
     /**
@@ -46,12 +46,12 @@ public class WorkerInitializer implements ApplicationContextAware {
     }
 
     /**
-     * Helper method to get all Workers (using the {@link WorkerInfo} annotation) from the spring context.
+     * Helper method to get all Workers (using the {@link WorkerExecutor} annotation) from the spring context.
      *
      * @return list of workers
      */
-    private List<WorkerInfo> getWorkers() {
-        final List<WorkerInfo> workerInfos = new ArrayList<>();
+    private List<WorkerExecutor> getWorkers() {
+        final List<WorkerExecutor> workerExecutors = new ArrayList<>();
         final String[] beanDefinitionNames = this.ctx.getBeanDefinitionNames();
         // Iterate over the list of spring beans and get all methods annotated with the specific annotation
         for (final String beanDefinitionName : beanDefinitionNames) {
@@ -62,11 +62,11 @@ public class WorkerInitializer implements ApplicationContextAware {
                 // Check if the method is annotated with the specific annotation
                 if (method.isAnnotationPresent(Worker.class)) {
                     final Worker annotInstance = method.getAnnotation(Worker.class);
-                    workerInfos.add(this.buildWorker(annotInstance, bean, method));
+                    workerExecutors.add(this.buildWorker(annotInstance, bean, method));
                 }
             });
         }
-        return workerInfos;
+        return workerExecutors;
     }
 
     /**
@@ -77,7 +77,7 @@ public class WorkerInitializer implements ApplicationContextAware {
      * @param method    method
      * @return Worker
      */
-    private WorkerInfo buildWorker(final Worker worker, final Object bean, final Method method) {
+    private WorkerExecutor buildWorker(final Worker worker, final Object bean, final Method method) {
         final Class<?>[] inputParameterTypes = method.getParameterTypes();
 
         if (inputParameterTypes.length > 1) {
@@ -85,7 +85,7 @@ public class WorkerInitializer implements ApplicationContextAware {
         }
 
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
-        return new WorkerInfo(worker.type(), worker.timeout(), bean, method, inputParameter, method.getReturnType());
+        return new WorkerExecutor(worker.type(), worker.timeout(), bean, method, inputParameter, method.getReturnType());
     }
 
 }

@@ -17,17 +17,17 @@ import java.util.*;
 @RequiredArgsConstructor
 public class WorkerExecuteApiImpl implements WorkerExecuteApi {
 
-    private final List<WorkerInfo> workerInfos = new ArrayList<>();
+    private final List<WorkerExecutor> workerExecutors = new ArrayList<>();
     private final List<WorkerInterceptor> interceptors;
 
     /**
      * Registers a Worker.
      *
-     * @param WorkerInfo Worker to be registered
+     * @param WorkerExecutor Worker to be registered
      */
     @Override
-    public void register(final WorkerInfo WorkerInfo) {
-        this.workerInfos.add(WorkerInfo);
+    public void register(final WorkerExecutor WorkerExecutor) {
+        this.workerExecutors.add(WorkerExecutor);
     }
 
     /**
@@ -40,7 +40,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
      */
     @Override
     public Object execute(final String type, final Object data) {
-        final Optional<WorkerInfo> foundWorker = this.workerInfos.stream()
+        final Optional<WorkerExecutor> foundWorker = this.workerExecutors.stream()
                 .filter(Worker -> Worker.getType().equals(type))
                 .findFirst();
 
@@ -51,9 +51,9 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
 
         try {
             final Object in = this.mapInput(foundWorker.get().getInputType(), data);
-            final WorkerInfo workerInfo = foundWorker.get();
-            this.interceptors.forEach(obj -> obj.intercept(in, workerInfo));
-            return this.mapOutput(workerInfo.execute(in));
+            final WorkerExecutor workerExecutor = foundWorker.get();
+            this.interceptors.forEach(obj -> obj.intercept(in, workerExecutor));
+            return this.mapOutput(workerExecutor.execute(in));
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (final InvocationTargetException e) {

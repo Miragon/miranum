@@ -9,7 +9,7 @@ import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
 import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
 import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,22 +23,22 @@ public class Camunda8WorkerAdapter implements BindWorkerPort {
     private final MethodExecutor methodExecutor;
 
     @Override
-    public void bind(final WorkerInfo workerInfo) {
+    public void bind(final WorkerExecutor workerExecutor) {
         this.client
                 .newWorker()
-                .jobType(workerInfo.getType())
-                .handler((client, job) -> this.execute(client, job, workerInfo))
-                .name(workerInfo.getType())
-                .timeout(workerInfo.getTimeout())
+                .jobType(workerExecutor.getType())
+                .handler((client, job) -> this.execute(client, job, workerExecutor))
+                .name(workerExecutor.getType())
+                .timeout(workerExecutor.getTimeout())
                 .open();
     }
 
-    public void execute(final JobClient client, final ActivatedJob job, final WorkerInfo workerInfo) {
+    public void execute(final JobClient client, final ActivatedJob job, final WorkerExecutor workerExecutor) {
         try {
             //1. map values
-            final Object value = job.getVariablesAsType(workerInfo.getInputType());
+            final Object value = job.getVariablesAsType(workerExecutor.getInputType());
             //2. execute method
-            final Optional<Object> result = Optional.ofNullable(this.methodExecutor.execute(new ExecuteMethodCommand(value, workerInfo)));
+            final Optional<Object> result = Optional.ofNullable(this.methodExecutor.execute(new ExecuteMethodCommand(value, workerExecutor)));
 
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
             //3. add variables if result is not null

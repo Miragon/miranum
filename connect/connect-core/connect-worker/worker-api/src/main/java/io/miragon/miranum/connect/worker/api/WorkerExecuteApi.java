@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.worker.api;
 
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 
 /**
  * Interface to execute a worker.
@@ -10,9 +10,9 @@ public interface WorkerExecuteApi {
     /**
      * Registers a worker.
      *
-     * @param workerInfo worker to be registered
+     * @param workerExecutor worker to be registered
      */
-    void register(final WorkerInfo workerInfo);
+    void register(final WorkerExecutor workerExecutor);
 
     /**
      * Executes a worker.

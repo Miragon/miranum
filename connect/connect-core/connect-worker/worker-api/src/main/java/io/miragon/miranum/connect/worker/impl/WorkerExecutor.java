@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 @Getter
 @AllArgsConstructor
-public class WorkerInfo {
+public class WorkerExecutor {
 
     private String type;
 

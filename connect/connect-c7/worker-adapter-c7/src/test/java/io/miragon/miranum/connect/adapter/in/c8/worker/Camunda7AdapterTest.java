@@ -3,7 +3,7 @@ package io.miragon.miranum.connect.adapter.in.c8.worker;
 import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7Mapper;
 import io.miragon.miranum.connect.adapter.in.c7.worker.Camunda7WorkerAdapter;
 import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -35,7 +35,7 @@ public class Camunda7AdapterTest {
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
-        final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
+        final WorkerExecutor defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final TopicSubscriptionBuilder builder = this.givenTopicSubscriptionBuilder();
 
         given(this.externalTaskClient.subscribe("defaultWorker")).willReturn(builder);
@@ -56,7 +56,7 @@ public class Camunda7AdapterTest {
     void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
-        final WorkerInfo defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
+        final WorkerExecutor defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         given(this.methodExecutor.execute(any())).willReturn(result);
         given(this.camunda7Mapper.mapOutput(any())).willReturn(result);
@@ -66,11 +66,11 @@ public class Camunda7AdapterTest {
         then(service).should().complete(externalTask, null, result);
     }
 
-    private WorkerInfo givenDefaultWorker(final String type, final Long lockDuration) {
-        final WorkerInfo workerInfo = Mockito.mock(WorkerInfo.class);
-        given(workerInfo.getType()).willReturn(type);
-        given(workerInfo.getTimeout()).willReturn(lockDuration);
-        return workerInfo;
+    private WorkerExecutor givenDefaultWorker(final String type, final Long lockDuration) {
+        final WorkerExecutor workerExecutor = Mockito.mock(WorkerExecutor.class);
+        given(workerExecutor.getType()).willReturn(type);
+        given(workerExecutor.getTimeout()).willReturn(lockDuration);
+        return workerExecutor;
     }
 
     private ExternalTask givenDefaultTask() {
