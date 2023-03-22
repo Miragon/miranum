@@ -39,7 +39,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
      * @return result of the Worker
      */
     @Override
-    public Object execute(final String type, final Object data) {
+    public Map<String, Object> execute(final String type, final Object data) {
         final Optional<WorkerExecutor> foundWorker = this.workerExecutors.stream()
                 .filter(Worker -> Worker.getType().equals(type))
                 .findFirst();
@@ -60,6 +60,11 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
             // Unwrap the exception wrapped by the InvocationTargetException
             throw (RuntimeException) e.getTargetException();
         }
+    }
+
+    @Override
+    public List<WorkerExecutor> availableWorkerExecutors() {
+        return this.workerExecutors;
     }
 
     /**

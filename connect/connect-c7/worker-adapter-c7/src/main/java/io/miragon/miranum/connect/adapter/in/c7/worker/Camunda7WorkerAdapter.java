@@ -2,10 +2,8 @@ package io.miragon.miranum.connect.adapter.in.c7.worker;
 
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
-import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
-import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
@@ -16,21 +14,23 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
-@Slf4j
 @RequiredArgsConstructor
-public class Camunda7WorkerAdapter implements BindWorkerPort {
+@Slf4j
+public class Camunda7WorkerAdapter {
 
     private final ExternalTaskClient externalTaskClient;
-    private final Camunda7Mapper camunda7Mapper;
-    private final MethodExecutor methodExecutor;
+    private final WorkerExecuteApi workerExecuteApi;
 
-    @Override
-    public void bind(final WorkerExecutor workerExecutor) {
-
-        this.externalTaskClient.subscribe(workerExecutor.getType())
-                .lockDuration(workerExecutor.getTimeout())
-                .handler((task, service) -> this.execute(task, service, workerExecutor))
-                .open();
+    @PostConstruct
+    public void init() {
+        // external task client subscribe to each available worker type
+        this.workerExecuteApi.availableWorkerExecutors()
+            .forEach(workerExecutor -> {
+                this.externalTaskClient.subscribe(workerExecutor.getType())
+                        .lockDuration(workerExecutor.getTimeout())
+                        .handler((task, service) -> this.execute(task, service))
+                        .open();
+            });
     }
 
     /**
@@ -38,17 +38,11 @@ public class Camunda7WorkerAdapter implements BindWorkerPort {
      *
      * @param externalTask Task that should be executed
      * @param service      Task service to interact with
-     * @param workerExecutor   worker info that executes the tasks
      */
-    public void execute(final ExternalTask externalTask, final ExternalTaskService service, final WorkerExecutor workerExecutor) {
-        final Object value = this.camunda7Mapper.mapInput(workerExecutor.getInputType(), externalTask.getAllVariablesTyped());
+    public void execute(final ExternalTask externalTask, final ExternalTaskService service) {
         try {
-            //1. execute method
-            final Object result = this.methodExecutor.execute(new ExecuteMethodCommand(value, workerExecutor));
-            //2. convert to result map
-            final Map<String, Object> resultMap = this.camunda7Mapper.mapOutput(result);
-            //3. complete task
-            service.complete(externalTask, null, resultMap);
+            final Map<String, Object> result = this.workerExecuteApi.execute(externalTask.getTopicName(), externalTask.getAllVariablesTyped());
+            service.complete(externalTask, null, result);
         } catch (final BusinessException exception) {
             log.error("use case could not be executed", exception);
             service.handleBpmnError(externalTask, exception.getCode());

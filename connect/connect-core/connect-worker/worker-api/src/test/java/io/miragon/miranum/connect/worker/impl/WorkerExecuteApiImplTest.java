@@ -91,4 +91,14 @@ public class WorkerExecuteApiImplTest {
                 this.workerExecuteApi.execute("exampleWorker", this.event));
     }
 
+    @Test
+    void testAvailableWorkerExecutors() {
+        List<WorkerExecutor> availableWorkerExecutors = this.workerExecuteApi.availableWorkerExecutors();
+        Assertions.assertEquals(0, availableWorkerExecutors.size());
+
+        this.workerExecuteApi.register(this.workerExecutor);
+        availableWorkerExecutors = this.workerExecuteApi.availableWorkerExecutors();
+        Assertions.assertEquals(1, availableWorkerExecutors.size());
+    }
+
 }

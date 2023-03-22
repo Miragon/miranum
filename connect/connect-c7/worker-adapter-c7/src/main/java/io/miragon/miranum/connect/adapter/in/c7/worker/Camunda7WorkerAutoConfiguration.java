@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.adapter.in.c7.worker;
 
-import io.miragon.miranum.connect.worker.impl.MethodExecutor;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 public class Camunda7WorkerAutoConfiguration {
 
     @Bean
-    public Camunda7WorkerAdapter camunda7WorkerAdapter(final ExternalTaskClient externalTaskClient, final MethodExecutor methodExecutor) {
-        return new Camunda7WorkerAdapter(externalTaskClient, new Camunda7Mapper(), methodExecutor);
+    public Camunda7WorkerAdapter camunda7WorkerAdapter(final ExternalTaskClient externalTaskClient, final WorkerExecuteApi workerExecuteApi) {
+        return new Camunda7WorkerAdapter(externalTaskClient, workerExecuteApi);
     }
 
 }

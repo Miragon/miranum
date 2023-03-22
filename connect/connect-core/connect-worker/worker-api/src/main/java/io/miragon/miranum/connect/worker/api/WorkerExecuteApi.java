@@ -2,6 +2,9 @@ package io.miragon.miranum.connect.worker.api;
 
 import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Interface to execute a worker.
  */
@@ -21,6 +24,12 @@ public interface WorkerExecuteApi {
      * @param type type of the worker
      * @return result of the worker
      */
-    Object execute(final String type, final Object data);
+    Map<String, Object> execute(final String type, final Object data);
+
+    /**
+     * API to get all available workers.
+     * @return list of available workers
+     */
+    List<WorkerExecutor> availableWorkerExecutors();
 
 }
