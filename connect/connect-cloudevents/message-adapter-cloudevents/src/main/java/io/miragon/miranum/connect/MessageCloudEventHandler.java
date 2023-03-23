@@ -57,30 +57,23 @@ public class MessageCloudEventHandler implements CloudEventHandler {
                 cloudEvent,
                 PojoCloudEventDataMapper.from(objectMapper, PublishMessageRequestSchema.class)
         );
+        var publishMessageRequest = cloudEventData.getValue();
 
-        var validationErrors = jsonSchema.validate(cloudEventData.getValue());
+        var validationErrors = jsonSchema.validate(publishMessageRequest);
 
-        if(!validationErrors.isEmpty()) {
+        if (!validationErrors.isEmpty()) {
             throw new Exception("Validation Error");
         }
 
-        var publishMessageRequest = cloudEventData.getValue();
-
-        var correlateMessageCommand = new CorrelateMessageCommand();
-        correlateMessageCommand.setMessageName(publishMessageRequest.getName());
-        correlateMessageCommand.setCorrelationKey(publishMessageRequest.getCorrelationKey());
-        correlateMessageCommand.setVariables(objectMapper.readValue(publishMessageRequest.getVariables(), Map.class));
-
-        messageApi.correlateMessage(correlateMessageCommand);
+        messageApi.correlateMessage(new CorrelateMessageCommand(publishMessageRequest.getName(), publishMessageRequest.getCorrelationKey(), objectMapper.readValue(publishMessageRequest.getVariables(), Map.class)));
 
         PublishMessageResponseSchema res = new PublishMessageResponseSchema();
-        res.setKey(123D);
 
         return Optional.of(CloudEventBuilder.v1()
                 .withId(UUID.randomUUID().toString())
                 .withSource(URI.create("https://spring.io/foos"))
                 .withType("io.miranum.bpmn.command.v1.PublishMessageResponse")
-                .withData("Hello World".getBytes())
+                .withData(objectMapper.writeValueAsString(res).getBytes())
                 .build());
 
     }
