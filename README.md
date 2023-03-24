@@ -127,22 +127,22 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum-connect.svg?style=for-the-badge
 
-[contributors-url]: https://github.com/FlowSquad/miranum/graphs/contributors
+[contributors-url]: https://github.com/FlowSquad/miranum-connect/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-process-ide.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-connect.svg?style=for-the-badge
 
-[forks-url]: https://github.com/FlowSquad/miranum/network/members
+[forks-url]: https://github.com/FlowSquad/miranum-connect/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon-connect.svg?style=for-the-badge
 
-[stars-url]: https://github.com/FlowSquad/miranum/stargazers
+[stars-url]: https://github.com/FlowSquad/miranum-connect/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum-connect.svg?style=for-the-badge
 
-[issues-url]: https://github.com/FlowSquad/miranum/issues
+[issues-url]: https://github.com/FlowSquad/miranum-connect/issues
 
-[license-shield]: https://img.shields.io/github/license/FlowSquad/miranum.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/FlowSquad/miranum-connect.svg?style=for-the-badge
 
-[license-url]: https://github.com/FlowSquad/miranum/blob/main/LICENSE
+[license-url]: https://github.com/FlowSquad/miranum-connect/blob/main/LICENSE
