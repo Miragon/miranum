@@ -6,11 +6,11 @@
     <artifactId>examples</artifactId>
     <name>examples</name>
     <packaging>pom</packaging>
-    <description>miranum examples collection</description>
+    <description>miranum connect examples collection</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>miranum</artifactId>
+        <artifactId>miranum-connect</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 

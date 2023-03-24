@@ -10,9 +10,9 @@
     <p>
         <i>Simplifying the complexity of process automation.</i>
         <br />
-        <a href="https://github.com/flowsquad/miranum/issues">Report Bug</a>
+        <a href="https://github.com/flowsquad/miranum-connect/issues">Report Bug</a>
         ·
-        <a href="https://github.com/flowsquad/miranum/issues">Request Feature</a>
+        <a href="https://github.com/flowsquad/miranum-connect/issues">Request Feature</a>
     </p>
 </div>
 
