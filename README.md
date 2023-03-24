@@ -12,7 +12,7 @@
 <br />
 <div align="center">
     <a href="#">
-        <img src="/images/miranum_logo.png" alt="Logo" height="50">
+        <img src="/images/miranum_logo.png" alt="Logo" height="180">
     </a>
     <h3 ><a href="https://miranum.com/">Miranum Connect</a> <i>by <a href="https://miragon.io/">Miragon</a></i></h3>
     <p>
@@ -123,3 +123,26 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 Distributed under the MIT License. See `LICENSE` file for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum.svg?style=for-the-badge
+
+[contributors-url]: https://github.com/FlowSquad/miranum/graphs/contributors
+
+[forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-process-ide.svg?style=for-the-badge
+
+[forks-url]: https://github.com/FlowSquad/miranum/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon.svg?style=for-the-badge
+
+[stars-url]: https://github.com/FlowSquad/miranum/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum.svg?style=for-the-badge
+
+[issues-url]: https://github.com/FlowSquad/miranum/issues
+
+[license-shield]: https://img.shields.io/github/license/FlowSquad/miranum.svg?style=for-the-badge
+
+[license-url]: https://github.com/FlowSquad/miranum/blob/main/LICENSE
