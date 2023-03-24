@@ -1,22 +1,28 @@
 <div id="top"></div>
 
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+<!-- END OF PROJECT SHIELDS -->
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
     <a href="#">
-        <img src="/images/logo.png" alt="Logo" height="50">
+        <img src="/images/miranum_logo.png" alt="Logo" height="50">
     </a>
     <h3 ><a href="https://miranum.com/">Miranum Connect</a> <i>by <a href="https://miragon.io/">Miragon</a></i></h3>
     <p>
         <i>Simplifying the complexity of process automation.</i>
         <br />
-        <a href="https://github.com/flowsquad/miranum-connect/issues">Report Bug</a>
+        <a href="https://github.com/FlowSquad/miranum-connect/issues">Report Bug</a>
         ·
-        <a href="https://github.com/flowsquad/miranum-connect/issues">Request Feature</a>
+        <a href="https://github.com/FlowSquad/miranum-connect/pulls">Request Feature</a>
     </p>
 </div>
-
-<!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
