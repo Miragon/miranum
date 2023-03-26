@@ -36,12 +36,13 @@ Content of this readme:
 | >=0.1.0                 | > 11 | >=8.0, >=7.15             | >= 2.7.6, 3.0.x                  |
 
 ## Get Started
-To use the Java Miranum-Connect library, declare the following Maven dependency in your project:
+To use the Java Miranum-Connect library, declare the following Maven dependency in your project. As artifact ID you need to 
+choose one of the following modules: worker-api, message-api, process-api, json-api, task-api.
 
 ```xml
 <dependency>
  <groupId>io.miragon.miranum</groupId>
- <artifactId>connect</artifactId>
+ <artifactId>{worker-api, message-api, process-api, json-api, task-api}</artifactId>
  <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
@@ -88,6 +89,9 @@ To pull dependencies from the maven snapshot repo it needs to be part of the set
    ```
 </details>
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+For fully executable examples, take a look at our [miranum-consulting repository](https://github.com/FlowSquad/miranum-consulting). 
+Below, only small non-executable snippets are shown.
 
 ### Miranum-Worker
 A Miranum-Worker connects to the process engine (e.g. Camunda Platform 7 or 8) and fetches tasks of a certain type. With
@@ -184,9 +188,10 @@ To collect, prioritise and work on issues in a collaborative fashion we have est
 Please make sure to read through these guidelines before starting with your contribution.
 
 ### PRs for every change
-All changes have to be done in a separate Branch. As soon as the changes are done please open a PR. A GitHub Action runs
-with every commit to a Branch and checks if the documentation can be built. If you create a new branch make sure to name it according
-to what it does (e.g. feat/xyz or fix/xyz). Please use semantic commit messages as described in [here](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716).
+All changes have to be done in a separate Branch or Fork (if you are an external contributor). As soon as the changes are 
+done please open a PR. A GitHub Action runs with every commit to a Branch and checks if the documentation can be built.
+If you create a new branch make sure to name it according to what it does (e.g. feat/xyz or fix/xyz). Please use semantic 
+commit messages as described in [here](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716).
 
 ### Code reviews
 We are using simple emoji's to help convey intention and added meaning in code review comments. A little bit of emoji can
