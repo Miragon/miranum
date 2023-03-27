@@ -2,13 +2,18 @@ package io.miragon.miranum.integrations.example.api;
 
 import io.miragon.miranum.integrations.example.api.mapper.UserTOMapper;
 import io.miragon.miranum.integrations.example.api.transport.UserTO;
-import io.miragon.miranum.integrations.user.application.port.in.*;
-import io.miragon.miranum.integrations.user.common.AppAuthenticationProvider;
+import io.miragon.miranum.integrations.user.application.port.in.SearchByIdParameter;
+import io.miragon.miranum.integrations.user.application.port.in.SearchByIdQuery;
+import io.miragon.miranum.integrations.user.application.port.in.SearchByNameParameter;
+import io.miragon.miranum.integrations.user.application.port.in.SearchByNameQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,15 +27,7 @@ public class UserRestController {
 
     private final SearchByNameQuery searchByNameQuery;
 
-    private final AppAuthenticationProvider userAuthenticationProvider;
-
     private final UserTOMapper userMapper;
-
-    @GetMapping("/info")
-    public ResponseEntity<UserTO> getLoggedInUser() {
-        val user = this.searchByIdQuery.searchById(new SearchByIdParameter(this.userAuthenticationProvider.getCurrentUserId()));
-        return ResponseEntity.ok(this.userMapper.map2TO(user));
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserTO> getUserById(@PathVariable("id") final String id) {

@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <openapi-generator-version>6.2.1</openapi-generator-version>
+        <openapi-generator-version>6.4.0</openapi-generator-version>
     </properties>
 
     <dependencies>
@@ -88,15 +88,15 @@
             <version>0.2.1</version>
         </dependency>
 
-        <!-- Validation -->
+        <!--Validation-->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
         <dependency>
@@ -133,6 +133,7 @@
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <useJakartaEe>true</useJakartaEe>
                             </configOptions>
 
                             <inputSpec>${project.basedir}/spec/submission-api.yaml</inputSpec>

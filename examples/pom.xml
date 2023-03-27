@@ -6,7 +6,7 @@
     <artifactId>examples</artifactId>
     <name>examples</name>
     <packaging>pom</packaging>
-    <description>miranum integrations</description>
+    <description>miranum examples collection</description>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
@@ -15,11 +15,7 @@
     </parent>
 
     <modules>
-        <module>gateway-example</module>
         <module>simple-example</module>
-        <module>process-example</module>
-        <module>schema-client-example</module>
-        <module>pizza-order</module>
         <module>fit-connect-example</module>
     </modules>
 
