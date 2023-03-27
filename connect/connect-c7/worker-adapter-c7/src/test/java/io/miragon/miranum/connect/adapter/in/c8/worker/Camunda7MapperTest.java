@@ -42,6 +42,4 @@ public class Camunda7MapperTest {
         assertEquals("output", result.get("output"));
         assertEquals("{outputObj=null, output=test}", result.get("outputObj"));
     }
-
-
 }
