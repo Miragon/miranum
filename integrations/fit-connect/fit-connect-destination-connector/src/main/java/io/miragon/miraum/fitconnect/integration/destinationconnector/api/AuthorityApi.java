@@ -5,5 +5,5 @@ import java.text.ParseException;
 
 public interface AuthorityApi {
 
-    void pollAndAcceptPickupReadySubmissions() throws ParseException, IOException;
+    void fetchAndAcceptPickupReadySubmissions() throws ParseException, IOException;
 }
