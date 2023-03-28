@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>simple-example-camunda-7</artifactId>
-    <name>example-camunda-7</name>
+    <artifactId>fit-connect-example-c8</artifactId>
+    <name>fit-connect-example-c8</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>simple-example</artifactId>
+        <artifactId>fit-connect-example</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
@@ -21,44 +21,33 @@
 
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>simple-example-core</artifactId>
+            <artifactId>fit-connect-example-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>fit-connect-destination-connector</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!--Miranum-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>worker-adapter-c7</artifactId>
+            <artifactId>worker-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>message-adapter-c7</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-templates-c7</artifactId>
+            <artifactId>process-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!--Camunda-->
         <dependency>
-            <groupId>org.camunda.community</groupId>
-            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
-            <version>${camunda7.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
+            <groupId>io.camunda</groupId>
+            <artifactId>spring-zeebe-starter</artifactId>
+            <version>${camunda8.version}</version>
         </dependency>
     </dependencies>
 
