@@ -25,7 +25,7 @@ public class SendMessageService implements SendMessageUseCase {
             id = "send-message",
             type = "sendMessage",
             appliesTo = {BPMNElementType.BPMN_SERVICE_TASK},
-            version = 0.1)
+            version = 01)
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message);
 

@@ -45,5 +45,5 @@ public @interface GenerateElementTemplate {
      * is therefore not included in the element template.
      * @return the version of the element template
      */
-    double version();
+    int version();
 }
