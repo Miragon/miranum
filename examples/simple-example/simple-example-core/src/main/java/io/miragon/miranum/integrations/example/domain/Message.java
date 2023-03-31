@@ -11,6 +11,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Message {
 
-    private String value;
+    private String content;
 
 }

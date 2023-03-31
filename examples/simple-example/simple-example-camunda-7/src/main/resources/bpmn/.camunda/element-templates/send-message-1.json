@@ -23,12 +23,12 @@
     }
   }, {
     "value" : "",
-    "label" : "name",
+    "label" : "content",
     "type" : "String",
     "editable" : true,
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "name"
+      "name" : "content"
     },
     "constraints" : {
       "notEmpty" : false
