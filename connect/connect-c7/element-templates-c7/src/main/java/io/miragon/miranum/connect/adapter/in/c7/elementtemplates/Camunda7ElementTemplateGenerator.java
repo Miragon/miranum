@@ -86,7 +86,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
 
                 var binding = new Binding()
                         .withType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER)
-                        .withSource(field.getName());
+                        .withSource("${" + field.getName() + "}");
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);

@@ -51,7 +51,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "name"
+      "source" : "${name}"
     }
   }, {
     "value" : "idResult",
@@ -59,7 +59,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "id"
+      "source" : "${id}"
     }
   } ]
 }

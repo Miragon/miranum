@@ -51,7 +51,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "text"
+      "source" : "${text}"
     }
   } ]
 }

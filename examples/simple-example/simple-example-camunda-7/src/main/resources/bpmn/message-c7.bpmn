@@ -47,7 +47,7 @@
           <camunda:inputParameter name="name">${myMessage}</camunda:inputParameter>
           <camunda:inputParameter name="content">${myMessage}</camunda:inputParameter>
           <camunda:inputParameter name="key">${correlationKey}</camunda:inputParameter>
-          <camunda:outputParameter name="textResult">text</camunda:outputParameter>
+          <camunda:outputParameter name="textResult">${text}</camunda:outputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0oe625d</bpmn:incoming>
