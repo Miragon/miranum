@@ -46,6 +46,7 @@ public class Camunda7ElementTemplateGenerator implements GenerateElementTemplate
                 .withLabel("Topic")
                 .withType(PropertyType.STRING.getType())
                 .withValue(elementTemplateInfo.getType())
+                .withEditable(false)
                 .withChoices(null)
                 .withBinding(new Binding()
                         .withType(Binding.Type.PROPERTY)
