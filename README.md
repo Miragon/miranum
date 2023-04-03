@@ -6,6 +6,8 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+[![C7][c7-shield]][c7-url]
+[![C8][c8-shield]][c8-url]
 <!-- END OF PROJECT SHIELDS -->
 
 <!-- PROJECT LOGO -->
@@ -217,21 +219,23 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum-connect.svg?style=for-the-badge
-
 [contributors-url]: https://github.com/FlowSquad/miranum-connect/graphs/contributors
 
 [forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-connect.svg?style=for-the-badge
-
 [forks-url]: https://github.com/FlowSquad/miranum-connect/network/members
 
 [stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon-connect.svg?style=for-the-badge
-
 [stars-url]: https://github.com/FlowSquad/miranum-connect/stargazers
 
 [issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum-connect.svg?style=for-the-badge
-
 [issues-url]: https://github.com/FlowSquad/miranum-connect/issues
 
 [license-shield]: https://img.shields.io/github/license/FlowSquad/miranum-connect.svg?style=for-the-badge
-
 [license-url]: https://github.com/FlowSquad/miranum-connect/blob/main/LICENSE
+
+[c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue
+[c7-url]: https://camunda.com/de/platform-7/
+
+[c8-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-blue
+[c8-url]: https://camunda.com/de/platform/
+
