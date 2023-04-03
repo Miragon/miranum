@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>miranum</artifactId>
+        <artifactId>miranum-connect</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     <artifactId>miranum-coverage</artifactId>
@@ -175,6 +175,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surfire.plugin.version}</version>
                 <configuration>
+                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>${argLine} -Xms256m -Xmx2048m</argLine>
                     <runOrder>random</runOrder>
                 </configuration>
@@ -215,7 +216,6 @@
                             <destFile>${basedir}/target/aggregate.exec</destFile>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>check</id>
                         <phase>verify</phase>
@@ -223,9 +223,6 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <fileSet>
-                                <directory>${basedir}/../classes</directory>
-                            </fileSet>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>

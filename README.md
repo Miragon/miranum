@@ -1,19 +1,28 @@
-![](https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue)
-![](https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-blue)
-![](https://img.shields.io/bower/l/bootstrap)
-![](https://img.shields.io/github/issues/FlowSquad/miranum)
+<div id="top"></div>
 
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![C7][c7-shield]][c7-url]
+[![C8][c8-shield]][c8-url]
+<!-- END OF PROJECT SHIELDS -->
+
+<!-- PROJECT LOGO -->
+<br />
 <div align="center">
     <a href="#">
-        <img src="/images/logo_blau.png" alt="Logo" height="50">
+        <img src="/images/miranum_logo.png" alt="Logo" height="180">
     </a>
     <h3><a href="https://miranum.com/">Miranum Connect</a></h3>
     <p>
         <i>Simplifying the complexity of process automation.</i>
         <br />
-        <a href="https://github.com/flowsquad/miranum/issues">Report Bug</a>
+        <a href="https://github.com/FlowSquad/miranum-connect/issues">Report Bug</a>
         ·
-        <a href="https://github.com/flowsquad/miranum/issues">Request Feature</a>
+        <a href="https://github.com/FlowSquad/miranum-connect/pulls">Request Feature</a>
     </p>
 </div>
 
@@ -205,4 +214,28 @@ Please report unacceptable behavior to info@miragon.io.
 ## License
 Distributed under the MIT License. See `LICENSE` file for more information.
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum-connect.svg?style=for-the-badge
+[contributors-url]: https://github.com/FlowSquad/miranum-connect/graphs/contributors
+
+[forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-connect.svg?style=for-the-badge
+[forks-url]: https://github.com/FlowSquad/miranum-connect/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon-connect.svg?style=for-the-badge
+[stars-url]: https://github.com/FlowSquad/miranum-connect/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum-connect.svg?style=for-the-badge
+[issues-url]: https://github.com/FlowSquad/miranum-connect/issues
+
+[license-shield]: https://img.shields.io/github/license/FlowSquad/miranum-connect.svg?style=for-the-badge
+[license-url]: https://github.com/FlowSquad/miranum-connect/blob/main/LICENSE
+
+[c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue.svg?style=for-the-badge
+[c7-url]: https://camunda.com/de/platform-7/
+
+[c8-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-blue?style=for-the-badge
+[c8-url]: https://camunda.com/de/platform/
 
