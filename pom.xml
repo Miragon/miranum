@@ -16,7 +16,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>3.0.4</spring.boot.version>
+        <spring.boot.version>3.0.5</spring.boot.version>
         <camunda7.version>7.18.0</camunda7.version>
         <camunda8.version>8.1.17</camunda8.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -26,6 +26,9 @@
         <maven.surfire.plugin.version>3.0.0</maven.surfire.plugin.version>
         <okhttp.version>4.8.1</okhttp.version>
         <jacoco.version>0.8.8</jacoco.version>
+        <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
+        <jackson.databind.nullable.version>0.2.1</jackson.databind.nullable.version>
+        <swagger.annotations.version>2.2.8</swagger.annotations.version>
     </properties>
 
     <modules>
@@ -98,7 +101,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.3.1</version>
                     <configuration>
                         <propertiesEncoding>UTF-8</propertiesEncoding>
                     </configuration>
@@ -106,7 +109,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -190,7 +193,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>

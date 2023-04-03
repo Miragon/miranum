@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>examples</artifactId>
-    <name>examples</name>
+    <artifactId>fit-connect-example</artifactId>
+    <name>fit-connect-example</name>
     <packaging>pom</packaging>
-    <description>miranum connect examples collection</description>
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>miranum-connect</artifactId>
+        <artifactId>examples</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
-        <module>simple-example</module>
-        <module>fit-connect-example</module>
+        <module>fit-connect-example-c8</module>
+        <module>fit-connect-example-core</module>
+        <module>fit-connect-online-service-client</module>
     </modules>
 
 </project>
