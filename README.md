@@ -233,9 +233,9 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 [license-shield]: https://img.shields.io/github/license/FlowSquad/miranum-connect.svg?style=for-the-badge
 [license-url]: https://github.com/FlowSquad/miranum-connect/blob/main/LICENSE
 
-[c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue
+[c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue.svg?style=for-the-badge
 [c7-url]: https://camunda.com/de/platform-7/
 
-[c8-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-blue
+[c8-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-blue?style=for-the-badge
 [c8-url]: https://camunda.com/de/platform/
 
