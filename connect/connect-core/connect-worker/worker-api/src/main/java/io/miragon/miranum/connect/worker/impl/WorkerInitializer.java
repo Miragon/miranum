@@ -8,6 +8,6 @@ public class WorkerInitializer {
     private final BindWorkerPort bindWorkerPort;
 
     public void initialize(final InitializeWorkerCommand initializeWorkerCommand) {
-        initializeWorkerCommand.getWorkerList().forEach(this.bindWorkerPort::bind);
+        initializeWorkerCommand.workerList().forEach(this.bindWorkerPort::bind);
     }
 }
