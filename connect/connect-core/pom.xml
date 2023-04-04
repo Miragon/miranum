@@ -21,6 +21,7 @@
         <module>connect-json</module>
         <module>connect-element-templates</module>
         <module>connect-shared</module>
+        <module>connect-element-templates-maven-plugin</module>
     </modules>
 
 </project>
