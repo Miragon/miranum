@@ -5,7 +5,7 @@ import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Slf4j
+@Log
 public class Camunda7WorkerAdapter {
 
     private final ExternalTaskClient externalTaskClient;
@@ -28,7 +28,7 @@ public class Camunda7WorkerAdapter {
             .forEach(workerExecutor -> {
                 this.externalTaskClient.subscribe(workerExecutor.getType())
                         .lockDuration(workerExecutor.getTimeout())
-                        .handler((task, service) -> this.execute(task, service))
+                        .handler(this::execute)
                         .open();
             });
     }
@@ -44,13 +44,13 @@ public class Camunda7WorkerAdapter {
             final Map<String, Object> result = this.workerExecuteApi.execute(externalTask.getTopicName(), externalTask.getAllVariablesTyped());
             service.complete(externalTask, null, result);
         } catch (final BusinessException exception) {
-            log.error("use case could not be executed", exception);
+            log.severe("use case could not be executed " + exception.getMessage());
             service.handleBpmnError(externalTask, exception.getCode());
         } catch (final TechnicalException error) {
-            log.error("Technical error while executing task", error);
+            log.severe("Technical error while executing task " + error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
-            log.error("Error while executing external task", error);
+            log.severe("Error while executing external task " + error.getMessage());
             final int retries = Objects.isNull(externalTask.getRetries()) ? 1 : externalTask.getRetries();
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
         }

@@ -34,12 +34,6 @@ public class WorkerInitializer implements ApplicationContextAware {
         workerExecutors.forEach(this.workerExecuteApi::register);
     }
 
-    /**
-     * Sets the application context.
-     *
-     * @param applicationContext application context
-     * @throws BeansException
-     */
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         this.ctx = applicationContext;

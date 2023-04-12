@@ -30,7 +30,7 @@ public class Camunda7AdapterTest {
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
-        final WorkerExecutor defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
+        final WorkerExecutor defaultWorker = this.givenDefaultExecutor("defaultWorker", 100L);
         final TopicSubscriptionBuilder builder = this.givenTopicSubscriptionBuilder();
 
         given(this.externalTaskClient.subscribe("defaultWorker")).willReturn(builder);
@@ -51,7 +51,6 @@ public class Camunda7AdapterTest {
     void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
-        final WorkerExecutor defaultWorker = this.givenDefaultWorker("defaultWorker", 100L);
         final Map<String, Object> result = Map.of("value", "test");
 
         given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
@@ -61,7 +60,7 @@ public class Camunda7AdapterTest {
         then(service).should().complete(externalTask, null, result);
     }
 
-    private WorkerExecutor givenDefaultWorker(final String type, final Long lockDuration) {
+    private WorkerExecutor givenDefaultExecutor(final String type, final Long lockDuration) {
         final WorkerExecutor workerExecutor = Mockito.mock(WorkerExecutor.class);
         given(workerExecutor.getType()).willReturn(type);
         given(workerExecutor.getTimeout()).willReturn(lockDuration);
