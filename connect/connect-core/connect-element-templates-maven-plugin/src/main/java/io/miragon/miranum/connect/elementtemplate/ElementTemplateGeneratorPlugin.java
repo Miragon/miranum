@@ -57,7 +57,7 @@ public class ElementTemplateGeneratorPlugin extends AbstractMojo {
 
             for (String element : classpathElements) {
                 try {
-                    classpathURLs.add(new URL("file://" + element));
+                    classpathURLs.add(new File(element).toURI().toURL());
                 } catch (MalformedURLException e) {
                     throw new MojoExecutionException("Malformed classpath element: " + element, e);
                 }
