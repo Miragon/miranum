@@ -3,7 +3,7 @@
 ## Simple Example
 
 *This simple example project demonstrates the use of miranum-core. Here we have created a fairly simple process that is automated using 
-miranum-core. The project consists of three modules:*
+miranum-connect-core. The project consists of three modules:*
 - [simple-example_camunda-7](simple-example-camunda-7)
 - [simple-example_camunda-8](simple-example-camunda-8)
 - [simple-example-core](simple-example-core)
