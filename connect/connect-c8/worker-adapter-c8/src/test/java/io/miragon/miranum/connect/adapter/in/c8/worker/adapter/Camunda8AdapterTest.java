@@ -31,12 +31,13 @@ public class Camunda8AdapterTest {
     @Test
     void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ActivatedJob job = this.givenDefaultJob(1L);
-        final WorkerExecutor useCaseInfo = this.givenDefaultExecutor("defaultUseCase", 100L);
+        final WorkerExecutor executor = this.givenDefaultExecutor("defaultUseCase", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         final JobClient client = this.givenDefaultClient(result);
+
         given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
 
-        this.adapter.execute(client, job, useCaseInfo);
+        this.adapter.execute(client, job, executor);
 
         then(client).should().newCompleteCommand(1L);
     }

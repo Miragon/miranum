@@ -38,9 +38,8 @@ public class Camunda8WorkerAdapter implements WorkerSubscription {
                     workerExecutor, job.getVariablesAsType(workerExecutor.getInputType())
             );
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
-            cmd.variables(result)
-                    .send()
-                    .join();
+            cmd.variables(result);
+            cmd.send().join();
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);
             client.newThrowErrorCommand(job.getKey()).errorCode(exception.getCode()).send().join();
