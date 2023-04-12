@@ -33,5 +33,4 @@ public class WorkerAutoConfiguration {
     public BeanPostProcessor workerAnnotationProcessor(final WorkerRegistry workerRegistry) {
         return new WorkerAnnotationBeanPostProcessor(workerRegistry);
     }
-
 }

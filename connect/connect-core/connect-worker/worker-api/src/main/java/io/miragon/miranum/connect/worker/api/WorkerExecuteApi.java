@@ -12,11 +12,9 @@ public interface WorkerExecuteApi {
     /**
      * Executes a worker.
      *
+     * @param executor executor of the worker
      * @param data     data to be processed
-     * @param executor worker to be executed
      * @return result of the worker
      */
     Map<String, Object> execute(final WorkerExecutor executor, final Object data);
-
-
 }

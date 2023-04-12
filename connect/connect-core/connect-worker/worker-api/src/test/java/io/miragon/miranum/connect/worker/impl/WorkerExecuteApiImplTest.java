@@ -56,7 +56,7 @@ public class WorkerExecuteApiImplTest {
         // check that the interceptor was called
         final ArgumentCaptor<WorkerExecutor> workerExecutorArgumentCaptor = ArgumentCaptor.forClass(WorkerExecutor.class);
         final ArgumentCaptor<Map<String, Object>> interceptorArgumentCaptor = ArgumentCaptor.forClass(Map.class);
-        Mockito.verify(this.interceptor).intercept(interceptorArgumentCaptor.capture(), workerExecutorArgumentCaptor.capture());
+        Mockito.verify(this.interceptor).intercept(workerExecutorArgumentCaptor.capture(), interceptorArgumentCaptor.capture());
         Assertions.assertEquals(this.event, interceptorArgumentCaptor.getValue());
     }
 

@@ -22,21 +22,11 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
 
     private final List<WorkerInterceptor> interceptors;
 
-
-    /**
-     * Executes a Worker.
-     * It iterates through all registered Workers and executes the first one that matches the given type.
-     *
-     * @param executor worker to be executed
-     * @param data     data to be processed
-     * @return result of the Worker
-     */
     @Override
     public Map<String, Object> execute(final WorkerExecutor executor, final Object data) {
-
         try {
             final Object in = this.mapInput(executor.getInputType(), data);
-            this.interceptors.forEach(obj -> obj.intercept(in, executor));
+            this.interceptors.forEach(obj -> obj.intercept(executor, in));
             return this.mapOutput(executor.execute(in));
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
@@ -46,25 +36,12 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         }
     }
 
-    /**
-     * Helper function to map the input data to the expected type.
-     *
-     * @param inputType
-     * @param object
-     * @return
-     */
     private Object mapInput(final Class<?> inputType, final Object object) {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.convertValue(object, inputType);
     }
 
-    /**
-     * Helper function to map the output data to a map.
-     *
-     * @param output
-     * @return
-     */
     private Map<String, Object> mapOutput(final Object output) {
         if (Objects.isNull(output)) {
             return new HashMap<>();
@@ -74,6 +51,4 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         return mapper.convertValue(output, new TypeReference<>() {
         });
     }
-
-
 }

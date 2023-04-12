@@ -33,5 +33,4 @@ public class WorkerExecutor {
     public Object execute(final Object data) throws InvocationTargetException, IllegalAccessException {
         return this.getMethod().invoke(this.instance, data);
     }
-
 }

@@ -8,6 +8,11 @@ import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
  */
 public interface WorkerInterceptor {
 
-    void intercept(Object data, WorkerExecutor useCaseInfo);
-
+    /**
+     * Intercepts the use case execution.
+     *
+     * @param data       data to be processed
+     * @param executor use case info
+     */
+    void intercept(WorkerExecutor executor, Object data);
 }

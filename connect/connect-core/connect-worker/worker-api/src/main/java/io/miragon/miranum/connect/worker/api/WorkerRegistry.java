@@ -15,12 +15,4 @@ public interface WorkerRegistry {
      * @param workerExecutor worker to be registered
      */
     void register(final WorkerExecutor workerExecutor);
-
-
-    /**
-     * API to get all available workers.
-     *
-     * @return list of available workers
-     */
-    List<WorkerExecutor> availableWorkerExecutors();
 }

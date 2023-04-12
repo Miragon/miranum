@@ -28,7 +28,6 @@ public class WorkerAnnotationBeanPostProcessor implements BeanPostProcessor {
         return bean;
     }
 
-
     private WorkerExecutor buildWorker(final Worker worker, final Object bean, final Method method) {
         final Class<?>[] inputParameterTypes = method.getParameterTypes();
 
@@ -39,5 +38,4 @@ public class WorkerAnnotationBeanPostProcessor implements BeanPostProcessor {
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
         return new WorkerExecutor(worker.type(), worker.timeout(), bean, method, inputParameter, method.getReturnType());
     }
-
 }
