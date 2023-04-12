@@ -6,44 +6,39 @@ import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
-import io.miragon.miranum.connect.worker.impl.BindWorkerPort;
-import io.miragon.miranum.connect.worker.impl.ExecuteMethodCommand;
-import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.connect.worker.api.WorkerSubscription;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Camunda8WorkerAdapter implements BindWorkerPort {
+public class Camunda8WorkerAdapter implements WorkerSubscription {
 
     private final ZeebeClient client;
-    private final MethodExecutor methodExecutor;
+    private final WorkerExecuteApi workerExecuteApi;
 
     @Override
-    public void bind(final WorkerInfo workerInfo) {
+    public void subscribe(final WorkerExecutor executor) {
         this.client
                 .newWorker()
-                .jobType(workerInfo.getType())
-                .handler((client, job) -> this.execute(client, job, workerInfo))
-                .name(workerInfo.getType())
-                .timeout(workerInfo.getTimeout())
+                .jobType(executor.getType())
+                .handler((client, job) -> this.execute(client, job, executor))
+                .name(executor.getType())
+                .timeout(executor.getTimeout())
                 .open();
     }
 
-    public void execute(final JobClient client, final ActivatedJob job, final WorkerInfo workerInfo) {
+    public void execute(final JobClient client, final ActivatedJob job, final WorkerExecutor workerExecutor) {
         try {
-            //1. map values
-            final Object value = job.getVariablesAsType(workerInfo.getInputType());
-            //2. execute method
-            final Optional<Object> result = Optional.ofNullable(this.methodExecutor.execute(new ExecuteMethodCommand(value, workerInfo)));
-
+            final Map<String, Object> result = this.workerExecuteApi.execute(
+                    workerExecutor, job.getVariablesAsType(workerExecutor.getInputType())
+            );
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
-            //3. add variables if result is not null
-            result.ifPresent(cmd::variables);
-            //4. complete
+            cmd.variables(result);
             cmd.send().join();
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);

@@ -5,10 +5,9 @@ import io.camunda.zeebe.client.api.ZeebeFuture;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.client.api.worker.JobWorkerBuilderStep1;
 import io.miragon.miranum.connect.adapter.in.c8.worker.Camunda8WorkerAdapter;
-import io.miragon.miranum.connect.worker.impl.MethodExecutor;
-import io.miragon.miranum.connect.worker.impl.WorkerInfo;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,41 +22,22 @@ public class Camunda8AdapterTest {
 
     private final ZeebeClient zeebeClient =
             Mockito.mock(ZeebeClient.class);
-
-    private final MethodExecutor methodExecutor =
-            Mockito.mock(MethodExecutor.class);
+    private final WorkerExecuteApi workerExecuteApi =
+            Mockito.mock(WorkerExecuteApi.class);
 
     private final Camunda8WorkerAdapter adapter =
-            new Camunda8WorkerAdapter(this.zeebeClient, this.methodExecutor);
+            new Camunda8WorkerAdapter(this.zeebeClient, this.workerExecuteApi);
 
     @Test
-    void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
-
-        final WorkerInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
-        final JobWorkerBuilderStep1 step1 = Mockito.mock(JobWorkerBuilderStep1.class);
-        final JobWorkerBuilderStep1.JobWorkerBuilderStep2 step2 = Mockito.mock(JobWorkerBuilderStep1.JobWorkerBuilderStep2.class);
-        final JobWorkerBuilderStep1.JobWorkerBuilderStep3 step3 = Mockito.mock(JobWorkerBuilderStep1.JobWorkerBuilderStep3.class);
-        given(step1.jobType("defaultUseCase")).willReturn(step2);
-        given(step2.handler(any())).willReturn(step3);
-        given(step3.name("defaultUseCase")).willReturn(step3);
-        given(step3.timeout(100L)).willReturn(step3);
-        given(this.zeebeClient.newWorker()).willReturn(step1);
-
-        this.adapter.bind(useCaseInfo);
-
-        then(step3).should().open();
-    }
-
-
-    @Test
-    void givenDefaultUseCaseAndSuccessfullTask_thenEverythingGetsExecuted() {
+    void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ActivatedJob job = this.givenDefaultJob(1L);
-        final WorkerInfo useCaseInfo = this.givenDefaultUseCase("defaultUseCase", 100L);
+        final WorkerExecutor executor = this.givenDefaultExecutor("defaultUseCase", 100L);
         final Map<String, Object> result = Map.of("value", "test");
         final JobClient client = this.givenDefaultClient(result);
-        given(this.methodExecutor.execute(any())).willReturn(result);
 
-        this.adapter.execute(client, job, useCaseInfo);
+        given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
+
+        this.adapter.execute(client, job, executor);
 
         then(client).should().newCompleteCommand(1L);
     }
@@ -77,12 +57,10 @@ public class Camunda8AdapterTest {
         return client;
     }
 
-    private WorkerInfo givenDefaultUseCase(final String type, final Long lockDuration) {
-        final WorkerInfo useCaseInfo = Mockito.mock(WorkerInfo.class);
+    private WorkerExecutor givenDefaultExecutor(final String type, final Long lockDuration) {
+        final WorkerExecutor useCaseInfo = Mockito.mock(WorkerExecutor.class);
         given(useCaseInfo.getType()).willReturn(type);
         given(useCaseInfo.getTimeout()).willReturn(lockDuration);
         return useCaseInfo;
     }
-
-
 }

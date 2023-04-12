@@ -1,29 +1,36 @@
 package io.miragon.miranum.connect.worker;
 
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
-import io.miragon.miranum.connect.worker.impl.*;
+import io.miragon.miranum.connect.worker.api.WorkerRegistry;
+import io.miragon.miranum.connect.worker.api.WorkerSubscription;
+import io.miragon.miranum.connect.worker.impl.WorkerAnnotationBeanPostProcessor;
+import io.miragon.miranum.connect.worker.impl.WorkerExecuteApiImpl;
+import io.miragon.miranum.connect.worker.impl.WorkerRegistryImpl;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 @Configuration
-@Import(ContextInitializer.class)
 public class WorkerAutoConfiguration {
 
     @Bean
-    public WorkerInfoMapper useCaseInfoMapper() {
-        return new WorkerInfoMapper();
+    @ConditionalOnMissingBean
+    public WorkerExecuteApi workerExecuteApi(final List<WorkerInterceptor> workerInterceptors) {
+        return new WorkerExecuteApiImpl(workerInterceptors);
     }
 
     @Bean
-    public MethodExecutor executeMethodUseCase(final List<WorkerInterceptor> interceptors) {
-        return new MethodExecutor(interceptors);
+    @ConditionalOnMissingBean
+    public WorkerRegistry workerRegistry(final WorkerSubscription subscription) {
+        return new WorkerRegistryImpl(subscription);
     }
 
     @Bean
-    public WorkerInitializer initializeUseCasesService(final BindWorkerPort bindUseCasePort) {
-        return new WorkerInitializer(bindUseCasePort);
+    public BeanPostProcessor workerAnnotationProcessor(final WorkerRegistry workerRegistry) {
+        return new WorkerAnnotationBeanPostProcessor(workerRegistry);
     }
 }
