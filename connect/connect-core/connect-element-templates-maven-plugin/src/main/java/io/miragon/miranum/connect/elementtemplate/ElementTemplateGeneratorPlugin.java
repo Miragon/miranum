@@ -70,10 +70,9 @@ public class ElementTemplateGeneratorPlugin extends AbstractMojo {
             Reflections reflections = new Reflections(new ConfigurationBuilder()
                     .setUrls(ClasspathHelper.forClassLoader(urlClassLoader))
                     .addClassLoader(urlClassLoader)
-                    .addScanners(new MethodAnnotationsScanner())); // Add MethodAnnotationsScanner
+                    .addScanners(new MethodAnnotationsScanner()));
 
             Set<Method> annotatedMethods = reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
-            // Replace 'MyMethodAnnotation' with your custom method annotation class
 
             for (Method method : annotatedMethods) {
                 // Process the annotated methods
