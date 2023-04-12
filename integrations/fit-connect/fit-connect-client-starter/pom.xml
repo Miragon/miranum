@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <openapi.generator.version>6.4.0</openapi.generator.version>
+        <openapi.generator.version>6.5.0</openapi.generator.version>
     </properties>
 
     <dependencies>
