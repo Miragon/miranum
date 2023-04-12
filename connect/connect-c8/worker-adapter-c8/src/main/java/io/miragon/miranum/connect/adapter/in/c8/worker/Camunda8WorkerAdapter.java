@@ -7,8 +7,8 @@ import io.camunda.zeebe.client.api.worker.JobClient;
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.connect.worker.api.WorkerSubscription;
 import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,30 +16,27 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Camunda8WorkerAdapter {
+public class Camunda8WorkerAdapter implements WorkerSubscription {
 
     private final ZeebeClient client;
     private final WorkerExecuteApi workerExecuteApi;
 
-    @PostConstruct
-    public void init() {
+    @Override
+    public void subscribe(final WorkerExecutor executor) {
         // external task client subscribe to each available worker type
-        this.workerExecuteApi.availableWorkerExecutors()
-                .forEach(workerExecutor -> {
-                    this.client
-                            .newWorker()
-                            .jobType(workerExecutor.getType())
-                            .handler((client, job) -> this.execute(client, job, workerExecutor))
-                            .name(workerExecutor.getType())
-                            .timeout(workerExecutor.getTimeout())
-                            .open();
-                });
+        this.client
+                .newWorker()
+                .jobType(executor.getType())
+                .handler((client, job) -> this.execute(client, job, executor))
+                .name(executor.getType())
+                .timeout(executor.getTimeout())
+                .open();
     }
 
     public void execute(final JobClient client, final ActivatedJob job, final WorkerExecutor workerExecutor) {
         try {
             final Map<String, Object> result = this.workerExecuteApi.execute(
-                    workerExecutor.getType(), job.getVariablesAsType(workerExecutor.getInputType())
+                    workerExecutor, job.getVariablesAsType(workerExecutor.getInputType())
             );
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
             cmd.variables(result);

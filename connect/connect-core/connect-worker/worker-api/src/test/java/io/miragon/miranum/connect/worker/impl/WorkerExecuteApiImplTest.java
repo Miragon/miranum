@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.worker.impl;
 
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class WorkerExecuteApiImplTest {
 
     private final WorkerInterceptor interceptor = Mockito.spy(Mockito.mock(WorkerInterceptor.class));
     private final WorkerExecutor workerExecutor = Mockito.mock(WorkerExecutor.class);
-    private final WorkerExecuteApiImpl workerExecuteApi = new WorkerExecuteApiImpl(List.of());
+    private final WorkerExecuteApi workerExecuteApi = new WorkerExecuteApiImpl(List.of());
 
     // test data
     private final Map<String, Object> event = Map.of("test", "test");
@@ -31,8 +32,7 @@ public class WorkerExecuteApiImplTest {
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
         when(this.workerExecutor.execute(this.event)).thenReturn(this.event);
 
-        this.workerExecuteApi.register(this.workerExecutor);
-        final Object result = this.workerExecuteApi.execute("exampleWorker", this.event);
+        final Object result = this.workerExecuteApi.execute(this.workerExecutor, this.event);
         Assertions.assertEquals(this.event, result);
 
         // check that the worker was called
@@ -50,8 +50,7 @@ public class WorkerExecuteApiImplTest {
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
         when(this.workerExecutor.execute(this.event)).thenReturn(this.event);
 
-        workerExecuteApi.register(this.workerExecutor);
-        final Object result = workerExecuteApi.execute("exampleWorker", this.event);
+        final Object result = workerExecuteApi.execute(this.workerExecutor, this.event);
         Assertions.assertEquals(this.event, result);
 
         // check that the interceptor was called
@@ -62,21 +61,14 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testExecuteWorkerThrowsRuntimeExceptionIfNoWorkerIsRegisteredForType() {
-        Assertions.assertThrows(RuntimeException.class, () ->
-                this.workerExecuteApi.execute("non-existing-type", this.event));
-    }
-
-    @Test
     void testExecuteWorkerThrowsTechnicalError() throws InvocationTargetException, IllegalAccessException {
         when(this.workerExecutor.getType()).thenReturn("exampleWorker");
         doReturn(Map.class).when(this.workerExecutor).getInputType();
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
         when(this.workerExecutor.execute(this.event)).thenThrow(new TechnicalException("error msg"));
 
-        this.workerExecuteApi.register(this.workerExecutor);
         Assertions.assertThrows(TechnicalException.class, () ->
-                this.workerExecuteApi.execute("exampleWorker", this.event));
+                this.workerExecuteApi.execute(this.workerExecutor, this.event));
     }
 
     @Test
@@ -86,19 +78,8 @@ public class WorkerExecuteApiImplTest {
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
         when(this.workerExecutor.execute(this.event)).thenThrow(new BusinessException("400", "error msg"));
 
-        this.workerExecuteApi.register(this.workerExecutor);
         Assertions.assertThrows(BusinessException.class, () ->
-                this.workerExecuteApi.execute("exampleWorker", this.event));
-    }
-
-    @Test
-    void testAvailableWorkerExecutors() {
-        List<WorkerExecutor> availableWorkerExecutors = this.workerExecuteApi.availableWorkerExecutors();
-        Assertions.assertEquals(0, availableWorkerExecutors.size());
-
-        this.workerExecuteApi.register(this.workerExecutor);
-        availableWorkerExecutors = this.workerExecuteApi.availableWorkerExecutors();
-        Assertions.assertEquals(1, availableWorkerExecutors.size());
+                this.workerExecuteApi.execute(this.workerExecutor, this.event));
     }
 
 }

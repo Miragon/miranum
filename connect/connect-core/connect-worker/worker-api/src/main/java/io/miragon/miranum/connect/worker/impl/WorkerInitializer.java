@@ -1,7 +1,7 @@
 package io.miragon.miranum.connect.worker.impl;
 
 import io.miragon.miranum.connect.worker.api.Worker;
-import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.connect.worker.api.WorkerRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkerInitializer implements ApplicationContextAware {
     private ApplicationContext ctx;
-    private final WorkerExecuteApi workerExecuteApi;
+    private final WorkerRegistry workerRegistry;
 
     /**
      * Initializes all workers after the application has started using the spring application ready event.
@@ -31,7 +31,7 @@ public class WorkerInitializer implements ApplicationContextAware {
     @EventListener(ApplicationReadyEvent.class)
     public void initializeWorkersAfterStartup() {
         final List<WorkerExecutor> workerExecutors = this.getWorkers();
-        workerExecutors.forEach(this.workerExecuteApi::register);
+        workerExecutors.forEach(this.workerRegistry::register);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class WorkerInitializer implements ApplicationContextAware {
     /**
      * Helper method to build a worker.
      *
-     * @param worker    worker annotation
-     * @param bean      bean
-     * @param method    method
+     * @param worker worker annotation
+     * @param bean   bean
+     * @param method method
      * @return Worker
      */
     private WorkerExecutor buildWorker(final Worker worker, final Object bean, final Method method) {

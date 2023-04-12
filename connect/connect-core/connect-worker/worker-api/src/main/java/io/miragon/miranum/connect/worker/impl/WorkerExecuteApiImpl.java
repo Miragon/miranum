@@ -8,7 +8,10 @@ import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Implementation of the worker execute api.
@@ -17,43 +20,24 @@ import java.util.*;
 @RequiredArgsConstructor
 public class WorkerExecuteApiImpl implements WorkerExecuteApi {
 
-    private final List<WorkerExecutor> workerExecutors = new ArrayList<>();
     private final List<WorkerInterceptor> interceptors;
 
-    /**
-     * Registers a Worker.
-     *
-     * @param WorkerExecutor Worker to be registered
-     */
-    @Override
-    public void register(final WorkerExecutor WorkerExecutor) {
-        this.workerExecutors.add(WorkerExecutor);
-    }
 
     /**
      * Executes a Worker.
      * It iterates through all registered Workers and executes the first one that matches the given type.
      *
-     * @param type type of the Worker
-     * @param data data to be processed
+     * @param executor worker to be executed
+     * @param data     data to be processed
      * @return result of the Worker
      */
     @Override
-    public Map<String, Object> execute(final String type, final Object data) {
-        final Optional<WorkerExecutor> foundWorker = this.workerExecutors.stream()
-                .filter(Worker -> Worker.getType().equals(type))
-                .findFirst();
-
-        if (foundWorker.isEmpty()) {
-            final String errorMessage = String.format("No Worker for type %s exists", type);
-            throw new RuntimeException(errorMessage);
-        }
+    public Map<String, Object> execute(final WorkerExecutor executor, final Object data) {
 
         try {
-            final Object in = this.mapInput(foundWorker.get().getInputType(), data);
-            final WorkerExecutor workerExecutor = foundWorker.get();
-            this.interceptors.forEach(obj -> obj.intercept(in, workerExecutor));
-            return this.mapOutput(workerExecutor.execute(in));
+            final Object in = this.mapInput(executor.getInputType(), data);
+            this.interceptors.forEach(obj -> obj.intercept(in, executor));
+            return this.mapOutput(executor.execute(in));
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (final InvocationTargetException e) {
@@ -62,13 +46,9 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         }
     }
 
-    @Override
-    public List<WorkerExecutor> availableWorkerExecutors() {
-        return this.workerExecutors;
-    }
-
     /**
      * Helper function to map the input data to the expected type.
+     *
      * @param inputType
      * @param object
      * @return
@@ -81,6 +61,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
 
     /**
      * Helper function to map the output data to a map.
+     *
      * @param output
      * @return
      */
@@ -90,7 +71,8 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         }
 
         final ObjectMapper mapper = new ObjectMapper();
-        return mapper.convertValue(output, new TypeReference<>() {});
+        return mapper.convertValue(output, new TypeReference<>() {
+        });
     }
 
 

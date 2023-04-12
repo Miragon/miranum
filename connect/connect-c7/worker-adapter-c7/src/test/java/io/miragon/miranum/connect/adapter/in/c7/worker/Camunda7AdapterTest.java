@@ -10,7 +10,6 @@ import org.camunda.bpm.client.topic.TopicSubscriptionBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -34,9 +33,8 @@ public class Camunda7AdapterTest {
         final TopicSubscriptionBuilder builder = this.givenTopicSubscriptionBuilder();
 
         given(this.externalTaskClient.subscribe("defaultWorker")).willReturn(builder);
-        given(this.workerExecuteApi.availableWorkerExecutors()).willReturn(List.of(defaultWorker));
 
-        this.adapter.init();
+        this.adapter.subscribe(defaultWorker);
 
         then(this.externalTaskClient).should().subscribe("defaultWorker");
         then(this.externalTaskClient).shouldHaveNoMoreInteractions();
@@ -49,13 +47,14 @@ public class Camunda7AdapterTest {
 
     @Test
     void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
+        final WorkerExecutor defaultWorker = this.givenDefaultExecutor("defaultWorker", 100L);
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
         final Map<String, Object> result = Map.of("value", "test");
 
         given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
 
-        this.adapter.execute(externalTask, service);
+        this.adapter.execute(defaultWorker, externalTask, service);
 
         then(service).should().complete(externalTask, null, result);
     }
