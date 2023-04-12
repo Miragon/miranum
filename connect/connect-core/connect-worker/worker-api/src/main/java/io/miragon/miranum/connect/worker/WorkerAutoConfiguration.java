@@ -1,15 +1,20 @@
 package io.miragon.miranum.connect.worker;
 
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
-import io.miragon.miranum.connect.worker.impl.*;
+import io.miragon.miranum.connect.worker.api.WorkerRegistry;
+import io.miragon.miranum.connect.worker.api.WorkerSubscription;
+import io.miragon.miranum.connect.worker.impl.WorkerAnnotationBeanPostProcessor;
+import io.miragon.miranum.connect.worker.impl.WorkerExecuteApiImpl;
+import io.miragon.miranum.connect.worker.impl.WorkerRegistryImpl;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 @Configuration
-@Import(ContextInitializer.class)
 public class WorkerAutoConfiguration {
 
     @Bean
@@ -20,23 +25,13 @@ public class WorkerAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WorkerRegistry workerRegistry() {
-        return new WorkerRegistryImpl();
+    public WorkerRegistry workerRegistry(final WorkerSubscription subscription) {
+        return new WorkerRegistryImpl(subscription);
     }
 
     @Bean
-    public WorkerInitializer workerInitializer(final WorkerRegistry workerRegistry) {
-        return new WorkerInitializer(workerRegistry);
-    }
-}
-
-    @Bean
-    public BeanPostProcessor workerAnnotationProcessor(WorkerInfoMapper workerInfoMapper, WorkerInfoRegistry workerInfoRegistry) {
-        return new WorkerAnnotationBeanPostProcessor(workerInfoMapper, workerInfoRegistry);
+    public BeanPostProcessor workerAnnotationProcessor(final WorkerRegistry workerRegistry) {
+        return new WorkerAnnotationBeanPostProcessor(workerRegistry);
     }
 
-    @Bean
-    public WorkerInfoBeanPostProcessor workerInfoBeanPostProcessor(WorkerInfoRegistry workerInfoRegistry, WorkerInitializer workerInitializer) {
-        return new WorkerInfoBeanPostProcessor(workerInfoRegistry, workerInitializer);
-    }
 }
