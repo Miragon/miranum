@@ -28,7 +28,7 @@ public class WorkerExecutor {
      * @param data data to be processed
      * @return result of the worker
      * @throws InvocationTargetException if the underlying method throws an exception.
-     * @throws IllegalAccessException    if this Method object is enforcing Java language access control and the underlying method is inaccessible.
+     * @throws IllegalAccessException    if this method object is enforcing Java language access control and the underlying method is inaccessible.
      */
     public Object execute(final Object data) throws InvocationTargetException, IllegalAccessException {
         return this.getMethod().invoke(this.instance, data);

@@ -12,5 +12,4 @@ public class Camunda8WorkerAutoConfiguration {
     public Camunda8WorkerAdapter camunda8WorkerAdapter(final ZeebeClient zeebeClient, final WorkerExecuteApi workerExecuteApi) {
         return new Camunda8WorkerAdapter(zeebeClient, workerExecuteApi);
     }
-
 }

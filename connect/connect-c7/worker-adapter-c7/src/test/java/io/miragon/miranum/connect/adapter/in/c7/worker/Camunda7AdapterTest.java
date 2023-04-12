@@ -81,5 +81,4 @@ public class Camunda7AdapterTest {
         given(builder.open()).willReturn(Mockito.mock(TopicSubscription.class));
         return builder;
     }
-
 }

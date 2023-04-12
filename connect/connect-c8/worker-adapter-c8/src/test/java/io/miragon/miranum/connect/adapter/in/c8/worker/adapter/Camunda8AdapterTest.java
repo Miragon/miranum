@@ -29,7 +29,7 @@ public class Camunda8AdapterTest {
             new Camunda8WorkerAdapter(this.zeebeClient, this.workerExecuteApi);
 
     @Test
-    void givenDefaultUseCaseAndSuccessfullTask_thenEverythingGetsExecuted() {
+    void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
         final ActivatedJob job = this.givenDefaultJob(1L);
         final WorkerExecutor useCaseInfo = this.givenDefaultExecutor("defaultUseCase", 100L);
         final Map<String, Object> result = Map.of("value", "test");
@@ -62,6 +62,4 @@ public class Camunda8AdapterTest {
         given(useCaseInfo.getTimeout()).willReturn(lockDuration);
         return useCaseInfo;
     }
-
-
 }

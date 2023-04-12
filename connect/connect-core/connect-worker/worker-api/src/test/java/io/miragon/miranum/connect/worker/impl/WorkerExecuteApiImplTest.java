@@ -23,7 +23,10 @@ public class WorkerExecuteApiImplTest {
     private final WorkerExecuteApi workerExecuteApi = new WorkerExecuteApiImpl(List.of());
 
     // test data
-    private final Map<String, Object> event = Map.of("test", "test");
+    private final Map<String, Object> event = Map.ofEntries(
+            Map.entry("test", "test"),
+            Map.entry("test2", "test2")
+    );
 
     @Test
     void testExecuteWorker() throws InvocationTargetException, IllegalAccessException {
@@ -35,14 +38,14 @@ public class WorkerExecuteApiImplTest {
         final Object result = this.workerExecuteApi.execute(this.workerExecutor, this.event);
         Assertions.assertEquals(this.event, result);
 
-        // check that the worker was called
+        // make sure that the worker was called
         final ArgumentCaptor<Map<String, Object>> inputArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Mockito.verify(this.workerExecutor).execute(inputArgumentCaptor.capture());
         Assertions.assertEquals(this.event, inputArgumentCaptor.getValue());
     }
 
     @Test
-    void testExecuteWorkerWithInterceptor() throws InvocationTargetException, IllegalAccessException {
+    void testExecuteWorker_withInterceptor() throws InvocationTargetException, IllegalAccessException {
         final WorkerExecuteApiImpl workerExecuteApi = new WorkerExecuteApiImpl(List.of(this.interceptor));
 
         when(this.workerExecutor.getType()).thenReturn("exampleWorker");
@@ -53,7 +56,7 @@ public class WorkerExecuteApiImplTest {
         final Object result = workerExecuteApi.execute(this.workerExecutor, this.event);
         Assertions.assertEquals(this.event, result);
 
-        // check that the interceptor was called
+        // make sure that the interceptor was called
         final ArgumentCaptor<WorkerExecutor> workerExecutorArgumentCaptor = ArgumentCaptor.forClass(WorkerExecutor.class);
         final ArgumentCaptor<Map<String, Object>> interceptorArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Mockito.verify(this.interceptor).intercept(workerExecutorArgumentCaptor.capture(), interceptorArgumentCaptor.capture());
@@ -61,7 +64,7 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testExecuteWorkerThrowsTechnicalError() throws InvocationTargetException, IllegalAccessException {
+    void testExecuteWorker_throwsTechnicalError() throws InvocationTargetException, IllegalAccessException {
         when(this.workerExecutor.getType()).thenReturn("exampleWorker");
         doReturn(Map.class).when(this.workerExecutor).getInputType();
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
@@ -72,7 +75,7 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testExecuteWorkerThrowsBusinessException() throws InvocationTargetException, IllegalAccessException {
+    void testExecuteWorker_throwsBusinessException() throws InvocationTargetException, IllegalAccessException {
         when(this.workerExecutor.getType()).thenReturn("exampleWorker");
         doReturn(Map.class).when(this.workerExecutor).getInputType();
         doReturn(Map.class).when(this.workerExecutor).getOutputType();
@@ -81,5 +84,4 @@ public class WorkerExecuteApiImplTest {
         Assertions.assertThrows(BusinessException.class, () ->
                 this.workerExecuteApi.execute(this.workerExecutor, this.event));
     }
-
 }

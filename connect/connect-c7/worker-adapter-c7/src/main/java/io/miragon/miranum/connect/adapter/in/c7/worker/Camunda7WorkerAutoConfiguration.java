@@ -12,5 +12,4 @@ public class Camunda7WorkerAutoConfiguration {
     public Camunda7WorkerAdapter camunda7WorkerAdapter(final ExternalTaskClient externalTaskClient, final WorkerExecuteApi workerExecuteApi) {
         return new Camunda7WorkerAdapter(externalTaskClient, workerExecuteApi);
     }
-
 }

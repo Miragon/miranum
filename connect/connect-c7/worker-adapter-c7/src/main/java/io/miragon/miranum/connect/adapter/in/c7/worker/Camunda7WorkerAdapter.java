@@ -24,19 +24,12 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     @Override
     public void subscribe(final WorkerExecutor executor) {
-        // external task client subscribe to each available worker type
         this.externalTaskClient.subscribe(executor.getType())
                 .lockDuration(executor.getTimeout())
                 .handler((externalTask, externalTaskService) -> this.execute(executor, externalTask, externalTaskService))
                 .open();
     }
 
-    /**
-     * Executes a task with a specific use case
-     *
-     * @param externalTask Task that should be executed
-     * @param service      Task service to interact with
-     */
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
         try {
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, externalTask.getAllVariablesTyped());

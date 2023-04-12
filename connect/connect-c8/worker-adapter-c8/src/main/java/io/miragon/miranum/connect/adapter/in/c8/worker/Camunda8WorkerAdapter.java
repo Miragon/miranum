@@ -23,7 +23,6 @@ public class Camunda8WorkerAdapter implements WorkerSubscription {
 
     @Override
     public void subscribe(final WorkerExecutor executor) {
-        // external task client subscribe to each available worker type
         this.client
                 .newWorker()
                 .jobType(executor.getType())
@@ -39,8 +38,9 @@ public class Camunda8WorkerAdapter implements WorkerSubscription {
                     workerExecutor, job.getVariablesAsType(workerExecutor.getInputType())
             );
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
-            cmd.variables(result);
-            cmd.send().join();
+            cmd.variables(result)
+                    .send()
+                    .join();
         } catch (final BusinessException exception) {
             log.error("business error detected", exception);
             client.newThrowErrorCommand(job.getKey()).errorCode(exception.getCode()).send().join();
