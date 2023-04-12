@@ -40,7 +40,7 @@ public class Camunda7Mapper {
         final VariableMap variables = Variables.createVariables();
         data.keySet().forEach(key -> {
                     final Object value = data.get(key);
-                    if (Objects.isNull(value) || ClassUtils.isPrimitiveOrWrapper(value.getClass()) || value instanceof String) {
+                    if (Objects.isNull(value) || value instanceof String || ClassUtils.isPrimitiveOrWrapper(value.getClass()) ) {
                         variables.putValue(key, value);
                     } else {
                         final JsonValueImpl json = new JsonValueImpl(value.toString());

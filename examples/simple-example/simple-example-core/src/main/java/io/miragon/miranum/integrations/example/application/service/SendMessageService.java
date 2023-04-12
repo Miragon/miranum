@@ -25,12 +25,10 @@ public class SendMessageService implements SendMessageUseCase {
             id = "send-message",
             type = "sendMessage",
             appliesTo = {BPMNElementType.BPMN_SERVICE_TASK},
-            version = 01)
+            version = 1)
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message);
-
-        messageApi.correlateMessage(new CorrelateMessageCommand(message.getContent(), message.getKey(), Map.of()));
-
+        messageApi.correlateMessage(new CorrelateMessageCommand(message.getContent(), message.getKey()));
         return new Answer("answer to: " + message.getContent());
     }
 }

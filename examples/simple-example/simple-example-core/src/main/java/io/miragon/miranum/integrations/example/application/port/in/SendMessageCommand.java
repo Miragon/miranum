@@ -10,8 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SendMessageCommand extends TenantAwareCommand {
-    @ElementTemplateProperty(type = PropertyType.STRING, label = "content", editable = true)
+    @ElementTemplateProperty(type = PropertyType.STRING, label = "content")
     private String content;
-    @ElementTemplateProperty(type = PropertyType.STRING, label = "key", editable = true)
+    @ElementTemplateProperty(type = PropertyType.STRING, label = "key")
     private String key;
 }
