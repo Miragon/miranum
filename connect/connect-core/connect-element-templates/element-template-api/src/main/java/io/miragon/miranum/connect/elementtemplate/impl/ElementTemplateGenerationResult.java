@@ -10,6 +10,6 @@ import lombok.Setter;
 public class ElementTemplateGenerationResult {
 
     private String name;
-    private int version;
+    private String version;
     private String jsonString;
 }

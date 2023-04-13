@@ -10,7 +10,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-
     private String content;
-
 }

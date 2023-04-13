@@ -12,7 +12,7 @@ public class ElementTemplateInfo {
 
     private String name;
     private String id;
-    private int version;
+    private String version;
     private String type;
     private BPMNElementType[] appliesTo;
     private Class<?> inputType;
