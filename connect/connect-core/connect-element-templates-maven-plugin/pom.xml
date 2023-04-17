@@ -15,5 +15,7 @@
 
     <modules>
         <module>element-templates-generator-maven-plugin</module>
+        <module>element-templates-generator-maven-plugin-core</module>
+        <module>element-templates-c7</module>
     </modules>
 </project>

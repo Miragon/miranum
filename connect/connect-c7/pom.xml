@@ -19,7 +19,6 @@
         <module>process-adapter-c7</module>
         <module>worker-adapter-c7</module>
         <module>utils-c7</module>
-        <module>element-templates-c7</module>
     </modules>
 
 </project>

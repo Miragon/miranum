@@ -1,7 +1,9 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
+import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

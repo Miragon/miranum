@@ -54,11 +54,13 @@
             <version>${org.apache.maven.plugin-tools.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-template-api</artifactId>
+            <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c7</artifactId>
