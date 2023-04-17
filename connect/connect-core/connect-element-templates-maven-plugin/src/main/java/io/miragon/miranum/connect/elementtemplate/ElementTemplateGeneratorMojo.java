@@ -9,9 +9,10 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.reflections.Reflections;
-import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
@@ -28,8 +29,8 @@ import java.util.Set;
 /**
  * Goal which generates element templates.
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class ElementTemplateGeneratorPlugin extends AbstractMojo {
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
     private final Log log = getLog();
 
@@ -42,6 +43,9 @@ public class ElementTemplateGeneratorPlugin extends AbstractMojo {
     @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
     private Boolean skip;
 
+    @Parameter(name = "path", property = "elementtemplategen.path")
+    private String path;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (Objects.nonNull(skip) && skip) {
@@ -51,9 +55,15 @@ public class ElementTemplateGeneratorPlugin extends AbstractMojo {
 
         log.info("*** Generate element templates BEGIN ***");
 
-        try {
-            List<String> classpathElements = project.getCompileClasspathElements();
-            List<URL> classpathURLs = new ArrayList<>(classpathElements.size());
+
+        List<URL> classpathURLs = new ArrayList<>();
+        if (Objects.isNull(path)) {
+            List<String> classpathElements;
+            try {
+                classpathElements = project.getCompileClasspathElements();
+            } catch (DependencyResolutionRequiredException e) {
+                throw new RuntimeException(e);
+            }
 
             for (String element : classpathElements) {
                 try {
@@ -62,24 +72,23 @@ public class ElementTemplateGeneratorPlugin extends AbstractMojo {
                     throw new MojoExecutionException("Malformed classpath element: " + element, e);
                 }
             }
+        }
 
-            project.addCompileSourceRoot(outputDirectory.getAbsolutePath());
+        var urlClassLoader = Objects.isNull(path) ? new URLClassLoader(classpathURLs.toArray(new URL[0]), getClass().getClassLoader()) : null;
 
-            URLClassLoader urlClassLoader = new URLClassLoader(classpathURLs.toArray(new URL[0]), getClass().getClassLoader());
+        var reflections = Objects.isNull(path) ?
+                new Reflections(new ConfigurationBuilder()
+                        .setUrls(ClasspathHelper.forClassLoader(urlClassLoader))
+                        .addClassLoaders(urlClassLoader)
+                        .addScanners(Scanners.MethodsAnnotated)) :
+                new Reflections(new ConfigurationBuilder()
+                        .setUrls(ClasspathHelper.forPackage(path))
+                        .setScanners(Scanners.MethodsAnnotated));
 
-            Reflections reflections = new Reflections(new ConfigurationBuilder()
-                    .setUrls(ClasspathHelper.forClassLoader(urlClassLoader))
-                    .addClassLoader(urlClassLoader)
-                    .addScanners(new MethodAnnotationsScanner()));
+        Set<Method> annotatedMethods = reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
 
-            Set<Method> annotatedMethods = reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
-
-            for (Method method : annotatedMethods) {
-                // Process the annotated methods
-                log.info("Found annotated method: " + method.getName());
-            }
-        } catch (DependencyResolutionRequiredException e) {
-            throw new MojoExecutionException("Dependency resolution failed", e);
+        for (var method : annotatedMethods) {
+            getLog().info("Found annotated method: " + method);
         }
 
         log.info("*** Generate element templates END ***");
