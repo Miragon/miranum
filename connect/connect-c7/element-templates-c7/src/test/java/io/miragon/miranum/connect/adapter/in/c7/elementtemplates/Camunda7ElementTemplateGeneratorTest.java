@@ -20,7 +20,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "0-1",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 TestInput.class, TestOutput.class);
@@ -42,7 +42,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "0-1",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 null, null);
@@ -64,7 +64,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "0-1",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 TestInputWithElementTemplatePropertyAnnotation.class, TestOutput.class);

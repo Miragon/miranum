@@ -16,4 +16,10 @@ public class CorrelateMessageCommand {
     private String correlationKey;
 
     private Map<String, Object> variables;
+
+    public CorrelateMessageCommand(String messageName, String correlationKey) {
+        this.messageName = messageName;
+        this.correlationKey = correlationKey;
+        this.variables = Map.of();
+    }
 }

@@ -16,25 +16,34 @@
     "value" : "sendMessage",
     "label" : "Topic",
     "type" : "String",
+    "editable" : false,
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
     }
   }, {
     "value" : "",
-    "label" : "name",
+    "label" : "content",
     "type" : "String",
+    "editable" : true,
     "binding" : {
       "type" : "camunda:inputParameter",
-      "name" : "name"
+      "name" : "content"
+    },
+    "constraints" : {
+      "notEmpty" : false
     }
   }, {
     "value" : "",
     "label" : "key",
     "type" : "String",
+    "editable" : true,
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "key"
+    },
+    "constraints" : {
+      "notEmpty" : false
     }
   }, {
     "value" : "textResult",
@@ -42,7 +51,7 @@
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
-      "source" : "text"
+      "source" : "${text}"
     }
   } ]
 }
