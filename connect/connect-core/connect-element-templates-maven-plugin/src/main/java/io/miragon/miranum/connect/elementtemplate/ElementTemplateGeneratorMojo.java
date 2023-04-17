@@ -24,7 +24,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +66,11 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         var annotatedMethods = findGenerateElementTemplateAnnotatedMethods();
 
+        if (annotatedMethods.isEmpty()) {
+            log.info("No methods annotated with @GenerateElementTemplate found.");
+            return;
+        }
+
         for (var generator : generators) {
             for (var method : annotatedMethods) {
                 var data = mapper.map(method.getAnnotation(GenerateElementTemplate.class), method);
@@ -83,10 +87,11 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
     private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult generationResult) {
         var elementTemplate = new File(outputDirectory, filename);
-        var dirsCreated = elementTemplate.getParentFile().mkdirs();
+        boolean dirsCreated = elementTemplate.getParentFile().mkdirs();
         try {
             var fileCreated = elementTemplate.createNewFile();
             Files.writeString(elementTemplate.toPath(), generationResult.getJson());
+            log.info("Element template file created: " + elementTemplate.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
