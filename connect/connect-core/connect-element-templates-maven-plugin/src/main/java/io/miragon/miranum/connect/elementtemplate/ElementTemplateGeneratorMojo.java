@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * Goal which generates element templates.
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
     private final Log log = getLog();
