@@ -1,5 +1,6 @@
 package io.miragon.miranum.connect.elementtemplate;
 
+import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.Camunda7ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
@@ -46,6 +47,9 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     @Parameter(name = "path", property = "elementtemplategen.path")
     private String path;
 
+    @Parameter(name = "targetPlatforms", property = "elementtemplategen.targetPlatforms", required = true)
+    private TargetPlatform[] targetPlatforms;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (Objects.nonNull(skip) && skip) {
@@ -55,7 +59,16 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         log.info("*** Generate element templates BEGIN ***");
 
+        var annotatedMethods = findAnnotatedMethods();
 
+        for (var method : annotatedMethods) {
+            getLog().info("Found annotated method: " + method);
+        }
+
+        log.info("*** Generate element templates END ***");
+    }
+
+    private Set<Method> findAnnotatedMethods() throws MojoExecutionException {
         List<URL> classpathURLs = new ArrayList<>();
         if (Objects.isNull(path)) {
             List<String> classpathElements;
@@ -85,12 +98,6 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
                         .setUrls(ClasspathHelper.forPackage(path))
                         .setScanners(Scanners.MethodsAnnotated));
 
-        Set<Method> annotatedMethods = reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
-
-        for (var method : annotatedMethods) {
-            getLog().info("Found annotated method: " + method);
-        }
-
-        log.info("*** Generate element templates END ***");
+        return reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
     }
 }

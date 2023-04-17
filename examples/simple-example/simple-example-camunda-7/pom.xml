@@ -73,6 +73,10 @@
                 <groupId>io.miragon.miranum</groupId>
                 <artifactId>connect-element-templates-maven-plugin</artifactId>
                 <version>0.1.0-SNAPSHOT</version>
+
+                <configuration>
+                    <targetPlatforms>camunda7,camunda8</targetPlatforms>
+                </configuration>
             </plugin>
         </plugins>
     </build>
