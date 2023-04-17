@@ -1,7 +1,8 @@
-package io.miragon.miranum.connect.elementtemplate.impl;
+package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.shared.TooManyParametersException;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
+import io.miragon.miranum.connect.shared.TooManyParametersException;
 
 import java.lang.reflect.Method;
 
@@ -17,7 +18,8 @@ public class ElementTemplateInfoMapper {
 
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
 
-        return new ElementTemplateInfo(generateElementTemplate.name(),
+        return new ElementTemplateInfo(
+                generateElementTemplate.name(),
                 generateElementTemplate.id(),
                 generateElementTemplate.version(),
                 generateElementTemplate.type(),

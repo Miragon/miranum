@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.Camunda7ElementTemplateGenerator;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
@@ -18,10 +18,13 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -59,16 +62,38 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         log.info("*** Generate element templates BEGIN ***");
 
-        var annotatedMethods = findAnnotatedMethods();
+        var mapper = new ElementTemplateInfoMapper();
+        var generators = ElementTemplateGeneratorFactory.create(targetPlatforms);
 
-        for (var method : annotatedMethods) {
-            getLog().info("Found annotated method: " + method);
+        var annotatedMethods = findGenerateElementTemplateAnnotatedMethods();
+
+        for (var generator : generators) {
+            for (var method : annotatedMethods) {
+                var data = mapper.map(method.getAnnotation(GenerateElementTemplate.class), method);
+
+                var generationResult = generator.generate(data);
+
+                var filename = data.getId() + "-" + data.getVersion() + ".json";
+                saveElementTemplateToFile(filename, generationResult);
+            }
         }
 
         log.info("*** Generate element templates END ***");
     }
 
-    private Set<Method> findAnnotatedMethods() throws MojoExecutionException {
+    private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult generationResult) {
+        var dir = "element-templates";
+        var elementTemplate = new File(Path.of(outputDirectory.getAbsolutePath(), dir, filename).toUri());
+        elementTemplate.getParentFile().mkdirs();
+        try {
+            elementTemplate.createNewFile();
+            Files.writeString(elementTemplate.toPath(), generationResult.getJson());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Set<Method> findGenerateElementTemplateAnnotatedMethods() throws MojoExecutionException {
         List<URL> classpathURLs = new ArrayList<>();
         if (Objects.isNull(path)) {
             List<String> classpathElements;

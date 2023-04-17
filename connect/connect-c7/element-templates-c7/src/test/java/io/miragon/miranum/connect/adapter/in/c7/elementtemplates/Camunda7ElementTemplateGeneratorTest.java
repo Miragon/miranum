@@ -1,9 +1,9 @@
 package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
 
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
-import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "1-0",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 TestInput.class, TestOutput.class);
@@ -31,8 +31,8 @@ class Camunda7ElementTemplateGeneratorTest {
         var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Assert
-        assertNotNull(result.getJsonString());
-        assertEquals(expectedJsonResult, result.getJsonString());
+        assertNotNull(result.getJson());
+        assertEquals(expectedJsonResult, result.getJson());
     }
 
     @Test
@@ -42,7 +42,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "1-0",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 null, null);
@@ -53,8 +53,8 @@ class Camunda7ElementTemplateGeneratorTest {
         var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Assert
-        assertNotNull(result.getJsonString());
-        assertEquals(expectedJsonResult, result.getJsonString());
+        assertNotNull(result.getJson());
+        assertEquals(expectedJsonResult, result.getJson());
     }
 
     @Test
@@ -64,7 +64,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
-                1.0,
+                "1-0",
                 "test",
                 new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
                 TestInputWithElementTemplatePropertyAnnotation.class, TestOutput.class);
@@ -75,8 +75,8 @@ class Camunda7ElementTemplateGeneratorTest {
         var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Assert
-        assertNotNull(result.getJsonString());
-        assertEquals(expectedJsonResult, result.getJsonString());
+        assertNotNull(result.getJson());
+        assertEquals(expectedJsonResult, result.getJson());
     }
 
     private static class TestInputWithElementTemplatePropertyAnnotation {

@@ -4,19 +4,19 @@ import io.miragon.miranum.connect.c7.elementtemplates.gen.Binding;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Property;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateGenerationResult;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateGenerator;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
-import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateGenerationResult;
-import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
-import io.miragon.miranum.connect.elementtemplate.impl.GenerateElementTemplatePort;
 import lombok.extern.java.Log;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 @Log
-public class Camunda7ElementTemplateGenerator implements GenerateElementTemplatePort {
+public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerator {
 
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {

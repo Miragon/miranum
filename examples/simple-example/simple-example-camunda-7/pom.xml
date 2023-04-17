@@ -38,12 +38,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-templates-c7</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!--Camunda-->
         <dependency>
             <groupId>org.camunda.community</groupId>
@@ -75,7 +69,7 @@
                 <version>0.1.0-SNAPSHOT</version>
 
                 <configuration>
-                    <targetPlatforms>camunda7,camunda8</targetPlatforms>
+                    <targetPlatforms>camunda7</targetPlatforms>
                 </configuration>
             </plugin>
         </plugins>
