@@ -7,7 +7,6 @@ import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -55,13 +54,11 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     private TargetPlatform[] targetPlatforms;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         if (Objects.nonNull(skip) && skip) {
             getLog().info("Element-template generation is skipped.");
             return;
         }
-
-        log.info("*** Generate element templates BEGIN ***");
 
         var mapper = new ElementTemplateInfoMapper();
         var generators = ElementTemplateGeneratorFactory.create(targetPlatforms);
@@ -83,8 +80,6 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
                 saveElementTemplateToFile(filename, generationResult);
             }
         }
-
-        log.info("*** Generate element templates END ***");
     }
 
     private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult generationResult) {

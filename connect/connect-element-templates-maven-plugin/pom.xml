@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>connect-core</artifactId>
+        <artifactId>connect</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
