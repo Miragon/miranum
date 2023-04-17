@@ -41,7 +41,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
 
-    @Parameter(property = "connect-element-template.generator.maven.plugin.output", defaultValue = "${project.build.directory}")
+    @Parameter(property = "connect-element-template.generator.maven.plugin.output", defaultValue = "${project.build.directory/generated-sources/element-templates}")
     private File outputDirectory;
 
     @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
@@ -82,11 +82,10 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     }
 
     private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult generationResult) {
-        var dir = "element-templates";
-        var elementTemplate = new File(Path.of(outputDirectory.getAbsolutePath(), dir, filename).toUri());
-        elementTemplate.getParentFile().mkdirs();
+        var elementTemplate = new File(outputDirectory, filename);
+        var dirsCreated = elementTemplate.getParentFile().mkdirs();
         try {
-            elementTemplate.createNewFile();
+            var fileCreated = elementTemplate.createNewFile();
             Files.writeString(elementTemplate.toPath(), generationResult.getJson());
         } catch (IOException e) {
             throw new RuntimeException(e);
