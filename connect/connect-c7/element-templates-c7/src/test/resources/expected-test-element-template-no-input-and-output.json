@@ -16,6 +16,7 @@
     "value" : "test",
     "label" : "Topic",
     "type" : "String",
+    "editable" : false,
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"

@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.worker.worker;
+package io.miragon.miranum.connect.adapter.in.c7.worker.worker;
 
 import lombok.Builder;
 import lombok.Data;

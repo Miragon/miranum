@@ -18,17 +18,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.0.5</spring.boot.version>
         <camunda7.version>7.18.0</camunda7.version>
-        <camunda8.version>8.1.17</camunda8.version>
+        <camunda8.version>8.2.0</camunda8.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <lombok.version>1.18.26</lombok.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.5.4.Final</org.mapstruct.version>
         <maven.surfire.plugin.version>3.0.0</maven.surfire.plugin.version>
         <okhttp.version>4.8.1</okhttp.version>
-        <jacoco.version>0.8.8</jacoco.version>
+        <jacoco.version>0.8.9</jacoco.version>
         <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
-        <jackson.databind.nullable.version>0.2.1</jackson.databind.nullable.version>
-        <swagger.annotations.version>2.2.8</swagger.annotations.version>
+        <jackson.databind.nullable.version>0.2.6</jackson.databind.nullable.version>
+        <swagger.annotations.version>2.2.9</swagger.annotations.version>
     </properties>
 
     <modules>
@@ -188,7 +188,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.8</version>
+                    <version>0.8.9</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -210,7 +210,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>6.4.0</version>
+                    <version>6.5.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

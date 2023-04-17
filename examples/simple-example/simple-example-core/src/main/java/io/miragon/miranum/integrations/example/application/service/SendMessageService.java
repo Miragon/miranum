@@ -28,9 +28,7 @@ public class SendMessageService implements SendMessageUseCase {
             version = "0-1")
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message);
-
-        messageApi.correlateMessage(new CorrelateMessageCommand(message.getName(), message.getKey(), Map.of()));
-
-        return new Answer("answer to: " + message.getName());
+        messageApi.correlateMessage(new CorrelateMessageCommand(message.getContent(), message.getKey()));
+        return new Answer("answer to: " + message.getContent());
     }
 }
