@@ -17,22 +17,15 @@
     <properties>
         <org.apache.maven.version>3.9.1</org.apache.maven.version>
         <org.apache.maven.plugin-tools.version>3.8.1</org.apache.maven.plugin-tools.version>
+        <org.reflections.version>0.10.2</org.reflections.version>
+        <org.apache.maven-plugins.version>3.8.1</org.apache.maven-plugins.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-shared</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.10.2</version>
+            <version>${org.reflections.version}</version>
         </dependency>
 
         <!--Maven-->
@@ -55,6 +48,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Miranum -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
@@ -64,8 +58,13 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c7</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>connect-shared</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -75,7 +74,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>${org.apache.maven-plugins.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

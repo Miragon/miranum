@@ -8,6 +8,8 @@ import lombok.Getter;
 public class ElementTemplateGenerationResult {
 
     private String name;
+
     private String version;
+
     private String json;
 }

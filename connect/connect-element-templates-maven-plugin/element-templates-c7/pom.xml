@@ -18,6 +18,7 @@
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
