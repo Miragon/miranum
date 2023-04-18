@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 public class ElementTemplateInfoMapper {
 
-    public ElementTemplateInfo map(GenerateElementTemplate generateElementTemplate, final Method method) {
+    public static ElementTemplateInfo map(GenerateElementTemplate generateElementTemplate, final Method method) {
 
         final Class<?>[] inputParameterTypes = method.getParameterTypes();
 

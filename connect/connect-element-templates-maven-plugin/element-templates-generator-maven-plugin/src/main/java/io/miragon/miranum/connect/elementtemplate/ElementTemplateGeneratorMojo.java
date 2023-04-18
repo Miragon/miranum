@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.elementtemplate;
 
 import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
 import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -25,13 +26,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * Goal which generates element templates.
+ * A maven mojo for generating element templates.
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class ElementTemplateGeneratorMojo extends AbstractMojo {
@@ -41,15 +43,21 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
 
-    @Parameter(property = "connect-element-template.generator.maven.plugin.output", defaultValue = "${project.build.directory/generated-sources/element-templates}")
+    /**
+     * Directory to output the generated element templates to.
+     */
+    @Parameter(property = "elementtemplategen.outputDirectory", defaultValue = "${project.build.directory/generated-sources/element-templates}")
     private File outputDirectory;
 
+    /**
+     * A flag indicating if the generation should be skipped.
+     */
     @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
     private Boolean skip;
 
-    @Parameter(name = "path", property = "elementtemplategen.path")
-    private String path;
-
+    /**
+     * All target platforms for which goal should be executed.
+     */
     @Parameter(name = "targetPlatforms", property = "elementtemplategen.targetPlatforms", required = true)
     private TargetPlatform[] targetPlatforms;
 
@@ -60,8 +68,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
             return;
         }
 
-        var mapper = new ElementTemplateInfoMapper();
-        var generators = ElementTemplateGeneratorFactory.create(targetPlatforms);
+        List<ElementTemplateGenerator> generators = ElementTemplateGeneratorsFactory.create(targetPlatforms);
 
         var annotatedMethods = findGenerateElementTemplateAnnotatedMethods();
 
@@ -72,18 +79,18 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         for (var generator : generators) {
             for (var method : annotatedMethods) {
-                var data = mapper.map(method.getAnnotation(GenerateElementTemplate.class), method);
+                var data = ElementTemplateInfoMapper.map(method.getAnnotation(GenerateElementTemplate.class), method);
 
                 var generationResult = generator.generate(data);
 
-                var filename = data.getId() + "-" + data.getVersion() + ".json";
-                saveElementTemplateToFile(filename, generationResult);
+                saveElementTemplateToFile(generationResult);
             }
         }
     }
 
-    private void saveElementTemplateToFile(String filename, ElementTemplateGenerationResult generationResult) {
-        var elementTemplate = new File(outputDirectory, filename);
+    private void saveElementTemplateToFile(ElementTemplateGenerationResult generationResult) {
+        var path = Path.of(generationResult.getTargetPlatform().name(), generationResult.getFileName()).toString();
+        var elementTemplate = new File(outputDirectory, path);
         boolean dirsCreated = elementTemplate.getParentFile().mkdirs();
         try {
             var fileCreated = elementTemplate.createNewFile();
@@ -95,34 +102,28 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     }
 
     private Set<Method> findGenerateElementTemplateAnnotatedMethods() throws MojoExecutionException {
-        List<URL> classpathURLs = new ArrayList<>();
-        if (Objects.isNull(path)) {
-            List<String> classpathElements;
-            try {
-                classpathElements = project.getCompileClasspathElements();
-            } catch (DependencyResolutionRequiredException e) {
-                throw new RuntimeException(e);
-            }
+        List<String> classpathElements;
+        try {
+            classpathElements = project.getCompileClasspathElements();
+        } catch (DependencyResolutionRequiredException e) {
+            throw new RuntimeException(e);
+        }
 
-            for (String element : classpathElements) {
-                try {
-                    classpathURLs.add(new File(element).toURI().toURL());
-                } catch (MalformedURLException e) {
-                    throw new MojoExecutionException("Malformed classpath element: " + element, e);
-                }
+        List<URL> classpathURLs = new ArrayList<>();
+        for (String element : classpathElements) {
+            try {
+                classpathURLs.add(new File(element).toURI().toURL());
+            } catch (MalformedURLException e) {
+                throw new MojoExecutionException("Malformed classpath element: " + element, e);
             }
         }
 
-        var urlClassLoader = Objects.isNull(path) ? new URLClassLoader(classpathURLs.toArray(new URL[0]), getClass().getClassLoader()) : null;
+        var urlClassLoader = new URLClassLoader(classpathURLs.toArray(new URL[0]), getClass().getClassLoader());
 
-        var reflections = Objects.isNull(path) ?
-                new Reflections(new ConfigurationBuilder()
-                        .setUrls(ClasspathHelper.forClassLoader(urlClassLoader))
-                        .addClassLoaders(urlClassLoader)
-                        .addScanners(Scanners.MethodsAnnotated)) :
-                new Reflections(new ConfigurationBuilder()
-                        .setUrls(ClasspathHelper.forPackage(path))
-                        .setScanners(Scanners.MethodsAnnotated));
+        var reflections = new Reflections(new ConfigurationBuilder()
+                .setUrls(ClasspathHelper.forClassLoader(urlClassLoader))
+                .addClassLoaders(urlClassLoader)
+                .addScanners(Scanners.MethodsAnnotated));
 
         return reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
     }

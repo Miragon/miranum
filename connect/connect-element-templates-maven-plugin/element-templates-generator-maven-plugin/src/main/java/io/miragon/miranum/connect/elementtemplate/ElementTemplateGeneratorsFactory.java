@@ -4,12 +4,15 @@ import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.Camunda7Element
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 
-public class ElementTemplateGeneratorFactory {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static ElementTemplateGenerator[] create(TargetPlatform[] targetPlatform) {
-        ElementTemplateGenerator[] generators = new ElementTemplateGenerator[targetPlatform.length];
-        for (int i = 0; i < targetPlatform.length; i++) {
-            generators[i] = create(targetPlatform[i]);
+public class ElementTemplateGeneratorsFactory {
+
+    public static List<ElementTemplateGenerator> create(TargetPlatform[] targetPlatform) {
+        var generators = new ArrayList<ElementTemplateGenerator>(targetPlatform.length);
+        for (var platform : targetPlatform) {
+            generators.add(create(platform));
         }
         return generators;
     }

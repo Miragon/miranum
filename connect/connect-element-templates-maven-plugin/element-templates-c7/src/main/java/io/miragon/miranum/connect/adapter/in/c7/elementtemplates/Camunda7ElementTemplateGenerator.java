@@ -10,6 +10,7 @@ import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
+import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 import lombok.extern.java.Log;
 
 import java.util.Arrays;
@@ -94,7 +95,7 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         }
 
         var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
-        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json);
+        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json, TargetPlatform.camunda7);
     }
 
     private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {

@@ -12,4 +12,10 @@ public class ElementTemplateGenerationResult {
     private String version;
 
     private String json;
+
+    private TargetPlatform targetPlatform;
+
+    public String getFileName() {
+        return name + "-" + version + ".json";
+    }
 }
