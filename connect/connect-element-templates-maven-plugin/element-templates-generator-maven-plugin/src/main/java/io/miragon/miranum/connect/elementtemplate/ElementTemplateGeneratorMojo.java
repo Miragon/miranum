@@ -47,19 +47,19 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
      * Directory to output the generated element templates to.
      */
     @Parameter(property = "elementtemplategen.outputDirectory", defaultValue = "${project.build.directory/generated-sources/element-templates}")
-    private File outputDirectory;
+    File outputDirectory;
 
     /**
      * A flag indicating if the generation should be skipped.
      */
     @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
-    private Boolean skip;
+    Boolean skip;
 
     /**
      * All target platforms for which goal should be executed.
      */
     @Parameter(name = "targetPlatforms", property = "elementtemplategen.targetPlatforms", required = true)
-    private TargetPlatform[] targetPlatforms;
+    TargetPlatform[] targetPlatforms;
 
     @Override
     public void execute() throws MojoExecutionException {
