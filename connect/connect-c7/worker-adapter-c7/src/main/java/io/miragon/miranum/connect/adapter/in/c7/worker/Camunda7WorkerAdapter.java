@@ -1,5 +1,6 @@
 package io.miragon.miranum.connect.adapter.in.c7.worker;
 
+import io.miragon.miranum.connect.c7.utils.Camunda7PojoMapper;
 import io.miragon.miranum.connect.worker.api.BusinessException;
 import io.miragon.miranum.connect.worker.api.TechnicalException;
 import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
@@ -21,6 +22,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     private final ExternalTaskClient externalTaskClient;
     private final WorkerExecuteApi workerExecuteApi;
+    private final Camunda7PojoMapper camunda7Mapper;
 
     @Override
     public void subscribe(final WorkerExecutor executor) {
@@ -32,8 +34,9 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
         try {
-            final Map<String, Object> result = this.workerExecuteApi.execute(executor, externalTask.getAllVariablesTyped());
-            service.complete(externalTask, null, result);
+            final Map<String, Object> data = camunda7Mapper.mapFromEngineData(externalTask.getAllVariablesTyped());
+            final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
+            service.complete(externalTask, null, camunda7Mapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
             log.severe("use case could not be executed " + exception.getMessage());
             service.handleBpmnError(externalTask, exception.getCode());

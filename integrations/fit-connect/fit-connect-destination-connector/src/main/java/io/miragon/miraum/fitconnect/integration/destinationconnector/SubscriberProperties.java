@@ -12,7 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Valid
-public class AuthorityProperties {
+public class SubscriberProperties {
 
     @NotNull
     private Map<String, String> processDestinationMap;

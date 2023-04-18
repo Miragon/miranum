@@ -1,6 +1,6 @@
 package io.miragon.miraum.fitconnect.integration.destinationconnector.impl;
 
-import io.miragon.miraum.fitconnect.integration.destinationconnector.AuthorityProperties;
+import io.miragon.miraum.fitconnect.integration.destinationconnector.SubscriberProperties;
 import io.miragon.miraum.fitconnect.integration.destinationconnector.api.AuthorityApi;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @Service
 @AllArgsConstructor
-@EnableConfigurationProperties(AuthorityProperties.class)
+@EnableConfigurationProperties(SubscriberProperties.class)
 public class DestinationConnectorScheduler {
 
     private final AuthorityApi authorityApi;

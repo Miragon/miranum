@@ -9,7 +9,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.miragon.miranum.connect.process.api.ProcessApi;
-import io.miragon.miraum.fitconnect.integration.destinationconnector.AuthorityProperties;
+import io.miragon.miraum.fitconnect.integration.destinationconnector.SubscriberProperties;
 import io.miragon.miraum.fitconnect.integration.destinationconnector.api.AuthorityApi;
 import io.miragon.miraum.fitconnect.integration.gen.api.EinreichungsempfangApi;
 import io.miragon.miraum.fitconnect.integration.gen.model.SubmissionForPickup;
@@ -31,7 +31,7 @@ import java.util.UUID;
 public class AuthorityApiImpl implements AuthorityApi {
 
     private final EinreichungsempfangApi apiClient;
-    private final AuthorityProperties authorityProperties;
+    private final SubscriberProperties authorityProperties;
     private final ProcessApi processApi;
 
     @Override
