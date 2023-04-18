@@ -8,6 +8,11 @@
     <packaging>maven-plugin</packaging>
     <description>Maven plugin to generate element templates</description>
 
+    <organization>
+        <name>Miragon GmbH</name>
+        <url>https://www.miragon.io/</url>
+    </organization>
+
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
@@ -74,6 +79,16 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${org.apache.maven-plugins.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <build>
         <pluginManagement>
