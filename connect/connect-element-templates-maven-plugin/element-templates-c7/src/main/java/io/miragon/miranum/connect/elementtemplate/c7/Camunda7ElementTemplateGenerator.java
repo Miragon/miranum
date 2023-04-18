@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
+package io.miragon.miranum.connect.elementtemplate.c7;
 
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Binding;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;

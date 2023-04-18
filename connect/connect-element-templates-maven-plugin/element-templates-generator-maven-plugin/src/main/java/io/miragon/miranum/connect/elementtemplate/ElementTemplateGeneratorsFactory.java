@@ -1,6 +1,6 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.adapter.in.c7.elementtemplates.Camunda7ElementTemplateGenerator;
+import io.miragon.miranum.connect.elementtemplate.c7.Camunda7ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
 

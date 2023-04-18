@@ -1,9 +1,10 @@
-package io.miragon.miranum.connect.adapter.in.c7.elementtemplates;
+package io.miragon.miranum.connect.elementtemplates.c7;
 
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
+import io.miragon.miranum.connect.elementtemplate.c7.Camunda7ElementTemplateGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
