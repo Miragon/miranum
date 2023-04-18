@@ -59,7 +59,7 @@ class ElementTemplateGeneratorMojoTest {
     }
 
     @Test
-    public void testExecuteWithAnnotatedMethodsAndMultipleTargetPlatforms_ShouldGenerateElementTemplate() throws Exception {
+    public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
         mojo.skip = false;
         mojo.targetPlatforms = new TargetPlatform[]{TargetPlatform.camunda7};
@@ -79,6 +79,49 @@ class ElementTemplateGeneratorMojoTest {
             public void test() {
             }
         }
+        String filename = "test-1-0.json";
+
+        // Act
+        mojo.execute();
+
+        // Assert that file was generated for target
+        File platformDirectory = new File(mojo.outputDirectory, TargetPlatform.camunda7.name());
+        assertTrue(platformDirectory.exists());
+        assertTrue(new File(platformDirectory, filename).exists());
+    }
+
+    @Test
+    public void testExecuteWithMultipleAnnotatedMethods_ShouldGenerateElementTemplate() throws Exception {
+        // Arrange
+        mojo.skip = false;
+        mojo.targetPlatforms = new TargetPlatform[]{TargetPlatform.camunda7};
+
+        // .class file gets generated in target/test-classes
+        when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
+
+        // Create a test class with a method annotated with @GenerateElementTemplate
+        class Test {
+
+            @GenerateElementTemplate(
+                    type = "test1",
+                    name = "Test1",
+                    id = "test1",
+                    appliesTo = BPMNElementType.BPMN_SERVICE_TASK,
+                    version = "1-0")
+            public void test1() {
+            }
+
+            @GenerateElementTemplate(
+                    type = "test2",
+                    name = "Test2",
+                    id = "test2",
+                    appliesTo = BPMNElementType.BPMN_SERVICE_TASK,
+                    version = "1-0")
+            public void test2() {
+            }
+        }
+        String filename1 = "test1-1-0.json";
+        String filename2 = "test2-1-0.json";
 
         // Act
         mojo.execute();
@@ -86,5 +129,9 @@ class ElementTemplateGeneratorMojoTest {
         // Assert that files were generated for target
         File platformDirectory = new File(mojo.outputDirectory, TargetPlatform.camunda7.name());
         assertTrue(platformDirectory.exists());
+        assertTrue(new File(platformDirectory, filename1).exists());
+
+        assertTrue(platformDirectory.exists());
+        assertTrue(new File(platformDirectory, filename2).exists());
     }
 }
