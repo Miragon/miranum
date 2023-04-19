@@ -1,0 +1,127 @@
+@startuml
+class Camunda8ElementTemplate {
+
+    - String name
+    - String id
+    - String description
+    - String version
+    - Boolean isDefault
+    - List<String> appliesTo
+    - ElementType elementType
+    - Metadata metadata
+    - Boolean entriesVisible
+    - List<Group> groups
+    - String documentationRef
+
+    - Property property
+    - Icon icon
+}
+Camunda8ElementTemplate --> Property
+Camunda8ElementTemplate --> Metadata
+Camunda8ElementTemplate --> Group
+Camunda8ElementTemplate --> ElementType
+Camunda8ElementTemplate --> Icon
+
+class Metadata {}
+
+class Group {
+
+    - String id
+    - String label
+
+}
+
+class ElementType {
+
+    - String value
+
+}
+
+class Icon {
+
+    String contents
+
+}
+
+class Property {
+
+    - String id
+    - Object value
+    - String description
+    - String label
+    - String type
+    - Boolean editable
+    - List<Item> choices
+    - Constraints constraints
+    - String group
+    - Condition condition
+    - List<ExtendProperty> extendProperty
+
+}
+Property --> Item
+Property --> Constraints
+Property --> Condition
+Property --> ExtendProperty
+
+class Item {
+
+    - String name
+    - String value
+
+}
+
+class Condition {
+
+    - String TYPE = "simple"
+    - String property
+
+}
+
+class Constraints {
+
+    - Boolean notEmpty
+    - Double minLength
+    - Double maxLength
+    - Pattern pattern
+
+}
+Constraints --> Pattern
+
+class Pattern {
+
+    - String value
+    - String message
+
+}
+
+class ExtendProperty {
+
+    - Binding binding
+    - Boolean optional
+    - String feel
+    - String language
+
+}
+ExtendProperty --> Binding
+
+class Binding {
+
+    - Type type
+    - String name
+    - String source
+    - String key
+
+}
+Binding --> Type
+
+enum Type {
+
+    PROPERTY
+    ZEEBE_TASKDEFINITION_TYPE
+    ZEEBE_INPUT
+    ZEEBE_OUTPUT
+    ZEEBE_TASKHEADER
+
+}
+
+@enduml
