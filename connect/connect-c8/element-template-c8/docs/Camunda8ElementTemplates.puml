@@ -59,7 +59,6 @@ class Property {
     - List<Item> choices
     - Constraints constraints
     - Condition condition
-    - List<ExtendProperty> extendProperty
     - Binding binding
 
 }
@@ -79,8 +78,8 @@ class Condition {
 
     - String TYPE = "simple"
     - String property
-    - String equals
-    - List<String> oneOf
+    - Object equals
+    - List<Object> oneOf
 
 }
 
