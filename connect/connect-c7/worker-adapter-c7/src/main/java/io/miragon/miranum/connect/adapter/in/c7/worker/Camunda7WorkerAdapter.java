@@ -22,7 +22,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     private final ExternalTaskClient externalTaskClient;
     private final WorkerExecuteApi workerExecuteApi;
-    private final Camunda7PojoMapper camunda7Mapper;
+    private final Camunda7PojoMapper camunda7PojoMapper;
 
     @Override
     public void subscribe(final WorkerExecutor executor) {
@@ -34,9 +34,9 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
         try {
-            final Map<String, Object> data = camunda7Mapper.mapFromEngineData(externalTask.getAllVariablesTyped());
+            final Map<String, Object> data = camunda7PojoMapper.mapFromEngineData(externalTask.getAllVariablesTyped());
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
-            service.complete(externalTask, null, camunda7Mapper.mapToEngineData(result));
+            service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
             log.severe("use case could not be executed " + exception.getMessage());
             service.handleBpmnError(externalTask, exception.getCode());
