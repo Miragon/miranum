@@ -4,23 +4,24 @@ class Camunda8ElementTemplate {
     - String name
     - String id
     - String description
-    - String version
+    - String documentationRef
+    - Integer version
     - Boolean isDefault
     - List<String> appliesTo
     - ElementType elementType
     - Metadata metadata
     - Boolean entriesVisible
     - List<Group> groups
-    - String documentationRef
 
     - Property property
     - Icon icon
+    
 }
-Camunda8ElementTemplate --> Property
-Camunda8ElementTemplate --> Metadata
-Camunda8ElementTemplate --> Group
-Camunda8ElementTemplate --> ElementType
-Camunda8ElementTemplate --> Icon
+Camunda8ElementTemplate::property -- Property
+Camunda8ElementTemplate::metadata -- Metadata
+Camunda8ElementTemplate::group -- Group
+Camunda8ElementTemplate::elementType -- ElementType
+Camunda8ElementTemplate::icon -- Icon
 
 class Metadata {}
 
@@ -45,23 +46,27 @@ class Icon {
 
 class Property {
 
-    - String id
-    - Object value
-    - String description
     - String label
+    - String id
+    - String description
+    - String group
     - String type
+    - String feel
+    - String language
+    - Boolean optional
+    - Object value
     - Boolean editable
     - List<Item> choices
     - Constraints constraints
-    - String group
     - Condition condition
     - List<ExtendProperty> extendProperty
+    - Binding binding
 
 }
-Property --> Item
-Property --> Constraints
-Property --> Condition
-Property --> ExtendProperty
+Property::item -- Item
+Property::constraints -- Constraints
+Property::condition -- Condition
+Property::binding -- Binding
 
 class Item {
 
@@ -74,6 +79,8 @@ class Condition {
 
     - String TYPE = "simple"
     - String property
+    - String equals
+    - List<String> oneOf
 
 }
 
@@ -85,7 +92,7 @@ class Constraints {
     - Pattern pattern
 
 }
-Constraints --> Pattern
+Constraints::pattern -- Pattern
 
 class Pattern {
 
@@ -93,16 +100,6 @@ class Pattern {
     - String message
 
 }
-
-class ExtendProperty {
-
-    - Binding binding
-    - Boolean optional
-    - String feel
-    - String language
-
-}
-ExtendProperty --> Binding
 
 class Binding {
 
@@ -112,7 +109,7 @@ class Binding {
     - String key
 
 }
-Binding --> Type
+Binding::type -- Type
 
 enum Type {
 
