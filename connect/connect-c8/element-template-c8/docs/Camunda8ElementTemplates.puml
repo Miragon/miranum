@@ -4,7 +4,6 @@ class Camunda8ElementTemplate {
     - String name
     - String id
     - String description
-    - String documentationRef
     - Integer version
     - Boolean isDefault
     - List<String> appliesTo
@@ -12,12 +11,12 @@ class Camunda8ElementTemplate {
     - Metadata metadata
     - Boolean entriesVisible
     - List<Group> groups
-
-    - Property property
+    - String documentationRef
+    - List<Property> properties
     - Icon icon
-    
+
 }
-Camunda8ElementTemplate::property -- Property
+Camunda8ElementTemplate::properties -- Property
 Camunda8ElementTemplate::metadata -- Metadata
 Camunda8ElementTemplate::group -- Group
 Camunda8ElementTemplate::elementType -- ElementType
@@ -46,28 +45,28 @@ class Icon {
 
 class Property {
 
-    - String label
     - String id
-    - String description
-    - String group
-    - String type
-    - String feel
-    - String language
-    - Boolean optional
     - Object value
+    - String description
+    - String label
+    - String type
     - Boolean editable
-    - List<Item> choices
+    - List<Choice> choices
     - Constraints constraints
+    - String group
     - Condition condition
     - Binding binding
+    - Boolean optional
+    - String feel
+    - String language
 
 }
-Property::item -- Item
+Property::choices -- Choice
 Property::constraints -- Constraints
 Property::condition -- Condition
 Property::binding -- Binding
 
-class Item {
+class Choice {
 
     - String name
     - String value
@@ -83,21 +82,22 @@ class Condition {
 
 }
 
-class Constraints {
+together {
+    class Constraints {
 
-    - Boolean notEmpty
-    - Double minLength
-    - Double maxLength
-    - Pattern pattern
+        - Boolean notEmpty
+        - Double minLength
+        - Double maxLength
+        - String pattern
 
-}
-Constraints::pattern -- Pattern
+    }
 
-class Pattern {
+    class Pattern {
 
-    - String value
-    - String message
+        - String value
+        - String message
 
+    }
 }
 
 class Binding {
@@ -114,8 +114,10 @@ enum Type {
 
     PROPERTY
     ZEEBE_TASKDEFINITION_TYPE
+    ZEEBE_TASKDEFINITION_RETRIES
     ZEEBE_INPUT
     ZEEBE_OUTPUT
+    ZEEBE_PROPERTY
     ZEEBE_TASKHEADER
 
 }
