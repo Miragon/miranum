@@ -1,6 +1,5 @@
 @startuml
 class Camunda8ElementTemplate {
-
     - String name
     - String id
     - String description
@@ -14,8 +13,19 @@ class Camunda8ElementTemplate {
     - String documentationRef
     - List<Property> properties
     - Icon icon
-
 }
+note right of Camunda8ElementTemplate::name
+    Required
+end note
+note right of Camunda8ElementTemplate::id
+    Required
+end note
+note right of Camunda8ElementTemplate::appliesTo
+    Required
+end note
+note right of Camunda8ElementTemplate::properties
+    Required
+end note
 Camunda8ElementTemplate::properties -- Property
 Camunda8ElementTemplate::metadata -- Metadata
 Camunda8ElementTemplate::group -- Group
@@ -25,26 +35,31 @@ Camunda8ElementTemplate::icon -- Icon
 class Metadata {}
 
 class Group {
-
     - String id
     - String label
-
 }
+note right of Group::id
+    Required
+end note
+note right of Group::label
+    Required
+end note
 
 class ElementType {
-
     - String value
-
 }
+note right of ElementType::value
+    Required
+end note
 
 class Icon {
-
     String contents
-
 }
+note right of Icon::contents
+    Required
+end note
 
 class Property {
-
     - String id
     - Object value
     - String description
@@ -59,59 +74,93 @@ class Property {
     - Boolean optional
     - String feel
     - String language
-
 }
+note right of Property::binding
+    Required
+end note
 Property::choices -- Choice
 Property::constraints -- Constraints
 Property::condition -- Condition
 Property::binding -- Binding
 
 class Choice {
-
     - String name
     - String value
-
 }
+note right of Choice::name
+    Required
+end note
+note right of Choice::value
+    Required
+end note
 
-class Condition {
+together {
+    interface Condition {}
 
-    - String TYPE = "simple"
-    - String property
-    - Object equals
-    - List<Object> oneOf
+    class SingleCondition implements Condition {
+        - String TYPE = "simple"
+        - String property
+        - Expression expression
+    }
+    note right of SingleCondition::property
+        Required
+    end note
+    note right of SingleCondition::expression
+        @JsonUnrapped to flatten the Object
+    end note
+    SingleCondition::expression -- Expression
 
+    interface Expression {}
+
+    class Equals implements Expression {
+        - Object equals
+    }
+
+    class OneOf implements Expression {
+        - List<Object> oneOf
+    }
+
+    class MultipleCondition implements Condition {
+        - List<SingleCondition> allMatch
+    }
+    note right of MultipleCondition::allMatch
+        Required
+    end note
 }
 
 together {
     class Constraints {
-
         - Boolean notEmpty
         - Double minLength
         - Double maxLength
         - String pattern
-
     }
+    Constraints::pattern -[hidden]- Pattern
 
-    class Pattern {
+    interface Pattern {}
 
+    class PatternObject implements Pattern {
         - String value
         - String message
+    }
 
+    class PatternString implements Pattern {
+        - String pattern
     }
 }
 
 class Binding {
-
     - Type type
     - String name
     - String source
     - String key
-
 }
+note right of Binding::type
+    Required
+end note
 Binding::type -- Type
 
 enum Type {
-
     PROPERTY
     ZEEBE_TASKDEFINITION_TYPE
     ZEEBE_TASKDEFINITION_RETRIES
@@ -119,7 +168,6 @@ enum Type {
     ZEEBE_OUTPUT
     ZEEBE_PROPERTY
     ZEEBE_TASKHEADER
-
 }
 
 @enduml

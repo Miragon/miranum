@@ -4,56 +4,52 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 /**
- * element type
+ * property condition
  * <p>
- * The BPMN type the element will be transformed into
+ * Condition(s) to activate the binding
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "value"
+        "allMatch"
 })
-public class ElementType
+public class MultipleConditions implements Condition
 {
     /**
-     * element type value
-     * <p>
-     * The identifier of the element template
+     * condition allMatch
      * (Required)
      */
-    @JsonProperty("value")
-    private String value;
+    @JsonProperty("allMatch")
+    private List<SingleCondition> allMatch = new ArrayList<>();
 
     /**
-     * element type value
-     * <p>
-     * The identifier of the element template
+     * condition allMatch
      * (Required)
      */
-    @JsonProperty("value")
-    public String getValue()
+    @JsonProperty("allMatch")
+    public List<SingleCondition> getAllMatch()
     {
-        return value;
+        return allMatch;
     }
 
     /**
-     * element type value
-     * <p>
-     * The identifier of the element template
+     * condition allMatch
      * (Required)
      */
-    @JsonProperty("value")
-    public void setValue(String value)
+    @JsonProperty("allMatch")
+    public void setAllMatch(List<SingleCondition> allMatch)
     {
-        this.value = value;
+        this.allMatch = allMatch;
     }
 
-    public ElementType withValue(String value)
+    public Condition withAllMatch(List<SingleCondition> allMatch)
     {
-        this.value = value;
+        this.allMatch = allMatch;
         return this;
     }
 
@@ -61,10 +57,10 @@ public class ElementType
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(ElementType.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("value");
+        sb.append(Condition.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("allMatch");
         sb.append('=');
-        sb.append(((this.value == null) ? "<null>" : this.value));
+        sb.append(((this.allMatch == null) ? "<null>" : this.allMatch));
         sb.append(',');
         if (sb.charAt((sb.length() - 1)) == ',')
         {
@@ -80,7 +76,7 @@ public class ElementType
     public int hashCode()
     {
         int result = 1;
-        result = ((result * 31) + ((this.value == null) ? 0 : this.value.hashCode()));
+        result = ((result * 31) + ((this.allMatch == null) ? 0 : this.allMatch.hashCode()));
         return result;
     }
 
@@ -91,10 +87,11 @@ public class ElementType
         {
             return true;
         }
-        if (!(other instanceof ElementType rhs))
+        if (!(other instanceof MultipleConditions rhs))
         {
             return false;
         }
-        return Objects.equals(this.value, rhs.value);
+        return Objects.equals(this.allMatch, rhs.allMatch);
+
     }
 }

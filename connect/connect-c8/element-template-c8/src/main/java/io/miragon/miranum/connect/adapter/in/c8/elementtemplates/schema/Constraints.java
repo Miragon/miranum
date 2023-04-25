@@ -175,7 +175,7 @@ public class Constraints
     {
         StringBuilder sb = new StringBuilder();
         sb.append(Constraints.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
-        sb.append("name");
+        sb.append("notEmpty");
         sb.append('=');
         sb.append(((this.notEmpty == null) ? "<null>" : this.notEmpty));
         sb.append(',');

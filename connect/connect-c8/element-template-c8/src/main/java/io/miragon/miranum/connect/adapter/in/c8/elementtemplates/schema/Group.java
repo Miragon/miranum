@@ -18,7 +18,6 @@ import java.util.Objects;
         "id",
         "label"
 })
-
 public class Group
 {
     /**
@@ -144,8 +143,7 @@ public class Group
         {
             return false;
         }
-        return ((
-                Objects.equals(this.id, rhs.id)) &&
+        return ((Objects.equals(this.id, rhs.id)) &&
                 (Objects.equals(this.label, rhs.label)));
     }
 }

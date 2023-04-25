@@ -30,7 +30,6 @@ import java.util.Objects;
         "properties",
         "icon"
 })
-
 public class CamundaC8ElementTemplate
 {
     /**
@@ -288,9 +287,9 @@ public class CamundaC8ElementTemplate
      * Indicates whether the element template is a default template
      */
     @JsonProperty("isDefault")
-    public void setIsDefault(Boolean aDefault)
+    public void setIsDefault(Boolean isDefault)
     {
-        isDefault = aDefault;
+        this.isDefault = isDefault;
     }
 
     public CamundaC8ElementTemplate withIsDefault(Boolean isDefault)
@@ -309,6 +308,18 @@ public class CamundaC8ElementTemplate
     public List<String> getAppliesTo()
     {
         return appliesTo;
+    }
+
+    /**
+     * element template appliesTo
+     * <p>
+     * List of BPMN types the template can be applied to
+     * (Required)
+     */
+    @JsonProperty("appliesTo")
+    public void setAppliesTo(List<String> appliesTo)
+    {
+        this.appliesTo = appliesTo;
     }
 
     public CamundaC8ElementTemplate withAppliesTo(List<String> appliesTo)
@@ -410,6 +421,17 @@ public class CamundaC8ElementTemplate
     public List<Group> getGroups()
     {
         return groups;
+    }
+
+    /**
+     * element template groups
+     * <p>
+     * Custom fields can be ordered together via groups
+     */
+    @JsonProperty("groups")
+    public void setGroups(List<Group> groups)
+    {
+        this.groups = groups;
     }
 
     public CamundaC8ElementTemplate withGroups(List<Group> groups)
@@ -571,19 +593,19 @@ public class CamundaC8ElementTemplate
     public int hashCode()
     {
         int result = 1;
+        result = ((result * 31) + ((this.name == null) ? 0 : this.name.hashCode()));
+        result = ((result * 31) + ((this.id == null) ? 0 : this.id.hashCode()));
+        result = ((result * 31) + ((this.description == null) ? 0 : this.description.hashCode()));
+        result = ((result * 31) + ((this.version == null) ? 0 : this.version.hashCode()));
         result = ((result * 31) + ((this.isDefault == null) ? 0 : this.isDefault.hashCode()));
+        result = ((result * 31) + ((this.appliesTo == null) ? 0 : this.appliesTo.hashCode()));
+        result = ((result * 31) + ((this.elementType == null) ? 0 : this.elementType.hashCode()));
         result = ((result * 31) + ((this.metadata == null) ? 0 : this.metadata.hashCode()));
         result = ((result * 31) + ((this.entriesVisible == null) ? 0 : this.entriesVisible.hashCode()));
-        result = ((result * 31) + ((this.name == null) ? 0 : this.name.hashCode()));
-        result = ((result * 31) + ((this.description == null) ? 0 : this.description.hashCode()));
-        result = ((result * 31) + ((this.appliesTo == null) ? 0 : this.appliesTo.hashCode()));
-        result = ((result * 31) + ((this.id == null) ? 0 : this.id.hashCode()));
         result = ((result * 31) + ((this.groups == null) ? 0 : this.groups.hashCode()));
-        result = ((result * 31) + ((this.version == null) ? 0 : this.version.hashCode()));
+        result = ((result * 31) + ((this.documentationRef == null) ? 0 : this.documentationRef.hashCode()));
         result = ((result * 31) + ((this.properties == null) ? 0 : this.properties.hashCode()));
         result = ((result * 31) + ((this.icon == null) ? 0 : this.icon.hashCode()));
-        result = ((result * 31) + ((this.elementType == null) ? 0 : this.elementType.hashCode()));
-        result = ((result * 31) + ((this.documentationRef == null) ? 0 : this.documentationRef.hashCode()));
         return result;
     }
 
@@ -599,18 +621,18 @@ public class CamundaC8ElementTemplate
             return false;
         }
         return (((((((((((((
-                Objects.equals(this.isDefault, rhs.isDefault)) &&
+                Objects.equals(this.name, rhs.name)) &&
+                (Objects.equals(this.id, rhs.id))) &&
+                (Objects.equals(this.description, rhs.description))) &&
+                (Objects.equals(this.version, rhs.version))) &&
+                (Objects.equals(this.isDefault, rhs.isDefault))) &&
+                (Objects.equals(this.appliesTo, rhs.appliesTo))) &&
+                (Objects.equals(this.elementType, rhs.elementType))) &&
                 (Objects.equals(this.metadata, rhs.metadata))) &&
                 (Objects.equals(this.entriesVisible, rhs.entriesVisible))) &&
-                (Objects.equals(this.name, rhs.name))) &&
-                (Objects.equals(this.description, rhs.description))) &&
-                (Objects.equals(this.appliesTo, rhs.appliesTo))) &&
-                (Objects.equals(this.id, rhs.id))) &&
                 (Objects.equals(this.groups, rhs.groups))) &&
-                (Objects.equals(this.version, rhs.version))) &&
+                (Objects.equals(this.documentationRef, rhs.documentationRef))) &&
                 (Objects.equals(this.properties, rhs.properties))) &&
-                (Objects.equals(this.icon, rhs.icon))) &&
-                (Objects.equals(this.elementType, rhs.elementType))) &&
-                (Objects.equals(this.documentationRef, rhs.documentationRef)));
+                (Objects.equals(this.icon, rhs.icon)));
     }
 }

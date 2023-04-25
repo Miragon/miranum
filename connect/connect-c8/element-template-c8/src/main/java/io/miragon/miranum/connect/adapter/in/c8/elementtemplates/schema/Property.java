@@ -32,7 +32,6 @@ import java.util.Objects;
         "feel",
         "language"
 })
-
 public class Property
 {
     /**
@@ -129,6 +128,7 @@ public class Property
      * property binding
      * <p>
      * Specifying how the property is mapped to BPMN or Zeebe extension elements and attributes
+     * (Required)
      */
     @JsonProperty("binding")
     @JsonPropertyDescription("Specifying how the property is mapped to BPMN or Zeebe extension elements and attributes")
@@ -445,6 +445,7 @@ public class Property
      * property binding
      * <p>
      * Specifying how the property is mapped to BPMN or Zeebe extension elements and attributes
+     * (Required)
      */
     @JsonProperty("binding")
     public Binding getBinding()
@@ -456,6 +457,7 @@ public class Property
      * property binding
      * <p>
      * Specifying how the property is mapped to BPMN or Zeebe extension elements and attributes
+     * (Required)
      */
     @JsonProperty("binding")
     public void setBinding(Binding binding)

@@ -15,7 +15,6 @@ import java.util.Objects;
 @JsonPropertyOrder({
 
 })
-
 public class Metadata
 {
     @JsonIgnore
