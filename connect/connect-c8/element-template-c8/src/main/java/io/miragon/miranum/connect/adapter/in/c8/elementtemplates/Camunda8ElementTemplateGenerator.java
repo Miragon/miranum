@@ -1,9 +1,9 @@
 package io.miragon.miranum.connect.adapter.in.c8.elementtemplates;
 
-import io.miragon.miranum.connect.c8.elementtemplates.gen.Binding;
-import io.miragon.miranum.connect.c8.elementtemplates.gen.CamundaC8ElementTemplate;
-import io.miragon.miranum.connect.c8.elementtemplates.gen.Constraints;
-import io.miragon.miranum.connect.c8.elementtemplates.gen.Property;
+import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.Binding;
+import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.CamundaC8ElementTemplate;
+import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.Constraints;
+import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.Property;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
@@ -16,10 +16,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Log
-public class Camunda8ElementTemplateGenerator implements GenerateElementTemplatePort {
+public class Camunda8ElementTemplateGenerator implements GenerateElementTemplatePort
+{
 
     @Override
-    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
+    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo)
+    {
         var elementTemplate = new CamundaC8ElementTemplate()
                 .withName(elementTemplateInfo.getName())
                 .withId(elementTemplateInfo.getId())
@@ -54,8 +56,10 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
         elementTemplate.getProperties().add(implementationTopicProperty);
 
         // Add properties for input parameters
-        if (!Objects.isNull(elementTemplateInfo.getInputType())) {
-            for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
+        if (!Objects.isNull(elementTemplateInfo.getInputType()))
+        {
+            for (var field : elementTemplateInfo.getInputType().getDeclaredFields())
+            {
                 var type = PropertyType.getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
                 var property = createPropertyWithPossibleAnnotation(
@@ -65,7 +69,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         annotation);
 
                 var binding = new Binding()
-                        .withType(Binding.Type.CAMUNDA_INPUT_PARAMETER)
+                        .withType(Binding.Type.ZEEBE_INPUT)
                         .withName(field.getName());
 
                 property.setBinding(binding);
@@ -74,8 +78,10 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
         }
 
         // Add properties for output parameters
-        if (!Objects.isNull(elementTemplateInfo.getOutputType())) {
-            for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
+        if (!Objects.isNull(elementTemplateInfo.getOutputType()))
+        {
+            for (var field : elementTemplateInfo.getOutputType().getDeclaredFields())
+            {
                 var type = PropertyType.getType(field.getType());
                 var annotation = field.getAnnotation(ElementTemplateProperty.class);
                 var property = createPropertyWithPossibleAnnotation(
@@ -85,7 +91,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         annotation);
 
                 var binding = new Binding()
-                        .withType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER)
+                        .withType(Binding.Type.ZEEBE_OUTPUT)
                         .withSource("${" + field.getName() + "}");
 
                 property.setBinding(binding);
@@ -97,14 +103,16 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
         return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json);
     }
 
-    private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
+    private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation)
+    {
         var property = new Property()
                 .withLabel(label)
                 .withType(type.getType())
                 .withChoices(null)
                 .withValue(value);
 
-        if (!Objects.isNull(propertyAnnotation)) {
+        if (!Objects.isNull(propertyAnnotation))
+        {
             property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());
             property.setType(Objects.isNull(propertyAnnotation.type()) ? type.getType() : propertyAnnotation.type().getType());
             property.setEditable(propertyAnnotation.editable());
