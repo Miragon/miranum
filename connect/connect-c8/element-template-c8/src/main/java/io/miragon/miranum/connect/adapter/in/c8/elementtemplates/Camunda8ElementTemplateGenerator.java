@@ -48,7 +48,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                 var property = createPropertyWithPossibleAnnotation(
                         field.getName(),
                         type,
-                        "",
+                        "=",
                         annotation);
 
                 var binding = new Binding()
@@ -75,7 +75,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
 
                 var binding = new Binding()
                         .withType(Binding.Type.ZEEBE_OUTPUT)
-                        .withSource("${" + field.getName() + "}");
+                        .withSource("=" + field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);

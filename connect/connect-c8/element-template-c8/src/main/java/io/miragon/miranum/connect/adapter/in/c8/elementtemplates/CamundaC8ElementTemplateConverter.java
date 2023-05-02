@@ -8,7 +8,7 @@ import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.CamundaC
 public class CamundaC8ElementTemplateConverter
 {
 
-    private static final String $SCHEMA = "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.1.0/resources/schema.json";
+    private static final String $SCHEMA = "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.8.0/resources/schema.json";
 
     public static String toJsonString(CamundaC8ElementTemplate elementTemplate)
     {
