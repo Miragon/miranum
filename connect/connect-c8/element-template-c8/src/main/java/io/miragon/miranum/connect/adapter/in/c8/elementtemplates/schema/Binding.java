@@ -241,12 +241,12 @@ public class Binding
     public enum Type
     {
         PROPERTY("property"),
-        ZEEBE_TASKDEFINITION_TYPE("zeebe:taskdefinition:type"),
-        ZEEBE_TASKDEFINITION_RETRIES("zeebe:taskdefinition:retries"),
+        ZEEBE_TASKDEFINITION_TYPE("zeebe:taskDefinition:type"),
+        ZEEBE_TASKDEFINITION_RETRIES("zeebe:taskDefinition:retries"),
         ZEEBE_INPUT("zeebe:input"),
         ZEEBE_OUTPUT("zeebe:output"),
         ZEEBE_PROPERTY("zeebe:property"),
-        ZEEBE_TASKHEADER("zeebe:taskheader");
+        ZEEBE_TASKHEADER("zeebe:taskHeader");
         private final String value;
         private final static Map<String, Type> CONSTANTS = new HashMap<String, Type>();
 

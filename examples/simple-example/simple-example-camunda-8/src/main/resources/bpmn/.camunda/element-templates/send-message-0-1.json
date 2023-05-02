@@ -1,0 +1,48 @@
+{
+  "$schema" : "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.1.0/resources/schema.json",
+  "name" : "Send Message",
+  "id" : "send-message",
+  "appliesTo" : [ "bpmn:ServiceTask" ],
+  "groups" : [ ],
+  "properties" : [ {
+    "value" : "sendMessage",
+    "label" : "Topic",
+    "type" : "String",
+    "editable" : false,
+    "binding" : {
+      "type" : "zeebe:taskDefinition:type"
+    }
+  }, {
+    "value" : "",
+    "label" : "content",
+    "type" : "String",
+    "editable" : true,
+    "constraints" : {
+      "notEmpty" : false
+    },
+    "binding" : {
+      "type" : "zeebe:input",
+      "name" : "content"
+    }
+  }, {
+    "value" : "",
+    "label" : "key",
+    "type" : "String",
+    "editable" : true,
+    "constraints" : {
+      "notEmpty" : false
+    },
+    "binding" : {
+      "type" : "zeebe:input",
+      "name" : "key"
+    }
+  }, {
+    "value" : "textResult",
+    "label" : "text",
+    "type" : "String",
+    "binding" : {
+      "type" : "zeebe:output",
+      "source" : "${text}"
+    }
+  } ]
+}
