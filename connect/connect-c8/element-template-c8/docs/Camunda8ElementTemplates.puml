@@ -135,7 +135,11 @@ together {
         - Double maxLength
         - String pattern
     }
-    Constraints::pattern -[hidden]- Pattern
+    Constraints::pattern -[#red]- Pattern
+    note right on link #red
+        According to the JSONSchema, pattern can be
+        either of type String or of type Pattern.
+    end note
 
     interface Pattern {}
 
