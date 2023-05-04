@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(AuthorityProperties.class)
-public class AuthorityApiAutoConfiguration {
+@EnableConfigurationProperties(SubscriberProperties.class)
+public class SubscriberApiAutoConfiguration {
 
     @Bean
-    public AuthorityApi authorityApi(final EinreichungsempfangApi einreichungsempfangApi, final AuthorityProperties authorityProperties, final ProcessApi processApi) {
+    public AuthorityApi authorityApi(final EinreichungsempfangApi einreichungsempfangApi, final SubscriberProperties authorityProperties, final ProcessApi processApi) {
         return new AuthorityApiImpl(einreichungsempfangApi, authorityProperties, processApi);
     }
 

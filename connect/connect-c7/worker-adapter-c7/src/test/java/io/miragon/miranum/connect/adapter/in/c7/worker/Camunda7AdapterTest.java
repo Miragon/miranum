@@ -1,5 +1,7 @@
 package io.miragon.miranum.connect.adapter.in.c7.worker;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.miragon.miranum.connect.c7.utils.Camunda7PojoMapper;
 import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import org.camunda.bpm.client.ExternalTaskClient;
@@ -7,6 +9,7 @@ import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
 import org.camunda.bpm.client.topic.TopicSubscription;
 import org.camunda.bpm.client.topic.TopicSubscriptionBuilder;
+import org.camunda.bpm.engine.variable.Variables;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -24,8 +27,11 @@ public class Camunda7AdapterTest {
     private final WorkerExecuteApi workerExecuteApi =
             Mockito.mock(WorkerExecuteApi.class);
 
+    private final Camunda7PojoMapper mapper =
+            Mockito.mock(Camunda7PojoMapper.class);
+
     private final Camunda7WorkerAdapter adapter =
-            new Camunda7WorkerAdapter(this.externalTaskClient, this.workerExecuteApi);
+            new Camunda7WorkerAdapter(this.externalTaskClient, this.workerExecuteApi, mapper);
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
@@ -46,13 +52,15 @@ public class Camunda7AdapterTest {
     }
 
     @Test
-    void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() {
+    void givenDefaultUseCaseAndSuccessfulTask_thenEverythingGetsExecuted() throws JsonProcessingException {
         final WorkerExecutor defaultWorker = this.givenDefaultExecutor("defaultWorker", 100L);
         final ExternalTask externalTask = this.givenDefaultTask();
         final ExternalTaskService service = this.givenExternalTaskService();
         final Map<String, Object> result = Map.of("value", "test");
 
         given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
+        given(mapper.mapFromEngineData(any())).willReturn(result);
+        given(mapper.mapToEngineData(any())).willReturn(Variables.fromMap(result));
 
         this.adapter.execute(defaultWorker, externalTask, service);
 
