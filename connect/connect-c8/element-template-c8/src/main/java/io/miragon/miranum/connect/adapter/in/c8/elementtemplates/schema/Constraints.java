@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * property constraints
@@ -18,7 +19,8 @@ import lombok.*;
         "maxLength",
         "pattern"
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class Constraints
 {
     /**

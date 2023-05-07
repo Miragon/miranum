@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
+import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +18,8 @@ import java.util.List;
 @JsonPropertyOrder({
         "allMatch"
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class MultipleConditions implements Condition
 {
     /**
@@ -24,5 +27,5 @@ public class MultipleConditions implements Condition
      * (Required)
      */
     @JsonProperty("allMatch")
-    private List<SingleCondition> allMatch;
+    private List<SingleCondition> allMatch = new ArrayList<>();
 }

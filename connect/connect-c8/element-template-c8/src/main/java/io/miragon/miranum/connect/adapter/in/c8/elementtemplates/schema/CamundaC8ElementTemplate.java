@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
+import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,8 @@ import java.util.List;
         "properties",
         "icon"
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class CamundaC8ElementTemplate
 {
     /**
@@ -89,7 +92,7 @@ public class CamundaC8ElementTemplate
      */
     @JsonProperty("appliesTo")
     @JsonPropertyDescription("List of BPMN types the template can be applied to")
-    private List<String> appliesTo;
+    private List<String> appliesTo = new ArrayList<>();
 
     /**
      * element template elementType
@@ -125,7 +128,7 @@ public class CamundaC8ElementTemplate
      */
     @JsonProperty("groups")
     @JsonPropertyDescription("Custom fields can be ordered together via groups")
-    private List<Group> groups;
+    private List<Group> groups = new ArrayList<>();
 
     /**
      * element template documentationRef
@@ -141,7 +144,8 @@ public class CamundaC8ElementTemplate
      */
     @JsonProperty("properties")
     @JsonPropertyDescription("List of properties of the element template")
-    private List<Property> properties;
+    @Singular
+    private List<Property> properties = new ArrayList<>();
 
     /**
      * element template icon

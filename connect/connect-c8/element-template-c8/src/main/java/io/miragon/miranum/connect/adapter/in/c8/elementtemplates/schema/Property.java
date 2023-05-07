@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
+import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +33,8 @@ import java.util.List;
         "feel",
         "language"
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class Property
 {
     /**
@@ -95,7 +98,7 @@ public class Property
      */
     @JsonProperty("choices")
     @JsonPropertyDescription("The choices for dropdown fields")
-    private List<Choice> choices;
+    private List<Choice> choices = new ArrayList<>();
 
     /**
      * property constraints

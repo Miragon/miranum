@@ -22,23 +22,20 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo)
     {
-        var elementTemplate = CamundaC8ElementTemplate.builder()
-                .name(elementTemplateInfo.getName())
-                .id(elementTemplateInfo.getId())
-                .appliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList())
-                .build();
+        var elementTemplate = new CamundaC8ElementTemplate()
+                .setName(elementTemplateInfo.getName())
+                .setId(elementTemplateInfo.getId())
+                .setAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
 
         // Add property for the topic of the external task
-        var implementationTopicProperty = Property.builder()
-                .label("Topic")
-                .type(PropertyType.STRING.getType())
-                .value(elementTemplateInfo.getType())
-                .editable(false)
-                .choices(null)
-                .binding(Binding.builder()
-                        .type(Binding.Type.ZEEBE_TASKDEFINITION_TYPE)
-                        .build())
-                .build();
+        var implementationTopicProperty = new Property()
+                .setLabel("Topic")
+                .setType(PropertyType.STRING.getType())
+                .setValue(elementTemplateInfo.getType())
+                .setEditable(false)
+                .setChoices(null)
+                .setBinding(new Binding()
+                        .setType(Binding.Type.ZEEBE_TASKDEFINITION_TYPE));
 
         elementTemplate.getProperties().add(implementationTopicProperty);
 
@@ -55,10 +52,9 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         "=",
                         annotation);
 
-                var binding = Binding.builder()
-                        .type(Binding.Type.ZEEBE_INPUT)
-                        .name(field.getName())
-                        .build();
+                var binding = new Binding()
+                        .setType(Binding.Type.ZEEBE_INPUT)
+                        .setName(field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -78,10 +74,9 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         field.getName() + "Result",
                         annotation);
 
-                var binding = Binding.builder()
-                        .type(Binding.Type.ZEEBE_OUTPUT)
-                        .source("=" + field.getName())
-                        .build();
+                var binding = new Binding()
+                        .setType(Binding.Type.ZEEBE_OUTPUT)
+                        .setSource("=" + field.getName());
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -94,12 +89,11 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
 
     private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation)
     {
-        var property = Property.builder()
-                .label(label)
-                .type(type.getType())
-                .choices(null)
-                .value(value)
-                .build();
+        var property = new Property()
+                .setLabel(label)
+                .setType(type.getType())
+                .setChoices(null)
+                .setValue(value);
 
         if (!isNull(propertyAnnotation))
         {
@@ -107,7 +101,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
             property.setType(isNull(propertyAnnotation.type()) ? type.getType() : propertyAnnotation.type().getType());
             property.setEditable(propertyAnnotation.editable());
 
-            var constraints = Constraints.builder().build();
+            var constraints = new Constraints();
             constraints.setNotEmpty(propertyAnnotation.notEmpty());
             property.setConstraints(constraints);
         }

@@ -2,7 +2,9 @@ package io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -14,9 +16,10 @@ import java.util.Map;
 @JsonPropertyOrder({
 
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class Metadata
 {
     @JsonIgnore
-    private Map<String, Object> additionalProperties;
+    private Map<String, Object> additionalProperties = new LinkedHashMap<>();
 }

@@ -3,6 +3,7 @@ package io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,8 @@ import java.util.Map;
         "source",
         "key"
 })
-@Builder @Getter @Setter @ToString @EqualsAndHashCode
+@Accessors(chain = true)
+@Getter @Setter @ToString @EqualsAndHashCode
 public class Binding
 {
     /**
