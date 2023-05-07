@@ -13,7 +13,7 @@ import io.miragon.miranum.connect.elementtemplate.impl.GenerateElementTemplatePo
 import lombok.extern.java.Log;
 
 import java.util.Arrays;
-import java.util.Objects;
+import static java.util.Objects.isNull;
 
 @Log
 public class Camunda8ElementTemplateGenerator implements GenerateElementTemplatePort
@@ -22,24 +22,28 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo)
     {
-        var elementTemplate = new CamundaC8ElementTemplate()
-                .withName(elementTemplateInfo.getName())
-                .withId(elementTemplateInfo.getId())
-                .withAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
+        var elementTemplate = CamundaC8ElementTemplate.builder()
+                .name(elementTemplateInfo.getName())
+                .id(elementTemplateInfo.getId())
+                .appliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList())
+                .build();
 
         // Add property for the topic of the external task
-        var implementationTopicProperty = new Property()
-                .withLabel("Topic")
-                .withType(PropertyType.STRING.getType())
-                .withValue(elementTemplateInfo.getType())
-                .withEditable(false)
-                .withChoices(null)
-                .withBinding(new Binding()
-                        .withType(Binding.Type.ZEEBE_TASKDEFINITION_TYPE));
+        var implementationTopicProperty = Property.builder()
+                .label("Topic")
+                .type(PropertyType.STRING.getType())
+                .value(elementTemplateInfo.getType())
+                .editable(false)
+                .choices(null)
+                .binding(Binding.builder()
+                        .type(Binding.Type.ZEEBE_TASKDEFINITION_TYPE)
+                        .build())
+                .build();
+
         elementTemplate.getProperties().add(implementationTopicProperty);
 
         // Add properties for input parameters
-        if (!Objects.isNull(elementTemplateInfo.getInputType()))
+        if (!isNull(elementTemplateInfo.getInputType()))
         {
             for (var field : elementTemplateInfo.getInputType().getDeclaredFields())
             {
@@ -51,9 +55,10 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         "=",
                         annotation);
 
-                var binding = new Binding()
-                        .withType(Binding.Type.ZEEBE_INPUT)
-                        .withName(field.getName());
+                var binding = Binding.builder()
+                        .type(Binding.Type.ZEEBE_INPUT)
+                        .name(field.getName())
+                        .build();
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -61,7 +66,7 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
         }
 
         // Add properties for output parameters
-        if (!Objects.isNull(elementTemplateInfo.getOutputType()))
+        if (!isNull(elementTemplateInfo.getOutputType()))
         {
             for (var field : elementTemplateInfo.getOutputType().getDeclaredFields())
             {
@@ -73,9 +78,10 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
                         field.getName() + "Result",
                         annotation);
 
-                var binding = new Binding()
-                        .withType(Binding.Type.ZEEBE_OUTPUT)
-                        .withSource("=" + field.getName());
+                var binding = Binding.builder()
+                        .type(Binding.Type.ZEEBE_OUTPUT)
+                        .source("=" + field.getName())
+                        .build();
 
                 property.setBinding(binding);
                 elementTemplate.getProperties().add(property);
@@ -88,19 +94,20 @@ public class Camunda8ElementTemplateGenerator implements GenerateElementTemplate
 
     private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation)
     {
-        var property = new Property()
-                .withLabel(label)
-                .withType(type.getType())
-                .withChoices(null)
-                .withValue(value);
+        var property = Property.builder()
+                .label(label)
+                .type(type.getType())
+                .choices(null)
+                .value(value)
+                .build();
 
-        if (!Objects.isNull(propertyAnnotation))
+        if (!isNull(propertyAnnotation))
         {
             property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());
-            property.setType(Objects.isNull(propertyAnnotation.type()) ? type.getType() : propertyAnnotation.type().getType());
+            property.setType(isNull(propertyAnnotation.type()) ? type.getType() : propertyAnnotation.type().getType());
             property.setEditable(propertyAnnotation.editable());
 
-            var constraints = new Constraints();
+            var constraints = Constraints.builder().build();
             constraints.setNotEmpty(propertyAnnotation.notEmpty());
             property.setConstraints(constraints);
         }
