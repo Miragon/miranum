@@ -6,7 +6,6 @@ import io.miragon.miranum.connect.message.impl.MessageCorrelationException;
 import lombok.RequiredArgsConstructor;
 import org.camunda.community.rest.client.api.MessageApi;
 import org.camunda.community.rest.client.dto.CorrelationMessageDto;
-import org.camunda.community.rest.client.invoker.ApiException;
 
 @RequiredArgsConstructor
 public class Camunda7MessageAdapter implements DeliverMessagePort {
@@ -16,12 +15,10 @@ public class Camunda7MessageAdapter implements DeliverMessagePort {
 
     @Override
     public void deliverMessage(final CorrelateMessageCommand command) throws MessageCorrelationException {
-
-        final CorrelationMessageDto dto = this.mapper.map(command);
-
         try {
+            final CorrelationMessageDto dto = this.mapper.map(command);
             this.messageApi.deliverMessage(dto);
-        } catch (final ApiException e) {
+        } catch (final Exception e) {
             throw new MessageCorrelationException("Message correlation failed.", e);
         }
     }
