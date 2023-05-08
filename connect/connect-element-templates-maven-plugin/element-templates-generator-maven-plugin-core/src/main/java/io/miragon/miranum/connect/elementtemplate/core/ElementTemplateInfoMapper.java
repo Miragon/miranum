@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.elementtemplate.core;
 
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplate;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
+import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.worker.api.Worker;
 
 import java.lang.reflect.Method;
@@ -40,16 +41,17 @@ public class ElementTemplateInfoMapper {
         );
     }
 
-    private static List<ElementTemplatePropertyInfo> mapTypeToElementTemplateInfos(Class<?> type) {
+    public static List<ElementTemplatePropertyInfo> mapTypeToElementTemplateInfos(Class<?> type) {
         var elementTemplatePropertyInfos = new ArrayList<ElementTemplatePropertyInfo>();
         for (var property : type.getDeclaredFields()) {
             var annotation = property.getAnnotation(ElementTemplateProperty.class);
 
             var elementTemplatePropertyInfo = new ElementTemplatePropertyInfo(
                     Objects.nonNull(annotation) ? annotation.label() : property.getName(),
-                    Objects.nonNull(annotation) ? annotation.type() : null,
-                    Objects.nonNull(annotation) && annotation.editable(),
-                    Objects.nonNull(annotation) && annotation.notEmpty()
+                    property.getName(),
+                    Objects.nonNull(annotation) ? annotation.type() : PropertyType.STRING,
+                    !Objects.nonNull(annotation) || annotation.editable(),
+                    !Objects.nonNull(annotation) || annotation.notEmpty()
             );
 
             elementTemplatePropertyInfos.add(elementTemplatePropertyInfo);

@@ -25,19 +25,14 @@
     "value" : "",
     "label" : "Property1",
     "type" : "Text",
-    "editable" : true,
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
-    },
-    "constraints" : {
-      "notEmpty" : true
     }
   }, {
     "value" : "",
     "label" : "Property2",
     "type" : "String",
-    "editable" : true,
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "id"

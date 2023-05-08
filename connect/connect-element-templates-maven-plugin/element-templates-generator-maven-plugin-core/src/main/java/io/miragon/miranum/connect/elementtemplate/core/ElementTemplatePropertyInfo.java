@@ -10,6 +10,8 @@ public class ElementTemplatePropertyInfo {
 
     String label;
 
+    String name;
+
     PropertyType type;
 
     boolean editable;

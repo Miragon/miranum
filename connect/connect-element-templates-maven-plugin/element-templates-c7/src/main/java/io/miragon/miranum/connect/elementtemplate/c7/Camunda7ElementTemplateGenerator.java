@@ -36,8 +36,8 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         }
 
         // Add properties for output parameters
-        for (var inputProperty : elementTemplateInfo.getInputProperties()) {
-            var property = createPropertyWithValue(inputProperty, true);
+        for (var outputProperties : elementTemplateInfo.getOutputProperties()) {
+            var property = createPropertyWithValue(outputProperties, true);
             elementTemplate.getProperties().add(property);
         }
 
@@ -46,20 +46,34 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
     }
 
     private Property createPropertyWithValue(ElementTemplatePropertyInfo info, boolean output) {
-        var bindingName = output ? "${" + info.getLabel() + "}" : info.getLabel();
         var value = output ? info.getLabel() + "Result" : "";
         var bindingType = output ? Binding.Type.CAMUNDA_OUTPUT_PARAMETER : Binding.Type.CAMUNDA_INPUT_PARAMETER;
-        return new Property()
+        var property = new Property()
                 .withLabel(info.getLabel())
                 .withType(info.getType().getType())
                 .withChoices(null)
-                .withEditable(info.isEditable())
                 .withBinding(new Binding()
-                        .withType(bindingType)
-                        .withName(bindingName))
-                .withConstraints(new Constraints()
-                        .withNotEmpty(info.isNotEmpty()))
+                        .withType(bindingType))
                 .withValue(value);
+
+        if (output) {
+            property.getBinding().setSource( "${" + info.getLabel() + "}");
+        } else {
+            property.getBinding().setName(info.getName());
+        }
+
+        // Only set if false, else jackson will display default value in generated json
+
+        if (!info.isNotEmpty()) {
+            property.setConstraints(new Constraints()
+                    .withNotEmpty(info.isNotEmpty()));
+        }
+
+        if (!info.isEditable()) {
+            property.setEditable(info.isEditable());
+        }
+
+        return property;
     }
 
     private Property createExternalTaskProperty() {
