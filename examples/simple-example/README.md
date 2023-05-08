@@ -70,9 +70,9 @@ Some properties are required when using the @GenerateElementTemplate annotation:
         type = "sendMessage",
         appliesTo = {BPMNElementType.BPMN_SERVICE_TASK},
         version = "0-1")
-public Answer sendMessage(final SendMessageCommand message){
-        return new Answer("answer to: "+message.getName());
-        }
+public Answer sendMessage(final SendMessageCommand message) {
+    return new Answer("answer to: " + message.getName());
+}
 ```
 
 Additionally, when deciding for which Workflow-Engine you are going to build your project for you have to add the
