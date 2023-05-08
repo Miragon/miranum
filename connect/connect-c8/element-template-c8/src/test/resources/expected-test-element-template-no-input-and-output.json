@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.8.0/resources/schema.json",
+  "name": "Test",
+  "id": "test",
+  "appliesTo": [
+    "bpmn:ServiceTask"
+  ],
+  "groups": [],
+  "properties": [
+    {
+      "value": "test",
+      "label": "Topic",
+      "type": "String",
+      "editable": false,
+      "binding": {
+        "type": "zeebe:taskDefinition:type"
+      }
+    }
+  ]
+}
