@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-template-c8</artifactId>
+            <artifactId>element-templates-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 
