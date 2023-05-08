@@ -18,8 +18,22 @@ public @interface ElementTemplate {
     /**
      * The name of the element template.
      * Corresponds to the name property of the element template.
+     *
      * @return the name of the element template
      */
     String name();
+
+    /**
+     * The description of the element template.
+     *
+     * @return the description of the element template
+     */
     String description() default "";
+
+    /**
+     * The version of the element template.
+     *
+     * @return the version of the element template
+     */
+    String version() default "0-1";
 }
