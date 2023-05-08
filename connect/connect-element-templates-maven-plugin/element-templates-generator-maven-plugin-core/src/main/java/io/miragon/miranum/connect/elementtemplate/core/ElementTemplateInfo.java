@@ -1,8 +1,9 @@
 package io.miragon.miranum.connect.elementtemplate.core;
 
-import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -10,15 +11,15 @@ public class ElementTemplateInfo {
 
     private final String name;
 
+    private final String description;
+
     private final String id;
 
     private final String version;
 
     private final String type;
 
-    private final BPMNElementType[] appliesTo;
+    private final List<ElementTemplatePropertyInfo> inputProperties;
 
-    private final Class<?> inputType;
-
-    private final Class<?> outputType;
+    private final List<ElementTemplatePropertyInfo> outputProperties;
 }

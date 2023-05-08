@@ -1,10 +1,10 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
 import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
+import io.miragon.miranum.connect.worker.api.Worker;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -70,7 +70,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         List<ElementTemplateGenerator> generators = ElementTemplateGeneratorsFactory.create(targetPlatforms);
 
-        var annotatedMethods = findGenerateElementTemplateAnnotatedMethods();
+        var annotatedMethods = getWorkerAnnotatedMethods();
 
         if (annotatedMethods.isEmpty()) {
             log.info("No methods annotated with @GenerateElementTemplate found.");
@@ -79,7 +79,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
         for (var generator : generators) {
             for (var method : annotatedMethods) {
-                var data = ElementTemplateInfoMapper.map(method.getAnnotation(GenerateElementTemplate.class), method);
+                var data = ElementTemplateInfoMapper.map(method);
 
                 var generationResult = generator.generate(data);
 
@@ -101,7 +101,13 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
         }
     }
 
-    private Set<Method> findGenerateElementTemplateAnnotatedMethods() throws MojoExecutionException {
+    /**
+     * Gets all methods annotated with {@link Worker}.
+     *
+     * @return a set of methods annotated with {@link Worker}.
+     * @throws MojoExecutionException if the classpath elements could not be resolved.
+     */
+    private Set<Method> getWorkerAnnotatedMethods() throws MojoExecutionException {
         List<String> classpathElements;
         try {
             classpathElements = project.getCompileClasspathElements();
@@ -125,6 +131,6 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
                 .addClassLoaders(urlClassLoader)
                 .addScanners(Scanners.MethodsAnnotated));
 
-        return reflections.getMethodsAnnotatedWith(GenerateElementTemplate.class);
+        return reflections.getMethodsAnnotatedWith(Worker.class);
     }
 }

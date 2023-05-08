@@ -5,16 +5,11 @@ import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTempla
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
 import io.miragon.miranum.connect.c7.elementtemplates.gen.Property;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
-import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
-import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
+import io.miragon.miranum.connect.elementtemplate.core.*;
 import lombok.extern.java.Log;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.Collections;
 
 @Log
 public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerator {
@@ -24,10 +19,51 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         var elementTemplate = new CamundaC7ElementTemplate()
                 .withName(elementTemplateInfo.getName())
                 .withId(elementTemplateInfo.getId())
-                .withAppliesTo(Arrays.stream(elementTemplateInfo.getAppliesTo()).map(BPMNElementType::getValue).toList());
+                .withAppliesTo(Collections.singletonList(BPMNElementType.BPMN_SERVICE_TASK.getValue()));
 
         // Add external task property
-        var implementationProperty = new Property()
+        var implementationProperty = createExternalTaskProperty();
+        elementTemplate.getProperties().add(implementationProperty);
+
+        // Add property for the topic of the external task
+        var implementationTopicProperty = createExternalTaskTopicProperty(elementTemplateInfo.getType());
+        elementTemplate.getProperties().add(implementationTopicProperty);
+
+        // Add properties for input parameters
+        for (var inputProperty : elementTemplateInfo.getInputProperties()) {
+            var property = createPropertyWithValue(inputProperty, false);
+            elementTemplate.getProperties().add(property);
+        }
+
+        // Add properties for output parameters
+        for (var inputProperty : elementTemplateInfo.getInputProperties()) {
+            var property = createPropertyWithValue(inputProperty, true);
+            elementTemplate.getProperties().add(property);
+        }
+
+        var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
+        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json, TargetPlatform.camunda7);
+    }
+
+    private Property createPropertyWithValue(ElementTemplatePropertyInfo info, boolean output) {
+        var bindingName = output ? "${" + info.getLabel() + "}" : info.getLabel();
+        var value = output ? info.getLabel() + "Result" : "";
+        var bindingType = output ? Binding.Type.CAMUNDA_OUTPUT_PARAMETER : Binding.Type.CAMUNDA_INPUT_PARAMETER;
+        return new Property()
+                .withLabel(info.getLabel())
+                .withType(info.getType().getType())
+                .withChoices(null)
+                .withEditable(info.isEditable())
+                .withBinding(new Binding()
+                        .withType(bindingType)
+                        .withName(bindingName))
+                .withConstraints(new Constraints()
+                        .withNotEmpty(info.isNotEmpty()))
+                .withValue(value);
+    }
+
+    private Property createExternalTaskProperty() {
+        return new Property()
                 .withLabel("Implementation Type")
                 .withType(PropertyType.STRING.getType())
                 .withValue("external")
@@ -40,81 +76,17 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
                 .withBinding(new Binding()
                         .withType(Binding.Type.PROPERTY)
                         .withName("camunda:type"));
-        elementTemplate.getProperties().add(implementationProperty);
+    }
 
-        // Add property for the topic of the external task
-        var implementationTopicProperty = new Property()
+    private Property createExternalTaskTopicProperty(String type) {
+        return new Property()
                 .withLabel("Topic")
                 .withType(PropertyType.STRING.getType())
-                .withValue(elementTemplateInfo.getType())
+                .withValue(type)
                 .withEditable(false)
                 .withChoices(null)
                 .withBinding(new Binding()
                         .withType(Binding.Type.PROPERTY)
                         .withName("camunda:topic"));
-        elementTemplate.getProperties().add(implementationTopicProperty);
-
-        // Add properties for input parameters
-        if (!Objects.isNull(elementTemplateInfo.getInputType())) {
-            for (var field : elementTemplateInfo.getInputType().getDeclaredFields()) {
-                var type = PropertyType.getType(field.getType());
-                var annotation = field.getAnnotation(ElementTemplateProperty.class);
-                var property = createPropertyWithPossibleAnnotation(
-                        field.getName(),
-                        type,
-                        "",
-                        annotation);
-
-                var binding = new Binding()
-                        .withType(Binding.Type.CAMUNDA_INPUT_PARAMETER)
-                        .withName(field.getName());
-
-                property.setBinding(binding);
-                elementTemplate.getProperties().add(property);
-            }
-        }
-
-        // Add properties for output parameters
-        if (!Objects.isNull(elementTemplateInfo.getOutputType())) {
-            for (var field : elementTemplateInfo.getOutputType().getDeclaredFields()) {
-                var type = PropertyType.getType(field.getType());
-                var annotation = field.getAnnotation(ElementTemplateProperty.class);
-                var property = createPropertyWithPossibleAnnotation(
-                        field.getName(),
-                        type,
-                        field.getName() + "Result",
-                        annotation);
-
-                var binding = new Binding()
-                        .withType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER)
-                        .withSource("${" + field.getName() + "}");
-
-                property.setBinding(binding);
-                elementTemplate.getProperties().add(property);
-            }
-        }
-
-        var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
-        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json, TargetPlatform.camunda7);
-    }
-
-    private Property createPropertyWithPossibleAnnotation(String label, PropertyType type, String value, ElementTemplateProperty propertyAnnotation) {
-        var property = new Property()
-                .withLabel(label)
-                .withType(type.getType())
-                .withChoices(null)
-                .withValue(value);
-
-        if (!Objects.isNull(propertyAnnotation)) {
-            property.setLabel(propertyAnnotation.label().isEmpty() ? label : propertyAnnotation.label());
-            property.setType(Objects.isNull(propertyAnnotation.type()) ? type.getType() : propertyAnnotation.type().getType());
-            property.setEditable(propertyAnnotation.editable());
-
-            var constraints = new Constraints();
-            constraints.setNotEmpty(propertyAnnotation.notEmpty());
-            property.setConstraints(constraints);
-        }
-
-        return property;
     }
 }

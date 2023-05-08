@@ -1,8 +1,8 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
-import io.miragon.miranum.connect.elementtemplate.api.GenerateElementTemplate;
+import io.miragon.miranum.connect.elementtemplate.api.ElementTemplate;
 import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
+import io.miragon.miranum.connect.worker.api.Worker;
 import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,16 +70,12 @@ class ElementTemplateGeneratorMojoTest {
         // Create a test class with a method annotated with @GenerateElementTemplate
         class Test {
 
-            @GenerateElementTemplate(
-                    type = "test",
-                    name = "Test",
-                    id = "test",
-                    appliesTo = BPMNElementType.BPMN_SERVICE_TASK,
-                    version = "1-0")
+            @Worker(type = "test")
+            @ElementTemplate(name = "Test")
             public void test() {
             }
         }
-        String filename = "test-1-0.json";
+        String filename = "test-0-1.json";
 
         // Act
         mojo.execute();
@@ -102,26 +98,18 @@ class ElementTemplateGeneratorMojoTest {
         // Create a test class with a method annotated with @GenerateElementTemplate
         class Test {
 
-            @GenerateElementTemplate(
-                    type = "test1",
-                    name = "Test1",
-                    id = "test1",
-                    appliesTo = BPMNElementType.BPMN_SERVICE_TASK,
-                    version = "1-0")
+            @Worker(type = "test1")
+            @ElementTemplate(name = "Test1")
             public void test1() {
             }
 
-            @GenerateElementTemplate(
-                    type = "test2",
-                    name = "Test2",
-                    id = "test2",
-                    appliesTo = BPMNElementType.BPMN_SERVICE_TASK,
-                    version = "1-0")
+            @Worker(type = "test2")
+            @ElementTemplate(name = "Test2")
             public void test2() {
             }
         }
-        String filename1 = "test1-1-0.json";
-        String filename2 = "test2-1-0.json";
+        String filename1 = "test1-0-1.json";
+        String filename2 = "test2-0-1.json";
 
         // Act
         mojo.execute();

@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation to customize the property generation during the element template generation.
- * Is only used in combination with {@link GenerateElementTemplate}.
+ * Is only used in combination with {@link ElementTemplate}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
