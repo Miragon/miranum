@@ -1,5 +1,6 @@
 package io.miragon.miranum.connect.c7.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.camunda.community.rest.client.dto.VariableValueDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,16 +14,16 @@ import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Camunda7BaseVariableValueMapperTest {
+public class Camunda7RestValueMapperTest {
 
-    private final Camunda7BaseVariableValueMapper mapper = new Camunda7BaseVariableValueMapper();
+    private final Camunda7RestValueMapper mapper = new Camunda7RestValueMapper();
 
     @Test
-    public void testMap_ShouldReturnMappedVariables() {
+    public void testMap_ShouldReturnMappedVariables() throws JsonProcessingException {
         final String KEY_1 = "var1";
         final String KEY_2 = "var2";
         final String VALUE_1 = "value2";
-        final Integer VALUE_2 = 2;
+        final Map<String, String> VALUE_2 = Map.ofEntries(entry("key", "value"));
 
         // Given
         Map<String, Object> variables = Map.ofEntries(
@@ -36,11 +37,11 @@ public class Camunda7BaseVariableValueMapperTest {
         // Then
         assertEquals(2, result.size());
         assertEquals(VALUE_1, result.get(KEY_1).getValue());
-        assertEquals(VALUE_2, result.get(KEY_2).getValue());
+        assertEquals("{\"key\":\"value\"}", result.get(KEY_2).getValue());
     }
 
     @Test
-    public void testMap_EmptyInput_ShouldReturnEmptyMap() {
+    public void testMap_EmptyInput_ShouldReturnEmptyMap() throws JsonProcessingException {
         // Given
         Map<String, Object> variables = Collections.emptyMap();
 
@@ -54,7 +55,7 @@ public class Camunda7BaseVariableValueMapperTest {
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {"some value"})
-    public void testCreateValueWithStrings_ShouldReturnCorrectValue(String value) {
+    public void testCreateValueWithStrings_ShouldReturnCorrectValue(String value) throws JsonProcessingException {
         // When
         VariableValueDto result = mapper.createValue(value);
 
@@ -64,7 +65,7 @@ public class Camunda7BaseVariableValueMapperTest {
 
     @ParameterizedTest
     @ValueSource(ints = {Integer.MAX_VALUE, Integer.MAX_VALUE})
-    public void testCreateValueWithStrings_ShouldReturnCorrectValue(Integer value) {
+    public void testCreateValueWithStrings_ShouldReturnCorrectValue(Integer value) throws JsonProcessingException {
         // When
         VariableValueDto result = mapper.createValue(value);
 

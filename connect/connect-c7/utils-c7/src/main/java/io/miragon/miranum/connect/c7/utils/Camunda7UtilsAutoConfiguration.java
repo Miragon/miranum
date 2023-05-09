@@ -7,7 +7,12 @@ import org.springframework.context.annotation.Bean;
 public class Camunda7UtilsAutoConfiguration {
 
     @Bean
-    public Camunda7BaseVariableValueMapper camunda7BaseVariableMapper() {
-        return new Camunda7BaseVariableValueMapper();
+    public Camunda7RestValueMapper camunda7RestValueMapper() {
+        return new Camunda7RestValueMapper();
+    }
+
+    @Bean
+    public Camunda7PojoMapper camunda7PojoMapper() {
+        return new Camunda7PojoMapper();
     }
 }

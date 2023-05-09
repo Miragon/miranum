@@ -17,6 +17,7 @@
         <module>worker-adapter-c8</module>
         <module>message-adapter-c8</module>
         <module>process-adapter-c8</module>
+        <module>element-template-c8</module>
     </modules>
 
 </project>

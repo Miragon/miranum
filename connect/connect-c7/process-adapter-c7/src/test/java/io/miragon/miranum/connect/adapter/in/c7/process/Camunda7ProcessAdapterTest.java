@@ -1,6 +1,7 @@
 package io.miragon.miranum.connect.adapter.in.c7.process;
 
-import io.miragon.miranum.connect.c7.utils.Camunda7BaseVariableValueMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.miragon.miranum.connect.c7.utils.Camunda7RestValueMapper;
 import io.miragon.miranum.connect.process.api.ProcessStartingException;
 import io.miragon.miranum.connect.process.api.StartProcessCommand;
 import org.camunda.community.rest.client.api.ProcessDefinitionApi;
@@ -43,12 +44,12 @@ class Camunda7ProcessAdapterTest {
     @Mock
     private ProcessDefinitionApi processDefinitionApi;
     @Mock
-    private Camunda7BaseVariableValueMapper baseVariableMapper;
+    private Camunda7RestValueMapper baseVariableMapper;
     @InjectMocks
     private Camunda7ProcessAdapter processAdapter;
 
     @Test
-    public void startProcess_withValidCommand_startsProcessInstance() throws ApiException {
+    public void startProcess_withValidCommand_startsProcessInstance() throws ApiException, JsonProcessingException {
         final var processInstanceId = "processInstanceId";
 
         final var startProcessCommand = new StartProcessCommand(PROCESS_KEY, this.variables);
@@ -65,7 +66,7 @@ class Camunda7ProcessAdapterTest {
     }
 
     @Test
-    void startProcess_withApiException_throwsProcessStartingException() throws ApiException {
+    void startProcess_withApiException_throwsProcessStartingException() throws ApiException, JsonProcessingException {
         final var startProcessCommand = new StartProcessCommand(PROCESS_KEY, this.variables);
 
         when(this.baseVariableMapper.map(this.variables)).thenReturn(this.variableValueDtos);

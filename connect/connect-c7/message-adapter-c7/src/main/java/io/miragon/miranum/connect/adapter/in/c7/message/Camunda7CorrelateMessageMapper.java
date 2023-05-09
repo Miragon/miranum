@@ -1,6 +1,7 @@
 package io.miragon.miranum.connect.adapter.in.c7.message;
 
-import io.miragon.miranum.connect.c7.utils.Camunda7BaseVariableValueMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.miragon.miranum.connect.c7.utils.Camunda7RestValueMapper;
 import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
 import lombok.AllArgsConstructor;
 import org.camunda.community.rest.client.dto.CorrelationMessageDto;
@@ -11,9 +12,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class Camunda7CorrelateMessageMapper {
 
-    private final Camunda7BaseVariableValueMapper camunda7BaseVariableValueMapper;
+    private final Camunda7RestValueMapper camunda7BaseVariableValueMapper;
 
-    public CorrelationMessageDto map(final CorrelateMessageCommand command) {
+    public CorrelationMessageDto map(final CorrelateMessageCommand command) throws JsonProcessingException {
 
         final CorrelationMessageDto correlationMessageDto = new CorrelationMessageDto();
         correlationMessageDto.setMessageName(command.getMessageName());
