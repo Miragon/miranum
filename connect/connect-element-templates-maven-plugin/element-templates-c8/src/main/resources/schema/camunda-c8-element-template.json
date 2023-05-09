@@ -1,0 +1,812 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://camunda.org/schema/zeebe-element-templates/1.0",
+  "title": "Element Template Schema",
+  "definitions": {
+    "properties": {
+      "allOf": [
+        {
+          "type": "array",
+          "description": "List of properties of the element template.",
+          "allOf": [
+            {
+              "examples": [
+                [
+                  {
+                    "label": "Name",
+                    "type": "String",
+                    "binding": {
+                      "type": "property",
+                      "name": "name"
+                    }
+                  }
+                ]
+              ]
+            }
+          ],
+          "items": {
+            "type": "object",
+            "default": {},
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "Dropdown"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "choices"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier of the property."
+              },
+              "value": {
+                "$id": "#/properties/property/value",
+                "type": [
+                  "string",
+                  "boolean"
+                ],
+                "description": "The value of a control field."
+              },
+              "description": {
+                "$id": "#/properties/property/description",
+                "type": "string",
+                "description": "The description of a control field."
+              },
+              "label": {
+                "$id": "#/properties/property/label",
+                "type": "string",
+                "description": "The label of a control field."
+              },
+              "type": {
+                "$id": "#/properties/property/type",
+                "type": "string",
+                "description": "The type of a control field."
+              },
+              "editable": {
+                "$id": "#/properties/property/editable",
+                "type": "boolean",
+                "description": "Indicates whether a control field is editable or not."
+              },
+              "choices": {
+                "$id": "#/properties/property/choices",
+                "type": "array",
+                "description": "The choices for dropdown fields.",
+                "default": [],
+                "items": {
+                  "$id": "#/properties/property/choices/item",
+                  "type": "object",
+                  "default": {},
+                  "properties": {
+                    "name": {
+                      "$id": "#/properties/property/choices/item/name",
+                      "type": "string",
+                      "description": "The name of a choice."
+                    },
+                    "value": {
+                      "$id": "#/properties/property/choices/item/value",
+                      "type": "string",
+                      "description": "The value of a choice."
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "name"
+                  ]
+                }
+              },
+              "constraints": {
+                "$id": "#/properties/property/constraints",
+                "type": "object",
+                "description": "The validation constraints of a control field.",
+                "allOf": [
+                  {
+                    "examples": [
+                      {
+                        "notEmpty": true
+                      }
+                    ]
+                  }
+                ],
+                "properties": {
+                  "notEmpty": {
+                    "$id": "#/properties/property/constraints/notEmpty",
+                    "type": "boolean",
+                    "description": "The control field must not be empty."
+                  },
+                  "minLength": {
+                    "$id": "#/properties/property/constraints/minLength",
+                    "type": "number",
+                    "description": "The minimal length of a control field value."
+                  },
+                  "maxLength": {
+                    "$id": "#/properties/property/constraints/maxLength",
+                    "type": "number",
+                    "description": "The maximal length for a control field value."
+                  },
+                  "pattern": {
+                    "$id": "#/properties/property/constraints/pattern",
+                    "description": "A regular expression pattern for a constraint.",
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "default": {},
+                        "properties": {
+                          "value": {
+                            "$id": "#/properties/property/constraints/pattern/value",
+                            "type": "string",
+                            "description": "The regular expression of a pattern."
+                          },
+                          "message": {
+                            "$id": "#/properties/property/constraints/pattern/message",
+                            "type": "string",
+                            "description": "The validation message of a pattern."
+                          }
+                        }
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "group": {
+                "$id": "#/properties/property/group",
+                "type": "string",
+                "description": "The custom group of a control field."
+              },
+              "condition": {
+                "$id": "#/condition",
+                "type": "object",
+                "description": "Condition(s) to activate the binding.",
+                "allOf": [
+                  {
+                    "examples": [
+                      {
+                        "type": "simple",
+                        "property": "httpMethod",
+                        "equals": "GET"
+                      },
+                      {
+                        "type": "simple",
+                        "property": "httpMethod",
+                        "oneOf": [
+                          "POST",
+                          "PUT",
+                          "DELETE"
+                        ]
+                      },
+                      {
+                        "allMatch": [
+                          {
+                            "type": "simple",
+                            "property": "authType",
+                            "equals": "Basic"
+                          },
+                          {
+                            "type": "simple",
+                            "property": "httpMethod",
+                            "oneOf": [
+                              "POST",
+                              "PUT",
+                              "DELETE"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "definitions": {
+                  "condition": {
+                    "type": "object",
+                    "required": [
+                      "property"
+                    ],
+                    "properties": {
+                      "type": {
+                        "$id": "#/condition/type",
+                        "const": "simple",
+                        "description": "The type of the condition.",
+                        "default": "simple"
+                      },
+                      "property": {
+                        "$id": "#/condition/property",
+                        "type": "string",
+                        "description": "The id of the property to check."
+                      }
+                    },
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "equals": {
+                            "type": [
+                              "string",
+                              "number",
+                              "boolean"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "equals"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "oneOf": {
+                            "type": "array",
+                            "items": {
+                              "type": [
+                                "string",
+                                "number"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "oneOf"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/properties/allOf/0/items/properties/condition/definitions/condition"
+                  },
+                  {
+                    "properties": {
+                      "allMatch": {
+                        "$id": "#/allMatch",
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/properties/allOf/0/items/properties/condition/definitions/condition"
+                        },
+                        "minItems": 1
+                      }
+                    },
+                    "required": [
+                      "allMatch"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "array",
+          "description": "List of properties of the element template.",
+          "items": {
+            "type": "object",
+            "default": {},
+            "required": [
+              "binding"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "binding": {
+                      "properties": {
+                        "type": {
+                          "const": "property"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "binding"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "String",
+                        "Text",
+                        "Hidden",
+                        "Dropdown",
+                        "Boolean"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "binding": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "zeebe:input",
+                            "zeebe:output",
+                            "zeebe:property",
+                            "zeebe:taskHeader",
+                            "zeebe:taskDefinition:retries",
+                            "zeebe:taskDefinition:type"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "binding"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "String",
+                        "Text",
+                        "Hidden",
+                        "Dropdown"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "optional": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "optional"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "binding": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "zeebe:input",
+                            "zeebe:output",
+                            "zeebe:property",
+                            "zeebe:taskHeader"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "optional": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "optional"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "constraints": {
+                      "properties": {
+                        "notEmpty": {
+                          "const": false
+                        }
+                      },
+                      "required": [
+                        "notEmpty"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "feel": {
+                      "not": {
+                        "const": null
+                      }
+                    }
+                  },
+                  "required": [
+                    "feel"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "String",
+                        "Text"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "language": {
+                      "not": {
+                        "const": null
+                      }
+                    }
+                  },
+                  "required": [
+                    "language"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "Text"
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "properties": {
+              "binding": {
+                "$id": "#/properties/property/binding",
+                "type": "object",
+                "description": "Specifying how the property is mapped to BPMN or Zeebe extension elements and attributes.",
+                "required": [
+                  "type"
+                ],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "property",
+                            "zeebe:property",
+                            "zeebe:input"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "const": "zeebe:output"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "source"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "type": {
+                          "const": "zeebe:taskHeader"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "key"
+                      ]
+                    }
+                  },
+                  {
+                    "examples": [
+                      {
+                        "type": "property",
+                        "name": "name"
+                      },
+                      {
+                        "type": "zeebe:input",
+                        "name": "input"
+                      },
+                      {
+                        "type": "zeebe:output",
+                        "source": "output"
+                      },
+                      {
+                        "type": "zeebe:property",
+                        "name": "property"
+                      },
+                      {
+                        "type": "zeebe:taskDefinition:retries"
+                      },
+                      {
+                        "type": "zeebe:taskDefinition:type"
+                      },
+                      {
+                        "type": "zeebe:taskHeader",
+                        "key": "key"
+                      }
+                    ]
+                  }
+                ],
+                "properties": {
+                  "type": {
+                    "$id": "#/properties/property/binding/type",
+                    "type": "string",
+                    "description": "The type of a property binding.",
+                    "enum": [
+                      "property",
+                      "zeebe:taskDefinition:type",
+                      "zeebe:taskDefinition:retries",
+                      "zeebe:input",
+                      "zeebe:output",
+                      "zeebe:property",
+                      "zeebe:taskHeader"
+                    ]
+                  },
+                  "name": {
+                    "$id": "#/properties/property/binding/name",
+                    "type": "string",
+                    "description": "The name of a property binding."
+                  },
+                  "source": {
+                    "$id": "#/properties/property/binding/source",
+                    "type": "string",
+                    "description": "The source value of a property binding (zeebe:output)."
+                  },
+                  "key": {
+                    "$id": "#/properties/property/binding/key",
+                    "type": "string",
+                    "description": "The key value of a property binding (zeebe:taskHeader)."
+                  }
+                }
+              },
+              "optional": {
+                "$id": "#/optional",
+                "type": "boolean",
+                "description": "Indicates whether a property is optional. Optional bindings do not persist empty values in the underlying BPMN 2.0 XML."
+              },
+              "feel": {
+                "$id": "#/properties/property/feel",
+                "type": "string",
+                "default": null,
+                "description": "Indicates whether the property can be a feel expression",
+                "enum": [
+                  null,
+                  "optional",
+                  "required"
+                ]
+              },
+              "language": {
+                "$id": "#/properties/property/language",
+                "type": "string",
+                "description": "Indicates that the field is a custom language editor"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "template": {
+      "type": "object",
+      "allOf": [
+        {
+          "required": [
+            "name",
+            "id",
+            "appliesTo",
+            "properties"
+          ],
+          "properties": {
+            "name": {
+              "$id": "#/name",
+              "type": "string",
+              "description": "The name of the element template."
+            },
+            "id": {
+              "$id": "#/id",
+              "type": "string",
+              "description": "The identifier of the element template."
+            },
+            "description": {
+              "$id": "#/description",
+              "type": "string",
+              "description": "The description of the element template."
+            },
+            "version": {
+              "$id": "#/version",
+              "type": "integer",
+              "description": "Optional version of the template. If you add a version to a template it will be considered unique based on its ID and version. Two templates can have the same ID if their version is different."
+            },
+            "isDefault": {
+              "$id": "#/isDefault",
+              "type": "boolean",
+              "description": "Indicates whether the element template is a default template."
+            },
+            "appliesTo": {
+              "$id": "#/appliesTo",
+              "type": "array",
+              "description": "List of BPMN types the template can be applied to.",
+              "default": [],
+              "items": {
+                "$id": "#/appliesTo/items",
+                "type": "string",
+                "pattern": "^[\\w\\d]+:[\\w\\d]+$",
+                "allOf": [
+                  {
+                    "examples": [
+                      "bpmn:Task",
+                      "bpmn:ServiceTask",
+                      "bpmn:SequenceFlow",
+                      "bpmn:Process",
+                      "bpmn:StartEvent",
+                      "bpmn:Gateway"
+                    ]
+                  }
+                ]
+              }
+            },
+            "elementType": {
+              "$id": "#/elementType",
+              "type": "object",
+              "description": "The BPMN type the element will be transformed into.",
+              "default": {},
+              "required": [
+                "value"
+              ],
+              "properties": {
+                "value": {
+                  "$id": "#/elementType/value",
+                  "type": "string",
+                  "pattern": "^[\\w\\d]+:[\\w\\d]+$",
+                  "allOf": [
+                    {
+                      "examples": [
+                        "bpmn:ServiceTask",
+                        "bpmn:UserTask",
+                        "bpmn:StartEvent",
+                        "bpmn:ExclusiveGateway",
+                        "bpmn:ParallelGateway"
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "metadata": {
+              "$id": "#/metadata",
+              "type": "object",
+              "description": "Some custom properties for further configuration.",
+              "default": {}
+            },
+            "entriesVisible": {
+              "$id": "#/entriesVisible",
+              "type": "boolean",
+              "description": "Select whether non-template entries are visible in the properties panel."
+            },
+            "groups": {
+              "$id": "#/groups",
+              "type": "array",
+              "description": "Custom fields can be ordered together via groups.",
+              "allOf": [
+                {
+                  "examples": [
+                    [
+                      {
+                        "id": "group-1",
+                        "label": "My Group"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "items": {
+                "$id": "#/groups/group",
+                "type": "object",
+                "default": {},
+                "required": [
+                  "id",
+                  "label"
+                ],
+                "properties": {
+                  "id": {
+                    "$id": "#/groups/group/id",
+                    "type": "string",
+                    "description": "The id of the custom group"
+                  },
+                  "label": {
+                    "$id": "#/groups/group/label",
+                    "type": "string",
+                    "description": "The label of the custom group"
+                  }
+                }
+              }
+            },
+            "documentationRef": {
+              "$id": "#/documentationRef",
+              "type": "string",
+              "pattern": "^(https|http)://.*"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/properties",
+          "$id": "#/properties"
+        },
+        "icon": {
+          "$id": "#/icon",
+          "type": "object",
+          "description": "Custom icon to be shown on the element",
+          "default": {},
+          "properties": {
+            "contents": {
+              "$id": "#/icon/contents",
+              "type": "string",
+              "description": "The URL of an icon.",
+              "pattern": "^(https?|data):.*"
+            }
+          },
+          "required": [
+            "contents"
+          ]
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "description": "An element template configuration.",
+      "$ref": "#/definitions/template"
+    },
+    {
+      "type": "array",
+      "description": "A list of element template configurations.",
+      "items": {
+        "$ref": "#/definitions/template"
+      }
+    }
+  ]
+}
