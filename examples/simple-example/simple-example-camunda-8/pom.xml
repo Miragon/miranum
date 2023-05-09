@@ -36,11 +36,6 @@
             <artifactId>message-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-template-c8</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!--Camunda-->
         <dependency>
