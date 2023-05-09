@@ -2,8 +2,8 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>connect-c8</artifactId>
-    <name>connect-c8</name>
+    <artifactId>connect-element-templates-maven-plugin</artifactId>
+    <name>connect-element-templates-maven-plugin</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
@@ -14,9 +14,9 @@
     </parent>
 
     <modules>
-        <module>worker-adapter-c8</module>
-        <module>message-adapter-c8</module>
-        <module>process-adapter-c8</module>
+        <module>element-templates-generator-maven-plugin</module>
+        <module>element-templates-generator-maven-plugin-core</module>
+        <module>element-templates-c7</module>
+        <module>element-templates-c8</module>
     </modules>
-
 </project>

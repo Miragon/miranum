@@ -36,11 +36,6 @@
             <artifactId>message-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-template-c8</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!--Camunda-->
         <dependency>
@@ -61,6 +56,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>io.miragon.miranum</groupId>
+                <artifactId>element-templates-generator-maven-plugin</artifactId>
+                <version>${project.version}</version>
+
+                <configuration>
+                    <targetPlatforms>camunda8</targetPlatforms>
+                </configuration>
             </plugin>
         </plugins>
     </build>
