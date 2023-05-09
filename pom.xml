@@ -36,7 +36,7 @@
         <module>connect</module>
         <module>examples</module>
         <module>integrations</module>
-        <module>miranum-coverage</module>
+        <module>miranum-connect-coverage</module>
     </modules>
 
     <dependencyManagement>
