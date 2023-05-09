@@ -9,7 +9,7 @@
 
     <parent>
         <groupId>io.miragon.miranum</groupId>
-        <artifactId>connect-c8</artifactId>
+        <artifactId>connect-element-templates-maven-plugin</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
