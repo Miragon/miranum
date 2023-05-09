@@ -1,9 +1,9 @@
-package io.miragon.miranum.connect.adapter.in.c8.elementtemplates;
+package io.miragon.miranum.connect.elementtemplate.c8;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema.CamundaC8ElementTemplate;
+import io.miragon.miranum.connect.elementtemplate.c8.schema.CamundaC8ElementTemplate;
 
 public class CamundaC8ElementTemplateConverter
 {

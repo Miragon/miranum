@@ -20,10 +20,6 @@
       "value": "=",
       "label": "Property1",
       "type": "Text",
-      "editable": true,
-      "constraints": {
-        "notEmpty": true
-      },
       "binding": {
         "type": "zeebe:input",
         "name": "name"
@@ -33,7 +29,6 @@
       "value": "=",
       "label": "Property2",
       "type": "String",
-      "editable": true,
       "constraints": {
         "notEmpty": false
       },

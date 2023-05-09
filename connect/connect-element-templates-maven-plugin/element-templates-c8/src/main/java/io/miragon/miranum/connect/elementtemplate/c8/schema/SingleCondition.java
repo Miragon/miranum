@@ -1,7 +1,10 @@
-package io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema;
+package io.miragon.miranum.connect.elementtemplate.c8.schema;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,7 +19,10 @@ import lombok.experimental.Accessors;
         "expression",
 })
 @Accessors(chain = true)
-@Getter @Setter @ToString @EqualsAndHashCode
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class SingleCondition implements Condition
 {
     /**

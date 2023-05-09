@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c8.elementtemplates.schema;
+package io.miragon.miranum.connect.elementtemplate.c8.schema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,7 +32,10 @@ import java.util.List;
         "icon"
 })
 @Accessors(chain = true)
-@Getter @Setter @ToString @EqualsAndHashCode
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class CamundaC8ElementTemplate
 {
     /**

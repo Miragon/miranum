@@ -1,16 +1,17 @@
-package io.miragon.miranum.connect.adapter.in.c8.elementtemplates;
+package io.miragon.miranum.connect.elementtemplate.c8;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
-import io.miragon.miranum.connect.elementtemplate.impl.ElementTemplateInfo;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -21,24 +22,26 @@ public class Camunda8ElementTemplatesGeneratorTest
     void generateCamunda8ElementTemplate_withValidInput_shouldReturnValidOutputWithInputAndOutputProperties() throws IOException
     {
         // Arrange
-        Camunda8ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
+        Camunda8ElementTemplateGenerator camunda8ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
+                "test",
                 "0-1",
                 "test",
-                new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
-                TestInput.class, TestOutput.class);
+                ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInput.class),
+                ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class)
+        );
 
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda8ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Create JsonNodes because the order of the properties is irrelevant
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode expectedJsonObject = objectMapper.readTree(expectedJsonResult);
-        JsonNode generatedJsonObject = objectMapper.readTree(result.getJsonString());
+        JsonNode generatedJsonObject = objectMapper.readTree(result.getJson());
 
         // Assert
         assertNotNull(generatedJsonObject);
@@ -46,27 +49,29 @@ public class Camunda8ElementTemplatesGeneratorTest
     }
 
     @Test
-    void generateCamunda7ElementTemplate_withNoInputAndOutputTypes_shouldReturnValidOutputWithoutInputAndOutputProperties() throws IOException
+    void generateCamunda8ElementTemplate_withNoInputAndOutputTypes_shouldReturnValidOutputWithoutInputAndOutputProperties() throws IOException
     {
         // Arrange
-        Camunda8ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
+        Camunda8ElementTemplateGenerator camunda8ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
+                "test",
                 "0-1",
                 "test",
-                new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
-                null, null);
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
 
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-no-input-and-output.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda8ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Create JsonNodes because the order of the properties is irrelevant
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode expectedJsonObject = objectMapper.readTree(expectedJsonResult);
-        JsonNode generatedJsonObject = objectMapper.readTree(result.getJsonString());
+        JsonNode generatedJsonObject = objectMapper.readTree(result.getJson());
 
         // Assert
         assertNotNull(generatedJsonObject);
@@ -74,27 +79,29 @@ public class Camunda8ElementTemplatesGeneratorTest
     }
 
     @Test
-    void generateCamunda7ElementTemplate_withAnnotatedInputProperties_shouldReturnValidOutputWithInputAndOutputProperties() throws IOException
+    void generateCamunda8ElementTemplate_withAnnotatedInputProperties_shouldReturnValidOutputWithInputAndOutputProperties() throws IOException
     {
         // Arrange
-        Camunda8ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
+        Camunda8ElementTemplateGenerator camunda8ElementTemplateGenerator = new Camunda8ElementTemplateGenerator();
         var elementTemplateInfo = new ElementTemplateInfo(
                 "Test",
                 "test",
+                "test",
                 "0-1",
                 "test",
-                new BPMNElementType[]{BPMNElementType.BPMN_SERVICE_TASK},
-                TestInputWithElementTemplatePropertyAnnotation.class, TestOutput.class);
+                ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInputWithElementTemplatePropertyAnnotation.class),
+                ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class)
+        );
 
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-with-annotated-input-properties.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda8ElementTemplateGenerator.generate(elementTemplateInfo);
 
         // Create JsonNodes because the order of the properties is irrelevant
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode expectedJsonObject = objectMapper.readTree(expectedJsonResult);
-        JsonNode generatedJsonObject = objectMapper.readTree(result.getJsonString());
+        JsonNode generatedJsonObject = objectMapper.readTree(result.getJson());
 
         // Assert
         assertNotNull(generatedJsonObject);
