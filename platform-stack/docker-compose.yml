@@ -1,0 +1,111 @@
+# Use this only in dev environments. It's not intended for production usage.
+version: '3.9'
+services:
+
+  camunda:
+    image: camunda/camunda-bpm-platform:7.18.0
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://postgres-engine:5432/camunda
+      - DB_USERNAME=user
+      - DB_PASSWORD=secret
+    depends_on:
+        - postgres-engine
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+    networks:
+      - internal
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    ports:
+      - '1025:1025' # smtp server
+      - '9025:8025' # ui
+    networks:
+      - internal
+
+  #
+  # Local keycloak. To work properly, you need to change your local hosts file and add an alias to your
+  # `127.0.0.1 localhost` line to look like this: `127.0.0.1 localhost keycloak`.
+  # On Mac/Linux it is located in `/etc/hosts` on Win `C:\Windows\System32\Drivers\etc\hosts`
+  #
+  keycloak:
+    image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
+    container_name: keycloak
+    depends_on:
+      - postgres-keycloak
+    ports:
+      - '8080:8080'
+    command: 'start-dev --http-relative-path /auth'
+    environment:
+      KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
+      KC_HOSTNAME_STRICT: 'false'
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-keycloak:5432/keycloak
+      KC_DB_USERNAME: keycloak-user
+      KC_DB_PASSWORD: keycloak-secret
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - local-keycloak
+      - internal
+
+  keycloak-init:
+    image: klg71/keycloakmigration
+    container_name: keycloak-init
+    depends_on:
+      - keycloak
+    env_file:
+      - './local-docker.env'
+    environment:
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin
+      BASEURL: http://keycloak:8080/auth # uses internal docker network to access the keycloak via its back channel port
+      WAIT_FOR_KEYCLOAK: 'true'
+      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+    volumes:
+      - './keycloak:/migration'
+    networks:
+      - local-keycloak
+
+  postgres-tasklist:
+    image: postgres:13.2
+    container_name: postgres-tasklist
+    environment:
+      POSTGRES_DB: tasklistdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+    ports:
+      - '5432:5432' #mapped to machine port for tasklist local
+    networks:
+      - internal
+
+  postgres-engine:
+    image: postgres:13.2
+    container_name: postgres-engine
+    environment:
+      POSTGRES_DB: camunda
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+    expose:
+      - '5432'
+    networks:
+      - internal
+
+  postgres-keycloak:
+    image: postgres:13.2
+    container_name: postgres-keycloak
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak-user
+      POSTGRES_PASSWORD: keycloak-secret
+    expose:
+        - '5432'
+    networks:
+      - local-keycloak
+
+networks:
+  local-keycloak:
+  internal:
