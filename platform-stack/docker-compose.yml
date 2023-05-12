@@ -9,11 +9,28 @@ services:
       - DB_URL=jdbc:postgresql://postgres-engine:5432/camunda
       - DB_USERNAME=user
       - DB_PASSWORD=secret
+      - PT_CAMUNDA_PATH=/
+      - PT_CAMUNDA_HOST=http://pt-camunda:8080
     depends_on:
         - postgres-engine
-    ports:
-      - "8081:8080"
+    volumes:
+      - ./data/camunda/:/camunda/webapps/ #overwrites example data
+    expose:
+      - "8080"
     restart: unless-stopped
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:1.24.0
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:8080"
+    depends_on:
+      - camunda
+      - keycloak
     networks:
       - internal
 
@@ -26,18 +43,13 @@ services:
     networks:
       - internal
 
-  #
-  # Local keycloak. To work properly, you need to change your local hosts file and add an alias to your
-  # `127.0.0.1 localhost` line to look like this: `127.0.0.1 localhost keycloak`.
-  # On Mac/Linux it is located in `/etc/hosts` on Win `C:\Windows\System32\Drivers\etc\hosts`
-  #
   keycloak:
     image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
     container_name: keycloak
     depends_on:
       - postgres-keycloak
-    ports:
-      - '8080:8080'
+    expose:
+      - '8080'
     command: 'start-dev --http-relative-path /auth'
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
