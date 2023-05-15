@@ -1,9 +1,12 @@
 package io.miragon.miranum.connect.json.registry.application.ports.out;
 
 import io.miragon.miranum.connect.json.registry.domain.SchemaNew;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 public interface SaveSchemaPort {
 
-    void saveSchema(SchemaNew schemaNew);
+    void saveSchema(@Valid SchemaNew schemaNew);
 
 }

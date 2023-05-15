@@ -8,6 +8,3 @@ spring:
     password: schema-secret
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  flyway:
-    enabled: true
-    locations: classpath:db

@@ -1,7 +1,3 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik der Landeshauptstadt München, 2020
- */
-
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +7,8 @@ import java.util.Optional;
 
 public interface SchemaRepository extends JpaRepository<SchemaEntity, String> {
 
-    @Query(value = "SELECT max(version) FROM SchemaEntity WHERE key = ?1")
-    Optional<SchemaEntity> findLatestByKey(String key);
+    @Query(value = "SELECT max(version) FROM SchemaEntity WHERE ref = ?1")
+    Optional<SchemaEntity> findLatestByRef(String ref);
 
-    Optional<SchemaEntity> findByKeyAndVersion(String key, Integer version);
+    Optional<SchemaEntity> findByRefAndVersion(String ref, Integer version);
 }

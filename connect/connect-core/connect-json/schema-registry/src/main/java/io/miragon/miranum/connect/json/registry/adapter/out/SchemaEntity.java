@@ -1,15 +1,7 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik der Landeshauptstadt München, 2020
- */
-
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
-import lombok.*;
-
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
-
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Getter
 @Setter
@@ -18,15 +10,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "SchemaEntity")
-@Table(name = "MIRANUM_JSON_SCHEMA")
+@Table(name = "MIRANUM_SCHEMA_REGISTRY")
 public class SchemaEntity {
 
     @Id
     @Column(name = "id_")
     private String id;
 
-    @Column(name = "key_")
-    private String key;
+    @Column(name = "ref_")
+    private String ref;
 
     @Column(name = "version_")
     private Integer version;

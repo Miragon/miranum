@@ -1,7 +1,3 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik der Landeshauptstadt München, 2020
- */
-
 package io.miragon.miranum.connect.json.registry.adapter.in;
 
 import com.fasterxml.jackson.databind.JsonNode;

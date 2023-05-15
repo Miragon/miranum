@@ -8,8 +8,5 @@ create table miranum_schema_registry
     schema_     text            not null
 );
 
-alter table miranum_schema_registry
-    owner to "${flyway:user}";
-
 create index if not exists miranum_schema_registry_key_version_idx
     on miranum_schema_registry (ref_, version_);

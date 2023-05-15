@@ -9,3 +9,6 @@ spring:
     password:
   jpa:
     database-platform:
+  flyway:
+    enabled: true
+    locations: classpath:db

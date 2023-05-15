@@ -18,13 +18,13 @@ public class SchemaPersistenceAdapter implements SaveSchemaPort, LoadSchemaPort 
 
     @Override
     public void saveSchema(final SchemaNew schemaNew) {
-        final SchemaEntity entity = new SchemaEntity(null, schemaNew.getKey(), schemaNew.getVersion(), schemaNew.getJsonSchema().toString());
+        final SchemaEntity entity = new SchemaEntity(null, schemaNew.getRef(), schemaNew.getVersion(), schemaNew.getJsonSchema().toString());
         this.schemaRepository.save(entity);
     }
 
     @Override
-    public Optional<Schema> loadLatestSchema(final String ref) {
-        final Optional<SchemaEntity> entity = this.schemaRepository.findLatestByKey(ref);
+    public Optional<Schema> loadLatestSchema(final String key) {
+        final Optional<SchemaEntity> entity = this.schemaRepository.findLatestByRef(key);
         return Optional.of(entity
                 .map(this.schemaEntityMapper::map))
                 .orElse(Optional.empty());
@@ -32,7 +32,7 @@ public class SchemaPersistenceAdapter implements SaveSchemaPort, LoadSchemaPort 
 
     @Override
     public Optional<Schema> loadVersionedSchema(String ref, Integer version) {
-        final Optional<SchemaEntity> entity = this.schemaRepository.findByKeyAndVersion(ref, version);
+        final Optional<SchemaEntity> entity = this.schemaRepository.findByRefAndVersion(ref, version);
         return Optional.of(entity.map(this.schemaEntityMapper::map))
                     .orElse(Optional.empty());
     }
