@@ -9,12 +9,13 @@ services:
       - DB_URL=jdbc:postgresql://postgres-engine:5432/camunda
       - DB_USERNAME=user
       - DB_PASSWORD=secret
-      - PT_CAMUNDA_PATH=/
-      - PT_CAMUNDA_HOST=http://pt-camunda:8080
+      - JMX_PROMETHEUS=true # enable prometheus metrics
+      - JAVA_OPTS="-XX:-UseContainerSupport" # Use docker memory limits
+      - TZ=Europe/Berlin
     depends_on:
         - postgres-engine
-    volumes:
-      - ./data/camunda/:/camunda/webapps/ #overwrites example data
+    #volumes:
+    #  - ./data/camunda/:/camunda/webapps/ #overwrites example data
     expose:
       - "8080"
     restart: unless-stopped
