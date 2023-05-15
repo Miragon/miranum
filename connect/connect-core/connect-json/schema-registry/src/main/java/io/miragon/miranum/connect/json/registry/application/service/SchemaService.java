@@ -6,6 +6,7 @@ import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaU
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
+import io.miragon.miranum.connect.json.registry.domain.SchemaNew;
 import io.miragon.miranum.connect.shared.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,11 @@ public class SchemaService implements SaveSchemaUseCase, ReadSchemaUseCase {
     public void saveSchema(final String ref, final JsonNode jsonSchema) {
         final Optional<Schema> schemaOptional = this.loadSchemaPort.loadLatestSchema(ref);
 
-        Schema newSchema = schemaOptional
-                .map(schema -> new Schema(schema, jsonSchema))
-                .orElseGet(() -> new Schema(ref, 1, jsonSchema));
+        SchemaNew schemaNew = schemaOptional
+                .map(schema -> new SchemaNew(schema, jsonSchema))
+                .orElseGet(() -> new SchemaNew(ref, 1, jsonSchema));
 
-        this.saveSchemaPort.saveSchema(newSchema);
+        this.saveSchemaPort.saveSchema(schemaNew);
     }
 
     @Override

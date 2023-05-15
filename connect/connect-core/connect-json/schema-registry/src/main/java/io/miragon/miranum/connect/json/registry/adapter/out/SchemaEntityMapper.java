@@ -12,10 +12,10 @@ public class SchemaEntityMapper {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public Schema map(final SchemaEntity jsonSchema) {
+    public Schema map(final SchemaEntity entity) {
         try {
-            final JsonNode jsonNode = mapper.readTree(jsonSchema.getJsonSchema());
-            return new Schema(jsonSchema.getKey(), jsonSchema.getVersion(), jsonNode);
+            final JsonNode jsonNode = mapper.readTree(entity.getJsonSchema());
+            return new Schema(entity.getId(), entity.getKey(), entity.getVersion(), jsonNode);
         } catch (final JsonProcessingException e) {
             throw new RuntimeException(e);
         }
