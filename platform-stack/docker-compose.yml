@@ -95,6 +95,18 @@ services:
     networks:
       - internal
 
+  postgres-schema-registry:
+    image: postgres:13.2
+    container_name: postgres-schema-registry
+    environment:
+      POSTGRES_DB: ${SCHEMA_DATASOURCE_DB}
+      POSTGRES_USER: ${SCHEMA_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SCHEMA_DATASOURCE_PASSWORD}
+    ports:
+      - '5433:5432' #mapped to machine port for schema local
+    networks:
+      - internal
+
   postgres-engine:
     image: postgres:13.2
     container_name: postgres-engine
