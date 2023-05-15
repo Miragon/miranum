@@ -7,28 +7,31 @@ package io.miragon.miranum.connect.json.registry.adapter.out;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
-/**
- * Entity representation of a form.
- *
- * @author externer.dl.horn
- */
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "JsonSchema")
-@Table(name = "DWF_JSON_SCHEMA", indexes = {@Index(name = "IDX_DWF_SCHEMAKEY", columnList = "key_")})
+@Entity(name = "SchemaEntity")
+@Table(name = "MIRANUM_JSON_SCHEMA")
 public class SchemaEntity {
 
     @Id
+    @Column(name = "id_")
+    private String id;
+
     @Column(name = "key_")
     private String key;
 
-    @Column(name = "schema_", columnDefinition = "CLOB")
-    private String schema;
+    @Column(name = "version_")
+    private Integer version;
 
-
+    @Lob
+    @Column(name = "json_schema_")
+    private String jsonSchema;
 }

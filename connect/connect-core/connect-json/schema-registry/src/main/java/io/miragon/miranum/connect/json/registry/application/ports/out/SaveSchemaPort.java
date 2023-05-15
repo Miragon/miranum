@@ -4,6 +4,6 @@ import io.miragon.miranum.connect.json.registry.domain.Schema;
 
 public interface SaveSchemaPort {
 
-    void saveSchema(String key, Schema schema);
+    void saveSchema(Schema schema);
 
 }

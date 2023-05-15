@@ -2,8 +2,8 @@ package io.miragon.miranum.connect.json.registry.application.ports.in;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public interface CreateSchemaUseCase {
+public interface SaveSchemaUseCase {
 
-    void createSchema(String ref, JsonNode jsonSchema);
+    void saveSchema(String ref, JsonNode jsonSchema);
 
 }

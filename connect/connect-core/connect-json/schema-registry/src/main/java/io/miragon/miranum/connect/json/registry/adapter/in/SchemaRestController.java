@@ -5,8 +5,8 @@
 package io.miragon.miranum.connect.json.registry.adapter.in;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.miragon.miranum.connect.json.registry.application.ports.in.CreateSchemaUseCase;
-import io.miragon.miranum.connect.json.registry.application.ports.in.SchemaQuery;
+import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaUseCase;
+import io.miragon.miranum.connect.json.registry.application.ports.in.ReadSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,8 +30,8 @@ import java.util.NoSuchElementException;
 @Tag(name = "Schema", description = "API to handle schemas")
 public class SchemaRestController {
 
-    private final SchemaQuery schemaQuery;
-    private final CreateSchemaUseCase createSchemaUseCase;
+    private final ReadSchemaUseCase readSchemaUseCase;
+    private final SaveSchemaUseCase createSchemaUseCase;
 
     /**
      * Create a new schema.
@@ -43,7 +43,7 @@ public class SchemaRestController {
     @PostMapping("/{ref}")
     @Operation(description = "create new schema")
     public ResponseEntity<Void> createSchema(@PathVariable final String ref, @RequestBody @Valid final JsonNode node) {
-        this.createSchemaUseCase.createSchema(ref, node);
+        this.createSchemaUseCase.saveSchema(ref, node);
         return ResponseEntity.ok().build();
     }
 
@@ -54,11 +54,11 @@ public class SchemaRestController {
      * @return schema
      */
     @GetMapping("/{ref}")
-    @Operation(description = "get schema by ref")
-    public ResponseEntity<JsonNode> getSchema(@PathVariable final String ref) {
+    @Operation(description = "get latest schema by ref")
+    public ResponseEntity<JsonNode> getLatestSchema(@PathVariable final String ref) {
         try {
-            final Schema schema = this.schemaQuery.findJsonSchemaByRef(ref);
-            return ResponseEntity.ok(schema.getSchema());
+            final Schema schema = this.readSchemaUseCase.loadLatestSchema(ref);
+            return ResponseEntity.ok(schema.getJsonSchema());
         } catch (final NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }

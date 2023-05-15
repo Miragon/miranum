@@ -1,6 +1,5 @@
 package io.miragon.miranum.integrations.example.application.service;
 
-import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplate;
 import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
 import io.miragon.miranum.connect.message.api.MessageApi;

@@ -10,10 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class SchemaEntityMapper {
 
-    public Schema map(final SchemaEntity jsonSchema) throws JsonProcessingException {
-        final ObjectMapper mapper = new ObjectMapper();
-        final JsonNode jsonNode = mapper.readTree(jsonSchema.getSchema());
-        return new Schema(jsonNode);
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    public Schema map(final SchemaEntity jsonSchema) {
+        try {
+            final JsonNode jsonNode = mapper.readTree(jsonSchema.getJsonSchema());
+            return new Schema(jsonSchema.getKey(), jsonSchema.getVersion(), jsonNode);
+        } catch (final JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
