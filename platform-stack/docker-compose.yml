@@ -5,10 +5,10 @@ services:
   camunda:
     image: camunda/camunda-bpm-platform:7.18.0
     environment:
+      - DB_URL=${ENGINE_DATASOURCE_URL}
+      - DB_USERNAME=${ENGINE_DATASOURCE_USERNAME}
+      - DB_PASSWORD=${ENGINE_DATASOURCE_PASSWORD}
       - DB_DRIVER=org.postgresql.Driver
-      - DB_URL=jdbc:postgresql://postgres-engine:5432/camunda
-      - DB_USERNAME=user
-      - DB_PASSWORD=secret
       - JMX_PROMETHEUS=true # enable prometheus metrics
       - JAVA_OPTS="-XX:-UseContainerSupport" # Use docker memory limits
       - TZ=Europe/Berlin
@@ -56,11 +56,11 @@ services:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres-keycloak:5432/keycloak
-      KC_DB_USERNAME: keycloak-user
-      KC_DB_PASSWORD: keycloak-secret
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB_URL: ${SSO_DATASOURCE_URL}
+      KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
+      KC_DB_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
+      KEYCLOAK_ADMIN: ${SSO_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
     networks:
       - local-keycloak
       - internal
@@ -71,11 +71,11 @@ services:
     depends_on:
       - keycloak
     env_file:
-      - './local-docker.env'
+      - './.env'
     environment:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:8080/auth # uses internal docker network to access the keycloak via its back channel port
+      BASEURL: http://keycloak:8080/auth
       WAIT_FOR_KEYCLOAK: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
@@ -87,9 +87,9 @@ services:
     image: postgres:13.2
     container_name: postgres-tasklist
     environment:
-      POSTGRES_DB: tasklistdb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ${TASK_DATASOURCE_DB}
+      POSTGRES_USER: ${TASK_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${TASK_DATASOURCE_PASSWORD}
     ports:
       - '5432:5432' #mapped to machine port for tasklist local
     networks:
@@ -99,9 +99,9 @@ services:
     image: postgres:13.2
     container_name: postgres-engine
     environment:
-      POSTGRES_DB: camunda
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ${ENGINE_DATASOURCE_DB}
+      POSTGRES_USER: ${ENGINE_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${ENGINE_DATASOURCE_PASSWORD}
     expose:
       - '5432'
     networks:
@@ -111,9 +111,9 @@ services:
     image: postgres:13.2
     container_name: postgres-keycloak
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak-user
-      POSTGRES_PASSWORD: keycloak-secret
+      POSTGRES_DB: ${SSO_DATASOURCE_DB}
+      POSTGRES_USER: ${SSO_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
     expose:
         - '5432'
     networks:
