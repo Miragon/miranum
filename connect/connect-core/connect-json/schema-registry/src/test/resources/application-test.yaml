@@ -1,6 +1,8 @@
 server:
   port: 8081
 
+miranum.schema.registry.url: http://localhost:8081
+
 spring:
   datasource:
     url: jdbc:h2:mem:testdb

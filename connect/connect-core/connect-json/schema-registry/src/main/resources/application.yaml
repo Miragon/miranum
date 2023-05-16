@@ -1,6 +1,8 @@
 server:
   port: 8080
 
+miranum.schema.registry.url:
+
 spring:
   datasource:
     url:

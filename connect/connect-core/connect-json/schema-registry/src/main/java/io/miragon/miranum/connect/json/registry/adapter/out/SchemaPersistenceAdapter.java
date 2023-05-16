@@ -7,6 +7,8 @@ import io.miragon.miranum.connect.json.registry.domain.SchemaNew;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,12 +22,13 @@ public class SchemaPersistenceAdapter implements SaveSchemaPort, LoadSchemaPort 
     public Schema saveSchema(final SchemaNew schemaNew) {
         final SchemaEntity entity = new SchemaEntity(null, schemaNew.getRef(), schemaNew.getVersion(), schemaNew.getJsonSchema().toString());
         final SchemaEntity savedEntity = this.schemaRepository.save(entity);
-        return this.schemaEntityMapper.map(savedEntity);
+        return schemaEntityMapper.map(savedEntity);
     }
 
     @Override
-    public Optional<Schema> loadLatestSchema(final String key) {
-        final Optional<SchemaEntity> entity = this.schemaRepository.findLatestByRef(key);
+    public Optional<Schema> loadLatestSchema(final String ref) {
+        final List<SchemaEntity> entities = this.schemaRepository.findAllByRef(ref);
+        final Optional<SchemaEntity> entity = entities.stream().max(Comparator.comparingInt(SchemaEntity::getVersion));
         return entity.map(this.schemaEntityMapper::map);
     }
 

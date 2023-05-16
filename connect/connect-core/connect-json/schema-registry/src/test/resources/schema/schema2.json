@@ -1,0 +1,116 @@
+{
+    "key": "Schema2",
+    "x-display": "stepper",
+    "required": [
+        "numberProp1"
+    ],
+    "allOf": [
+        {
+            "key": "sectionKey1",
+            "title": "Erster Abschnitt",
+            "x-options": {
+                "sectionsTitlesClasses": [
+                    "d-none"
+                ]
+            },
+            "allOf": [
+                {
+                    "additionalProperties": false,
+                    "key": "feldgruppe1",
+                    "title": "Erste Gruppe",
+                    "x-options": {
+                        "childrenClass": "pr-5 pl-0"
+                    },
+                    "properties": {
+                        "stringProp1": {
+                            "fieldType": "text",
+                            "title": "Ich bin ein Text",
+                            "type": "string",
+                            "x-options": {
+                                "fieldColProps": {
+                                    "cols": 12,
+                                    "sm": 6
+                                }
+                            },
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        },
+                        "numberProp1": {
+                            "fieldType": "integer",
+                            "type": "integer",
+                            "title": "Ich bin eine Ganzzahl",
+                            "readOnly": true,
+                            "x-options": {
+                                "fieldColProps": {
+                                    "cols": 12,
+                                    "sm": 6
+                                }
+                            },
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        },
+                        "textarea1": {
+                            "fieldType": "FieldType.Textarea",
+                            "type": "string",
+                            "x-display": "textarea",
+                            "title": "Ich bin eine Textarea",
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        },
+                        "booleanprop": {
+                            "fieldType": "FieldType.Checkbox",
+                            "type": "boolean",
+                            "title": "Ich bin eine Checkbox",
+                            "readOnly": true,
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        },
+                        "dateprop": {
+                            "fieldType": "FieldType.Date",
+                            "type": "string",
+                            "format": "date",
+                            "title": "Ich bin ein Date",
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "additionalProperties": false,
+                    "key": "feldgruppe1",
+                    "title": "Erste Gruppe",
+                    "x-options": {
+                        "childrenClass": "pr-5 pl-0"
+                    },
+                    "properties": {
+                        "testProp": {
+                            "fieldType": "text",
+                            "title": "Ich bin ein Text",
+                            "type": "string",
+                            "x-options": {
+                                "fieldColProps": {
+                                    "cols": 12,
+                                    "sm": 6
+                                }
+                            },
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

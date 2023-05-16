@@ -1,5 +1,5 @@
 {
-  "key": "MyStartForm",
+  "key": "Schema2",
   "x-display": "stepper",
   "required": [
     "numberProp1"
