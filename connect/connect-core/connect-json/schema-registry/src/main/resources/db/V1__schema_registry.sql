@@ -5,7 +5,7 @@ create table miranum_schema_registry
             primary key,
     ref_          varchar(255)    not null,
     version_      int             not null,
-    json_schema_  text            not null
+    json_node_    text            not null
 );
 
 alter table miranum_schema_registry

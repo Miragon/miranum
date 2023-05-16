@@ -1,12 +1,13 @@
-package io.miragon.miranum.connect.json.registry.domain;
+package io.miragon.miranum.connect.json.registry.application.ports.in;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.miragon.miranum.connect.json.registry.domain.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 
 @Getter
-public class SchemaNew {
+public class SaveSchemaCommand {
 
     @NotNull
     private final String ref;
@@ -15,18 +16,18 @@ public class SchemaNew {
     private final Integer version;
 
     @NotNull
-    private final JsonNode jsonSchema;
+    private final JsonNode jsonNode;
 
-    public SchemaNew(final String ref, final JsonNode jsonSchema) {
+    public SaveSchemaCommand(final String ref, final JsonNode jsonNode) {
         this.ref = ref;
         this.version = 1;
-        this.jsonSchema = jsonSchema;
+        this.jsonNode = jsonNode;
     }
 
-    public SchemaNew(Schema existingSchema, final JsonNode jsonSchema) {
+    public SaveSchemaCommand(Schema existingSchema, final JsonNode jsonNode) {
         this.ref = existingSchema.getRef();
         this.version = existingSchema.getVersion() + 1;
-        this.jsonSchema = jsonSchema;
+        this.jsonNode = jsonNode;
     }
 
 }

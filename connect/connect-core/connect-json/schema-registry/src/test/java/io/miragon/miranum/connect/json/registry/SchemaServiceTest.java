@@ -1,7 +1,6 @@
 package io.miragon.miranum.connect.json.registry;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.miragon.miranum.connect.json.api.JsonApi;
 import io.miragon.miranum.connect.json.api.JsonSchema;
 import io.miragon.miranum.connect.json.impl.JsonSchemaFactory;
 import io.miragon.miranum.connect.json.registry.application.service.SchemaService;
@@ -47,7 +46,7 @@ public class SchemaServiceTest {
                 this.schemaService.saveSchema("test", null)
         );
 
-        assertEquals("saveSchema.arg0.jsonSchema: must not be null", exception.getMessage());
+        assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class SchemaServiceTest {
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
         assertEquals("test", saved.getRef());
-        assertEquals(jsonNode.toString(), saved.getJsonSchema().toString());
+        assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
     }
 
     @Test
@@ -71,7 +70,7 @@ public class SchemaServiceTest {
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
         assertEquals("test", saved.getRef());
-        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonSchema().toString());
+        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
     }
 
     @Test
@@ -84,7 +83,7 @@ public class SchemaServiceTest {
         assertEquals(36, saved.getId().length());
         assertEquals(2, saved.getVersion());
         assertEquals("test", saved.getRef());
-        assertEquals(jsonNode.toString(), saved.getJsonSchema().toString());
+        assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
     }
 
     @Test
@@ -95,7 +94,7 @@ public class SchemaServiceTest {
         assertEquals(36, saved.getId().length());
         assertEquals(2, saved.getVersion());
         assertEquals("test", saved.getRef());
-        assertEquals(schemas.get("schema2").getSchema().toString(), saved.getJsonSchema().toString());
+        assertEquals(schemas.get("schema2").getSchema().toString(), saved.getJsonNode().toString());
     }
 
     @Test
@@ -106,7 +105,7 @@ public class SchemaServiceTest {
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
         assertEquals("test", saved.getRef());
-        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonSchema().toString());
+        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
     }
 
 

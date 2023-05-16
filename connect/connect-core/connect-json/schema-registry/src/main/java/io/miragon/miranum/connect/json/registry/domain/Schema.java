@@ -11,6 +11,6 @@ public class Schema {
     private final String id;
     private final String ref;
     private final Integer version;
-    private final JsonNode jsonSchema;
+    private final JsonNode jsonNode;
 
 }

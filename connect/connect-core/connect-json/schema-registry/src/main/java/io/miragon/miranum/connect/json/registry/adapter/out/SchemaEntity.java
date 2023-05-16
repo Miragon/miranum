@@ -27,6 +27,6 @@ public class SchemaEntity {
     private Integer version;
 
     @Lob
-    @Column(name = "json_schema_")
-    private String jsonSchema;
+    @Column(name = "json_node_")
+    private String jsonNode;
 }

@@ -1,9 +1,9 @@
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
+import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
-import io.miragon.miranum.connect.json.registry.domain.SchemaNew;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +19,8 @@ public class SchemaPersistenceAdapter implements SaveSchemaPort, LoadSchemaPort 
     private final SchemaEntityMapper schemaEntityMapper;
 
     @Override
-    public Schema saveSchema(final SchemaNew schemaNew) {
-        final SchemaEntity entity = new SchemaEntity(null, schemaNew.getRef(), schemaNew.getVersion(), schemaNew.getJsonSchema().toString());
+    public Schema saveSchema(final SaveSchemaCommand saveSchemaCommand) {
+        final SchemaEntity entity = new SchemaEntity(null, saveSchemaCommand.getRef(), saveSchemaCommand.getVersion(), saveSchemaCommand.getJsonNode().toString());
         final SchemaEntity savedEntity = this.schemaRepository.save(entity);
         return schemaEntityMapper.map(savedEntity);
     }

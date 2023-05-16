@@ -2,11 +2,11 @@ package io.miragon.miranum.connect.json.registry.application.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.miragon.miranum.connect.json.registry.application.ports.in.ReadSchemaUseCase;
+import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
-import io.miragon.miranum.connect.json.registry.domain.SchemaNew;
 import io.miragon.miranum.connect.shared.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +26,11 @@ public class SchemaService implements SaveSchemaUseCase, ReadSchemaUseCase {
     public Schema saveSchema(final String ref, final JsonNode jsonSchema) {
         final Optional<Schema> schemaOptional = this.loadSchemaPort.loadLatestSchema(ref);
 
-        SchemaNew schemaNew = schemaOptional
-                .map(schema -> new SchemaNew(schema, jsonSchema))
-                .orElseGet(() -> new SchemaNew(ref, jsonSchema));
+        SaveSchemaCommand saveSchemaCommand = schemaOptional
+                .map(schema -> new SaveSchemaCommand(schema, jsonSchema))
+                .orElseGet(() -> new SaveSchemaCommand(ref, jsonSchema));
 
-        return this.saveSchemaPort.saveSchema(schemaNew);
+        return this.saveSchemaPort.saveSchema(saveSchemaCommand);
     }
 
     @Override

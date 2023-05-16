@@ -54,7 +54,7 @@ public class SchemaRestController {
     public ResponseEntity<JsonNode> getLatestSchema(@PathVariable final String ref) {
         try {
             final Schema schema = this.readSchemaUseCase.loadLatestSchema(ref);
-            return ResponseEntity.ok(schema.getJsonSchema());
+            return ResponseEntity.ok(schema.getJsonNode());
         } catch (final NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
