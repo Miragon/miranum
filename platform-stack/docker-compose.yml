@@ -1,0 +1,136 @@
+# Use this only in dev environments. It's not intended for production usage.
+version: '3.9'
+services:
+
+  camunda:
+    image: camunda/camunda-bpm-platform:7.18.0
+    environment:
+      - DB_URL=${ENGINE_DATASOURCE_URL}
+      - DB_USERNAME=${ENGINE_DATASOURCE_USERNAME}
+      - DB_PASSWORD=${ENGINE_DATASOURCE_PASSWORD}
+      - DB_DRIVER=org.postgresql.Driver
+      - JMX_PROMETHEUS=true # enable prometheus metrics
+      - JAVA_OPTS="-XX:-UseContainerSupport" # Use docker memory limits
+      - TZ=Europe/Berlin
+    depends_on:
+        - postgres-engine
+    #volumes:
+    #  - ./data/camunda/:/camunda/webapps/ #overwrites example data
+    expose:
+      - "8080"
+    restart: unless-stopped
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:1.24.0
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:8080"
+    depends_on:
+      - camunda
+      - keycloak
+    networks:
+      - internal
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    ports:
+      - '1025:1025' # smtp server
+      - '9025:8025' # ui
+    networks:
+      - internal
+
+  keycloak:
+    image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
+    container_name: keycloak
+    depends_on:
+      - postgres-keycloak
+    expose:
+      - '8080'
+    command: 'start-dev --http-relative-path /auth'
+    environment:
+      KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
+      KC_HOSTNAME_STRICT: 'false'
+      KC_DB: postgres
+      KC_DB_URL: ${SSO_DATASOURCE_URL}
+      KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
+      KC_DB_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
+      KEYCLOAK_ADMIN: ${SSO_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
+    networks:
+      - local-keycloak
+      - internal
+
+  keycloak-init:
+    image: klg71/keycloakmigration
+    container_name: keycloak-init
+    depends_on:
+      - keycloak
+    env_file:
+      - './.env'
+    environment:
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin
+      BASEURL: http://keycloak:8080/auth
+      WAIT_FOR_KEYCLOAK: 'true'
+      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+    volumes:
+      - './keycloak:/migration'
+    networks:
+      - local-keycloak
+
+  postgres-tasklist:
+    image: postgres:13.2
+    container_name: postgres-tasklist
+    environment:
+      POSTGRES_DB: ${TASK_DATASOURCE_DB}
+      POSTGRES_USER: ${TASK_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${TASK_DATASOURCE_PASSWORD}
+    ports:
+      - '5432:5432' #mapped to machine port for tasklist local
+    networks:
+      - internal
+
+  postgres-schema-registry:
+    image: postgres:13.2
+    container_name: postgres-schema-registry
+    environment:
+      POSTGRES_DB: ${SCHEMA_DATASOURCE_DB}
+      POSTGRES_USER: ${SCHEMA_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SCHEMA_DATASOURCE_PASSWORD}
+    ports:
+      - '5433:5432' #mapped to machine port for schema local
+    networks:
+      - internal
+
+  postgres-engine:
+    image: postgres:13.2
+    container_name: postgres-engine
+    environment:
+      POSTGRES_DB: ${ENGINE_DATASOURCE_DB}
+      POSTGRES_USER: ${ENGINE_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${ENGINE_DATASOURCE_PASSWORD}
+    expose:
+      - '5432'
+    networks:
+      - internal
+
+  postgres-keycloak:
+    image: postgres:13.2
+    container_name: postgres-keycloak
+    environment:
+      POSTGRES_DB: ${SSO_DATASOURCE_DB}
+      POSTGRES_USER: ${SSO_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
+    expose:
+        - '5432'
+    networks:
+      - local-keycloak
+
+networks:
+  local-keycloak:
+  internal:

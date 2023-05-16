@@ -1,0 +1,11 @@
+# Docs: https://mayope.github.io/keycloakmigration/migrations/client/
+# Source: https://github.com/mayope/keycloakmigration
+
+includes:
+  - path: 01_initial-realm.yml
+  - path: 03_task-management.yml
+  - path: 04_engine.yml
+  - path: 05_engine_protocol_mapper.yml
+  - path: 06_task-management_protocol_mapper.yml
+  - path: 07_task-management_service_account.yml
+  - path: 10_johndoe.yml
