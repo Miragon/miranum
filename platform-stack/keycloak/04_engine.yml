@@ -1,0 +1,22 @@
+id: engine
+author: Miranum
+realm: ${SSO_REALM}
+changes:
+  - addSimpleClient:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      secret: ${SSO_ENGINE_CLIENT_SECRET}
+      publicClient: false
+      redirectUris:
+        - http://localhost:8081/*
+        - http://localhost:8082/*
+        - http://localhost:8083/*
+  - addRole:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientRole: true
+      name: clientrole_deployer
+      description: Can deploy, assigns BACKEND_DEPLOY_RESOURCE authority on other stages then local.
+  - addRole:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientRole: true
+      name: clientrole_task_importer
+      description: Can import user task from the engine to Polyflow.
