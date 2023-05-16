@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.json.registry.adapter.in;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.miragon.miranum.connect.json.registry.application.ports.in.ReadSchemaUseCase;
+import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaInCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +40,7 @@ public class SchemaRestController {
     @PostMapping("/{ref}")
     @Operation(description = "create new schema")
     public ResponseEntity<Void> createSchema(@PathVariable final String ref, @RequestBody @Valid final JsonNode node) {
-        this.createSchemaUseCase.saveSchema(ref, node);
+        this.createSchemaUseCase.saveSchema(new SaveSchemaInCommand(ref, node));
         return ResponseEntity.ok().build();
     }
 

@@ -3,6 +3,7 @@ package io.miragon.miranum.connect.json.registry;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.miragon.miranum.connect.json.api.JsonSchema;
 import io.miragon.miranum.connect.json.impl.JsonSchemaFactory;
+import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaInCommand;
 import io.miragon.miranum.connect.json.registry.application.service.SchemaService;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import jakarta.validation.ConstraintViolationException;
@@ -44,7 +45,7 @@ public class SchemaServiceTest {
     @Order(1)
     public void shouldThrowValidationException() {
         Exception exception = assertThrows(ConstraintViolationException.class, () ->
-                this.schemaService.saveSchema("test", null)
+                this.schemaService.saveSchema(new SaveSchemaInCommand("test", null))
         );
 
         assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
@@ -55,7 +56,7 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema1(){
         final JsonNode jsonNode = schemas.get("schema1").getSchema();
-        final Schema saved = this.schemaService.saveSchema("test", jsonNode);
+        final Schema saved = this.schemaService.saveSchema(new SaveSchemaInCommand("test", jsonNode));
 
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
@@ -79,7 +80,7 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema2(){
         final JsonNode jsonNode = schemas.get("schema2").getSchema();
-        final Schema saved = this.schemaService.saveSchema("test", jsonNode);
+        final Schema saved = this.schemaService.saveSchema(new SaveSchemaInCommand("test", jsonNode));
 
         assertEquals(36, saved.getId().length());
         assertEquals(2, saved.getVersion());
