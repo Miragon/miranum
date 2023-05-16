@@ -23,14 +23,14 @@ public class SchemaService implements SaveSchemaUseCase, ReadSchemaUseCase {
 
     @Override
     @Transactional
-    public void saveSchema(final String ref, final JsonNode jsonSchema) {
+    public Schema saveSchema(final String ref, final JsonNode jsonSchema) {
         final Optional<Schema> schemaOptional = this.loadSchemaPort.loadLatestSchema(ref);
 
         SchemaNew schemaNew = schemaOptional
                 .map(schema -> new SchemaNew(schema, jsonSchema))
                 .orElseGet(() -> new SchemaNew(ref, jsonSchema));
 
-        this.saveSchemaPort.saveSchema(schemaNew);
+        return this.saveSchemaPort.saveSchema(schemaNew);
     }
 
     @Override

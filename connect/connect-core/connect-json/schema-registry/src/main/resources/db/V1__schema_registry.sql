@@ -1,11 +1,11 @@
 create table miranum_schema_registry
 (
-    id_        varchar(36)      not null
+    id_          varchar(36)      not null
         constraint miranum_schema_registry_pkey
             primary key,
-    ref_        varchar(255)    not null,
-    version_    int             not null,
-    schema_     text            not null
+    ref_          varchar(255)    not null,
+    version_      int             not null,
+    json_schema_  text            not null
 );
 
 alter table miranum_schema_registry

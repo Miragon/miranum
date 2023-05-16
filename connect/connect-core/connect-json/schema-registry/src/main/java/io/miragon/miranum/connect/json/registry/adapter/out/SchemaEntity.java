@@ -2,6 +2,7 @@ package io.miragon.miranum.connect.json.registry.adapter.out;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
@@ -14,7 +15,9 @@ import lombok.*;
 public class SchemaEntity {
 
     @Id
-    @Column(name = "id_")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "id_", unique = true, nullable = false, updatable = false, length = 36)
     private String id;
 
     @Column(name = "ref_")
