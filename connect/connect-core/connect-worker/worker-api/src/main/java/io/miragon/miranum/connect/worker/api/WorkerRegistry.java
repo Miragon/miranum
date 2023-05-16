@@ -2,8 +2,6 @@ package io.miragon.miranum.connect.worker.api;
 
 import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 
-import java.util.List;
-
 /**
  * Interface to execute a worker.
  */
