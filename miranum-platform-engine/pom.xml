@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.miragon</groupId>
+    <artifactId>miranum-platform-engine</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>miranum-platform-engine</name>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <polyflow.version>3.11.0</polyflow.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-camunda-bpm-springboot-starter</artifactId>
+            <version>${polyflow.version}</version>
+        </dependency>
+
+        <!-- Core -->
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-taskpool-core</artifactId>
+            <version>${polyflow.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-datapool-core</artifactId>
+            <version>${polyflow.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
