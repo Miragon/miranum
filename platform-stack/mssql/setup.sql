@@ -1,0 +1,4 @@
+CREATE DATABASE engine;
+GO
+CREATE DATABASE keycloak;
+GO

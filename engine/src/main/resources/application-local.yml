@@ -1,0 +1,15 @@
+spring:
+  sleuth:
+    web:
+      enabled: false
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      first-name: Admin
+      last-name: Administratus
+      email: admin@miranum.io
+      password: admin
+    login:
+      enabled: true
+      user-id: admin

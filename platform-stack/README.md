@@ -3,10 +3,13 @@
 For local development you can use the following tools:
 
 - **SSO**: Keycloak
-- **S3 Storage**: [Minio](https://min.io/docs/minio/linux/index.html)
-- **Email Server**: [Mailhog](https://github.com/mailhog/MailHog)
 - **SSO**: [Keycloak](https://www.keycloak.org/)
-- **DB**: Postgresql database 
+- **DB**: Postgresql database and mssql
+
+## Postgres Setup
+````
+chmod +x platform-stack/postgres/init.sh
+````
 
 ## Docker
 
