@@ -45,7 +45,8 @@ public class SchemaServiceTest {
     @Order(1)
     public void shouldThrowValidationException() {
         Exception exception = assertThrows(ConstraintViolationException.class, () ->
-                this.schemaService.saveSchema(new SaveSchemaInCommand("test", null))
+                this.schemaService.saveSchema(
+                        new SaveSchemaInCommand("onboarding", "new-employee", null))
         );
 
         assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
@@ -56,22 +57,25 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema1(){
         final JsonNode jsonNode = schemas.get("schema1").getSchema();
-        final Schema saved = this.schemaService.saveSchema(new SaveSchemaInCommand("test", jsonNode));
+        final Schema saved = this.schemaService.saveSchema(
+                new SaveSchemaInCommand("onboarding", "new-employee-form", jsonNode));
 
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
-        assertEquals("test", saved.getRef());
+        assertEquals("onboarding", saved.getBundle());
+        assertEquals("new-employee-form", saved.getRef());
         assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
     }
 
     @Test
     @Order(2)
     public void shouldLoadLatest_expectingSchema1() {
-        final Schema saved = this.schemaService.loadLatestSchema("test");
+        final Schema saved = this.schemaService.loadLatestSchema("onboarding", "new-employee-form");
 
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
-        assertEquals("test", saved.getRef());
+        assertEquals("onboarding", saved.getBundle());
+        assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
     }
 
@@ -80,33 +84,37 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema2(){
         final JsonNode jsonNode = schemas.get("schema2").getSchema();
-        final Schema saved = this.schemaService.saveSchema(new SaveSchemaInCommand("test", jsonNode));
+        final Schema saved = this.schemaService.saveSchema(
+                new SaveSchemaInCommand("onboarding", "new-employee-form", jsonNode));
 
         assertEquals(36, saved.getId().length());
         assertEquals(2, saved.getVersion());
-        assertEquals("test", saved.getRef());
+        assertEquals("onboarding", saved.getBundle());
+        assertEquals("new-employee-form", saved.getRef());
         assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
     }
 
     @Test
     @Order(4)
     public void shouldLoadLatest_expectingSchema2() {
-        final Schema saved = this.schemaService.loadLatestSchema("test");
+        final Schema saved = this.schemaService.loadLatestSchema( "onboarding", "new-employee-form");
 
         assertEquals(36, saved.getId().length());
         assertEquals(2, saved.getVersion());
-        assertEquals("test", saved.getRef());
+        assertEquals("onboarding", saved.getBundle());
+        assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema2").getSchema().toString(), saved.getJsonNode().toString());
     }
 
     @Test
     @Order(4)
     public void shouldLoadVersionedSchema() {
-        final Schema saved = this.schemaService.loadVersionedSchema("test", 1);
+        final Schema saved = this.schemaService.loadVersionedSchema("onboarding", "new-employee-form", 1);
 
         assertEquals(36, saved.getId().length());
         assertEquals(1, saved.getVersion());
-        assertEquals("test", saved.getRef());
+        assertEquals("onboarding", saved.getBundle());
+        assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
     }
 

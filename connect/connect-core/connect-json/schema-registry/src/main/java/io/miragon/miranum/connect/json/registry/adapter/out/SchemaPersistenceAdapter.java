@@ -20,21 +20,27 @@ public class SchemaPersistenceAdapter implements SaveSchemaPort, LoadSchemaPort 
 
     @Override
     public Schema saveSchema(final SaveSchemaOutCommand saveSchemaOutCommand) {
-        final SchemaEntity entity = new SchemaEntity(null, saveSchemaOutCommand.getRef(), saveSchemaOutCommand.getVersion(), saveSchemaOutCommand.getJsonNode().toString());
+        final SchemaEntity entity = new SchemaEntity(
+                null, // set by JPA
+                saveSchemaOutCommand.getBundle(),
+                saveSchemaOutCommand.getRef(),
+                saveSchemaOutCommand.getVersion(),
+                saveSchemaOutCommand.getJsonNode().toString());
         final SchemaEntity savedEntity = this.schemaRepository.save(entity);
         return schemaEntityMapper.map(savedEntity);
     }
 
     @Override
-    public Optional<Schema> loadLatestSchema(final String ref) {
-        final List<SchemaEntity> entities = this.schemaRepository.findAllByRef(ref);
-        final Optional<SchemaEntity> entity = entities.stream().max(Comparator.comparingInt(SchemaEntity::getVersion));
+    public Optional<Schema> loadLatestSchema(final String bundle, final String ref) {
+        final List<SchemaEntity> entities = this.schemaRepository.findAllByBundleAndRef(bundle, ref);
+        final Optional<SchemaEntity> entity = entities.stream()
+                .max(Comparator.comparingInt(SchemaEntity::getVersion));
         return entity.map(this.schemaEntityMapper::map);
     }
 
     @Override
-    public Optional<Schema> loadVersionedSchema(String ref, Integer version) {
-        final Optional<SchemaEntity> entity = this.schemaRepository.findByRefAndVersion(ref, version);
+    public Optional<Schema> loadVersionedSchema(final String bundle, final String ref, final Integer version) {
+        final Optional<SchemaEntity> entity = this.schemaRepository.findByBundleAndRefAndVersion(bundle, ref, version);
         return entity.map(this.schemaEntityMapper::map);
     }
 }

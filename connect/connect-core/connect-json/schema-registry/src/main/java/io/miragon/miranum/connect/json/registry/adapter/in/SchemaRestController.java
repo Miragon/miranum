@@ -33,28 +33,57 @@ public class SchemaRestController {
     /**
      * Create a new schema.
      *
-     * @param ref  reference to the json schema
-     * @param node Schema that is created
+     * @param bundle  artefact bundle, the schema refers to
+     * @param ref     reference to the json schema
+     * @param node    Schema that is created
      * @return json schema
      */
-    @PostMapping("/{ref}")
+    @PostMapping("/{bundle}/{ref}")
     @Operation(description = "create new schema")
-    public ResponseEntity<Void> createSchema(@PathVariable final String ref, @RequestBody @Valid final JsonNode node) {
-        this.createSchemaUseCase.saveSchema(new SaveSchemaInCommand(ref, node));
+    public ResponseEntity<Void> createSchema(
+            @PathVariable final String bundle,
+            @PathVariable final String ref,
+            @RequestBody @Valid final JsonNode node) {
+        this.createSchemaUseCase.saveSchema(new SaveSchemaInCommand(bundle, ref, node));
         return ResponseEntity.ok().build();
     }
 
     /**
      * Get a schema by ref
      *
-     * @param ref reference to the schema
+     * @param bundle  artefact bundle, the schema refers to
+     * @param ref     reference to the schema
      * @return schema
      */
-    @GetMapping("/{ref}")
+    @GetMapping("/{bunlde}/{ref}")
     @Operation(description = "get latest schema by ref")
-    public ResponseEntity<JsonNode> getLatestSchema(@PathVariable final String ref) {
+    public ResponseEntity<JsonNode> getLatestSchema(
+            @PathVariable final String bundle,
+            @PathVariable final String ref) {
         try {
-            final Schema schema = this.readSchemaUseCase.loadLatestSchema(ref);
+            final Schema schema = this.readSchemaUseCase.loadLatestSchema(bundle, ref);
+            return ResponseEntity.ok(schema.getJsonNode());
+        } catch (final NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Get a schema by ref and version
+     *
+     * @param bundle  artefact bundle, the schema refers to
+     * @param ref     reference to the schema
+     * @param version version of the schema
+     * @return schema
+     */
+    @GetMapping("/{bundle}/{ref}/{version}")
+    @Operation(description = "get latest schema by ref")
+    public ResponseEntity<JsonNode> getLatestSchema(
+            @PathVariable final String bundle,
+            @PathVariable final String ref,
+            @PathVariable final Integer version) {
+        try {
+            final Schema schema = this.readSchemaUseCase.loadVersionedSchema(bundle, ref, version);
             return ResponseEntity.ok(schema.getJsonNode());
         } catch (final NoSuchElementException exception) {
             return ResponseEntity.notFound().build();

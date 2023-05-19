@@ -4,8 +4,8 @@ import io.miragon.miranum.connect.json.registry.domain.Schema;
 
 public interface ReadSchemaUseCase {
 
-    Schema loadLatestSchema(String ref);
+    Schema loadLatestSchema(final String bundle, final String ref);
 
-    Schema loadVersionedSchema(String ref, Integer version);
+    Schema loadVersionedSchema(final String bundle, final String ref, final Integer version);
 
 }

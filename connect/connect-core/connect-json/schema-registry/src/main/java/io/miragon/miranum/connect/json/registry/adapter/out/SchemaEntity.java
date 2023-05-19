@@ -20,6 +20,9 @@ public class SchemaEntity {
     @Column(name = "id_", unique = true, nullable = false, updatable = false, length = 36)
     private String id;
 
+    @Column(name = "bundle_")
+    private String bundle;
+
     @Column(name = "ref_")
     private String ref;
 

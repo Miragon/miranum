@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface SchemaRepository extends JpaRepository<SchemaEntity, String> {
 
-    List<SchemaEntity> findAllByRef(String ref);
-    Optional<SchemaEntity> findByRefAndVersion(String ref, Integer version);
+    List<SchemaEntity> findAllByBundleAndRef(String bundle, String ref);
+    Optional<SchemaEntity> findByBundleAndRefAndVersion(String bundle, String ref, Integer version);
 }

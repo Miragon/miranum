@@ -38,6 +38,7 @@
         <module>examples</module>
         <module>integrations</module>
         <module>miranum-connect-coverage</module>
+        <module>connect/connect-core/connect-json/schema-api</module>
     </modules>
 
     <dependencyManagement>

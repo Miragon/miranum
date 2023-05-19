@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface LoadSchemaPort {
 
-    Optional<Schema> loadLatestSchema(String ref);
+    Optional<Schema> loadLatestSchema(final String bundle, final String ref);
 
-    Optional<Schema> loadVersionedSchema(String ref, Integer version);
+    Optional<Schema> loadVersionedSchema(final String bundle, final String ref, final Integer version);
 
 }

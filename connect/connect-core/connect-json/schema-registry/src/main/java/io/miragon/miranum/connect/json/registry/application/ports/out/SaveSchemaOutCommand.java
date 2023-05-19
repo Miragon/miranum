@@ -10,6 +10,9 @@ import lombok.Getter;
 public class SaveSchemaOutCommand {
 
     @NotNull
+    private final String bundle;
+
+    @NotNull
     private final String ref;
 
     @Positive
@@ -18,13 +21,15 @@ public class SaveSchemaOutCommand {
     @NotNull
     private final JsonNode jsonNode;
 
-    public SaveSchemaOutCommand(final String ref, final JsonNode jsonNode) {
+    public SaveSchemaOutCommand(final String bundle, final String ref, final JsonNode jsonNode) {
+        this.bundle = bundle;
         this.ref = ref;
         this.version = 1;
         this.jsonNode = jsonNode;
     }
 
     public SaveSchemaOutCommand(Schema existingSchema, final JsonNode jsonNode) {
+        this.bundle = existingSchema.getBundle();
         this.ref = existingSchema.getRef();
         this.version = existingSchema.getVersion() + 1;
         this.jsonNode = jsonNode;
