@@ -26,8 +26,8 @@ public class SchemaEntity {
     @Column(name = "ref_")
     private String ref;
 
-    @Column(name = "version_")
-    private Integer version;
+    @Column(name = "tag_")
+    private String tag;
 
     @Lob
     @Column(name = "json_node_")

@@ -35,7 +35,7 @@ public class SchemaRestController {
      *
      * @param bundle  artefact bundle, the schema refers to
      * @param ref     reference to the json schema
-     * @param node    Schema that is created
+     * @param schemaCreateDto    Schema with tags to create
      * @return json schema
      */
     @PostMapping("/{bundle}/{ref}")
@@ -43,8 +43,9 @@ public class SchemaRestController {
     public ResponseEntity<Void> createSchema(
             @PathVariable final String bundle,
             @PathVariable final String ref,
-            @RequestBody @Valid final JsonNode node) {
-        this.createSchemaUseCase.saveSchema(new SaveSchemaInCommand(bundle, ref, node));
+            @RequestBody @Valid final SchemaCreateDto schemaCreateDto) {
+        this.createSchemaUseCase.saveSchema(
+                new SaveSchemaInCommand(bundle, ref, schemaCreateDto.getTags(), schemaCreateDto.getJsonNode()));
         return ResponseEntity.ok().build();
     }
 
@@ -55,7 +56,7 @@ public class SchemaRestController {
      * @param ref     reference to the schema
      * @return schema
      */
-    @GetMapping("/{bunlde}/{ref}")
+    @GetMapping("/{bundle}/{ref}")
     @Operation(description = "get latest schema by ref")
     public ResponseEntity<JsonNode> getLatestSchema(
             @PathVariable final String bundle,
@@ -70,20 +71,20 @@ public class SchemaRestController {
 
     /**
      * Get a schema by ref and version
-     *
+     *s
      * @param bundle  artefact bundle, the schema refers to
      * @param ref     reference to the schema
-     * @param version version of the schema
+     * @param tag     tag of the schema
      * @return schema
      */
-    @GetMapping("/{bundle}/{ref}/{version}")
+    @GetMapping("/{bundle}/{ref}/{tag}")
     @Operation(description = "get latest schema by ref")
     public ResponseEntity<JsonNode> getLatestSchema(
             @PathVariable final String bundle,
             @PathVariable final String ref,
-            @PathVariable final Integer version) {
+            @PathVariable final String tag) {
         try {
-            final Schema schema = this.readSchemaUseCase.loadVersionedSchema(bundle, ref, version);
+            final Schema schema = this.readSchemaUseCase.loadTaggedSchema(bundle, ref, tag);
             return ResponseEntity.ok(schema.getJsonNode());
         } catch (final NoSuchElementException exception) {
             return ResponseEntity.notFound().build();

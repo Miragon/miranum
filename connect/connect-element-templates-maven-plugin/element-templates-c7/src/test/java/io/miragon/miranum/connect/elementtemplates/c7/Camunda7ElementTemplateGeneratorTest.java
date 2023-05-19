@@ -2,8 +2,8 @@ package io.miragon.miranum.connect.elementtemplates.c7;
 
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplateProperty;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.c7.Camunda7ElementTemplateGenerator;
+import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 class Camunda7ElementTemplateGeneratorTest {
 
     @Test

@@ -6,6 +6,6 @@ public interface ReadSchemaUseCase {
 
     Schema loadLatestSchema(final String bundle, final String ref);
 
-    Schema loadVersionedSchema(final String bundle, final String ref, final Integer version);
+    Schema loadTaggedSchema(final String bundle, final String ref, final String tag);
 
 }

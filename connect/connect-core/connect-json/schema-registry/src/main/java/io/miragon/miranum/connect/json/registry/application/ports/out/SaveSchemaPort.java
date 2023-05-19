@@ -4,9 +4,11 @@ import io.miragon.miranum.connect.json.registry.domain.Schema;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Validated
 public interface SaveSchemaPort {
 
-    Schema saveSchema(@Valid SaveSchemaOutCommand saveSchemaOutCommand);
+    List<Schema> saveAllSchemas(List<@Valid Schema> schemasToSave);
 
 }

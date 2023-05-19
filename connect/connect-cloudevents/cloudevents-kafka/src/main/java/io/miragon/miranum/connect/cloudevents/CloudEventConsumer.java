@@ -1,6 +1,4 @@
 package io.miragon.miranum.connect.cloudevents;
-import java.time.Duration;
-import java.util.Properties;
 
 import io.cloudevents.CloudEvent;
 import io.cloudevents.kafka.CloudEventDeserializer;
@@ -8,6 +6,9 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+
+import java.time.Duration;
+import java.util.Properties;
 
 public class CloudEventConsumer {
     public static void main(String[] args) {

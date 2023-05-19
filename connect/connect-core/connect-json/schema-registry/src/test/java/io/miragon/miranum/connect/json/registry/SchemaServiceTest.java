@@ -7,6 +7,7 @@ import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaI
 import io.miragon.miranum.connect.json.registry.application.service.SchemaService;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import jakarta.validation.ConstraintViolationException;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -46,7 +49,7 @@ public class SchemaServiceTest {
     public void shouldThrowValidationException() {
         Exception exception = assertThrows(ConstraintViolationException.class, () ->
                 this.schemaService.saveSchema(
-                        new SaveSchemaInCommand("onboarding", "new-employee", null))
+                        new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1"),  null))
         );
 
         assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
@@ -57,14 +60,17 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema1(){
         final JsonNode jsonNode = schemas.get("schema1").getSchema();
-        final Schema saved = this.schemaService.saveSchema(
-                new SaveSchemaInCommand("onboarding", "new-employee-form", jsonNode));
+        final List<Schema> saved = this.schemaService.saveSchema(
+                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1", "latest"),  jsonNode));
 
-        assertEquals(36, saved.getId().length());
-        assertEquals(1, saved.getVersion());
-        assertEquals("onboarding", saved.getBundle());
-        assertEquals("new-employee-form", saved.getRef());
-        assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
+        for (Schema schema : saved) {
+            assertEquals(36, schema.getId().length());
+            assertEquals("onboarding", schema.getBundle());
+            assertEquals("new-employee-form", schema.getRef());
+            assertEquals(jsonNode.toString(), schema.getJsonNode().toString());
+        }
+
+        assertThat(List.of("1.1", "latest"), Matchers.containsInAnyOrder(saved.stream().map(Schema::getTag).toArray()));
     }
 
     @Test
@@ -73,7 +79,7 @@ public class SchemaServiceTest {
         final Schema saved = this.schemaService.loadLatestSchema("onboarding", "new-employee-form");
 
         assertEquals(36, saved.getId().length());
-        assertEquals(1, saved.getVersion());
+        assertEquals("latest", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
@@ -84,14 +90,17 @@ public class SchemaServiceTest {
     @Rollback(false)
     public void shouldSaveSchema2(){
         final JsonNode jsonNode = schemas.get("schema2").getSchema();
-        final Schema saved = this.schemaService.saveSchema(
-                new SaveSchemaInCommand("onboarding", "new-employee-form", jsonNode));
+        final List<Schema> saved = this.schemaService.saveSchema(
+                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.2", "latest"),  jsonNode));
 
-        assertEquals(36, saved.getId().length());
-        assertEquals(2, saved.getVersion());
-        assertEquals("onboarding", saved.getBundle());
-        assertEquals("new-employee-form", saved.getRef());
-        assertEquals(jsonNode.toString(), saved.getJsonNode().toString());
+        for (Schema schema : saved) {
+            assertEquals(36, schema.getId().length());
+            assertEquals("onboarding", schema.getBundle());
+            assertEquals("new-employee-form", schema.getRef());
+            assertEquals(jsonNode.toString(), schema.getJsonNode().toString());
+        }
+
+        assertThat(List.of("1.2", "latest"), Matchers.containsInAnyOrder(saved.stream().map(Schema::getTag).toArray()));
     }
 
     @Test
@@ -100,7 +109,7 @@ public class SchemaServiceTest {
         final Schema saved = this.schemaService.loadLatestSchema( "onboarding", "new-employee-form");
 
         assertEquals(36, saved.getId().length());
-        assertEquals(2, saved.getVersion());
+        assertEquals("latest", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema2").getSchema().toString(), saved.getJsonNode().toString());
@@ -109,10 +118,10 @@ public class SchemaServiceTest {
     @Test
     @Order(4)
     public void shouldLoadVersionedSchema() {
-        final Schema saved = this.schemaService.loadVersionedSchema("onboarding", "new-employee-form", 1);
+        final Schema saved = this.schemaService.loadTaggedSchema("onboarding", "new-employee-form", "1.1");
 
         assertEquals(36, saved.getId().length());
-        assertEquals(1, saved.getVersion());
+        assertEquals("1.1", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
         assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());

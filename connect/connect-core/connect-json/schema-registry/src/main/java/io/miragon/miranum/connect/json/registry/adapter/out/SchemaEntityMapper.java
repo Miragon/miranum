@@ -15,10 +15,19 @@ public class SchemaEntityMapper {
     public Schema map(final SchemaEntity entity) {
         try {
             final JsonNode jsonNode = mapper.readTree(entity.getJsonNode());
-            return new Schema(entity.getId(), entity.getBundle(), entity.getRef(), entity.getVersion(), jsonNode);
+            return new Schema(entity.getId(), entity.getBundle(), entity.getRef(), entity.getTag(), jsonNode);
         } catch (final JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public SchemaEntity map(final Schema entity) {
+        return new SchemaEntity(
+                entity.getId(),
+                entity.getBundle(),
+                entity.getRef(),
+                entity.getTag(),
+                entity.getJsonNode().toString());
     }
 
 }
