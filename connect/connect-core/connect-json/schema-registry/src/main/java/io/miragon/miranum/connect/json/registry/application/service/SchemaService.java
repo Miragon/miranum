@@ -1,11 +1,10 @@
 package io.miragon.miranum.connect.json.registry.application.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.miragon.miranum.connect.json.registry.application.ports.in.ReadSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaInCommand;
-import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaOutCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
+import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaOutCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import io.miragon.miranum.connect.shared.ObjectNotFoundException;

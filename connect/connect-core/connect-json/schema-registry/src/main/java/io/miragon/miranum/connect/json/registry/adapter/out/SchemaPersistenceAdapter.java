@@ -1,7 +1,7 @@
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
-import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaOutCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
+import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaOutCommand;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import lombok.RequiredArgsConstructor;

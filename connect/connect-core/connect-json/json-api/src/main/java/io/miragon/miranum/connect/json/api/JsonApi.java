@@ -8,8 +8,6 @@ public interface JsonApi {
 
     JsonNode filter(JsonSchema schema, Object data);
 
-    JsonSchema getSchema(String schemaRef);
-
     JsonSchema buildSchema(String schemaContent);
 
 

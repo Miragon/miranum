@@ -15,6 +15,7 @@
 
     <modules>
         <module>json-api</module>
+        <module>schema-api</module>
         <module>schema-registry</module>
     </modules>
 
