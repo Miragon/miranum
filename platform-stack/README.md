@@ -22,3 +22,19 @@ docker compose up -d
 docker compose --profile tasklist-frontend up -d
 ```
 
+
+### Postgres
+
+To use postgres as database, enable the postgres config in .env and start the following script:
+
+```bash
+chmod +x platform-stack/postgres/init.sh
+docker compose --profile postgres up -d
+```
+
+### MSSQL
+
+```bash
+# with mssql
+docker compose --profile mssql up -d
+```

@@ -19,13 +19,14 @@ services:
     container_name: keycloak
     depends_on:
       - ${LOCAL_DB_VENDOR}
-    expose:
-      - '8080'
+    ports:
+      - '9090:8080'
     command: 'start-dev --http-relative-path /auth'
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
       KC_DB: ${LOCAL_DB_VENDOR}
+      KC_TRANSACTION_XA_ENABLED: false
       KC_DB_URL: ${SSO_DATASOURCE_URL}
       KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
       KC_DB_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
@@ -38,6 +39,8 @@ services:
   keycloak-init:
     image: klg71/keycloakmigration
     container_name: keycloak-init
+    env_file:
+      - './.env'
     depends_on:
       - ${LOCAL_DB_VENDOR}
     environment:
@@ -58,6 +61,8 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+    profiles:
+      - postgres
     restart: unless-stopped
     environment:
       - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},sa:${SCHEMA_DATASOURCE_DB},sa:${SSO_DATASOURCE_DB}
@@ -71,6 +76,8 @@ services:
     container_name: mssql
     ports:
       - "1433:1433"
+    profiles:
+      - mssql
     environment:
       SA_PASSWORD: ${LOCAL_DATASOURCE_PASSWORD}
       ACCEPT_EULA: "Y"
@@ -84,8 +91,11 @@ services:
       - ./mssql:/docker-entrypoint-initdb.d
     depends_on:
       - mssql
+    profiles:
+      - mssql
     command: >
       bash -c '
+      sleep 20;
       /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P '${LOCAL_DATASOURCE_PASSWORD}' -d master -i docker-entrypoint-initdb.d/setup.sql;
       echo "All done!";
       '
