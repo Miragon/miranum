@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tasklist-polyflow-connector</artifactId>
+    <name>tasklist-polyflow-connector</name>
+
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>tasklist</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+
+        <!-- Polyflow -->
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-camunda-bpm-springboot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-camunda-bpm-engine-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-taskpool-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.holunda.polyflow</groupId>
+            <artifactId>polyflow-datapool-core</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

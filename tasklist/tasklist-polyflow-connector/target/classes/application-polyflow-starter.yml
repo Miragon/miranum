@@ -1,0 +1,56 @@
+digiwf:
+  task-management:
+    assignment:
+      shadow: true # should assignment be shadowed to process variables?
+      local: true # should we store variables task local or not?
+      delete: false # should assignment be deleted from the attributes of Camunda User Tasks?
+axon:
+  serializer:
+    events: jackson
+    messages: jackson
+    general: jackson
+
+camunda:
+  bpm:
+    default-serialization-format: application/json
+    eventing:
+      task: false # Needs to be switched off for Camunda 7.18 and Polyflow >= 3.5
+
+polyflow:
+  integration:
+    collector:
+      camunda:
+        application-name: ${spring.application.name}
+        process-definition:
+          enabled: false
+        process-instance:
+          enabled: false
+        processVariable:
+          enabled: false
+        task:
+          enabled: true
+          assigner:
+            type: processVariables
+            assignee: app_task_assignee
+            candidate-users: app_task_candidate_users
+            candidate-groups: app_task_candidate_groups
+          enricher:
+            type: processVariables
+          importer:
+            enabled: true
+            task-filter-type: eventstore
+          excluded-task-event-names: assignment # even if not used in polyflow, but generally ignore
+          excluded-history-event-names: add-identity-link, delete-identity-link # ignore historic events used for assignment
+    sender:
+      enabled: true
+      task:
+        enabled: true
+        send-within-transaction: true
+        type: tx
+      data-entry:
+        enabled: true
+        type: simple
+        application-name: ${spring.application.name}
+logging:
+  level:
+    io.holunda.polyflow.taskpool.sender.task: TRACE

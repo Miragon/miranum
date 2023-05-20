@@ -1,0 +1,3 @@
+# Auto-configure
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  io.miranum.platform.tasklist.connector.DefaultPropertiesEnvironmentPostProcessor
