@@ -2,7 +2,6 @@ package io.miranum.platform.tasklist.adapter.out.engine;
 
 import io.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import org.camunda.bpm.engine.TaskService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class TaskCommandEngineAdapter implements TaskCommandPort {
     private final TaskService taskService;
 
-    public TaskCommandEngineAdapter(@Qualifier("remote") TaskService taskService) {
+    public TaskCommandEngineAdapter(TaskService taskService) {
         this.taskService = taskService;
     }
 

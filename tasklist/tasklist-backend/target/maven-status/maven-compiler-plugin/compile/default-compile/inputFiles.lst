@@ -21,7 +21,6 @@
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/target/generated-sources/openapi/src/main/java/io/miranum/platform/tasklist/adapter/in/rest/model/UserProfileTO.java
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/src/main/java/io/miranum/platform/tasklist/configuration/MockUserConfiguration.java
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/src/main/java/io/miranum/platform/tasklist/adapter/out/user/LdapUserGroupResolverAdapter.java
-/Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/src/main/java/io/miranum/platform/tasklist/EnableTasklist.java
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/src/main/java/io/miranum/platform/tasklist/configuration/LdapUserConfiguration.java
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/target/generated-sources/openapi/src/main/java/io/miranum/platform/tasklist/adapter/in/rest/api/UserApiController.java
 /Users/dominikhorn/Code/miranum-platform/tasklist/tasklist-backend/src/main/java/io/miranum/platform/tasklist/adapter/in/rest/mapper/TaskMapper.java

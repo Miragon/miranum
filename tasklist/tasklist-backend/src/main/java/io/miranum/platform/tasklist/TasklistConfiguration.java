@@ -7,11 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = {"io.miranum.platform.tasklist"})
 public class TasklistConfiguration {
 
     @Bean
     public TaskQueryClient taskQueryClient(QueryGateway queryGateway) {
         return new TaskQueryClient(queryGateway);
     }
+
 }

@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="EngineTasklistApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" value="mock-user" />
     <module name="engine-tasklist-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.engine.EngineTasklistApplication" />
     <extension name="coverage">
