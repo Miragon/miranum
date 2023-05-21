@@ -3,7 +3,6 @@
     "address": {
       "type": "object",
       "title": "Address",
-      "additionalProperties": false,
       "properties": {
         "street_address": {
           "type": "string"
@@ -22,7 +21,6 @@
       ]
     },
     "user": {
-      "additionalProperties": false,
       "type": "object",
       "title": "User",
       "properties": {
@@ -40,6 +38,7 @@
     }
   },
   "type": "object",
+  "unevaluatedProperties": false,
   "required": [
     "addressOrUser"
   ],

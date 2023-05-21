@@ -11,12 +11,15 @@ public class JsonSchemaFactory {
     public static io.miragon.miranum.connect.json.api.JsonSchema createJsonSchema(final String rawSchema) {
 
         final JsonMetaSchema metaSchema = new MirnaumJsonSchemaVersion().getInstance();
+        SchemaValidatorsConfig config = new SchemaValidatorsConfig();
+        config.setTypeLoose(false);
+        config.setStrict("date", false);
 
         final com.networknt.schema.JsonSchema schema = com.networknt.schema.JsonSchemaFactory.builder()
                 .defaultMetaSchemaURI(metaSchema.getUri())
                 .addMetaSchema(metaSchema)
                 .build()
-                .getSchema(rawSchema);
+                .getSchema(rawSchema, config);
 
         return new JsonSchemaImpl(schema);
     }
@@ -51,7 +54,7 @@ public class JsonSchemaFactory {
                             new NonValidationKeyword("message")
                     ))
                     .addKeyword(new ReadOnlyKeyword())
-                    .addKeyword(new AllOfKeyword())
+                    //  .addKeyword(new AllOfKeyword())
                     .build();
         }
     }

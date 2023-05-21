@@ -1,6 +1,7 @@
 {
   "key": "MyStartForm",
   "x-display": "stepper",
+  "unevaluatedProperties": false,
   "required": [
     "numberProp1"
   ],
@@ -15,7 +16,6 @@
       },
       "allOf": [
         {
-          "additionalProperties": false,
           "key": "feldgruppe1",
           "title": "Erste Gruppe",
           "x-options": {
@@ -86,7 +86,6 @@
           }
         },
         {
-          "additionalProperties": false,
           "key": "feldgruppe1",
           "title": "Erste Gruppe",
           "x-options": {

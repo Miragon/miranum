@@ -67,7 +67,7 @@ public class JsonApiImpl implements JsonApi {
         final List<ValidationResult> result = schema.validate(jsonData);
 
         final List<ValidationResult> additionalProperties = result.stream()
-                .filter(validationResult -> validationResult.getCode().equals(ValidatorTypeCode.ADDITIONAL_PROPERTIES.getErrorCode()))
+                .filter(validationResult -> validationResult.getCode().equals(ValidatorTypeCode.UNEVALUATED_PROPERTIES.getErrorCode()))
                 .toList();
 
         additionalProperties.forEach(validationResult -> {
@@ -76,11 +76,19 @@ public class JsonApiImpl implements JsonApi {
             pointerString = pointerString.replaceAll("\\.", "/");
             pointerString = pointerString.replaceAll("\\[", "/");
             pointerString = pointerString.replaceAll("]", "/");
-            pointerString = pointerString.endsWith("/") ? pointerString.substring(0, pointerString.length() - 1) : pointerString;
+
+            final int lastIndex = pointerString.lastIndexOf('/');
+            final String property = pointerString.substring(lastIndex + 1);
+            if (lastIndex > 0) {
+                pointerString = pointerString.substring(0, lastIndex - 1);
+            } else {
+                pointerString = pointerString.substring(0, lastIndex);
+            }
+
             final JsonPointer pointer = JsonPointer.compile(pointerString);
             final JsonNode node = jsonData.at(pointer);
             if (node instanceof ObjectNode objectNode) {
-                objectNode.remove(validationResult.getArguments()[0]);
+                objectNode.remove(property);
             }
         });
 

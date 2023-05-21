@@ -4,8 +4,8 @@
   "description": "Description displayed in a tooltip",
   "oneOf": [
     {
+      "unevaluatedProperties": false,
       "title": "I'm a sub-schema",
-      "additionalProperties": false,
       "properties": {
         "schemaKey": {
           "type": "string",
@@ -18,8 +18,8 @@
       }
     },
     {
+      "unevaluatedProperties": false,
       "title": "I'm another sub-schema",
-      "additionalProperties": false,
       "properties": {
         "schemaKey": {
           "type": "string",
