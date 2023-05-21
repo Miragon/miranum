@@ -11,6 +11,10 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <rest.base-package-name>io.miranum.platform.tasklist.adapter.in.rest</rest.base-package-name>
+    </properties>
+
     <dependencies>
         <!-- Polyflow -->
         <dependency>
@@ -26,13 +30,35 @@
             <artifactId>polyflow-bus-jackson</artifactId>
         </dependency>
 
+        <!-- Camunda -->
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Axon -->
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-messaging</artifactId>
         </dependency>
 
+        <!-- Feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>
+
         <!-- Libs -->
+        <dependency>
+            <groupId>io.holunda.data</groupId>
+            <artifactId>camunda-bpm-data</artifactId>
+            <version>1.2.8</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -46,8 +72,137 @@
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- DigiWF TODO remove when changed to connect-json -->
+        <dependency>
+            <groupId>io.muenchendigital.digiwf</groupId>
+            <artifactId>digiwf-json-serialization-starter</artifactId>
+            <version>0.17.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+        </dependency>
+
+        <!-- OpenApi -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
 
     </dependencies>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>banner.txt</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>banner.txt</exclude>
+                </excludes>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>6.2.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-server-stubs</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/api/openapi.yml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <removeOperationIdPrefix>true</removeOperationIdPrefix>
+                            <ignoreFileOverride>${project.basedir}/src/main/api/.openapi-generator-ignore
+                            </ignoreFileOverride>
+                            <library>spring-boot</library>
+                            <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                            <modelNameSuffix>TO</modelNameSuffix>
+                            <!--configHelp>true</configHelp-->
+                            <!-- https://openapi-generator.tech/docs/generators/spring/ -->
+                            <configOptions>
+                                <basePackage>${rest.base-package-name}</basePackage>
+                                <invokerPackage>${rest.base-package-name}</invokerPackage>
+                                <apiPackage>${rest.base-package-name}.api</apiPackage>
+                                <modelPackage>${rest.base-package-name}.model</modelPackage>
+                                <java8>true</java8>
+                                <delegatePattern>true</delegatePattern>
+                                <generateSupportingFiles>false</generateSupportingFiles>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <useTags>true</useTags>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

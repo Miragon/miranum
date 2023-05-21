@@ -9,8 +9,7 @@
     "versioning": "lerna version --no-push --no-git-tag-version",
     "dev": "lerna run watch --stream --parallel",
     "serve": "npm run build && lerna run dev --stream --parallel",
-    "serve:forms": "lerna run dev --stream --scope=@muenchen/digiwf-forms-example",
-    "serve:tasklist": "lerna run dev --stream --scope=@muenchen/digiwf-tasklist",
+    "serve:tasklist": "lerna run dev --stream --scope=@miragon/digiwf-tasklist",
     "serve:all": "lerna run dev --stream --parallel",
     "test": "lerna run test"
   },
