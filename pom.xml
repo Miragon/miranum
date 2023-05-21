@@ -277,7 +277,7 @@
         <profile>
             <id>frontend</id>
             <modules>
-                <module>miranum-tasklist</module>
+                <module>apps</module>
             </modules>
         </profile>
     </profiles>

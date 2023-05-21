@@ -1,0 +1,2259 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "DigiWF API",
+    "description" : "DigiWF - Plattform zur Digitalisierung von Workflows bei der LHM",
+    "contact" : {
+      "name" : "DigiWF",
+      "email" : "itm.digiwf@muenchen.de"
+    },
+    "version" : "0.1.0"
+  },
+  "externalDocs" : {
+    "description" : "Externe Dokumentation auf unserer Wilma-Seite",
+    "url" : "https://wilma.muenchen.de/workspaces/digitale-workflows/apps/wiki/wiki/list"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:39146",
+    "description" : "Generated server url"
+  } ],
+  "security" : [ {
+    "spring_oauth" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "FormRestController",
+    "description" : "API to handle forms"
+  }, {
+    "name" : "HumanTaskRestController",
+    "description" : "API to load human tasks and perform actions on them"
+  }, {
+    "name" : "MessageController",
+    "description" : "API to interact with messages"
+  }, {
+    "name" : "HumanTaskFileRestController",
+    "description" : "API to perform actions on human task files"
+  }, {
+    "name" : "InfoRestController",
+    "description" : "API to handle app infos"
+  }, {
+    "name" : "SchemaRestController",
+    "description" : "API to handle json schemas"
+  }, {
+    "name" : "FilterRestController",
+    "description" : "API to load user filters and perform actions on them"
+  }, {
+    "name" : "ServiceInstanceFileRestController",
+    "description" : "API to perform actions on service instance files"
+  }, {
+    "name" : "ProcessConfigurationController",
+    "description" : "API to interact with the process configuration"
+  }, {
+    "name" : "ServiceInstanceController",
+    "description" : "API to interact with service instances"
+  }, {
+    "name" : "UserRestController",
+    "description" : "API to get users"
+  }, {
+    "name" : "DeploymentController",
+    "description" : "API to deploy bpmn and dmn artifacts"
+  }, {
+    "name" : "DocumentRestController",
+    "description" : "API to interact with documents"
+  }, {
+    "name" : "DmsRestController",
+    "description" : "API to interact with the mucs-dms"
+  }, {
+    "name" : "ServiceStartFileRestController",
+    "description" : "API to perform actions on service start files"
+  }, {
+    "name" : "AlwDmsRestController",
+    "description" : "API to interact with the alw dms"
+  }, {
+    "name" : "ServiceDefinitionController",
+    "description" : "API to interact with service definitions"
+  } ],
+  "paths" : {
+    "/rest/task" : {
+      "get" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "getTasks",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "maximum" : 50,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 50
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "followUp",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageHumanTaskTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "saveTask",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SaveTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "completeTask",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CompleteTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/form/{key}" : {
+      "get" : {
+        "tags" : [ "FormRestController" ],
+        "operationId" : "getForm",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FormTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "FormRestController" ],
+        "operationId" : "updateForm",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FormTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FormTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/filter" : {
+      "get" : {
+        "tags" : [ "FilterRestController" ],
+        "operationId" : "getFilters",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FilterTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "FilterRestController" ],
+        "operationId" : "saveFilter",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SaveFilterTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FilterTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/search" : {
+      "post" : {
+        "tags" : [ "UserRestController" ],
+        "operationId" : "getUsers",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SearchUserTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/UserTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/followup" : {
+      "post" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "followUpTask",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FollowUpTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/task/file/{taskId}/{filename}" : {
+      "post" : {
+        "tags" : [ "HumanTaskFileRestController" ],
+        "operationId" : "getPresignedUrlForFileUpload",
+        "parameters" : [ {
+          "name" : "taskId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "HumanTaskFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDeletion",
+        "parameters" : [ {
+          "name" : "taskId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/cancel/{id}" : {
+      "post" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "cancelTask",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/task/assign/{id}" : {
+      "post" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "assignTask",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/service/start/file/{definitionKey}/{filename}" : {
+      "post" : {
+        "tags" : [ "ServiceStartFileRestController" ],
+        "operationId" : "getPresignedUrlForFileUpload_1",
+        "parameters" : [ {
+          "name" : "definitionKey",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "ServiceStartFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDeletion_1",
+        "parameters" : [ {
+          "name" : "definitionKey",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/instance/file/{instanceId}/{filename}" : {
+      "post" : {
+        "tags" : [ "ServiceInstanceFileRestController" ],
+        "operationId" : "getPresignedUrlForFileUpload_2",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "ServiceInstanceFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDeletion_2",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filename",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/definition" : {
+      "get" : {
+        "tags" : [ "ServiceDefinitionController" ],
+        "description" : "load all available service definitions",
+        "operationId" : "getServiceDefinitions",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceDefinitionTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ServiceDefinitionController" ],
+        "description" : "Start a specific service",
+        "operationId" : "startInstance",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StartInstanceTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/processconfig" : {
+      "post" : {
+        "tags" : [ "ProcessConfigurationController" ],
+        "operationId" : "createConfig",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProcessConfigTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProcessConfigTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/jsonschema" : {
+      "post" : {
+        "tags" : [ "SchemaRestController" ],
+        "description" : "create a new json schema",
+        "operationId" : "createJsonSchema",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/JsonSchemaTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonSchemaTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/input/message/send/message" : {
+      "post" : {
+        "tags" : [ "MessageController" ],
+        "operationId" : "sendMessage",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SendMessageTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest/form" : {
+      "get" : {
+        "tags" : [ "FormRestController" ],
+        "operationId" : "getForms",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FormTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "FormRestController" ],
+        "operationId" : "createForm",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FormTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FormTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/dms/metadata" : {
+      "post" : {
+        "tags" : [ "DmsRestController" ],
+        "operationId" : "getMetaData",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GetMetadataTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MetadataTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/deployment" : {
+      "post" : {
+        "tags" : [ "DeploymentController" ],
+        "operationId" : "deployArtifacts",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeploymentDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeploymentStatusDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/alwdms/metadata" : {
+      "post" : {
+        "tags" : [ "AlwDmsRestController" ],
+        "operationId" : "getMetadata",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GetAlwMetadataTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlwMetaDataTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/{id}" : {
+      "get" : {
+        "tags" : [ "UserRestController" ],
+        "operationId" : "getUser",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/uid/{username}" : {
+      "get" : {
+        "tags" : [ "UserRestController" ],
+        "operationId" : "getUserByUsername",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/info" : {
+      "get" : {
+        "tags" : [ "UserRestController" ],
+        "operationId" : "userinfo",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/{id}" : {
+      "get" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "getTaskDetail",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HumanTaskDetailTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/group/open" : {
+      "get" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "getOpenGroupTasks",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "maximum" : 50,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 50
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageHumanTaskTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/group/assigned" : {
+      "get" : {
+        "tags" : [ "HumanTaskRestController" ],
+        "operationId" : "getAssignedGroupTasks",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "maximum" : 50,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 50
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PageHumanTaskTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/file/{taskId}" : {
+      "get" : {
+        "tags" : [ "HumanTaskFileRestController" ],
+        "operationId" : "getFileNames",
+        "parameters" : [ {
+          "name" : "taskId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/task/file/{taskId}/{fileName}" : {
+      "get" : {
+        "tags" : [ "HumanTaskFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDownload",
+        "parameters" : [ {
+          "name" : "taskId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/start/file/{definitionKey}" : {
+      "get" : {
+        "tags" : [ "ServiceStartFileRestController" ],
+        "operationId" : "getFileNames_1",
+        "parameters" : [ {
+          "name" : "definitionKey",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/start/file/{definitionKey}/{fileName}" : {
+      "get" : {
+        "tags" : [ "ServiceStartFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDownload_1",
+        "parameters" : [ {
+          "name" : "definitionKey",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/instance" : {
+      "get" : {
+        "tags" : [ "ServiceInstanceController" ],
+        "operationId" : "getAssignedInstances",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceInstanceTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/instance/{id}" : {
+      "get" : {
+        "tags" : [ "ServiceInstanceController" ],
+        "operationId" : "getProcessInstanceDetail",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceInstanceDetailTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/instance/file/{instanceId}" : {
+      "get" : {
+        "tags" : [ "ServiceInstanceFileRestController" ],
+        "operationId" : "getFileNames_2",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/instance/file/{instanceId}/{fileName}" : {
+      "get" : {
+        "tags" : [ "ServiceInstanceFileRestController" ],
+        "operationId" : "getPresignedUrlForFileDownload_2",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filePath",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/service/definition/{key}" : {
+      "get" : {
+        "tags" : [ "ServiceDefinitionController" ],
+        "description" : "Get a specific service definition",
+        "operationId" : "getServiceDefinition",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceDefinitionDetailTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/processconfig/{key}" : {
+      "get" : {
+        "tags" : [ "ProcessConfigurationController" ],
+        "operationId" : "getConfig",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProcessConfigTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/jsonschema/{key}" : {
+      "get" : {
+        "tags" : [ "SchemaRestController" ],
+        "description" : "get json schema by key",
+        "operationId" : "getJsonSchema",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonSchemaTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/info" : {
+      "get" : {
+        "tags" : [ "InfoRestController" ],
+        "operationId" : "getInfo",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/InfoTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/document/task/{id}" : {
+      "get" : {
+        "tags" : [ "DocumentRestController" ],
+        "operationId" : "getStatusDokumentForTask",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StatusDokumentTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/filter/{id}" : {
+      "delete" : {
+        "tags" : [ "FilterRestController" ],
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "SaveTO" : {
+        "required" : [ "taskId" ],
+        "type" : "object",
+        "properties" : {
+          "taskId" : {
+            "type" : "string"
+          },
+          "variables" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "ButtonTO" : {
+        "type" : "object",
+        "properties" : {
+          "showButton" : {
+            "type" : "boolean"
+          },
+          "buttonText" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ButtonsTO" : {
+        "type" : "object",
+        "properties" : {
+          "complete" : {
+            "$ref" : "#/components/schemas/ButtonTO"
+          },
+          "cancel" : {
+            "$ref" : "#/components/schemas/ButtonTO"
+          },
+          "statusPdf" : {
+            "$ref" : "#/components/schemas/ButtonTO"
+          }
+        }
+      },
+      "FormFieldTO" : {
+        "required" : [ "key", "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "defaultValue" : {
+            "type" : "string"
+          },
+          "defaultValueField" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "prependIcon" : {
+            "type" : "string"
+          },
+          "tooltip" : {
+            "type" : "string"
+          },
+          "ext" : {
+            "type" : "string"
+          },
+          "multiple" : {
+            "type" : "boolean"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "ldapOus" : {
+            "type" : "string"
+          },
+          "imageHeight" : {
+            "type" : "string"
+          },
+          "imageWidth" : {
+            "type" : "string"
+          },
+          "readonly" : {
+            "type" : "boolean"
+          },
+          "rows" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "col" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ItemTO"
+            }
+          },
+          "rules" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RuleTO"
+            }
+          },
+          "itemText" : {
+            "type" : "string"
+          },
+          "itemValue" : {
+            "type" : "string"
+          },
+          "returnObject" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "FormTO" : {
+        "required" : [ "key" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "authorizedGroups" : {
+            "type" : "string"
+          },
+          "buttons" : {
+            "$ref" : "#/components/schemas/ButtonsTO"
+          },
+          "groups" : {
+            "maxItems" : 100,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/GroupTO"
+            }
+          }
+        }
+      },
+      "GroupTO" : {
+        "type" : "object",
+        "properties" : {
+          "label" : {
+            "type" : "string"
+          },
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FormFieldTO"
+            }
+          }
+        }
+      },
+      "ItemTO" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "RuleTO" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          },
+          "target" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SaveFilterTO" : {
+        "required" : [ "filterString", "pageId" ],
+        "type" : "object",
+        "properties" : {
+          "filterString" : {
+            "type" : "string"
+          },
+          "pageId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "FilterTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "filterString" : {
+            "type" : "string"
+          },
+          "pageId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SearchUserTO" : {
+        "type" : "object",
+        "properties" : {
+          "searchString" : {
+            "type" : "string"
+          },
+          "ous" : {
+            "type" : "string"
+          }
+        }
+      },
+      "UserTO" : {
+        "type" : "object",
+        "properties" : {
+          "lhmObjectId" : {
+            "type" : "string"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "forename" : {
+            "type" : "string"
+          },
+          "surname" : {
+            "type" : "string"
+          },
+          "ou" : {
+            "type" : "string"
+          },
+          "department" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CompleteTO" : {
+        "required" : [ "taskId", "variables" ],
+        "type" : "object",
+        "properties" : {
+          "taskId" : {
+            "type" : "string"
+          },
+          "variables" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "FollowUpTO" : {
+        "required" : [ "taskId" ],
+        "type" : "object",
+        "properties" : {
+          "taskId" : {
+            "type" : "string"
+          },
+          "followUpDate" : {
+            "type" : "string"
+          }
+        }
+      },
+      "StartInstanceTO" : {
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "variables" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "ConfigEntryTO" : {
+        "required" : [ "key", "value" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProcessConfigTO" : {
+        "required" : [ "key" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "statusDokument" : {
+            "type" : "string"
+          },
+          "statusConfig" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/StatusConfigTO"
+            }
+          },
+          "configs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConfigEntryTO"
+            }
+          }
+        }
+      },
+      "StatusConfigTO" : {
+        "required" : [ "key", "label", "position" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "position" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "JsonSchemaTO" : {
+        "required" : [ "key", "schema" ],
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "schema" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "SendMessageTO" : {
+        "type" : "object",
+        "properties" : {
+          "instanceId" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GetMetadataTO" : {
+        "required" : [ "url" ],
+        "type" : "object",
+        "properties" : {
+          "url" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MetadataTO" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DeploymentDto" : {
+        "type" : "object",
+        "properties" : {
+          "deploymentId" : {
+            "type" : "string"
+          },
+          "versionId" : {
+            "type" : "string"
+          },
+          "target" : {
+            "type" : "string"
+          },
+          "file" : {
+            "type" : "string"
+          },
+          "artifactType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DeploymentStatusDto" : {
+        "type" : "object",
+        "properties" : {
+          "success" : {
+            "type" : "boolean"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GetAlwMetadataTO" : {
+        "required" : [ "url" ],
+        "type" : "object",
+        "properties" : {
+          "url" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AlwMetaDataTO" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "extension" : {
+            "type" : "string"
+          },
+          "contentSize" : {
+            "type" : "string"
+          }
+        }
+      },
+      "HumanTaskTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "processName" : {
+            "type" : "string"
+          },
+          "assignee" : {
+            "type" : "string"
+          },
+          "assigneeFormatted" : {
+            "type" : "string"
+          },
+          "followUpDate" : {
+            "type" : "string"
+          },
+          "creationTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "PageHumanTaskTO" : {
+        "type" : "object",
+        "properties" : {
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "first" : {
+            "type" : "boolean"
+          },
+          "last" : {
+            "type" : "boolean"
+          },
+          "pageable" : {
+            "$ref" : "#/components/schemas/PageableObject"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HumanTaskTO"
+            }
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "PageableObject" : {
+        "type" : "object",
+        "properties" : {
+          "pageNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "pageSize" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "paged" : {
+            "type" : "boolean"
+          },
+          "unpaged" : {
+            "type" : "boolean"
+          },
+          "offset" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sort" : {
+            "$ref" : "#/components/schemas/Sort"
+          }
+        }
+      },
+      "Sort" : {
+        "type" : "object",
+        "properties" : {
+          "sorted" : {
+            "type" : "boolean"
+          },
+          "unsorted" : {
+            "type" : "boolean"
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "HumanTaskDetailTO" : {
+        "required" : [ "creationTime", "id", "name", "processInstanceId", "processName" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "processName" : {
+            "type" : "string"
+          },
+          "processInstanceId" : {
+            "type" : "string"
+          },
+          "assignee" : {
+            "type" : "string"
+          },
+          "assigneeFormatted" : {
+            "type" : "string"
+          },
+          "followUpDate" : {
+            "type" : "string"
+          },
+          "creationTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "variables" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "form" : {
+            "$ref" : "#/components/schemas/FormTO"
+          },
+          "jsonSchema" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "statusDocument" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "ServiceInstanceTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "definitionName" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "endTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "HistoryTask" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "endTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "ServiceInstanceDetailTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "definitionName" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "endTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "statusKey" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "processConfig" : {
+            "$ref" : "#/components/schemas/ProcessConfigTO"
+          },
+          "historyTasks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HistoryTask"
+            }
+          },
+          "data" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "jsonSchema" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "ServiceDefinitionTO" : {
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "versionTag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ServiceDefinitionDetailTO" : {
+        "required" : [ "key", "name" ],
+        "type" : "object",
+        "properties" : {
+          "startForm" : {
+            "$ref" : "#/components/schemas/FormTO"
+          },
+          "jsonSchema" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "versionTag" : {
+            "type" : "string"
+          }
+        }
+      },
+      "InfoTO" : {
+        "type" : "object",
+        "properties" : {
+          "maintenanceInfo1" : {
+            "type" : "string"
+          },
+          "maintenanceInfo2" : {
+            "type" : "string"
+          },
+          "environment" : {
+            "type" : "string"
+          }
+        }
+      },
+      "StatusDokumentTO" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "spring_oauth" : {
+        "type" : "oauth2",
+        "description" : "Oauth2 flow",
+        "flows" : {
+          "password" : {
+            "authorizationUrl" : "https://ssodev.muenchen.de/auth/realms/P82/protocol/openid-connect/auth",
+            "tokenUrl" : "https://ssodev.muenchen.de/auth/realms/P82/protocol/openid-connect/token",
+            "refreshUrl" : "https://ssodev.muenchen.de/auth/realms/P82/protocol/openid-connect/token",
+            "scopes" : {
+              "lhm_extended" : "lhm_extended"
+            }
+          }
+        }
+      }
+    }
+  }
+}
