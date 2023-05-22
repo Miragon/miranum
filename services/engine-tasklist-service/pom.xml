@@ -66,6 +66,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Engine -->
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>engine-backend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Axon -->
         <dependency>
             <groupId>org.axonframework</groupId>

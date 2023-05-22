@@ -1,7 +1,3 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik der Landeshauptstadt München, 2020
- */
-
 package io.miranum.platform.engine.jsonschema.api.resource;
 
 import io.miranum.platform.engine.jsonschema.api.mapper.SchemaApiMapper;
