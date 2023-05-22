@@ -20,6 +20,7 @@
   "gitHead": "b2b458745431c62fd6a055d9b3c32ce14b0c8435",
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.5.1",
+    "axios": "^1.2.2",
     "@types/node": "^18.7.13",
     "rollup-plugin-typescript2": "^0.33.0"
   },

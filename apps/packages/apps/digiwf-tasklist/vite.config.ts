@@ -23,9 +23,7 @@ export default defineConfig({
   ],
   server: {
     port,
-    proxy: {
-      "/api": "http://localhost:8082/"
-    }
+    host: true
   },
   build: {
     commonjsOptions: {
