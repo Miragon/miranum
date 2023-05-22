@@ -1,8 +1,6 @@
 server:
   port: 8080
 
-miranum.schema.registry.url:
-
 spring:
   datasource:
     url:
@@ -13,4 +11,4 @@ spring:
     database-platform:
   flyway:
     enabled: true
-    locations: classpath:db
+    locations: "classpath:db/migration/{vendor}"

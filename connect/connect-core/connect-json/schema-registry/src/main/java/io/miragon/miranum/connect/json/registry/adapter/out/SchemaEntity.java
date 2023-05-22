@@ -15,9 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class SchemaEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id_", unique = true, nullable = false, updatable = false, length = 36)
+    @Column(name = "id_", unique = true, length = 36)
     private String id;
 
     @Column(name = "bundle_")

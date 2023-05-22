@@ -1,12 +1,10 @@
 server:
-  port: 8081
-
-miranum.schema.registry.url: http://localhost:8081
+  port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/schemadb
-    username: schema-user
-    password: schema-secret
+    url: jdbc:postgresql://localhost:5432/schemadb
+    username: sa
+    password: changeME!234
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
