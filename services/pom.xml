@@ -14,6 +14,7 @@
 
     <modules>
         <module>engine-tasklist-service</module>
+        <module>schema-registry-service</module>
     </modules>
 
 </project>

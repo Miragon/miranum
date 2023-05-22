@@ -1,29 +1,7 @@
 info:
   application:
-    name: Miranum Engine
+    name: Miranum Schema Registry
     version: 0.1.0
-camunda:
-  bpm:
-    authorization:
-      enabled: false
-    job-executor-acquire-by-priority: true
-    generic-properties:
-      properties:
-        history-time-to-live: '185'
-        history-cleanup-strategy: removalTimeBased
-        history-cleanup-batch-window-start-time: '22:00'
-        history-cleanup-batch-window-end-time: '06:00'
-        history-removal-time-strategy: end
-        history-cleanup-degree-of-parallelism: '4'
-        enable-exceptions-after-unhandled-bpmn-error: true
-    database:
-      schema-update: false
-backend:
-  security:
-    process:
-      deployment:
-        user: ${DEPLOYMENT_USERNAME:digiwf}
-        password: ${DEPLOYMENT_PASSWORD:digiwf}
 
 management:
   server:
