@@ -5,7 +5,6 @@ import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaI
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaUseCase;
 import io.miragon.miranum.connect.json.registry.application.ports.out.LoadSchemaPort;
 import io.miragon.miranum.connect.json.registry.application.ports.out.SaveSchemaPort;
-import io.miragon.miranum.connect.json.registry.application.service.exceptions.TagAlreadyExistsException;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
 import io.miragon.miranum.connect.shared.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
@@ -34,40 +33,21 @@ public class SchemaService implements SaveSchemaUseCase, ReadSchemaUseCase {
         return this.saveSchemaPort.saveAllSchemas(schemasToCreate);
     }
 
-    @Override
-    public Schema loadLatestSchema(String bundle, String ref) {
-        return this.loadTaggedSchema(bundle, ref, "latest");
-    }
-
-    public Schema loadTaggedSchema(String bundle, String ref, String tag) {
+    public Schema loadSchema(String bundle, String ref, String tag) {
         return this.loadSchemaPort.loadTaggedSchema(bundle, ref, tag)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("No schema found for bundle %s, ref %s and tag %s", bundle, ref, tag)));
     }
 
+    /**
+     * Overwrites existing schema if tag already exist, otherwise creates a new schema.
+     */
     private Schema mapToSchema(List<Schema> existingSchemasByRefAndBundle, SaveSchemaInCommand saveSchemaInCommand, String tag) {
-        // create new Schema entry if no entry exists for the given tag
-        if (existingSchemasByRefAndBundle.stream().map(Schema::getTag).noneMatch(tag::equals)) {
-            return new Schema(
-                    saveSchemaInCommand.getBundle(),
-                    saveSchemaInCommand.getRef(),
-                    tag,
-                    saveSchemaInCommand.getJsonNode());
-        }
-
-        // overwrite "latest" Schema entry if tag is "latest"
-        if (tag.equals("latest")) {
-            Schema latestSchema = existingSchemasByRefAndBundle.stream()
-                    .filter(schema -> schema.getTag().equals("latest"))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("No latest schema created yet.")); // ensured by condition above
-            return new Schema(latestSchema, saveSchemaInCommand.getJsonNode());
-        }
-
-        throw new TagAlreadyExistsException(String.format("Tag %s already exists for bundle %s and ref %s.",
-                tag,
-                saveSchemaInCommand.getBundle(),
-                saveSchemaInCommand.getRef()));
+        return existingSchemasByRefAndBundle.stream()
+                .filter(schema -> schema.getTag().equals(tag))
+                .findFirst()
+                .map(existing -> new Schema(existing, saveSchemaInCommand.getJsonNode()))
+                .orElse(new Schema(saveSchemaInCommand.getBundle(), saveSchemaInCommand.getRef(), tag, saveSchemaInCommand.getJsonNode()));
     }
 
 }

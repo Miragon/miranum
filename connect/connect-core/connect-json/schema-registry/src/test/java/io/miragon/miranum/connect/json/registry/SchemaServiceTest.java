@@ -76,7 +76,7 @@ public class SchemaServiceTest {
     @Test
     @Order(2)
     public void shouldLoadLatest_expectingSchema1() {
-        final Schema saved = this.schemaService.loadLatestSchema("onboarding", "new-employee-form");
+        final Schema saved = this.schemaService.loadSchema("onboarding", "new-employee-form", "latest");
 
         assertEquals(36, saved.getId().length());
         assertEquals("latest", saved.getTag());
@@ -106,7 +106,7 @@ public class SchemaServiceTest {
     @Test
     @Order(4)
     public void shouldLoadLatest_expectingSchema2() {
-        final Schema saved = this.schemaService.loadLatestSchema( "onboarding", "new-employee-form");
+        final Schema saved = this.schemaService.loadSchema( "onboarding", "new-employee-form", "latest");
 
         assertEquals(36, saved.getId().length());
         assertEquals("latest", saved.getTag());
@@ -118,7 +118,7 @@ public class SchemaServiceTest {
     @Test
     @Order(4)
     public void shouldLoadVersionedSchema() {
-        final Schema saved = this.schemaService.loadTaggedSchema("onboarding", "new-employee-form", "1.1");
+        final Schema saved = this.schemaService.loadSchema("onboarding", "new-employee-form", "1.1");
 
         assertEquals(36, saved.getId().length());
         assertEquals("1.1", saved.getTag());

@@ -50,26 +50,6 @@ public class SchemaRestController {
     }
 
     /**
-     * Get a schema by ref
-     *
-     * @param bundle  artefact bundle, the schema refers to
-     * @param ref     reference to the schema
-     * @return schema
-     */
-    @GetMapping("/{bundle}/{ref}")
-    @Operation(description = "get latest schema by ref")
-    public ResponseEntity<JsonNode> getLatestSchema(
-            @PathVariable final String bundle,
-            @PathVariable final String ref) {
-        try {
-            final Schema schema = this.readSchemaUseCase.loadLatestSchema(bundle, ref);
-            return ResponseEntity.ok(schema.getJsonNode());
-        } catch (final NoSuchElementException exception) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    /**
      * Get a schema by ref and version
      *s
      * @param bundle  artefact bundle, the schema refers to
@@ -84,7 +64,7 @@ public class SchemaRestController {
             @PathVariable final String ref,
             @PathVariable final String tag) {
         try {
-            final Schema schema = this.readSchemaUseCase.loadTaggedSchema(bundle, ref, tag);
+            final Schema schema = this.readSchemaUseCase.loadSchema(bundle, ref, tag);
             return ResponseEntity.ok(schema.getJsonNode());
         } catch (final NoSuchElementException exception) {
             return ResponseEntity.notFound().build();

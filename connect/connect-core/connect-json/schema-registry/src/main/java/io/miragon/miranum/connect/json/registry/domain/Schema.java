@@ -45,10 +45,6 @@ public class Schema {
     }
 
     public Schema(final Schema latestSchema, final JsonNode jsonNode) {
-        if (!"latest".equals(latestSchema.getTag())) {
-            throw new IllegalArgumentException("Only latest schema can be updated.");
-        }
-
         this.id = latestSchema.getId();
         this.bundle = latestSchema.getBundle();
         this.ref = latestSchema.getRef();
