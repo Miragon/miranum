@@ -7,7 +7,7 @@ changes:
       secret: ${SSO_ENGINE_CLIENT_SECRET}
       publicClient: false
       redirectUris:
-        - *
+        - '*'
   - addRole:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       clientRole: true
