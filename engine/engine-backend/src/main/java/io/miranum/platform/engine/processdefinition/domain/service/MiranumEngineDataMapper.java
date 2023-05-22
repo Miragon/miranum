@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import java.util.Map;
 
 @Mapper
-public interface EngineDataMapper {
+public interface MiranumEngineDataMapper {
 
     default Map<String, Object> mapObjectsToVariables(final Map<String, Object> data) {
         final JSONObject jsonData = new JSONObject(data);

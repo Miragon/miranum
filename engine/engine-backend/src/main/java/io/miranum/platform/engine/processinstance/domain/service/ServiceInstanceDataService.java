@@ -1,7 +1,7 @@
 package io.miranum.platform.engine.processinstance.domain.service;
 
 import io.miranum.platform.engine.jsonschema.domain.model.JsonSchema;
-import io.miranum.platform.engine.processdefinition.domain.service.EngineDataMapper;
+import io.miranum.platform.engine.processdefinition.domain.service.MiranumEngineDataMapper;
 import io.miranum.platform.engine.processinstance.process.ProcessConstants;
 import io.muenchendigital.digiwf.json.serialization.JsonSerializationService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class ServiceInstanceDataService {
     //Camunda Services
     private final HistoryService historyService;
 
-    private final EngineDataMapper engineDataMapper;
+    private final MiranumEngineDataMapper engineDataMapper;
 
     public Map<String, Object> getVariables(final String instanceId, final JsonSchema schema) {
         final Map<String, Object> typedVariables = this.historyService.createHistoricVariableInstanceQuery().executionIdIn(instanceId).processInstanceId(instanceId).list()

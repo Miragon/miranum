@@ -18,7 +18,7 @@ public class ServiceDefinitionDataService {
 
     private final ProcessConfigService processConfigService;
 
-    private final EngineDataMapper engineDataMapper;
+    private final MiranumEngineDataMapper engineDataMapper;
 
     private final JsonSchemaValidator validationService;
     private final JsonSerializationService serializationService;

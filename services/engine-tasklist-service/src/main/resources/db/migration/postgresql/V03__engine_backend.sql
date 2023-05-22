@@ -48,9 +48,6 @@ create table dwf_processconfig
 
 
 create index IDX_DWF_FILTER_USERID on dwf_filter (userid_);
-
-alter table dwf_form
-    add constraint UK_dwf_form_key unique (key);
 create index IDX_DWF_SCHEMAKEY on dwf_json_schema (key_);
 create index IDX_DWF_PROCAUTH_USERID on dwf_process_instance_auth (userid_);
 create index IDX_DWF_PROCESSKEY on dwf_processconfig (key);
