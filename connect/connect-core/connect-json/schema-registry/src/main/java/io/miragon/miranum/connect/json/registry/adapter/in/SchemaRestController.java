@@ -33,9 +33,9 @@ public class SchemaRestController {
     /**
      * Create a new schema.
      *
-     * @param bundle  artefact bundle, the schema refers to
-     * @param ref     reference to the json schema
-     * @param schemaCreateDto    Schema with tags to create
+     * @param bundle          artefact bundle, the schema refers to
+     * @param ref             reference to the json schema
+     * @param schemaCreateDto Schema with tags to create
      * @return json schema
      */
     @PostMapping("/{bundle}/{ref}")
@@ -51,15 +51,16 @@ public class SchemaRestController {
 
     /**
      * Get a schema by ref and version
-     *s
-     * @param bundle  artefact bundle, the schema refers to
-     * @param ref     reference to the schema
-     * @param tag     tag of the schema
+     * s
+     *
+     * @param bundle artefact bundle, the schema refers to
+     * @param ref    reference to the schema
+     * @param tag    tag of the schema
      * @return schema
      */
     @GetMapping("/{bundle}/{ref}/{tag}")
     @Operation(description = "get latest schema by ref")
-    public ResponseEntity<JsonNode> getLatestSchema(
+    public ResponseEntity<JsonNode> getSchemaByTag(
             @PathVariable final String bundle,
             @PathVariable final String ref,
             @PathVariable final String tag) {

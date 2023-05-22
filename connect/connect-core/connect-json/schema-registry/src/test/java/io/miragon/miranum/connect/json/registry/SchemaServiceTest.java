@@ -1,8 +1,7 @@
 package io.miragon.miranum.connect.json.registry;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.miragon.miranum.connect.json.api.JsonSchema;
-import io.miragon.miranum.connect.json.impl.JsonSchemaFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.miragon.miranum.connect.json.registry.application.ports.in.SaveSchemaInCommand;
 import io.miragon.miranum.connect.json.registry.application.service.SchemaService;
 import io.miragon.miranum.connect.json.registry.domain.Schema;
@@ -31,17 +30,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class SchemaServiceTest {
 
+    private static Map<String, JsonNode> schemas = new HashMap<>();
     @Autowired
     private SchemaService schemaService;
-
-    private static Map<String, JsonSchema> schemas = new HashMap<>();
 
     @BeforeAll
     public static void setup() throws IOException, URISyntaxException {
         final String rawSchema1 = getSchemaString("/schema/schema1.json");
         final String rawSchema2 = getSchemaString("/schema/schema2.json");
-        schemas.put("schema1", JsonSchemaFactory.createJsonSchema(rawSchema1));
-        schemas.put("schema2", JsonSchemaFactory.createJsonSchema(rawSchema2));
+        final ObjectMapper objectMapper = new ObjectMapper();
+        schemas.put("schema1", objectMapper.readTree(rawSchema1));
+        schemas.put("schema2", objectMapper.readTree(rawSchema2));
+    }
+
+    public static String getSchemaString(final String path) throws IOException, URISyntaxException {
+        return new String(Files.readAllBytes(Paths.get(SchemaServiceTest.class.getResource(path).toURI())));
     }
 
     @Test
@@ -49,7 +52,7 @@ public class SchemaServiceTest {
     public void shouldThrowValidationException() {
         Exception exception = assertThrows(ConstraintViolationException.class, () ->
                 this.schemaService.saveSchema(
-                        new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1"),  null))
+                        new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1"), null))
         );
 
         assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
@@ -58,10 +61,10 @@ public class SchemaServiceTest {
     @Test
     @Order(1)
     @Rollback(false)
-    public void shouldSaveSchema1(){
-        final JsonNode jsonNode = schemas.get("schema1").getSchema();
+    public void shouldSaveSchema1() {
+        final JsonNode jsonNode = schemas.get("schema1");
         final List<Schema> saved = this.schemaService.saveSchema(
-                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1", "latest"),  jsonNode));
+                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1", "latest"), jsonNode));
 
         for (Schema schema : saved) {
             assertEquals(36, schema.getId().length());
@@ -82,16 +85,16 @@ public class SchemaServiceTest {
         assertEquals("latest", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
-        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
+        assertEquals(schemas.get("schema1").toString(), saved.getJsonNode().toString());
     }
 
     @Test
     @Order(3)
     @Rollback(false)
-    public void shouldSaveSchema2(){
-        final JsonNode jsonNode = schemas.get("schema2").getSchema();
+    public void shouldSaveSchema2() {
+        final JsonNode jsonNode = schemas.get("schema2");
         final List<Schema> saved = this.schemaService.saveSchema(
-                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.2", "latest"),  jsonNode));
+                new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.2", "latest"), jsonNode));
 
         for (Schema schema : saved) {
             assertEquals(36, schema.getId().length());
@@ -106,13 +109,13 @@ public class SchemaServiceTest {
     @Test
     @Order(4)
     public void shouldLoadLatest_expectingSchema2() {
-        final Schema saved = this.schemaService.loadSchema( "onboarding", "new-employee-form", "latest");
+        final Schema saved = this.schemaService.loadSchema("onboarding", "new-employee-form", "latest");
 
         assertEquals(36, saved.getId().length());
         assertEquals("latest", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
-        assertEquals(schemas.get("schema2").getSchema().toString(), saved.getJsonNode().toString());
+        assertEquals(schemas.get("schema2").toString(), saved.getJsonNode().toString());
     }
 
     @Test
@@ -124,11 +127,6 @@ public class SchemaServiceTest {
         assertEquals("1.1", saved.getTag());
         assertEquals("onboarding", saved.getBundle());
         assertEquals("new-employee-form", saved.getRef());
-        assertEquals(schemas.get("schema1").getSchema().toString(), saved.getJsonNode().toString());
-    }
-
-
-    public static String getSchemaString(final String path) throws IOException, URISyntaxException {
-        return new String(Files.readAllBytes(Paths.get(SchemaServiceTest.class.getResource(path).toURI())));
+        assertEquals(schemas.get("schema1").toString(), saved.getJsonNode().toString());
     }
 }
