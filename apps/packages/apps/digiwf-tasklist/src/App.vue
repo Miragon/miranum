@@ -170,8 +170,8 @@ import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
 import {InfoTO, ServiceInstanceTO, UserTO,} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
-import {apiGatewayUrl} from "./utils/envVariables";
-import {queryClient} from "./middleware/queryClient";
+import { userManager } from "./security/OidcSetup";
+export const ssoBaseUrl = import.meta.env.SSO_BASE_URL || "";
 
 @Component({
   components: {AppMenuList}
@@ -182,7 +182,7 @@ export default class App extends Vue {
   username = "";
   appInfo: InfoTO | null = null;
   loginLoading = false;
-  loggedIn = true;
+  loggedIn = false;
 
   created(): void {
     this.loadData();
@@ -224,16 +224,8 @@ export default class App extends Vue {
   }
 
   login(): void {
-    let popup = window.open(`${apiGatewayUrl}/loginsuccess.html`);
-
-    popup?.focus();
-    let timer = setInterval(() => {
-      if (popup?.closed ?? true) {
-        clearInterval(timer);
-        this.getUser();
-        queryClient.refetchQueries();
-      }
-    }, 1000);
+    console.log("login", ssoBaseUrl);
+    userManager.signinRedirect();
   }
 }
 </script>

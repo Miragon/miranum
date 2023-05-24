@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="serve:tasklist" type="js.build_tools.npm" nameIsGenerated="true">
+  <configuration default="false" name="TasklistFrontend" type="js.build_tools.npm" nameIsGenerated="true">
     <package-json value="$PROJECT_DIR$/apps/package.json" />
     <command value="run" />
     <scripts>
