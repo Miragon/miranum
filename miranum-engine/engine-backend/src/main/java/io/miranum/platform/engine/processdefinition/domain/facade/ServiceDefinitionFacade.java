@@ -31,21 +31,12 @@ public class ServiceDefinitionFacade {
     private final org.camunda.bpm.engine.FormService camundaFormService;
 
     public void startInstance(final String key, final Map<String, Object> variables, final String userId, final List<String> groups) {
-        this.startInstance(key, null, null, variables, userId, groups);
+        this.startInstance(key, null, variables, userId, groups);
     }
 
     public void startInstance(final String key, final String businessKey, final Map<String, Object> variables, final String userId, final List<String> groups) {
-        this.startInstance(key, businessKey, null, variables, userId, groups);
-    }
-
-    public void startInstance(final String key, final String businessKey, final String fileContext, final Map<String, Object> variables, final String userId, final List<String> groups) {
         final ServiceDefinitionDetail definition = this.getServiceDefinitionDetailAuthorized(key, userId, groups);
         final Map<String, Object> serializedVariables = this.serviceDefinitionDataService.serializeVariables(definition, variables);
-
-        // get the s3-integrations topic or use the default one from application properties
-        // and set it as a variable on process start
-
-
         this.serviceDefinitionService.startInstance(definition, businessKey, serializedVariables, userId);
     }
 

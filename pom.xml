@@ -28,7 +28,7 @@
 
     <modules>
         <module>services</module>
-        <module>engine</module>
+        <module>miranum-engine</module>
         <module>tasklist</module>
         <module>libs</module>
     </modules>

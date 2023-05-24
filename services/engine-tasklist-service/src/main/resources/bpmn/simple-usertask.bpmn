@@ -10,6 +10,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_16nnpnz" sourceRef="Activity_0pli4h5" targetRef="Event_1icu5n7" />
     <bpmn:userTask id="Activity_0pli4h5" name="Work on task" camunda:assignee="123456789">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1qvk2rf</bpmn:incoming>
       <bpmn:outgoing>Flow_16nnpnz</bpmn:outgoing>
     </bpmn:userTask>

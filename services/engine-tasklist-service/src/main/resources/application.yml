@@ -18,12 +18,6 @@ camunda:
         enable-exceptions-after-unhandled-bpmn-error: true
     database:
       schema-update: false
-backend:
-  security:
-    process:
-      deployment:
-        user: ${DEPLOYMENT_USERNAME:digiwf}
-        password: ${DEPLOYMENT_PASSWORD:digiwf}
 
 management:
   server:
