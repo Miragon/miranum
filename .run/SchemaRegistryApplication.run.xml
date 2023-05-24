@@ -1,13 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="EngineTasklistApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <option name="ACTIVE_PROFILES" value="mock-user" />
+  <configuration default="false" name="SchemaRegistryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <module name="engine-tasklist-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.engine.EngineTasklistApplication" />
+    <module name="schema-registry-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.schemaregistry.SchemaRegistryApplication" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="io.miranum.platform.engine.*" />
+        <option name="PATTERN" value="io.miranum.platform.schemaregistry.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

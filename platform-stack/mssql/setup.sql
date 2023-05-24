@@ -1,4 +1,6 @@
 CREATE DATABASE engine;
 GO
+CREATE DATABASE schemadb;
+GO
 CREATE DATABASE keycloak;
 GO
