@@ -1,6 +1,6 @@
 package io.miranum.platform.engine.processinstance.domain.model;
 
-import io.miranum.platform.engine.processconfig.domain.model.ProcessConfig;
+import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
 import lombok.*;
 
 import java.util.Date;

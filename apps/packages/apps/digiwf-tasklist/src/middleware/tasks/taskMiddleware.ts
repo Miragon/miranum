@@ -321,7 +321,7 @@ export const completeTask = (taskId: string, variables: any): Promise<CompleteTa
   )
     .then(() => {
       queryClient.invalidateQueries([userTasksQueryId]);
-      router.push({path: "/task"}); // FIXME: copied from old source code. Question is why /task is called (path does not exist)
+      router.push({path: "/mytask"}); // FIXME: copied from old source code. Question is why /task is called (path does not exist)
       // normally it is not needed anymore because it will redirect to the task list path before
       return Promise.resolve<CompleteTaskResult>({
         isError: false,

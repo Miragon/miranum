@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.processinstance.process;
+package io.miranum.platform.engine.adapter.in.process;
 
 /**
  * Process variable constants.

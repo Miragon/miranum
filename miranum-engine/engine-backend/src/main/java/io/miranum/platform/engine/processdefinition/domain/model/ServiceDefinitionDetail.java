@@ -1,8 +1,7 @@
 package io.miranum.platform.engine.processdefinition.domain.model;
 
+import io.miranum.platform.engine.domain.jsonschema.JsonSchema;
 import lombok.*;
-
-import java.util.Map;
 
 @Getter
 @Builder
@@ -35,9 +34,9 @@ public class ServiceDefinitionDetail {
     /**
      * json schema
      */
-    private Map<String, Object> jsonSchema;
+    private JsonSchema jsonSchema;
 
-    public void setJsonSchema(final Map<String, Object> jsonSchema) {
+    public void setJsonSchema(final JsonSchema jsonSchema) {
         this.jsonSchema = jsonSchema;
     }
 

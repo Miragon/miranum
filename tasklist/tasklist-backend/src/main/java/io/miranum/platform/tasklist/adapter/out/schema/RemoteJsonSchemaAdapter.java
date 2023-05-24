@@ -6,6 +6,8 @@ import io.miranum.platform.tasklist.domain.JsonSchema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 public class RemoteJsonSchemaAdapter implements JsonSchemaPort {
@@ -13,7 +15,7 @@ public class RemoteJsonSchemaAdapter implements JsonSchemaPort {
     private final JsonSchemaClient jsonSchemaClient;
 
     @Override
-    public JsonSchema getSchemaById(String schemaId) throws JsonSchemaNotFoundException {
-        return JsonSchema.of(schemaId, jsonSchemaClient.getSchemaById(schemaId));
+    public JsonSchema getByRef(String ref) throws JsonSchemaNotFoundException {
+        return JsonSchema.of(ref, (Map<String, Object>) jsonSchemaClient.getSchemaById("test", ref, "latest").get("schema"));
     }
 }

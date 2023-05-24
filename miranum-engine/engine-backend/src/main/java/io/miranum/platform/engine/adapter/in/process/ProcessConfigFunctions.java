@@ -1,13 +1,11 @@
-package io.miranum.platform.engine.processconfig.process;
+package io.miranum.platform.engine.adapter.in.process;
 
+import io.miranum.platform.engine.application.port.in.processconfig.ProcessConfigQuery;
 import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
-import io.miranum.platform.engine.processconfig.domain.service.ProcessConfigService;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.impl.context.BpmnExecutionContext;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 /**
  * Process Config functions for modelling.
@@ -16,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProcessConfigFunctions {
 
-    private final ProcessConfigService processConfigService;
+    private final ProcessConfigQuery processConfigQuery;
 
 
     /**
@@ -26,8 +24,8 @@ public class ProcessConfigFunctions {
      * @return Config entry
      */
     public String get(final String key) {
-        final Optional<ProcessConfig> processConfig = this.getProcessConfigForCurrentProcess();
-        return processConfig.map(config -> config.getConfig(key)).orElse(null);
+        final ProcessConfig processConfig = this.getProcessConfigForCurrentProcess();
+        return processConfig.getConfig(key);
     }
 
     /**
@@ -37,36 +35,23 @@ public class ProcessConfigFunctions {
      * @param processKey Key of the process
      * @return Config entry
      */
-    public Optional<String> get(final String configKey, final String processKey) {
-        Optional<String> configValue = Optional.ofNullable(this.get(configKey));
-        if (configValue.isEmpty()) {
-            configValue = this.processConfigService.getProcessConfig(processKey)
-                    .map(processConfig -> processConfig.getConfig(configKey));
-        }
-        return configValue;
+    public String get(final String configKey, final String processKey) {
+        final ProcessConfig processConfig = this.processConfigQuery.getByRef(processKey);
+        return processConfig.getConfig(configKey);
     }
 
-    /**
-     * Get the guid of a Statusdokument.
-     *
-     * @return guid
-     */
-    public String getStatusDokument() {
-        final ProcessConfig processConfig = this.getProcessConfigForCurrentProcess().orElseThrow();
-        return processConfig.getStatusDokument();
-    }
 
     /**
      * Get the whole processconfig for the current process.
      *
      * @return processconfig
      */
-    private Optional<ProcessConfig> getProcessConfigForCurrentProcess() {
+    private ProcessConfig getProcessConfigForCurrentProcess() {
         final BpmnExecutionContext context = Context.getBpmnExecutionContext();
         if (context == null) {
-            return Optional.empty();
+            return null;
         }
         final String currentProcess = context.getExecution().getProcessDefinition().getKey();
-        return this.processConfigService.getProcessConfig(currentProcess);
+        return this.processConfigQuery.getByRef(currentProcess);
     }
 }

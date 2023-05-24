@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.adapter.out.jsonschema;
+package io.miranum.platform.engine.adapter.out.schema;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

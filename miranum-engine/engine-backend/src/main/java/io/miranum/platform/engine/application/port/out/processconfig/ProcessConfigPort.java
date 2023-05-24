@@ -1,6 +1,7 @@
-package io.miranum.platform.engine.application.port.out;
+package io.miranum.platform.engine.application.port.out.processconfig;
 
 
+import io.miranum.platform.engine.application.port.out.schema.JsonSchemaNotFoundException;
 import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
 
 /**

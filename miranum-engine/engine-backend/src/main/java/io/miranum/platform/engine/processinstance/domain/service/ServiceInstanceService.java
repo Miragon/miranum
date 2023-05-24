@@ -1,8 +1,9 @@
 package io.miranum.platform.engine.processinstance.domain.service;
 
-import io.miranum.platform.engine.jsonschema.domain.model.JsonSchema;
-import io.miranum.platform.engine.jsonschema.domain.service.JsonSchemaService;
-import io.miranum.platform.engine.processconfig.domain.service.ProcessConfigService;
+import io.miranum.platform.engine.application.port.out.engine.ServiceInstanceVariablePort;
+import io.miranum.platform.engine.application.port.out.processconfig.ProcessConfigPort;
+import io.miranum.platform.engine.application.port.out.schema.JsonSchemaPort;
+import io.miranum.platform.engine.domain.jsonschema.JsonSchema;
 import io.miranum.platform.engine.processinstance.domain.mapper.HistoryTaskMapper;
 import io.miranum.platform.engine.processinstance.domain.mapper.ServiceInstanceMapper;
 import io.miranum.platform.engine.processinstance.domain.model.ServiceInstance;
@@ -33,7 +34,7 @@ public class ServiceInstanceService {
 
     private final HistoryService historyService;
 
-    private final ProcessConfigService processConfigService;
+    private final ProcessConfigPort processConfigPort;
     private final ServiceInstanceAuthService serviceInstanceAuthService;
 
     private final ProcessInstanceInfoRepository processInstanceInfoRepository;
@@ -41,8 +42,8 @@ public class ServiceInstanceService {
     private final ServiceInstanceMapper serviceInstanceMapper;
     private final HistoryTaskMapper historyTaskMapper;
 
-    private final JsonSchemaService jsonSchemaService;
-    private final ServiceInstanceDataService serviceInstanceDataService;
+    private final JsonSchemaPort jsonSchemaPort;
+    private final ServiceInstanceVariablePort serviceInstanceVariablePort;
 
 
     /**
@@ -65,7 +66,7 @@ public class ServiceInstanceService {
 
         final ServiceInstance processInstanceInfo = this.getServiceInstanceById(infoId).orElseThrow();
 
-        val processConfig = this.processConfigService.getProcessConfig(processInstanceInfo.getDefinitionKey()).orElseThrow();
+        val processConfig = this.processConfigPort.getByRef(processInstanceInfo.getDefinitionKey());
         val tasks = this.historyService.createHistoricTaskInstanceQuery()
                 .processInstanceId(processInstanceInfo.getInstanceId())
                 .list();
@@ -75,11 +76,11 @@ public class ServiceInstanceService {
         detail.setHistoryTasks(this.historyTaskMapper.map2Model(tasks));
 
         if (StringUtils.isNotBlank(processConfig.getInstanceSchemaKey())) {
-            final JsonSchema jsonSchema = this.jsonSchemaService.getByKey(processConfig.getInstanceSchemaKey()).orElseThrow();
-            final Map<String, Object> data = this.serviceInstanceDataService.getVariables(processInstanceInfo.getInstanceId(), jsonSchema);
-
+            final JsonSchema jsonSchema = this.jsonSchemaPort.getByRef(processConfig.getInstanceSchemaKey());
+            final Map<String, Object> variables = this.serviceInstanceVariablePort.getVariables(processInstanceInfo.getInstanceId());
+            final Map<String, Object> data = this.jsonSchemaPort.filterVariables(variables, processConfig.getInstanceSchemaKey());
             detail.setData(data);
-            detail.setJsonSchema(jsonSchema.getSchemaMap());
+            detail.setJsonSchema(jsonSchema.asMap());
         }
 
         return detail;

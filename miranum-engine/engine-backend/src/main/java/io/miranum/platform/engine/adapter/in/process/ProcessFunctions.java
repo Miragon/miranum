@@ -1,6 +1,6 @@
-package io.miranum.platform.engine.processinstance.process;
+package io.miranum.platform.engine.adapter.in.process;
 
-import io.miranum.platform.engine.processconfig.domain.service.ProcessConfigService;
+import io.miranum.platform.engine.application.port.in.processconfig.ProcessConfigQuery;
 import io.miranum.platform.engine.processinstance.domain.model.ServiceInstance;
 import io.miranum.platform.engine.processinstance.domain.service.ServiceInstanceService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +20,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProcessFunctions {
 
-    private final ProcessConfigService processConfigService;
+    private final ProcessConfigQuery processConfigQuery;
     private final ServiceInstanceService processInstanceService;
 
     public void setStatus(final String statusKey) {
 
-        val processConfig = this.processConfigService.getProcessConfig(this.getCurrentProcessKey()).orElseThrow();
+        val processConfig = this.processConfigQuery.getByRef(this.getCurrentProcessKey());
 
         Context.getBpmnExecutionContext().getExecution().setVariable(ProcessConstants.PROCESS_STATUS, statusKey);
 

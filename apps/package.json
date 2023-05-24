@@ -29,8 +29,5 @@
     "typescript": "^4.7.4",
     "unplugin-vue-components": "^0.22.4",
     "vite": "^3.0.8"
-  },
-  "dependencies": {
-    "oidc-client": "^1.11.5"
   }
 }

@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.application.port.out;
+package io.miranum.platform.engine.application.port.out.schema;
 
 
 /**

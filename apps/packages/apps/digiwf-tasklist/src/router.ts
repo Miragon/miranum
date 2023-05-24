@@ -11,6 +11,8 @@ import GroupTaskDetail from "@/views/GroupTaskDetail.vue";
 import ProcessInstanceDetailView from "@/views/ProcessInstanceDetailView.vue";
 import store from "./store";
 import {baseUrl} from "./utils/envVariables";
+import Auth from "./views/Auth.vue";
+import Logout from "./views/Logout.vue";
 
 Vue.use(Router);
 
@@ -32,6 +34,7 @@ routerMethods.forEach((method: string) => {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 const router = new Router({
+  mode: "history",
   base: baseUrl,
   routes: [
     {
@@ -83,7 +86,16 @@ const router = new Router({
       component: GroupTaskDetail,
       props: true
     },
-    {path: '*', redirect: '/mytask'} //Fallback 2
+    {
+      path: "/auth",
+      name: "auth",
+      component: Auth
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: Logout
+    }
   ]
 });
 

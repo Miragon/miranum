@@ -1,6 +1,7 @@
-package io.miranum.platform.engine.processconfig.domain.service;
+package io.miranum.platform.engine.application.service;
 
-import io.miranum.platform.engine.application.port.out.ProcessConfigPort;
+import io.miranum.platform.engine.application.port.in.processconfig.ProcessConfigQuery;
+import io.miranum.platform.engine.application.port.out.processconfig.ProcessConfigPort;
 import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProcessConfigService {
+class ProcessConfigQueryService implements ProcessConfigQuery {
 
     private final ProcessConfigPort processConfigPort;
 
@@ -22,7 +23,7 @@ public class ProcessConfigService {
      * @param ref key of the process config
      * @return process config
      */
-    public ProcessConfig getProcessConfig(final String ref) {
+    public ProcessConfig getByRef(final String ref) {
         return this.processConfigPort.getByRef(ref);
     }
 

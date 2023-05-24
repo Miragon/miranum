@@ -110,3 +110,11 @@ polyflow:
   view:
     jpa:
       stored-items: TASK, DATA_ENTRY
+
+feign:
+  client:
+    config:
+      engine-schema:
+        url: ${ENGINE_SCHEMA_URL}
+      task-schema:
+        url: ${ENGINE_SCHEMA_URL}

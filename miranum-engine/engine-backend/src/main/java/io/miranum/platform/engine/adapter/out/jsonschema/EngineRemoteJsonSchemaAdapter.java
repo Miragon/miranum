@@ -1,6 +1,7 @@
 package io.miranum.platform.engine.adapter.out.jsonschema;
 
 import io.miranum.platform.engine.adapter.out.engine.MiranumEngineDataMapper;
+import io.miranum.platform.engine.adapter.out.schema.SchemaClient;
 import io.miranum.platform.engine.application.port.out.schema.JsonSchemaNotFoundException;
 import io.miranum.platform.engine.application.port.out.schema.JsonSchemaPort;
 import io.miranum.platform.engine.domain.jsonschema.JsonSchema;
@@ -12,15 +13,15 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class RemoteJsonSchemaAdapter implements JsonSchemaPort {
+public class EngineRemoteJsonSchemaAdapter implements JsonSchemaPort {
 
-    private final JsonSchemaClient jsonSchemaClient;
+    private final SchemaClient schemaClient;
     private final JsonSerializationService serializationService;
     private final MiranumEngineDataMapper engineDataMapper;
 
     @Override
     public JsonSchema getByRef(String ref) throws JsonSchemaNotFoundException {
-        return JsonSchema.of(ref, jsonSchemaClient.getSchemaById("test", ref, "latest"));
+        return JsonSchema.of(ref, (Map<String, Object>) schemaClient.getSchemaById("test", ref, "latest").get("schema"));
     }
 
     @Override

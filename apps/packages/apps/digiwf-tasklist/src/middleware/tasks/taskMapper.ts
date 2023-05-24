@@ -85,7 +85,7 @@ export const mapTaskDetailsFromTaskService = (response: TaskWithSchema, user?: U
     form: undefined, // FIXME: check if it is correct
     variables: response.variables,
     processInstanceId: response.processInstanceId,
-    schema: response.schema?.schema,
+    schema: response.schema,
     statusDocument: false,
 
     isCancelable: false // TODO: change to Task property when Task Response is updated by TaskList backend service

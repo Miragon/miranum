@@ -1,11 +1,11 @@
 package io.miranum.platform.engine.processdefinition.domain.service;
 
+import io.miranum.platform.engine.adapter.in.process.ProcessConstants;
 import io.miranum.platform.engine.processdefinition.domain.mapper.ServiceDefinitionMapper;
 import io.miranum.platform.engine.processdefinition.domain.model.ServiceDefinition;
 import io.miranum.platform.engine.processdefinition.domain.model.ServiceDefinitionDetail;
 import io.miranum.platform.engine.processinstance.domain.model.ServiceInstance;
 import io.miranum.platform.engine.processinstance.domain.service.ServiceInstanceService;
-import io.miranum.platform.engine.processinstance.process.ProcessConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -38,10 +38,9 @@ public class ServiceDefinitionService {
     /**
      * Start a service definition with the given parameters.
      *
-     * @param detail       service definition
-     * @param variables    data with which the process is started
-     * @param userId       id of the user that starts the process
-     * @param startContext start context
+     * @param detail    service definition
+     * @param variables data with which the process is started
+     * @param userId    id of the user that starts the process
      */
     public void startInstance(final ServiceDefinitionDetail detail, final String businessKey, final Map<String, Object> variables, final String userId) {
         log.debug("Start Process: " + detail.getKey());
@@ -70,23 +69,6 @@ public class ServiceDefinitionService {
         this.serviceInstanceService.updateInstanceId(serviceInstance.getId(), processInstance.getId());
 
         log.info("process instance for key {} started: {}", detail.getKey(), processInstance.getId());
-    }
-
-    /**
-     * Get a service definition by id.
-     *
-     * @param id Id of the service definition
-     * @return service definition
-     */
-    public ProcessDefinition getServiceDefinition(final String id) {
-        final ProcessDefinition serviceDefinition = this.repositoryService.createProcessDefinitionQuery()
-                .processDefinitionId(id)
-                .singleResult();
-
-        if (serviceDefinition == null) {
-            throw new IllegalArgumentException(String.format("The servicedefinition with the id %s is not available.", id));
-        }
-        return serviceDefinition;
     }
 
 

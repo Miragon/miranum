@@ -61,29 +61,6 @@
           {{ appInfo.maintenanceInfo2 }}
         </p>
       </v-banner>
-      <v-banner
-        :value="!loggedIn"
-        color="error"
-        icon="mdi-alert"
-        single-line
-        sticky
-      >
-        <template v-if="loginLoading">
-          Sie werden angemeldet...
-        </template>
-        <template v-else>
-          Sie sind aktuell nicht (mehr) angemeldet!
-        </template>
-        <template #actions>
-          <v-btn
-            :loading="loginLoading"
-            text
-            @click="login"
-          >
-            Login
-          </v-btn>
-        </template>
-      </v-banner>
       <v-container fluid>
         <v-fade-transition mode="out-in">
           <router-view/>
@@ -170,8 +147,7 @@ import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
 import {InfoTO, ServiceInstanceTO, UserTO,} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
-import { userManager } from "./security/OidcSetup";
-export const ssoBaseUrl = import.meta.env.SSO_BASE_URL || "";
+import {useServices} from "./hooks/store";
 
 @Component({
   components: {AppMenuList}
@@ -184,8 +160,23 @@ export default class App extends Vue {
   loginLoading = false;
   loggedIn = false;
 
+  user: any = null;
+
+  get getCurrentUser() {
+    return this.user;
+  }
+
   created(): void {
+    //TODO muss an einer anderen Stelle gefixt werden
     this.loadData();
+    const service = useServices();
+    service.$auth.getUser().then((user) => {
+      this.user = user;
+      console.log("user", user);
+      if (!user) {
+        service.$auth.login();
+      }
+    });
   }
 
   loadData(refresh = false): void {
@@ -223,9 +214,5 @@ export default class App extends Vue {
     this.appInfo = info;
   }
 
-  login(): void {
-    console.log("login", ssoBaseUrl);
-    userManager.signinRedirect();
-  }
 }
 </script>

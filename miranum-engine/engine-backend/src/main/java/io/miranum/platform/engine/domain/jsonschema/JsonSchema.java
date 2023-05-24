@@ -1,4 +1,4 @@
-package io.miranum.platform.tasklist.domain;
+package io.miranum.platform.engine.domain.jsonschema;
 
 import io.muenchendigital.digiwf.json.factory.JsonSchemaFactory;
 import lombok.Data;

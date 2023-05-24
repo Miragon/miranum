@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.application.port.out;
+package io.miranum.platform.engine.application.port.out.schema;
 
 
 import io.miranum.platform.engine.domain.jsonschema.JsonSchema;

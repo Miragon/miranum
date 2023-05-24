@@ -10,20 +10,7 @@
       <span class="processName grey--text">{{ task.processName }}</span>
       <h1>{{ task.name }}</h1>
       <p>{{ task.description }}</p>
-      <base-form
-        v-if="task.form"
-        :form="task.form"
-        :has-complete-error="hasCompleteError"
-        :has-save-error="hasSaveError"
-        :init-model="task.variables"
-        :is-completing="isCompleting"
-        :is-saving="isSaving"
-        class="taskForm"
-        @model-changed="modelChanged"
-        @complete-form="completeTask"
-      />
       <app-json-form
-        v-else
         :schema="task.schema"
         :value="task.variables"
         @input="modelChanged"
@@ -78,16 +65,16 @@
           <v-icon> mdi-content-save</v-icon>
         </loading-fab>
 
-        <loading-fab
-          v-if="task.isCancelable"
-          :button-text="cancelText"
-          :has-error="hasCancelError"
-          :is-loading="isCancelling"
-          color="white"
-          @on-click="cancelTask"
-        >
-          <v-icon> mdi-cancel</v-icon>
-        </loading-fab>
+        <!--        <loading-fab-->
+        <!--          v-if="task.isCancelable"-->
+        <!--          :button-text="cancelText"-->
+        <!--          :has-error="hasCancelError"-->
+        <!--          :is-loading="isCancelling"-->
+        <!--          color="white"-->
+        <!--          @on-click="cancelTask"-->
+        <!--        >-->
+        <!--          <v-icon> mdi-cancel</v-icon>-->
+        <!--        </loading-fab>-->
 
         <loading-fab
           v-if="hasDownloadButton"
@@ -101,13 +88,6 @@
         </loading-fab>
       </v-speed-dial>
     </v-flex>
-    <app-yes-no-dialog
-      :dialogtext="saveLeaveDialogText"
-      :dialogtitle="saveLeaveDialogTitle"
-      :value="saveLeaveDialog"
-      @no="cancel"
-      @yes="leave"
-    />
     <task-follow-up-dialog
       :follow-up-date="followUpDate"
       :value="isFollowUpDialogVisible"
@@ -154,7 +134,6 @@ import {Component, Prop, Provide} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
 import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
-import SaveLeaveMixin from "../mixins/saveLeaveMixin";
 import AppYesNoDialog from "@/components/common/AppYesNoDialog.vue";
 import TaskFollowUpDialog from "@/components/task/TaskFollowUpDialog.vue";
 import LoadingFab from "@/components/UI/LoadingFab.vue";
@@ -174,7 +153,7 @@ import {HumanTaskDetails} from "../middleware/tasks/tasksModels";
 @Component({
   components: {TaskFollowUpDialog, BaseForm, AppToast, TaskForm: BaseForm, AppViewLayout, AppYesNoDialog, LoadingFab}
 })
-export default class TaskDetail extends SaveLeaveMixin {
+export default class TaskDetail {
 
   task: HumanTaskDetails | null = null;
   followUpDate: string | null = "";
@@ -215,6 +194,7 @@ export default class TaskDetail extends SaveLeaveMixin {
 
   created() {
     loadTask(this.id).then(({data, error}) => {
+      console.log(data)
       if (!!data) {
         this.task = data.task;
         this.model = data.model;
@@ -227,15 +207,6 @@ export default class TaskDetail extends SaveLeaveMixin {
         this.errorMessage = error;
       }
     });
-  }
-
-  mounted() {
-    // Apply a @click.stop to the .v-speed-dial__list that wraps the default slot
-    this.$el
-      .querySelector(".v-speed-dial__list")!
-      .addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
   }
 
   completeTask(model: any) {

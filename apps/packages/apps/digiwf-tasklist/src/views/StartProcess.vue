@@ -11,32 +11,12 @@
     >
       <h1>{{ process.name }}</h1>
       <p>{{ process.description }}</p>
-      <base-form
-        v-if="process.startForm"
-        :form="process.startForm"
-        :has-complete-error="hasCompleteError"
-        :init-model="$route.query"
-        :is-completing="isCompleting"
-        :show-save-button="false"
-        class="startForm"
-        @model-changed="setDirty"
-        @complete-form="startProcess"
-      />
       <app-json-form
-        v-else
-        :is-completing="isCompleting"
         :schema="process.jsonSchema"
         :value="{}"
         @complete-form="startProcess"
       />
     </v-flex>
-    <app-yes-no-dialog
-      :dialogtext="saveLeaveDialogText"
-      :dialogtitle="saveLeaveDialogTitle"
-      :value="saveLeaveDialog"
-      @no="cancel"
-      @yes="leave"
-    />
   </app-view-layout>
 </template>
 
@@ -53,8 +33,6 @@ import AppViewLayout from "@/components/UI/AppViewLayout.vue";
 import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import router from "../router";
-import SaveLeaveMixin from "../mixins/saveLeaveMixin";
-import AppYesNoDialog from "@/components/common/AppYesNoDialog.vue";
 
 import {
   FetchUtils,
@@ -65,11 +43,12 @@ import {
 
 import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
+import Vue from "vue";
 
 @Component({
-  components: {BaseForm, AppToast, AppViewLayout, AppYesNoDialog}
+  components: {BaseForm, AppToast, AppViewLayout}
 })
-export default class StartProcess extends SaveLeaveMixin {
+export default class StartProcess extends Vue {
 
   process: ServiceDefinitionDetailTO | null = null;
   errorMessage = "";

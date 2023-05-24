@@ -15,5 +15,5 @@ public interface JsonSchemaPort {
      * @return schema
      * @throws JsonSchemaNotFoundException if no schema is available or access is restricted.
      */
-    JsonSchema getSchemaById(String schemaId) throws JsonSchemaNotFoundException;
+    JsonSchema getByRef(String schemaId) throws JsonSchemaNotFoundException;
 }

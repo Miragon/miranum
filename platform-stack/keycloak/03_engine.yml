@@ -5,9 +5,12 @@ changes:
   - addSimpleClient:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       secret: ${SSO_ENGINE_CLIENT_SECRET}
-      publicClient: false
       redirectUris:
         - '*'
+  - updateClient:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      webOrigins:
+        - "*"
   - addRole:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       clientRole: true

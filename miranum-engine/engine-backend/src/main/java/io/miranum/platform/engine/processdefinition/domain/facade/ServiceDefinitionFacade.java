@@ -1,7 +1,7 @@
 package io.miranum.platform.engine.processdefinition.domain.facade;
 
-import io.miranum.platform.engine.jsonschema.domain.model.JsonSchema;
-import io.miranum.platform.engine.jsonschema.domain.service.JsonSchemaService;
+import io.miranum.platform.engine.application.port.out.schema.JsonSchemaPort;
+import io.miranum.platform.engine.domain.jsonschema.JsonSchema;
 import io.miranum.platform.engine.processdefinition.domain.model.ServiceDefinition;
 import io.miranum.platform.engine.processdefinition.domain.model.ServiceDefinitionDetail;
 import io.miranum.platform.engine.processdefinition.domain.service.ServiceDefinitionAuthService;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -26,7 +25,7 @@ public class ServiceDefinitionFacade {
     private final ServiceDefinitionAuthService serviceDefinitionAuthService;
     private final ServiceDefinitionDataService serviceDefinitionDataService;
 
-    private final JsonSchemaService jsonSchemaService;
+    private final JsonSchemaPort jsonSchemaPort;
 
     private final org.camunda.bpm.engine.FormService camundaFormService;
 
@@ -62,8 +61,8 @@ public class ServiceDefinitionFacade {
 
     private void addFormData(final ServiceDefinitionDetail detail) {
         final String formKey = this.camundaFormService.getStartFormKey(detail.getId());
-        final Optional<JsonSchema> schema = this.jsonSchemaService.getByKey(formKey);
-        schema.map(JsonSchema::getSchemaMap).ifPresent(detail::setJsonSchema);
+        final JsonSchema schema = this.jsonSchemaPort.getByRef(formKey);
+        detail.setJsonSchema(schema);
     }
 
     private ServiceDefinitionDetail getServiceDefinitionDetailAuthorized(final String key, final String userId, final List<String> groups) {

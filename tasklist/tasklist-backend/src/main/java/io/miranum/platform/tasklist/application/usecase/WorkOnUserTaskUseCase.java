@@ -32,7 +32,7 @@ public class WorkOnUserTaskUseCase implements WorkOnUserTask {
 
     @Override
     public JsonSchema loadSchema(String schemaId) throws JsonSchemaNotFoundException {
-        return jsonSchemaPort.getSchemaById(schemaId);
+        return jsonSchemaPort.getByRef(schemaId);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class WorkOnUserTaskUseCase implements WorkOnUserTask {
     public TaskWithSchema loadUserTaskWithSchema(String taskId) throws TaskNotFoundException, JsonSchemaNotFoundException {
         val task = getTaskForUser(taskId);
         val schemaRef = taskSchemaRefResolverPort.apply(task);
-        val schema = jsonSchemaPort.getSchemaById(schemaRef);
+        val schema = jsonSchemaPort.getByRef(schemaRef);
         return new TaskWithSchema(task, schema);
     }
 
@@ -55,7 +55,7 @@ public class WorkOnUserTaskUseCase implements WorkOnUserTask {
     public void completeUserTask(String taskId, Map<String, Object> payload) throws TaskNotFoundException {
         var task = getTaskForUser(taskId);
         val schemaRef = taskSchemaRefResolverPort.apply(task);
-        val schema = jsonSchemaPort.getSchemaById(schemaRef);
+        val schema = jsonSchemaPort.getByRef(schemaRef);
         val variables = jsonSchemaValidationPort.validateAndSerialize(schema, task, payload);
         taskCommandPort.completeTask(taskId, variables);
     }
@@ -64,7 +64,7 @@ public class WorkOnUserTaskUseCase implements WorkOnUserTask {
     public void saveUserTask(String taskId, Map<String, Object> payload) throws TaskNotFoundException {
         var task = getTaskForUser(taskId);
         val schemaRef = taskSchemaRefResolverPort.apply(task);
-        val schema = jsonSchemaPort.getSchemaById(schemaRef);
+        val schema = jsonSchemaPort.getByRef(schemaRef);
         val variables = jsonSchemaValidationPort.validateAndSerialize(schema, task, payload);
         taskCommandPort.saveUserTask(taskId, variables);
     }

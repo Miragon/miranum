@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.processconfig.domain.model;
+package io.miranum.platform.engine.domain.processconfig;
 
 import lombok.*;
 
@@ -11,8 +11,6 @@ import java.util.List;
  * @author externer.dl.horn
  */
 @Getter
-@Setter
-@Builder
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor

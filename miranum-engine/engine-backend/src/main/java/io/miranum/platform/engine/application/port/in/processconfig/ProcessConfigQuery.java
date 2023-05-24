@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.application.port.in;
+package io.miranum.platform.engine.application.port.in.processconfig;
 
 import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
 

@@ -1,6 +1,6 @@
 package io.miranum.platform.engine.processinstance.api.transport;
 
-import io.miranum.platform.engine.processconfig.api.transport.ProcessConfigTO;
+import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
 import io.miranum.platform.engine.processinstance.domain.model.HistoryTask;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Transport object of the {@link ServiceInstanceDetail}
+ * Transport object of the {@link }
  *
  * @author externer.dl.horn
  */
@@ -60,7 +60,7 @@ public class ServiceInstanceDetailTO {
     /**
      * Config of the corresponding process definition.
      */
-    private ProcessConfigTO processConfig;
+    private ProcessConfig processConfig;
 
     /**
      * Tasks that have been completed so far.

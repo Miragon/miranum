@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.adapter.out;
+package io.miranum.platform.engine.adapter.out.engine;
 
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.spin.impl.json.jackson.JacksonJsonNode;
