@@ -1,5 +1,4 @@
 package io.miragon.miranum.connect.cloudevents;
-import java.util.Properties;
 
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;
@@ -8,7 +7,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
+
 import java.net.URI;
+import java.util.Properties;
 
 // see https://cloudevents.github.io/sdk-java/kafka.html
 public class CloudEventsProducer {

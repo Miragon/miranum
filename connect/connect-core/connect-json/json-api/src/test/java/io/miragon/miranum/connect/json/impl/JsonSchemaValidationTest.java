@@ -19,7 +19,7 @@ public class JsonSchemaValidationTest {
     @Test
     public void test_readonly_error() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("stringProp1", "fsdafsda"),
@@ -34,14 +34,14 @@ public class JsonSchemaValidationTest {
         );
 
         final List<ValidationResult> result = schema.validate(actualData, previousData);
-        
+
         assertEquals(1, result.size());
     }
 
     @Test
     public void test_data_valid() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("stringProp1", "fsdafsda"),
@@ -62,7 +62,7 @@ public class JsonSchemaValidationTest {
     @Test
     public void test_additional_data() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("stringProp1", "fsdafsda"),
@@ -84,7 +84,7 @@ public class JsonSchemaValidationTest {
     @Test
     public void test_user_schema() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/additional-data-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("addressOrUser", Map.ofEntries(
@@ -107,7 +107,7 @@ public class JsonSchemaValidationTest {
                 entry("GrundDienstlNotwendigkeit", "fdsfsdafsdafadsfsadfsdafd")
         );
         final String rawSchema = getSchemaString("/schema/text-area-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
 
         final List<ValidationResult> results = schema.validate(acutalData);
@@ -121,7 +121,7 @@ public class JsonSchemaValidationTest {
                 entry("stringProp1", "stringprop")
         );
         final String rawSchema = getSchemaString("/schema/one-of-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final List<ValidationResult> results = schema.validate(acutalData);
 
@@ -134,7 +134,7 @@ public class JsonSchemaValidationTest {
                 entry("stringProp3", "stringprop")
         );
         final String rawSchema = getSchemaString("/schema/one-of-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final List<ValidationResult> results = schema.validate(acutalData);
 
@@ -148,7 +148,7 @@ public class JsonSchemaValidationTest {
                 entry("selection", "test3")
         );
         final String rawSchema = getSchemaString("/schema/complex-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
         final List<ValidationResult> results = schema.validate(acutalData);
 
         assertEquals(2, results.size());
@@ -157,7 +157,7 @@ public class JsonSchemaValidationTest {
     @Test
     public void object_schema_list_valid() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/object-list-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("person", List.of(
@@ -177,7 +177,7 @@ public class JsonSchemaValidationTest {
     @Test
     public void object_schema_list_invalid() throws IOException, URISyntaxException {
         final String rawSchema = getSchemaString("/schema/object-list-schema.json");
-        final JsonSchema schema = this.getSchemaFronString(rawSchema);
+        final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
         final Map<String, Object> actualData = Map.ofEntries(
                 entry("person", List.of(
@@ -197,7 +197,7 @@ public class JsonSchemaValidationTest {
         assertEquals(1, result.size());
     }
 
-    protected JsonSchema getSchemaFronString(final String schemaContent) {
+    protected JsonSchema getSchemaFromString(final String schemaContent) {
         return JsonSchemaFactory.createJsonSchema(schemaContent);
     }
 

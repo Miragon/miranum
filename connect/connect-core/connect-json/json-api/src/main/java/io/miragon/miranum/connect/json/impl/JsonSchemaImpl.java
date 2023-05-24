@@ -23,7 +23,6 @@ public class JsonSchemaImpl implements JsonSchema {
                 .map(this::map).toList();
     }
 
-
     @Override
     public List<ValidationResult> validate(final Object data, final Object rootData) {
         final JsonNode node = this.mapper.valueToTree(data);

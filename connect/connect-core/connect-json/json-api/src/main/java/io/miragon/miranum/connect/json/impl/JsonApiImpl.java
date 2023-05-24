@@ -8,8 +8,6 @@ import com.networknt.schema.ValidatorTypeCode;
 import io.miragon.miranum.connect.json.api.JsonApi;
 import io.miragon.miranum.connect.json.api.JsonSchema;
 import io.miragon.miranum.connect.json.api.ValidationResult;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,17 +15,6 @@ import java.util.List;
 public class JsonApiImpl implements JsonApi {
 
     private final ObjectMapper mapper = new ObjectMapper();
-
-    @Value("${miranum.schema.registry.url}")
-    private String schemaRegistryUrl;
-
-    @Override
-    public JsonSchema getSchema(final String schemaRef) {
-        final RestTemplate restTemplate = new RestTemplate();
-        final JsonNode schema = restTemplate.getForEntity(this.schemaRegistryUrl + schemaRef, JsonNode.class)
-                .getBody();
-        return JsonSchemaFactory.createJsonSchema(schema.toString());
-    }
 
     @Override
     public JsonSchema buildSchema(final String schemaContent) {

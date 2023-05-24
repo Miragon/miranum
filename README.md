@@ -56,47 +56,7 @@ choose one of the following modules: worker-api, message-api, process-api, json-
 </dependency>
 ```
 
-This library can be used only in combination with SpringBoot. Miranum-Connect is currently available as **snapshot-release** in maven-central.
-You can import all Java moduls as dependencies. Make sure to use the latest version.
-
-To pull dependencies from the maven snapshot repo it needs to be part of the settings.xml for your user profile.
-<details>
-  <summary><code>~/.m2/settings.xml</code></summary>
-
-   ``` xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-      <localRepository />
-      <interactiveMode />
-      <offline />
-      <pluginGroups />
-      <servers />
-      <mirrors />
-      <proxies />
-      <profiles>
-         <profile>
-            <id>allow-snapshots</id>
-            <activation>
-               <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-               <repository>
-                  <id>snapshots-repo</id>
-                  <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-                  <releases>
-                     <enabled>false</enabled>
-                  </releases>
-                  <snapshots>
-                     <enabled>true</enabled>
-                  </snapshots>
-               </repository>
-            </repositories>
-         </profile>
-      </profiles>
-      <activeProfiles />
-   </settings>
-   ```
-</details>
+This library can be used only in combination with SpringBoot.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 For fully executable examples, take a look at our [miranum-consulting repository](https://github.com/FlowSquad/miranum-consulting). 

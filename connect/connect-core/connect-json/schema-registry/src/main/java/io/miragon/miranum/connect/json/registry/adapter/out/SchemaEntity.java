@@ -1,34 +1,33 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik der Landeshauptstadt München, 2020
- */
-
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-/**
- * Entity representation of a form.
- *
- * @author externer.dl.horn
- */
 @Getter
 @Setter
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "JsonSchema")
-@Table(name = "DWF_JSON_SCHEMA", indexes = {@Index(name = "IDX_DWF_SCHEMAKEY", columnList = "key_")})
+@Entity(name = "SchemaEntity")
+@Table(name = "MIRANUM_SCHEMA_REGISTRY")
 public class SchemaEntity {
 
     @Id
-    @Column(name = "key_")
-    private String key;
+    @Column(name = "id_", unique = true, length = 36)
+    private String id;
 
-    @Column(name = "schema_", columnDefinition = "CLOB")
-    private String schema;
+    @Column(name = "bundle_")
+    private String bundle;
 
+    @Column(name = "ref_")
+    private String ref;
 
+    @Column(name = "tag_")
+    private String tag;
+
+    @Lob
+    @Column(name = "json_node_")
+    private String jsonNode;
 }
