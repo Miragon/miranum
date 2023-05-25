@@ -21,7 +21,7 @@ public class EngineRemoteJsonSchemaAdapter implements JsonSchemaPort {
 
     @Override
     public JsonSchema getByRef(String ref) throws JsonSchemaNotFoundException {
-        return JsonSchema.of(ref, (Map<String, Object>) schemaClient.getSchemaById("test", ref, "latest").get("schema"));
+        return JsonSchema.of(ref, schemaClient.getSchemaById("test", ref, "latest"));
     }
 
     @Override
