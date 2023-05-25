@@ -3,19 +3,31 @@
 For local development you can use the following tools:
 
 - **SSO**: Keycloak
-- **S3 Storage**: [Minio](https://min.io/docs/minio/linux/index.html)
-- **Email Server**: [Mailhog](https://github.com/mailhog/MailHog)
 - **SSO**: [Keycloak](https://www.keycloak.org/)
-- **DB**: Postgresql database 
+- **DB**: Postgresql database and mssql
+
+## Postgres Setup
+
+````
+chmod +x platform-stack/postgres/init.sh
+````
 
 ## Docker
 
 Use docker compose to start the infrastructure components:
 
-```bash
-docker compose up -d
+### Postgres
 
-# with frontend
-docker compose --profile tasklist-frontend up -d
+To use postgres as database, enable the postgres config in .env and start the following script:
+
+```bash
+chmod +x platform-stack/postgres/init.sh
+docker compose --profile postgres up -d
 ```
 
+### MSSQL
+
+```bash
+# with mssql
+docker compose --profile mssql up -d
+```

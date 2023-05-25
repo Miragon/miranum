@@ -1,8 +1,4 @@
 # Miranum Plattform
 
-## Start Camunda Platform 7
+Many components and code of this repository are based on the [DigiWF project](https://github.com/it-at-m/digiwf-core) .
 
-```
-docker compose up -d -f platform-stack/docker-compose.yml
-```
-http://localhost:8081/camunda-welcome/index.html
