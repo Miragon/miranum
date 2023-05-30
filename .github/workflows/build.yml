@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
       - name: Execute Maven build
-        run: ./mvnw package ./services/engine-tasklist-service/
+        run: ./mvnw package
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
