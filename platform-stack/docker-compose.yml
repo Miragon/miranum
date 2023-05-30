@@ -2,6 +2,43 @@
 version: '3.9'
 services:
 
+  engine:
+    image: engine-tasklist-service:latest
+    container_name: engine
+    ports:
+      - "8090:8090"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: mock-user
+      ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/engine
+      ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
+    depends_on:
+      - ${LOCAL_DB_VENDOR}
+      - schema-registry
+    networks:
+      - internal
+
+  schema-registry:
+    image: schema-registry-service:latest
+    container_name: schema-registry
+    ports:
+      - "8091:8091"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
+    depends_on:
+      - ${LOCAL_DB_VENDOR}
+    networks:
+      - internal
+
   nginx:
     image: nginx:1.24.0
     container_name: nginx
@@ -65,7 +102,7 @@ services:
       - postgres
     restart: unless-stopped
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},sa:${SCHEMA_DATASOURCE_DB},sa:${SSO_DATASOURCE_DB}
+      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB}
       - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
       - POSTGRES_USER=${LOCAL_DATASOURCE_USERNAME}
     networks:

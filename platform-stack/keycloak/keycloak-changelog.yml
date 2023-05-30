@@ -3,6 +3,6 @@
 
 includes:
   - path: 01_initial-realm.yml
-  - path: 03_engine.yml
-  - path: 04_engine_protocol_mapper.yml
-  - path: 05_johndoe.yml
+  - path: 02_engine.yml
+  - path: 03_engine_protocol_mapper.yml
+  - path: 04_johndoe.yml
