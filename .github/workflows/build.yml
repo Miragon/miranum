@@ -1,13 +1,13 @@
 name: Build Application
 
 on:
-  - pull_request:
-      branches:
-        - main
-  - push:
-      branches:
-        - main
-        - feat/kubernetes-setup
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - feat/kubernetes-setup
 
 jobs:
   build_miranum-platform_engine-tasklist-service:
