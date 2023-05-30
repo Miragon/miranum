@@ -1,7 +1,7 @@
 # Kubernetes Charts
 
 ## Local Setup
-There are various local kubernets setups, like minicube, kind or k3s. k3d is a lightweight wrapper to run k3s (Rancher Lab’s minimal Kubernetes distribution) in Docker and is fully compliant with “full” Kubernetes. Get started reading [this guide](https://medium.com/@munza/local-kubernetes-with-k3d-helm-dashboard-6510d906431b).
+There are various local kubernets setups, like minicube, kind or k3s. k3s is a lightweight wrapper to run k3s (Rancher Lab’s minimal Kubernetes distribution) in Docker and is fully compliant with “full” Kubernetes. Get started reading [this guide](https://medium.com/@munza/local-kubernetes-with-k3d-helm-dashboard-6510d906431b).
 
 To run this setup locally, make sure, you have Docker, k3d, kubectl and helm installed. Use `brew` on mac and `choco` on windows.
 

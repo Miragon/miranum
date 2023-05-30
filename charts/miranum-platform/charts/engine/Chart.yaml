@@ -1,5 +1,0 @@
-apiVersion: v2
-name: engine
-description: Miranum Engine running Camunda Engine 7
-type: application
-version: 1.0.0
