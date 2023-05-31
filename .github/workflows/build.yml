@@ -29,16 +29,10 @@ jobs:
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       # BUILD TASKLIST-WEB-APP
-      - name: Set up Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - name: Init project
-        working-directory: ./apps
-        run: npm run init
+        run: mvn -Pfrontend clean install
       - name: Build Tasklist-Web-App
-        working-directory: ./apps
-        run: npm run build
+        run: mvn -Pfrontend build
       # DOCKERIZE TASKLIST-WEB-APP
       - name: Build tagged Schema-Registry-Service image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
