@@ -34,9 +34,11 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: npm init --prefix ./apps/.
+        working-directory: ./apps
+        run: npm init
       - name: Build Tasklist-Web-App
-        run: npm build --prefix ./apps/.
+        working-directory: ./apps
+        run: npm build
       # DOCKERIZE TASKLIST-WEB-APP
       - name: Build tagged Schema-Registry-Service image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
