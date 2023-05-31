@@ -30,7 +30,6 @@ jobs:
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       # BUILD TASKLIST-WEB-APP
       - name: Install dependencies
-        working-directory: ./apps
         run: ./mvnw -Pfrontend install
       - name: Build Tasklist-Web-App
         run: ./mvnw -f apps -Pbuild
