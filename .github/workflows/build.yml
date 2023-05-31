@@ -20,9 +20,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      # BUILD ALL APPLICATIONS USING MAVEN
-      - name: Execute Maven build
-        run: ./mvnw package
       # SETUP DOCKER
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -37,9 +34,9 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: npm init --prefix ./apps
+        run: npm init --prefix ./apps/.
       - name: Build Tasklist-Web-App
-        run: npm build --prefix ./apps
+        run: npm build --prefix ./apps/.
       # DOCKERIZE TASKLIST-WEB-APP
       - name: Build tagged Schema-Registry-Service image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
