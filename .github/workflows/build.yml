@@ -20,6 +20,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+      # BUILD ALL APPLICATIONS USING MAVEN
+      - name: Execute Maven build
+        run: ./mvnw package
       # SETUP DOCKER
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -28,6 +31,36 @@ jobs:
       - name: Set Release version env variable
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      # DOCKERIZE ENGINE-TASKLIST-SERVICE
+      - name: Build tagged Engine-Tasklist-Service image
+        run: docker build ./services/engine-tasklist-service/. -t miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+      - name: Scan image
+        id: scan-engine-tasklist-service
+        uses: anchore/scan-action@v3
+        with:
+          image: miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+          fail-build: false
+          debug: false
+          acs-report-enable: true
+      - name: Parse SARIF file
+        uses: FlowSquad/sarif-report-parse@v1.0.2
+        with:
+          sarif-file: ${{ steps.scan-engine-tasklist-service.outputs.sarif }}
+      # DOCKERIZE SCHEMA-REGISTRY-SERVICE
+      - name: Build tagged Schema-Registry-Service image
+        run: docker build ./services/schema-registry-service/. -t miranum-platform/schema-registry-service:${{ env.RELEASE_VERSION }}
+      - name: Scan image
+        id: scan-schema-registry-service
+        uses: anchore/scan-action@v3
+        with:
+          image: miranum-platform/schema-registry-service:${{ env.RELEASE_VERSION }}
+          fail-build: false
+          debug: false
+          acs-report-enable: true
+      - name: Parse SARIF fil
+        uses: FlowSquad/sarif-report-parse@v1.0.2
+        with:
+          sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
       # BUILD TASKLIST-WEB-APP
       - name: Install dependencies
         run: ./mvnw -Pfrontend clean install
