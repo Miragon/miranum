@@ -13,7 +13,7 @@
     "@miragon/digiwf-task-api-internal": "^0.1.0",
     "@miragon/digiwf-form-renderer": "^0.1.0",
     "@miragon/digiwf-multi-file-input": "^0.1.0",
-    "@muenchen/vjsf": "^2.21.6",
+    "@miragon/vjsf": "^2.1.4",
     "@tanstack/vue-query": "^4.19.1",
     "core-js": "^3.8.3",
     "easymde": "^2.15.0",
