@@ -10,7 +10,7 @@ on:
       - feat/kubernetes-setup
 
 jobs:
-  build_miranum-platform_engine-tasklist-service:
+  build_miranum_platform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -29,16 +29,11 @@ jobs:
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       # BUILD TASKLIST-WEB-APP
-      - name: Set up Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - name: Install dependencies
         working-directory: ./apps
-        run: npm install
+        run: ./mvnw -Pfrontend install
       - name: Build Tasklist-Web-App
-        working-directory: ./apps
-        run: npm run build
+        run: ./mvnw -f apps -Pbuild
       # DOCKERIZE TASKLIST-WEB-APP
       - name: Build tagged Schema-Registry-Service image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
