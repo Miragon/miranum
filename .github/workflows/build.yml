@@ -20,8 +20,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+      # BUILD ALL APPLICATIONS USING MAVEN
       - name: Execute Maven build
         run: ./mvnw package
+      # SETUP DOCKER
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -29,17 +31,27 @@ jobs:
       - name: Set Release version env variable
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-      - name: Build tagged Docker image
-        run: docker build ./services/engine-tasklist-service/. -t miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+      # BUILD TASKLIST-WEB-APP
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm init --prefix ./apps
+      - name: Build Tasklist-Web-App
+        run: npm build --prefix ./apps
+      # DOCKERIZE TASKLIST-WEB-APP
+      - name: Build tagged Schema-Registry-Service image
+        run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
       - name: Scan image
-        id: scan
+        id: scan-tasklist-webapp
         uses: anchore/scan-action@v3
         with:
-          image: miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+          image: miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
           fail-build: false
           debug: false
-          acs-report-enable: true #GitHub Automated Code Scanning (ACS)
+          acs-report-enable: true
       - name: Parse SARIF file
         uses: FlowSquad/sarif-report-parse@v1.0.2
         with:
-          sarif-file: ${{ steps.scan.outputs.sarif }}
+          sarif-file: ${{ steps.scan-tasklist-webapp.outputs.sarif }}
