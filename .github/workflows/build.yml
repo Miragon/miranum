@@ -34,7 +34,7 @@ jobs:
       - name: Build Tasklist-Web-App
         run: ./mvnw -f apps -Pbuild
       # DOCKERIZE TASKLIST-WEB-APP
-      - name: Build tagged Schema-Registry-Service image
+      - name: Build tagged Tasklist Webapp image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
       - name: Scan image
         id: scan-tasklist-webapp
