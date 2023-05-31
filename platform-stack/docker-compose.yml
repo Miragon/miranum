@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   tasklist:
-    image: digiwf-tasklist:latest
+    image: miranum-platform/tasklist-webapp:latest
     container_name: tasklist
     ports:
       - "3000:8080"
@@ -16,7 +16,7 @@ services:
       - internal
 
   engine:
-    image: engine-tasklist-service:latest
+    image: miranum-platform/engine-tasklist-service:latest
     container_name: engine
     ports:
       - "8090:8090"
@@ -36,7 +36,7 @@ services:
       - internal
 
   schema-registry:
-    image: schema-registry-service:latest
+    image: miranum-platform/schema-registry-service:latest
     container_name: schema-registry
     ports:
       - "8091:8091"
