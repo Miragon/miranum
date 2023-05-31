@@ -35,6 +35,9 @@ jobs:
           node-version: 18
       - name: Install dependencies
         working-directory: ./apps
+        run: npm install
+      - name: Init project
+        working-directory: ./apps
         run: npm init
       - name: Build Tasklist-Web-App
         working-directory: ./apps
