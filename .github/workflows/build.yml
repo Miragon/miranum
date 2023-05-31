@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - feat/kubernetes-setup
 
 jobs:
   build_miranum_platform:
@@ -27,7 +26,7 @@ jobs:
       - name: PREP / Set Release version env variable
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-      # BUILD ALL APPLICATIONS USING MAVEN
+      # BUILD ALL SERVICES USING MAVEN
       - name: BUILD / SERVICES / Execute Maven build
         run: ./mvnw package
       # BUILD TASKLIST-WEB-APP
@@ -61,7 +60,7 @@ jobs:
           fail-build: false
           debug: false
           acs-report-enable: true
-      - name: DOCKERIZE / Schema-Registry-Service / Parse SARIF fil
+      - name: DOCKERIZE / Schema-Registry-Service / Parse SARIF file
         uses: FlowSquad/sarif-report-parse@v1.0.2
         with:
           sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
