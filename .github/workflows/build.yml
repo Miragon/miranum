@@ -31,7 +31,7 @@ jobs:
         run: ./mvnw package
       # BUILD TASKLIST-WEB-APP
       - name: BUILD / APPS / Install dependencies
-        run: ./mvnw -Pfrontend clean install
+        run: ./mvnw -f apps clean install
       - name: BUILD / APPS / Build Tasklist-Web-App
         run: ./mvnw -f apps -Pbuild
       # DOCKERIZE ENGINE-TASKLIST-SERVICE
