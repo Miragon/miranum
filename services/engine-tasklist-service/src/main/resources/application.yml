@@ -18,6 +18,7 @@ camunda:
         enable-exceptions-after-unhandled-bpmn-error: true
     database:
       schema-update: false
+    auto-deployment-enabled: false
 
 management:
   server:

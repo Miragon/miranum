@@ -8,6 +8,8 @@ services:
     ports:
       - "3000:8080"
     restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: sampledata
     profiles:
       - engine
     depends_on:
@@ -26,7 +28,7 @@ services:
     env_file:
       - .env
     environment:
-      SPRING_PROFILES_ACTIVE: mock-user
+      SPRING_PROFILES_ACTIVE: mock-user, sampledata
       ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/engine
       ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
     depends_on:
@@ -127,7 +129,7 @@ services:
     ports:
       - "1433:1433"
     profiles:
-      - mssql
+      - sqlserver
     environment:
       SA_PASSWORD: ${LOCAL_DATASOURCE_PASSWORD}
       ACCEPT_EULA: "Y"
@@ -140,9 +142,9 @@ services:
     volumes:
       - ./mssql:/docker-entrypoint-initdb.d
     depends_on:
-      - mssql
+      - sqlserver
     profiles:
-      - mssql
+      - sqlserver
     command: >
       bash -c '
       sleep 20;
