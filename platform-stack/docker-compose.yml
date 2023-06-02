@@ -75,7 +75,7 @@ services:
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
-      KC_DB: ${LOCAL_DB_VENDOR}
+      KC_DB: ${LOCAL_KEYCLOAK_DB_VENDOR}
       KC_TRANSACTION_XA_ENABLED: 'false'
       KC_DB_URL: ${SSO_DATASOURCE_URL}
       KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
