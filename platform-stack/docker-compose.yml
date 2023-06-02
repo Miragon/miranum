@@ -121,7 +121,7 @@ services:
     networks:
       - internal
 
-  mssql:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
     ports:

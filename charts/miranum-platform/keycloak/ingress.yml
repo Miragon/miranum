@@ -1,0 +1,22 @@
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  name: "keycloak-ingress"
+  namespace: "process-platform"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    -
+      host: "localhost"
+      http:
+        paths:
+          -
+            backend:
+              service:
+                name: "keycloak-development"
+                port:
+                  number: 9090
+            path: "/keycloak-development/(.*)"
+            pathType: "ImplementationSpecific"

@@ -1,0 +1,52 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "keycloak"
+  namespace: "process-platform"
+spec:
+  selector:
+    matchLabels:
+      app: "keycloak-development"
+  replicas: 1
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: "keycloak-development"
+    spec:
+      containers:
+        -
+          name: "keycloak-development"
+          image: "quay.io/keycloak/keycloak:20.0.3"
+          imagePullPolicy: "Always"
+          env:
+            -
+              name: "KEYCLOAK_USER"
+              value: "admin"
+            -
+              name: "KEYCLOAK_PASSWORD"
+              value: "admin"
+            -
+              name: "PROXY_ADDRESS_FORWARDING"
+              value: "true"
+            -
+              name: "KEYCLOAK_FRONTEND_URL"
+              value: "http://localhost/auth/"
+            -
+              name: "KEYCLOAK_ADMIN_URL"
+              value: "http://localhost/auth/realms/master/admin/"
+          ports:
+            - name: "http"
+              containerPort: 8080
+            - name: "https"
+              containerPort: 8443
+          readinessProbe:
+            httpGet:
+              path: "/auth/realms/master"
+              port: 8080

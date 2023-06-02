@@ -5,8 +5,16 @@ To run this setup locally, make sure, you have Docker, kubectl and helm installe
 Activate Docker Desktops Kubernetes feature and point your kubectl to the local cluster. 
 
 ```bash
+# configure kubectl to use local cluster
 kubectl config use-context docker-desktop
 kubectl cluster-info
+```
+
+```bash
+# install nginx as global ingress controller
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
 ```
 
 ### Local Dashboard Setup using helm
@@ -23,11 +31,5 @@ kubectl -n kube-system create serviceaccount admin-sa
 kubectl create clusterrolebinding admin-crb --clusterrole=cluster-admin --serviceaccount=kube-system:admin-sa
 export TOKENNAME=$(kubectl -n kube-system get serviceaccount/admin-sa -o jsonpath='{.secrets[0].name}')\n
 kubectl -n kube-system get secret $TOKENNAME -o jsonpath='{.data.token}' | base64 --decode # copy this token in the dashboard login
-```
-
-## Working with helm charts
-
-```bash
-helm create engine # create new helm chart
 ```
 

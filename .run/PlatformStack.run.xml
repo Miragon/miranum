@@ -5,8 +5,7 @@
         <option name="envFilePath" value="" />
         <option name="profiles">
           <list>
-            <option value="postgres" />
-            <option value="engine" />
+            <option value="mssql" />
           </list>
         </option>
         <option name="sourceFilePath" value="platform-stack/docker-compose.yml" />
