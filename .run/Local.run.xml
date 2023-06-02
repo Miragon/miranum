@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Local" type="CompoundRunConfigurationType">
-    <toRun name="serve:tasklist" type="js.build_tools.npm" />
+    <toRun name="TasklistWebapp" type="MavenRunConfiguration" />
     <toRun name="EngineTasklistApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="SchemaRegistryApplication" type="SpringBootApplicationConfigurationType" />
     <method v="2" />
