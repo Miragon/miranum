@@ -16,7 +16,7 @@ services:
       - internal
 
   engine:
-    image: miranum-platform/engine-tasklist-service:latest
+    image: miranum-platform/engine-tasklist-service:0.1.0-SNAPSHOT
     container_name: engine
     ports:
       - "8090:8090"
