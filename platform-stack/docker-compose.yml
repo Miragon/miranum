@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   tasklist:
-    image: miranum-platform/tasklist-webapp:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-tasklist-webapp:0.1.0-SNAPSHOT
     container_name: tasklist
     ports:
       - "3000:8080"
@@ -16,7 +16,7 @@ services:
       - internal
 
   engine:
-    image: miranum-platform/engine-tasklist-service:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-engine-tasklist-service:0.1.0-SNAPSHOT
     container_name: engine
     ports:
       - "8090:8090"
@@ -37,7 +37,7 @@ services:
       - internal
 
   schema-registry:
-    image: miranum-platform/schema-registry-service:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-schema-registry-service:0.1.0-SNAPSHOT
     container_name: schema-registry
     ports:
       - "8091:8091"

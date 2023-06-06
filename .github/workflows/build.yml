@@ -36,12 +36,12 @@ jobs:
         run: ./mvnw -f apps -Pbuild
       # DOCKERIZE ENGINE-TASKLIST-SERVICE
       - name: DOCKERIZE / Engine-Tasklist-Service / Build image
-        run: docker build ./services/engine-tasklist-service/. -t miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+        run: docker build ./services/engine-tasklist-service/. -t miragon/miranum-platform-engine-tasklist-service:${{ env.RELEASE_VERSION }}
       - name: DOCKERIZE / Engine-Tasklist-Service / Scan image
         id: scan-engine-tasklist-service
         uses: anchore/scan-action@v3
         with:
-          image: miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }}
+          image: miragon/miranum-platform-engine-tasklist-service:${{ env.RELEASE_VERSION }}
           fail-build: false
           debug: false
           acs-report-enable: true
@@ -51,12 +51,12 @@ jobs:
           sarif-file: ${{ steps.scan-engine-tasklist-service.outputs.sarif }}
       # DOCKERIZE SCHEMA-REGISTRY-SERVICE
       - name: DOCKERIZE / Schema-Registry-Service / Build image
-        run: docker build ./services/schema-registry-service/. -t miranum-platform/schema-registry-service:${{ env.RELEASE_VERSION }}
+        run: docker build ./services/schema-registry-service/. -t miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }}
       - name: DOCKERIZE / Schema-Registry-Service / Scan image
         id: scan-schema-registry-service
         uses: anchore/scan-action@v3
         with:
-          image: miranum-platform/schema-registry-service:${{ env.RELEASE_VERSION }}
+          image: miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }}
           fail-build: false
           debug: false
           acs-report-enable: true
@@ -66,12 +66,12 @@ jobs:
           sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
       # DOCKERIZE TASKLIST-WEB-APP
       - name: DOCKERIZE / Tasklist-Webapp / Build image
-        run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
+        run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }}
       - name: DOCKERIZE / Tasklist-Webapp / Scan image
         id: scan-tasklist-webapp
         uses: anchore/scan-action@v3
         with:
-          image: miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }}
+          image: miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }}
           fail-build: false
           debug: false
           acs-report-enable: true
