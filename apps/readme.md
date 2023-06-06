@@ -47,7 +47,7 @@ This will install node and all dependent packages to your machine.
 
 Here are helpful commands:
 
-- `mvn -f pps clean install` rebuilds the apps
+- `mvn -f apps clean install` rebuilds the apps
 - `mvn -f apps -Pserve` serves the apps allowing local development
 - `mvn -f apps -Pserve-tasklist` serves the tasklist allowing local development
 - `mvn -f apps -Pserve-forms` serves the tasklist allowing local development
