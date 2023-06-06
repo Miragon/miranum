@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config
+  namespace: "process-platform"
+data:
+  KEYCLOAK_ADMIN: "admin"
+  KEYCLOAK_ADMIN_PASSWORD: "admin"
+  KC_TRANSACTION_XA_ENABLED: "false"
+  KC_HTTP_PORT: "8080"
+  KC_HTTPS_PORT: "8443"

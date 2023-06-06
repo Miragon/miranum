@@ -2,6 +2,58 @@
 version: '3.9'
 services:
 
+  tasklist:
+    image: miranum-platform/tasklist-webapp:latest
+    container_name: tasklist
+    ports:
+      - "3000:8080"
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: sampledata
+    profiles:
+      - engine
+    depends_on:
+      - engine
+    networks:
+      - internal
+
+  engine:
+    image: miranum-platform/engine-tasklist-service:latest
+    container_name: engine
+    ports:
+      - "8090:8090"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: mock-user, sampledata
+      ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/engine
+      ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
+    depends_on:
+      - ${LOCAL_DB_VENDOR}
+      - schema-registry
+    networks:
+      - internal
+
+  schema-registry:
+    image: miranum-platform/schema-registry-service:latest
+    container_name: schema-registry
+    ports:
+      - "8091:8091"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
+    depends_on:
+      - ${LOCAL_DB_VENDOR}
+    networks:
+      - internal
+
   nginx:
     image: nginx:1.24.0
     container_name: nginx
@@ -25,7 +77,7 @@ services:
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
-      KC_DB: ${LOCAL_DB_VENDOR}
+      KC_DB: ${LOCAL_KEYCLOAK_DB_VENDOR}
       KC_TRANSACTION_XA_ENABLED: 'false'
       KC_DB_URL: ${SSO_DATASOURCE_URL}
       KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
@@ -65,19 +117,19 @@ services:
       - postgres
     restart: unless-stopped
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},sa:${SCHEMA_DATASOURCE_DB},sa:${SSO_DATASOURCE_DB}
+      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB}
       - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
       - POSTGRES_USER=${LOCAL_DATASOURCE_USERNAME}
     networks:
       - internal
 
-  mssql:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
     ports:
       - "1433:1433"
     profiles:
-      - mssql
+      - sqlserver
     environment:
       SA_PASSWORD: ${LOCAL_DATASOURCE_PASSWORD}
       ACCEPT_EULA: "Y"
@@ -90,9 +142,9 @@ services:
     volumes:
       - ./mssql:/docker-entrypoint-initdb.d
     depends_on:
-      - mssql
+      - sqlserver
     profiles:
-      - mssql
+      - sqlserver
     command: >
       bash -c '
       sleep 20;

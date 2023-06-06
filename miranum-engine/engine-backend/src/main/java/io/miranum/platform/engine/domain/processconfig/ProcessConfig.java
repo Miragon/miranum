@@ -14,17 +14,14 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public class ProcessConfig {
 
 
     public static final String INSTANCE_FILE_PATHS_READONLY = "app_instance_file_paths_readonly";
     public static final String INSTANCE_FILE_PATHS = "app_instance_file_paths";
     public static final String INSTANCE_SCHEMA_KEY = "app_instance_schema_key";
-
-    /**
-     * key of the process config.
-     */
-    private String key;
 
     /**
      * default status dokument.
@@ -34,13 +31,11 @@ public class ProcessConfig {
     /**
      * status config of the process definition.
      */
-    @Builder.Default
     private List<StatusConfig> statusConfig = new ArrayList<>();
 
     /**
      * dynamic config entries.
      */
-    @Builder.Default
     private List<ConfigEntry> configs = new ArrayList<>();
 
     public String getStatus(final String statusKey) {

@@ -1,9 +1,6 @@
 package io.miranum.platform.engine.domain.processconfig;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * Dynamic configuration entry.
@@ -14,6 +11,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public class ConfigEntry {
 
     /**
