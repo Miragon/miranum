@@ -52,12 +52,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <!-- Fixes Vulnerability -->
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>6.0.9</version>
-            </dependency>
-            <dependency>
                 <groupId>org.camunda.bpm</groupId>
                 <artifactId>camunda-bom</artifactId>
                 <version>${camunda.version}</version>
