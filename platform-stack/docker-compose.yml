@@ -8,8 +8,6 @@ services:
     ports:
       - "3000:8080"
     restart: unless-stopped
-    environment:
-      SPRING_PROFILES_ACTIVE: sampledata
     profiles:
       - engine
     depends_on:
@@ -29,7 +27,8 @@ services:
       - .env
     environment:
       SPRING_PROFILES_ACTIVE: mock-user, sampledata
-      ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/engine
+      #ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
+      ENGINE_DATASOURCE_URL: jdbc:sqlserver://mssql;encrypt=false;integratedSecurity=false;databaseName=${ENGINE_DATASOURCE_DB}
       ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
     depends_on:
       - ${LOCAL_DB_VENDOR}
@@ -48,7 +47,9 @@ services:
     env_file:
       - .env
     environment:
-      SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
+      #SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
+      SCHEMA_DATASOURCE_URL: jdbc:sqlserver://mssql;encrypt=false;integratedSecurity=false;databaseName=${SCHEMA_DATASOURCE_DB}
+      SPRING_PROFILES_ACTIVE: sampledata
     depends_on:
       - ${LOCAL_DB_VENDOR}
     networks:
