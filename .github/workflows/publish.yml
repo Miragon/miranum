@@ -40,24 +40,24 @@ jobs:
         run: ./mvnw -f apps clean install
       - name: BUILD / APPS / Build Tasklist-Web-App
         run: ./mvnw -f apps -Pbuild
-      - name: DOCKER / BUILD & PUBLISH / miranum-platform/engine-tasklist-service
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-engine-tasklist-service
         uses: docker/build-push-action@v4
         with:
           context: ./services/engine-tasklist-service/.
           push: true
-          tags: miranum-platform/engine-tasklist-service:${{ env.RELEASE_VERSION }},miranum-platform/engine-tasklist-service:latest
+          tags: miragon/miranum-platform-engine-tasklist-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-engine-tasklist-service:latest
           platforms: linux/amd64, linux/arm64/v8
-      - name: DOCKER / BUILD & PUBLISH / miranum-platform/schema-registry-service
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-schema-registry-service
         uses: docker/build-push-action@v4
         with:
           context: ./services/schema-registry-service/.
           push: true
-          tags: miranum-platform/schema-registry-service:${{ env.RELEASE_VERSION }},miranum-platform/schema-registry-service:latest
+          tags: miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-schema-registry-service:latest
           platforms: linux/amd64, linux/arm64/v8
-      - name: DOCKER / BUILD & PUBLISH / miranum-platform/tasklist-webapp
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-tasklist-webapp
         uses: docker/build-push-action@v4
         with:
           context: ./apps/packages/apps/digiwf-tasklist/.
           push: true
-          tags: miranum-platform/tasklist-webapp:${{ env.RELEASE_VERSION }},miranum-platform/tasklist-webapp:latest
+          tags: miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }},miragon/miranum-platform-tasklist-webapp:latest
           platforms: linux/amd64, linux/arm64/v8
