@@ -1,15 +1,11 @@
----
-apiVersion: "v1"
-kind: "Service"
+apiVersion: v1
+kind: Service
 metadata:
-  name: "keycloak-service"
+  name: keycloak
   namespace: "process-platform"
-  labels:
-    app: "keycloak-development"
 spec:
-  ports:
-    -
-      port: 9090
-      targetPort: 8080
   selector:
-    app: "keycloak-development"
+    app: keycloak
+  ports:
+    - port: 9090
+      targetPort: 8080

@@ -9,6 +9,12 @@ Activate Docker Desktops Kubernetes feature and point your kubectl to the local 
 kubectl config use-context docker-desktop
 kubectl cluster-info
 ```
+Kubernetes master is running at https://kubernetes.docker.internal:6443
+
+```bash
+# create a proxy server between your machine and Kubernetes API server
+kubectl proxy 
+```
 
 ```bash
 # install nginx as global ingress controller
@@ -16,6 +22,8 @@ helm upgrade --install ingress-nginx ingress-nginx \
   --repo https://kubernetes.github.io/ingress-nginx \
   --namespace ingress-nginx --create-namespace
 ```
+
+http://localhost:8001/api/v1/namespaces/process-platform/services/keycloak:9090/proxy/
 
 ### Local Dashboard Setup using helm
 
