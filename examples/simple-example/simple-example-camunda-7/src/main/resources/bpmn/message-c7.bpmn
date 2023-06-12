@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dolndx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dolndx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.8.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
   <bpmn:process id="SimpleExampleProcess" name="Simple Example Process" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0yx0bta</bpmn:outgoing>
@@ -41,12 +41,12 @@
       <bpmn:incoming>Flow_1lqc6kg</bpmn:incoming>
       <bpmn:outgoing>Flow_0f2z2y6</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:modelerTemplate="send-message" camunda:type="external" camunda:topic="sendMessage">
+    <bpmn:serviceTask id="Activity_1dgrmef" name="Send message" camunda:type="external" camunda:topic="sendMessage">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="name">${myMessage}</camunda:inputParameter>
-          <camunda:inputParameter name="content">${myMessage}</camunda:inputParameter>
-          <camunda:inputParameter name="key">${correlationKey}</camunda:inputParameter>
+          <camunda:inputParameter name="name">myMessage</camunda:inputParameter>
+          <camunda:inputParameter name="content">myMessage</camunda:inputParameter>
+          <camunda:inputParameter name="key">correlationKey</camunda:inputParameter>
           <camunda:outputParameter name="textResult">${text}</camunda:outputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
@@ -60,11 +60,11 @@
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="162" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1yuphv4_di" bpmnElement="Gateway_1u6m6g0">
-        <dc:Bounds x="255" y="92" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0xqubhu_di" bpmnElement="Event_0xqubhu">
         <dc:Bounds x="682" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1yuphv4_di" bpmnElement="Gateway_1u6m6g0">
+        <dc:Bounds x="255" y="92" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_10pgghf_di" bpmnElement="Event_1q3dhgw">
         <dc:Bounds x="372" y="212" width="36" height="36" />

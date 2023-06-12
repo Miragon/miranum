@@ -51,3 +51,4 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
     }
 
 }
+

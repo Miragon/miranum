@@ -17,6 +17,7 @@
     <modules>
         <module>connect-c7</module>
         <module>connect-c8</module>
+        <module>connect-flowable</module>
         <module>connect-cloudevents</module>
         <module>connect-core</module>
         <module>connect-element-templates-maven-plugin</module>
