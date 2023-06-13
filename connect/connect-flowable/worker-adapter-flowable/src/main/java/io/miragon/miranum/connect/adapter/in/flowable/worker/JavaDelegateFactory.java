@@ -15,13 +15,8 @@ public class JavaDelegateFactory {
 
     public JavaDelegate createDelegate(WorkerExecutor executor) {
         return execution -> {
-            try {
-                var result = executor.execute(execution.getVariables());
-                workerExecuteApi.execute(executor, execution.getVariables());
-                execution.setVariables((Map<String, Object>) result);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
+            var result = workerExecuteApi.execute(executor, execution.getVariables());
+            execution.setVariables(result);
         };
     }
 }
