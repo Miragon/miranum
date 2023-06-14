@@ -26,7 +26,7 @@ public class AllOfKeyword extends AbstractKeyword {
     /**
      * This class is copied from com.networknt.schema.AllOfValidator
      */
-    static class AllOfValidator extends BaseJsonValidator implements JsonValidator {
+    static class AllOfValidator extends BaseJsonValidator {
         private static final Logger logger = LoggerFactory.getLogger(com.networknt.schema.AllOfValidator.class);
 
         private final List<JsonSchema> schemas = new ArrayList<JsonSchema>();
@@ -44,26 +44,21 @@ public class AllOfKeyword extends AbstractKeyword {
             }
         }
 
-        public Set<ValidationMessage> validate(final JsonNode node, final JsonNode rootNode, final String at) {
-            this.debug(logger, node, rootNode, at);
+        @Override
+        public Set<ValidationMessage> validate(JsonNode node, JsonNode rootNode, String at) {
+            debug(logger, node, rootNode, at);
+            CollectorContext collectorContext = CollectorContext.getInstance();
 
             // get the Validator state object storing validation data
-            final ValidatorState state = (ValidatorState) CollectorContext.getInstance().get(ValidatorState.VALIDATOR_STATE_KEY);
+            ValidatorState state = (ValidatorState) collectorContext.get(ValidatorState.VALIDATOR_STATE_KEY);
 
-            final Set<ValidationMessage> childSchemaErrors = new LinkedHashSet<ValidationMessage>();
+            Set<ValidationMessage> childSchemaErrors = new LinkedHashSet<>();
 
-            // As AllOf might contain multiple schemas take a backup of evaluatedProperties.
-            final Object backupEvaluatedProperties = CollectorContext.getInstance().get(UnEvaluatedPropertiesValidator.EVALUATED_PROPERTIES);
+            for (JsonSchema schema : this.schemas) {
+                Set<ValidationMessage> localErrors = new HashSet<>();
 
-            final List<String> totalEvaluatedProperties = new ArrayList<>();
-
-            for (final JsonSchema schema : this.schemas) {
+                CollectorContext.Scope parentScope = collectorContext.enterDynamicScope();
                 try {
-                    // Make the evaluatedProperties list empty.
-                    CollectorContext.getInstance().add(UnEvaluatedPropertiesValidator.EVALUATED_PROPERTIES, new ArrayList<>());
-
-                    Set<ValidationMessage> localErrors = new HashSet<>();
-
                     if (!state.isWalkEnabled()) {
                         localErrors = schema.validate(node, rootNode, at);
                     } else {
@@ -71,11 +66,6 @@ public class AllOfKeyword extends AbstractKeyword {
                     }
 
                     childSchemaErrors.addAll(localErrors);
-
-                    // Keep Collecting total evaluated properties.
-                    if (localErrors.isEmpty()) {
-                        totalEvaluatedProperties.addAll((List<String>) CollectorContext.getInstance().get(UnEvaluatedPropertiesValidator.EVALUATED_PROPERTIES));
-                    }
 
                     if (this.validationContext.getConfig().isOpenAPI3StyleDiscriminators()) {
                         final Iterator<JsonNode> arrayElements = this.schemaNode.elements();
@@ -109,12 +99,9 @@ public class AllOfKeyword extends AbstractKeyword {
                         }
                     }
                 } finally {
-                    if (childSchemaErrors.isEmpty()) {
-                        final List<String> backupEvaluatedPropertiesList = (backupEvaluatedProperties == null ? new ArrayList<>() : (List<String>) backupEvaluatedProperties);
-                        backupEvaluatedPropertiesList.addAll(totalEvaluatedProperties);
-                        CollectorContext.getInstance().add(UnEvaluatedPropertiesValidator.EVALUATED_PROPERTIES, backupEvaluatedPropertiesList);
-                    } else {
-                        CollectorContext.getInstance().add(UnEvaluatedPropertiesValidator.EVALUATED_PROPERTIES, backupEvaluatedProperties);
+                    CollectorContext.Scope scope = collectorContext.exitDynamicScope();
+                    if (localErrors.isEmpty()) {
+                        parentScope.mergeWith(scope);
                     }
                 }
             }
