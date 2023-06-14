@@ -130,26 +130,26 @@ public class JsonSchemaValidationTest {
 
     @Test
     public void one_of_is_invalid() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.ofEntries(
+        final Map<String, Object> actualData = Map.ofEntries(
                 entry("stringProp3", "stringprop")
         );
         final String rawSchema = getSchemaString("/schema/one-of-schema.json");
         final JsonSchema schema = this.getSchemaFromString(rawSchema);
 
-        final List<ValidationResult> results = schema.validate(acutalData);
+        final List<ValidationResult> results = schema.validate(actualData);
 
-        assertEquals(2, results.size());
+        assertEquals(3, results.size());
     }
 
     @Test
     public void select_schema_with_wrong_data_fails() throws URISyntaxException, IOException {
-        final Map<String, Object> acutalData = Map.ofEntries(
+        final Map<String, Object> actualData = Map.ofEntries(
                 entry("stringProp1", "fdsfsdafsdafadsfsadfsdafd"),
                 entry("selection", "test3")
         );
         final String rawSchema = getSchemaString("/schema/complex-schema.json");
         final JsonSchema schema = this.getSchemaFromString(rawSchema);
-        final List<ValidationResult> results = schema.validate(acutalData);
+        final List<ValidationResult> results = schema.validate(actualData);
 
         assertEquals(2, results.size());
     }

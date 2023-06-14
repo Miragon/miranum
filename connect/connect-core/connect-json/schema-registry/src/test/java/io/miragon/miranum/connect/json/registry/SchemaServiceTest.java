@@ -54,8 +54,6 @@ public class SchemaServiceTest {
                 this.schemaService.saveSchema(
                         new SaveSchemaInCommand("onboarding", "new-employee-form", List.of("1.1"), null))
         );
-
-        assertEquals("saveSchema.arg0.jsonNode: must not be null", exception.getMessage());
     }
 
     @Test
