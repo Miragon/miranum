@@ -14,5 +14,7 @@ public @interface Worker {
 
     String type();
 
+    int retries() default 3;
+
     long timeout() default 30000L;
 }

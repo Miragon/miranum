@@ -17,7 +17,7 @@ public class SendMessageService implements SendMessageUseCase {
     private final MessageApi messageApi;
 
     @Override
-    @Worker(type = "sendMessage")
+    @Worker(type = "sendMessage", retries = 5)
     @ElementTemplate(name = "Send Message", description = "Send a message.")
     public Answer sendMessage(final SendMessageCommand message) {
         log.info("Received message: " + message);

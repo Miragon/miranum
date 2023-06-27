@@ -22,6 +22,12 @@ public class WorkerExecutor {
 
     private Class<?> outputType;
 
+    private int retries;
+
+    public void decrementRetries() {
+        this.retries--;
+    }
+
     /**
      * Executes the worker.
      *
