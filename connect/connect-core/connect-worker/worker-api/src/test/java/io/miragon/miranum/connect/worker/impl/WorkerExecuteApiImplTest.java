@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +28,10 @@ public class WorkerExecuteApiImplTest {
             Map.entry("test", "test"),
             Map.entry("test2", "test2")
     );
+
+    WorkerExecuteApiImplTest() {
+        Mockito.doAnswer(invocation -> null).when(interceptor).intercept(any(), any());
+    }
 
     @Test
     void testExecuteWorker() throws InvocationTargetException, IllegalAccessException {
