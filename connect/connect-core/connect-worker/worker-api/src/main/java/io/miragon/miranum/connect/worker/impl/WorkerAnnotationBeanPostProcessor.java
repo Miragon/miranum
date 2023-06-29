@@ -36,6 +36,6 @@ public class WorkerAnnotationBeanPostProcessor implements BeanPostProcessor {
         }
 
         final Class<?> inputParameter = inputParameterTypes.length == 0 ? null : inputParameterTypes[0];
-        return new WorkerExecutor(worker.type(), worker.timeout(), bean, method, inputParameter, method.getReturnType(), worker.retries());
+        return new WorkerExecutor(worker.type(), worker.timeout(), bean, method, inputParameter, method.getReturnType());
     }
 }
