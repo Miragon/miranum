@@ -34,6 +34,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
         try {
+            externalTask.getRetries();
             final Map<String, Object> data = camunda7PojoMapper.mapFromEngineData(externalTask.getAllVariablesTyped());
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
@@ -44,9 +45,12 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
             log.severe("Technical error while executing task " + error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
+            int retries = externalTask.getRetries() != null ? externalTask.getRetries() : executor.getRetries();
             log.severe("Error while executing external task " + error.getMessage());
-            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), executor.getRetries() - 1, 5000L);
-            executor.decrementRetries();
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
+            if (externalTask.getRetries() != null) {
+                executor.decrementRetries();
+            }
         }
     }
 
