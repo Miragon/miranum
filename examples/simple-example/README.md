@@ -6,12 +6,14 @@
 automated using
 miranum-connect-core. The project consists of three modules:*
 
-- [simple-example_camunda-7](simple-example-camunda-7)
-- [simple-example_camunda-8](simple-example-camunda-8)
+- [simple-example-camunda-7](simple-example-camunda-7)
+- [simple-example-camunda-8](simple-example-camunda-8)
+- [simple-example-flowable](simple-example-flowable)
 - [simple-example-core](simple-example-core)
 
 *The application and domain logic is implemented in the `simple-example-core` project. It contains the services that are
 called by a workflow engine.*
+*Currently, the workflow engines camunda7, camunda8 and flowable are supported.*
 *The process is modelled using the open standard bpmn.*
 *The following figure shows the process that is automated in the project:*
 
