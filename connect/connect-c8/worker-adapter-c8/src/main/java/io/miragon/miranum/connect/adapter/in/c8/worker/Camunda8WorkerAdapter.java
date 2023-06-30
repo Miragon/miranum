@@ -48,11 +48,7 @@ public class Camunda8WorkerAdapter implements WorkerSubscription {
             client.newFailCommand(job.getKey()).retries(0).send().join();
         } catch (final Exception exception) {
             log.error("general exception detected", exception);
-            int retries = job.getRetries() != 0 ? job.getRetries() : workerExecutor.getRetries();
-            client.newFailCommand(job.getKey()).retries(retries - 1).send().join();
-            if (job.getRetries() != 0) {
-                workerExecutor.decrementRetries();
-            }
+            client.newFailCommand(job.getKey()).retries(job.getRetries() - 1).send().join();
         }
     }
 
