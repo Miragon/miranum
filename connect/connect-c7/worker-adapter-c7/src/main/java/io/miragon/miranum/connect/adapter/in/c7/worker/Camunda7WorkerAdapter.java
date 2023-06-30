@@ -36,10 +36,9 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
         Integer workerRetries = null;
         try {
-            externalTask.getRetries();
             final Map<String, Object> data = camunda7PojoMapper.mapFromEngineData(externalTask.getAllVariablesTyped());
-            final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             workerRetries = (Integer) data.get("retries");
+            final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
             log.severe("use case could not be executed " + exception.getMessage());
@@ -50,7 +49,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
         } catch (final Exception error) {
             int retries = getRemainingRetries(externalTask.getRetries(), workerRetries);
             log.severe("Error while executing external task " + error.getMessage());
-            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries, 5000L);
         }
     }
 
