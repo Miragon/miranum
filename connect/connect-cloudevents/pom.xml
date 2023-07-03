@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <io.cloudevents.version>2.4.2</io.cloudevents.version>
+        <io.cloudevents.version>2.5.0</io.cloudevents.version>
     </properties>
 
 </project>
