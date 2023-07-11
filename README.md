@@ -84,8 +84,9 @@ public void doSomething(DoSomethingCommand doSomethingCommand) {
     doSomethingUseCase.doSomething(doSomethingCommand);
 }
 ```
-Worker feature an adjustable retry count. They are set through the BPMN model in Camunda Platform 8. Camunda 7 worker have a 
-default of 3. This can be configured as described in the [C7 specific readme](./connect/connect-c7/README.md).
+Worker feature an adjustable retry count. In Camunda 8 it can be set through the BPMN model on a specific service task. 
+The Camunda 7 worker have a default retry value of 3. The retry count can be configured as described 
+in the [C7 specific README](./connect/connect-c7/README.md).
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
