@@ -23,6 +23,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
     private final ExternalTaskClient externalTaskClient;
     private final WorkerExecuteApi workerExecuteApi;
     private final Camunda7PojoMapper camunda7PojoMapper;
+    private final Camunda7WorkerProperties camunda7WorkerProperties;
 
     @Override
     public void subscribe(final WorkerExecutor executor) {
@@ -33,8 +34,10 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
     }
 
     public void execute(final WorkerExecutor executor, final ExternalTask externalTask, final ExternalTaskService service) {
+        Integer workerRetries = null;
         try {
             final Map<String, Object> data = camunda7PojoMapper.mapFromEngineData(externalTask.getAllVariablesTyped());
+            workerRetries = (Integer) data.get("retries");
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
@@ -44,10 +47,30 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
             log.severe("Technical error while executing task " + error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
+            int retries = getRemainingRetries(externalTask.getRetries(), workerRetries);
             log.severe("Error while executing external task " + error.getMessage());
-            final int retries = Objects.isNull(externalTask.getRetries()) ? 1 : externalTask.getRetries();
-            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries - 1, 5000L);
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries, 5000L);
         }
     }
 
+    /**
+     * Retrieves the remaining number of retries for a task.
+     * <p>
+     * If it's the first run and no retries input is provided,
+     * the method uses the default retries specified in the properties.
+     * <p>
+     * For subsequent runs, where externalTaskRetries is not null, it is used.
+     *
+     * @param externalTaskRetries The number of retries specified for the external task.
+     * @param workerRetries The number of retries specified for the worker as an input in the bpmn.
+     * @return The remaining number of retries for the task.
+     */
+    private int getRemainingRetries(Integer externalTaskRetries, Integer workerRetries) {
+        if (Objects.isNull(externalTaskRetries)) {
+            return Objects.isNull(workerRetries) ?
+                    camunda7WorkerProperties.getDefaultRetries() :
+                    workerRetries;
+        }
+        return externalTaskRetries;
+    }
 }

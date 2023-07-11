@@ -11,12 +11,13 @@ import org.camunda.bpm.client.topic.TopicSubscription;
 import org.camunda.bpm.client.topic.TopicSubscriptionBuilder;
 import org.camunda.bpm.engine.variable.Variables;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -30,8 +31,11 @@ public class Camunda7AdapterTest {
     private final Camunda7PojoMapper mapper =
             Mockito.mock(Camunda7PojoMapper.class);
 
+    private final Camunda7WorkerProperties properties =
+            new Camunda7WorkerProperties();
+
     private final Camunda7WorkerAdapter adapter =
-            new Camunda7WorkerAdapter(this.externalTaskClient, this.workerExecuteApi, mapper);
+            new Camunda7WorkerAdapter(this.externalTaskClient, this.workerExecuteApi, mapper, properties);
 
     @Test
     void givenOneUseCase_thenExternalTaskClientSubscribesOnce() {
@@ -65,6 +69,84 @@ public class Camunda7AdapterTest {
         this.adapter.execute(defaultWorker, externalTask, service);
 
         then(service).should().complete(externalTask, null, result);
+    }
+
+    @Test
+    void givenDefaultUseCaseAndRetriesProvided_thenInvokeGetRemainingRetries() throws JsonProcessingException {
+        final WorkerExecutor defaultWorker = givenDefaultExecutor("defaultWorker", 100L);
+        final ExternalTask externalTask = givenDefaultTask();
+        final ExternalTaskService service = givenExternalTaskService();
+        final Map<String, Object> data = Map.of("retries", 3);
+        properties.setDefaultRetries(5);
+
+        given(externalTask.getRetries()).willReturn(null);
+        given(mapper.mapFromEngineData(any())).willReturn(data);
+        given(workerExecuteApi.execute(any(), any())).willThrow(new RuntimeException("test"));
+
+        adapter.execute(defaultWorker, externalTask, service);
+
+        var retriesCaptor = ArgumentCaptor.forClass(Integer.class);
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), retriesCaptor.capture(), anyLong());
+        assertEquals(3, retriesCaptor.getValue());
+    }
+
+    @Test
+    void givenDefaultUseCaseAndRetriesSetInBpmn_thenUseBpmnRetries() {
+        final WorkerExecutor defaultWorker = givenDefaultExecutor("defaultWorker", 100L);
+        final ExternalTask externalTask = givenDefaultTask();
+        final ExternalTaskService service = givenExternalTaskService();
+        final int bpmnRetries = 5;
+        given(externalTask.getRetries()).willReturn(bpmnRetries);
+        given(workerExecuteApi.execute(any(), any())).willThrow(new RuntimeException("test"));
+
+        adapter.execute(defaultWorker, externalTask, service);
+
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(bpmnRetries), anyLong());
+    }
+
+    @Test
+    void givenDefaultUseCaseAndRetriesSetInWorkerInput_thenUseWorkerRetries() {
+        final WorkerExecutor defaultWorker = givenDefaultExecutor("defaultWorker", 100L);
+        final ExternalTask externalTask = givenDefaultTask();
+        final ExternalTaskService service = givenExternalTaskService();
+        final int workerRetries = 4;
+        final Map<String, Object> data = Map.of("retries", workerRetries);
+        given(mapper.mapFromEngineData(any())).willReturn(data);
+        given(externalTask.getRetries()).willReturn(null);
+        given(workerExecuteApi.execute(any(), any())).willThrow(new RuntimeException("test"));
+
+        adapter.execute(defaultWorker, externalTask, service);
+
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(workerRetries), anyLong());
+    }
+
+    @Test
+    void givenDefaultUseCaseAndNoRetriesProvided_thenUseDefaultRetries() {
+        final WorkerExecutor defaultWorker = givenDefaultExecutor("defaultWorker", 100L);
+        final ExternalTask externalTask = givenDefaultTask();
+        final ExternalTaskService service = givenExternalTaskService();
+        final int defaultRetries = properties.getDefaultRetries();
+        given(externalTask.getRetries()).willReturn(null);
+        given(workerExecuteApi.execute(any(), any())).willThrow(new RuntimeException("test"));
+
+        adapter.execute(defaultWorker, externalTask, service);
+
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(defaultRetries), anyLong());
+    }
+
+    @Test
+    void givenDefaultUseCaseAndZeroRetriesProvided_thenUseZeroRetries() throws JsonProcessingException {
+        final WorkerExecutor defaultWorker = givenDefaultExecutor("defaultWorker", 100L);
+        final ExternalTask externalTask = givenDefaultTask();
+        final ExternalTaskService service = givenExternalTaskService();
+        final int workerRetries = 0;
+        final Map<String, Object> data = Map.of("retries", workerRetries);
+        given(mapper.mapFromEngineData(any())).willReturn(data);
+        given(workerExecuteApi.execute(any(), any())).willThrow(new RuntimeException("test"));
+
+        adapter.execute(defaultWorker, externalTask, service);
+
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(workerRetries), anyLong());
     }
 
     private WorkerExecutor givenDefaultExecutor(final String type, final Long lockDuration) {

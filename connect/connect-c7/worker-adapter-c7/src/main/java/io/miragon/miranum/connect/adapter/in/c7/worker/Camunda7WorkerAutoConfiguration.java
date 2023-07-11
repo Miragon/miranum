@@ -6,11 +6,11 @@ import org.camunda.bpm.client.ExternalTaskClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-@EnableConfigurationProperties
+@EnableConfigurationProperties(Camunda7WorkerProperties.class)
 public class Camunda7WorkerAutoConfiguration {
 
     @Bean
-    public Camunda7WorkerAdapter camunda7WorkerAdapter(final ExternalTaskClient externalTaskClient, final WorkerExecuteApi workerExecuteApi, final Camunda7PojoMapper camunda7PojoMapper) {
-        return new Camunda7WorkerAdapter(externalTaskClient, workerExecuteApi, camunda7PojoMapper);
+    public Camunda7WorkerAdapter camunda7WorkerAdapter(final ExternalTaskClient externalTaskClient, final WorkerExecuteApi workerExecuteApi, final Camunda7PojoMapper camunda7PojoMapper, final Camunda7WorkerProperties camunda7WorkerProperties) {
+        return new Camunda7WorkerAdapter(externalTaskClient, workerExecuteApi, camunda7PojoMapper, camunda7WorkerProperties);
     }
 }
