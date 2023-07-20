@@ -108,10 +108,15 @@ springdoc:
 
 #Polyflow
 polyflow:
+  axon:
+    kafka:
+      enabled: true
   view:
     jpa:
-      stored-items: TASK, DATA_ENTRY
-
+      stored-items: TASK, DATA_ENTRY # currently only tasks and data entries, no process definition or process instances
+      payload-attribute-level-limit: 1
+      task-filters:
+        include: unknown
 feign:
   client:
     config:

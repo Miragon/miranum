@@ -14,12 +14,11 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequiredArgsConstructor
 public class UserApiDelegateImpl implements UserApiDelegate {
 
-    private final UserProfileMapper userMapper;
-    private final ResolveUserProfile resolvePort;
-
-    @Override
-    public ResponseEntity<UserProfileTO> resolveUser(String userId) {
-        // use the safe resolution which will fall back to the Unknown user, if the profile can't be resolved
-        return ok(userMapper.to(resolvePort.findUserProfile(userId)));
-    }
+  private final UserProfileMapper userMapper;
+  private final ResolveUserProfile resolvePort;
+  @Override
+  public ResponseEntity<UserProfileTO> resolveUser(String userId) {
+    // use the safe resolution which will fall back to the Unknown user, if the profile can't be resolved
+    return ok(userMapper.to(resolvePort.findUserProfile(userId)));
+  }
 }

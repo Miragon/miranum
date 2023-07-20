@@ -12,34 +12,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UserInfoResponse {
-    /**
-     * Unique id of the user.
-     */
-    @JsonProperty("lhmObjectId")
-    private String lhmObjectId;
+  /**
+   * Unique id of the user.
+   */
+  @JsonProperty("lhmObjectId")
+  private String lhmObjectId;
 
-    /**
-     * User org unit.
-     */
-    @JsonProperty("ou")
-    private String organizationalUnit;
+  /**
+   * User org unit.
+   */
+  @JsonProperty("ou")
+  private String organizationalUnit;
 
-    /**
-     * List of user group and the superior organizational units as a string.
-     */
-    @JsonProperty("lhmObjectPath")
-    private String lhmObjectPath;
+  /**
+   * List of user group and the superior organizational units as a string.
+   */
+  @JsonProperty("lhmObjectPath")
+  private String lhmObjectPath;
 
-    /**
-     * First name of the user.
-     */
-    @JsonProperty("vorname")
-    private String firstName;
+  /**
+   * First name of the user.
+   */
+  @JsonProperty("vorname")
+  private String firstName;
 
-    /**
-     * Last name of the user.
-     */
-    @JsonProperty("nachname")
-    private String lastName;
+  /**
+   * Last name of the user.
+   */
+  @JsonProperty("nachname")
+  private String lastName;
 
 }

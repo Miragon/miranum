@@ -8,12 +8,12 @@ import io.miranum.platform.tasklist.domain.JsonSchema;
  */
 public interface JsonSchemaPort {
 
-    /**
-     * Load schema by id.
-     *
-     * @param schemaId id of the schema.
-     * @return schema
-     * @throws JsonSchemaNotFoundException if no schema is available or access is restricted.
-     */
-    JsonSchema getByRef(String schemaId) throws JsonSchemaNotFoundException;
+  /**
+   * Load schema by id.
+   * @param schemaId id of the schema.
+   * @return schema
+   * @throws JsonSchemaNotFoundException if no schema is available or access is restricted.
+   */
+  JsonSchema getSchemaById(String schemaId) throws JsonSchemaNotFoundException;
+
 }

@@ -9,12 +9,12 @@ import org.mapstruct.Mapper;
 public interface UserProfileMapper {
 
 
-    default UserProfileTO to(UserProfile profile) {
-        val to = new UserProfileTO();
-        to.setFirstName(profile.getFirstName());
-        to.setLastName(profile.getLastName());
-        to.setUserId(profile.getUserId());
-        to.setPrimaryOrgUnit(profile.getPrimaryOrgUnit());
-        return to;
-    }
+  default UserProfileTO to(UserProfile profile) {
+    val to = new UserProfileTO();
+    to.setFirstName(profile.getFirstName());
+    to.setLastName(profile.getLastName());
+    to.setUserId(profile.getUserId());
+    to.setPrimaryOrgUnit(profile.getPrimaryOrgUnit());
+    return to;
+  }
 }
