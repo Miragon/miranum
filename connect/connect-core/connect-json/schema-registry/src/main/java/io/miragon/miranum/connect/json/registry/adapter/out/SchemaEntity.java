@@ -1,8 +1,10 @@
 package io.miragon.miranum.connect.json.registry.adapter.out;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
@@ -27,7 +29,6 @@ public class SchemaEntity {
     @Column(name = "tag_")
     private String tag;
 
-    @Lob
-    @Column(name = "json_node_")
+    @Column(name = "json_node_", columnDefinition = "CLOB")
     private String jsonNode;
 }
