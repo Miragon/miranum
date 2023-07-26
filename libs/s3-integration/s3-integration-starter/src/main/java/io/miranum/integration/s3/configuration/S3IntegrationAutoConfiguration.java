@@ -18,9 +18,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@EnableJpaRepositories(basePackages = "io.miranum.integration.s3.integration")
-@EntityScan(basePackages = "io.miranum.integration.s3.integration")
-@ComponentScan(basePackages = "io.miranum.integration.s3.integration")
+@EnableJpaRepositories(basePackages = "io.miranum.integration.s3")
+@EntityScan(basePackages = "io.miranum.integration.s3")
+@ComponentScan(basePackages = "io.miranum.integration.s3")
 @EnableConfigurationProperties(S3IntegrationProperties.class)
 public class S3IntegrationAutoConfiguration {
 

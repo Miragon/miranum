@@ -1,4 +1,4 @@
-package io.miranum.platform.engine;
+package io.miranum.integration.s3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

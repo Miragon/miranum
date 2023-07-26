@@ -124,3 +124,7 @@ feign:
         url: ${ENGINE_SCHEMA_URL}
       task-schema:
         url: ${ENGINE_SCHEMA_URL}
+
+  miranum:
+    s3service:
+      http-API: ${S3_SERVICE_URL}

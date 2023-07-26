@@ -114,44 +114,25 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-    profiles:
-      - postgres
     restart: unless-stopped
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB}
+      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB},${S3INTEGRATION_DATASOURCE_DB}
       - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
       - POSTGRES_USER=${LOCAL_DATASOURCE_USERNAME}
     networks:
       - internal
 
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql
-    ports:
-      - "1433:1433"
-    profiles:
-      - sqlserver
+  minio:
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9001"
     environment:
-      SA_PASSWORD: ${LOCAL_DATASOURCE_PASSWORD}
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Developer"
-    networks:
-      - internal
-
-  sqlserver.configurator:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: Test1234
+    ports:
+      - '9000:9000'
+      - '9001:9001'
     volumes:
-      - ./mssql:/docker-entrypoint-initdb.d
-    depends_on:
-      - sqlserver
-    profiles:
-      - sqlserver
-    command: >
-      bash -c '
-      sleep 20;
-      /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P '${LOCAL_DATASOURCE_PASSWORD}' -d master -i docker-entrypoint-initdb.d/setup.sql;
-      echo "All done!";
-      '
+      - ./minio:/data
     networks:
       - internal
 

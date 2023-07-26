@@ -12,11 +12,9 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Component
 @Validated
-@ConfigurationProperties(prefix = "digiwf.s3service")
+@ConfigurationProperties(prefix = "miranum.s3service")
 public class S3Properties {
 
-    @NotBlank
-    private String topic;
     @NotBlank
     private String httpAPI;
 }
