@@ -11,7 +11,7 @@ public class TaskWithSchema {
   @NonNull
   private final boolean cancelable;
 
-  private final TaskSchemaType taskSchemaType;
+  private final TaskSchemaType schemaType;
 
   private final JsonSchema schema;
 }

@@ -15,6 +15,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>2.7.12</spring-boot.version>
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <lombok.version>1.18.26</lombok.version>

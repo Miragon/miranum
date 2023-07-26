@@ -667,7 +667,6 @@ components:
       type: string
       enum:
         - SCHEMA_BASED
-        - VUETIFY_FORM_BASE
       default: SCHEMA_BASED
 
     TaskAssignment:

@@ -5,6 +5,7 @@ import io.miranum.platform.tasklist.application.port.in.RetrieveTasksForUser;
 import io.miranum.platform.tasklist.application.port.out.cancellation.CancellationFlagOutPort;
 import io.miranum.platform.tasklist.application.port.out.polyflow.TaskQueryPort;
 import io.miranum.platform.tasklist.application.port.out.schema.TaskSchemaRefResolverPort;
+import io.miranum.platform.tasklist.application.port.out.schema.TaskSchemaTypeResolverPort;
 import io.miranum.platform.tasklist.application.port.out.security.CurrentUserPort;
 import io.miranum.platform.tasklist.domain.PageOfTasks;
 import io.miranum.platform.tasklist.domain.PageOfTasksWithSchema;
@@ -24,6 +25,7 @@ public class RetrieveTasksForUserUseCase implements RetrieveTasksForUser {
   private final CurrentUserPort currentUserPort;
   private final TaskSchemaRefResolverPort taskSchemaRefResolverPort;
   private final CancellationFlagOutPort cancellationFlagOutPort;
+  private final TaskSchemaTypeResolverPort taskSchemaTypeResolverPort;
 
   @Override
   public PageOfTasksWithSchema getUnassignedTasksForCurrentUserGroup(String query, PagingAndSorting pagingAndSorting) {
@@ -51,7 +53,8 @@ public class RetrieveTasksForUserUseCase implements RetrieveTasksForUser {
         result.getTasks().stream().map(task -> new TaskWithSchemaRef(
                 task,
                 taskSchemaRefResolverPort.apply(task),
-                cancellationFlagOutPort.apply(task)
+                cancellationFlagOutPort.apply(task),
+                taskSchemaTypeResolverPort.apply(task)
             )
         ).collect(Collectors.toList()),
         result.getTotalElementsCount(),

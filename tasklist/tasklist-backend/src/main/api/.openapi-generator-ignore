@@ -2,6 +2,7 @@
 
 # Ignore some unneeded classes
 **/OpenApiGeneratorApplication.java
+**/EnumConverterConfiguration.java
 **/HomeController.java
 **/SpringDocConfiguration.java
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The possibly existing properties concerning the "logging.level" in the application.yml
+     have priority over the log level maintained in this file.  -->
+<configuration>
+
+
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
+    <springProfile name="local,test">
+
+        <!-- Log appender -->
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %date{yyyy.MM.dd HH:mm:ss.SSS} | %highlight(%level) | [%thread] | %cyan(%logger{0}) | [%file : %line] - %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+
+        <!-- Logger -->
+        <logger name="io.muenchendigital.digiwf"
+                level="debug"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <logger name="org.apache.kafka.clients.admin"
+                level="warn"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.apache.kafka.clients.producer"
+                level="warn"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.apache.kafka.clients.consumer"
+                level="warn"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <logger name="io.muenchendigital.allgemein"
+                level="debug"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <logger name="org.springframework.web"
+                level="info"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <logger name="org.springframework.security"
+                level="info"
+                additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+
+        <!-- Logger usage -->
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+        </root>
+
+    </springProfile>
+
+
+    <springProfile name="dev,kon,prod">
+
+        <appender name="JSON_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <!-- provides the fields in the configured pattern -->
+                    <pattern>
+                        <!-- the pattern that defines what to include -->
+                        <pattern>
+                            {
+                                "timestamp" : "%date{yyyy-MM-dd'T'HH:mm:ss.SSS}",
+                                "appName" : "${springAppName}",
+                                "X-B3-TraceId" : "%mdc{X-B3-TraceId}",
+                                "X-B3-SpanId" : "%mdc{X-B3-SpanId}",
+                                "X-Span-Export" : "%mdc{X-Span-Export}",
+                                "thread" : "%thread",
+                                "level" : "%level",
+                                "logger": "%logger",
+                                "location" : {
+                                    "fileName" : "%file",
+                                    "line" : "%line"
+                                },
+                                "message": "%msg",
+                                "stacktrace": "%rEx"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+
+        <!-- Logger -->
+        <logger name="org.apache.kafka"
+                level="warn"
+                additivity="false">
+            <appender-ref ref="JSON_STDOUT" />
+        </logger>
+
+        <!-- Logger usage -->
+        <root level="info">
+            <appender-ref ref="JSON_STDOUT" />
+        </root>
+
+    </springProfile>
+
+
+</configuration>

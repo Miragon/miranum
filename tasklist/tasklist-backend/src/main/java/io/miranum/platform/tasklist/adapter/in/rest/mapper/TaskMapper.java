@@ -91,32 +91,32 @@ public interface TaskMapper {
     var pagingAndSorting = domain.getPagingAndSorting();
     var totalPages = Double.valueOf(Math.ceil(domain.getTotalElementsCount() / pagingAndSorting.getPageSize().doubleValue())).intValue();
     var tasks = domain.getTasks().stream().map(taskWithSchema -> this.to(
-        taskWithSchema.getTask(),
-        taskWithSchema.getSchemaRef(),
-        taskWithSchema.getTaskSchemaType()
-        )).collect(Collectors.toList());
+            taskWithSchema.getTask(),
+            taskWithSchema.getSchemaRef(),
+            taskWithSchema.getSchemaType()
+    )).collect(Collectors.toList());
     var empty = domain.getTotalElementsCount() == 0;
     var sortRequested = pagingAndSorting.getSort() != null;
     return new PageOfTasksTO()
-        .pageable(new PageOfTasksPageableTO()
-            .paged(true)
-            .unpaged(false)
-            .pageNumber(pagingAndSorting.getPageIndex())
-            .pageSize(pagingAndSorting.getPageSize())
-            .sort(new PageOfTasksPageableSortTO()
-                .sorted(sortRequested)
-                .unsorted(!sortRequested)
-                .empty(empty)
+            .pageable(new PageOfTasksPageableTO()
+                    .paged(true)
+                    .unpaged(false)
+                    .pageNumber(pagingAndSorting.getPageIndex())
+                    .pageSize(pagingAndSorting.getPageSize())
+                    .sort(new PageOfTasksPageableSortTO()
+                            .sorted(sortRequested)
+                            .unsorted(!sortRequested)
+                            .empty(empty)
+                    )
             )
-        )
-        .page(pagingAndSorting.getPageIndex())
-        .content(tasks)
-        .size(pagingAndSorting.getPageSize())
-        .numberOfElements(tasks.size())
-        .totalPages(totalPages)
-        .totalElements(domain.getTotalElementsCount())
-        .empty(empty)
-        .first(pagingAndSorting.getPageIndex() == 0)
-        .last(pagingAndSorting.getPageIndex() == totalPages - 1);
+            .page(pagingAndSorting.getPageIndex())
+            .content(tasks)
+            .size(pagingAndSorting.getPageSize())
+            .numberOfElements(tasks.size())
+            .totalPages(totalPages)
+            .totalElements(domain.getTotalElementsCount())
+            .empty(empty)
+            .first(pagingAndSorting.getPageIndex() == 0)
+            .last(pagingAndSorting.getPageIndex() == totalPages - 1);
   }
 }

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.miranum.integration.s3.configuration.S3IntegrationClientAutoConfiguration

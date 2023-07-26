@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static io.miranum.platform.tasklist.domain.TaskSchemaType.SCHEMA_BASED;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -41,10 +40,10 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
   @Override
   public ResponseEntity<TaskWithSchemaTO> getTaskWithSchemaByTaskId(String taskId) {
     val taskWithSchema = workOnUserTask.loadUserTaskWithSchema(taskId);
-    switch (taskWithSchema.getTaskSchemaType()) {
+    switch (taskWithSchema.getSchemaType()) {
       case SCHEMA_BASED:
       default:
-        return ok(taskMapper.toWithSchema(taskWithSchema.getTask(), taskWithSchema.getSchema().asMap(), taskWithSchema.isCancelable(), taskWithSchema.getTaskSchemaType()));
+        return ok(taskMapper.toWithSchema(taskWithSchema.getTask(), taskWithSchema.getSchema().asMap(), taskWithSchema.isCancelable(), taskWithSchema.getSchemaType()));
     }
 
   }
@@ -52,7 +51,7 @@ public class TaskApiDelegateImpl implements TaskApiDelegate {
   @Override
   public ResponseEntity<TaskWithDetailsTO> getTaskByTaskId(String taskId) {
     val taskWithSchemaRef = workOnUserTask.loadUserTask(taskId);
-    return ok(taskMapper.toWithDetails(taskWithSchemaRef.getTask(), taskWithSchemaRef.getSchemaRef(), taskWithSchemaRef.isCancelable(), taskWithSchemaRef.getTaskSchemaType()));
+    return ok(taskMapper.toWithDetails(taskWithSchemaRef.getTask(), taskWithSchemaRef.getSchemaRef(), taskWithSchemaRef.isCancelable(), taskWithSchemaRef.getSchemaType()));
   }
 
   @Override
