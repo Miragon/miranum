@@ -25,6 +25,7 @@
         <polyflow.version>3.14.0</polyflow.version>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.8.21</kotlin.version>
+        <logstash.encoder.version>7.3</logstash.encoder.version>
     </properties>
 
     <modules>
@@ -106,6 +107,12 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
                 <version>0.2.6</version>
+            </dependency>
+            <!-- Logging -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.encoder.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

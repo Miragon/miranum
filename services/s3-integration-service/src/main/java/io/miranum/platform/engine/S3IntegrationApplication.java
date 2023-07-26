@@ -1,8 +1,4 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
- * der Landeshauptstadt München, 2022
- */
-package io.muenchendigital.digiwf.s3.integration;
+package io.miranum.platform.engine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class S3IntegrationApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(S3IntegrationApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(S3IntegrationApplication.class, args);
+    }
 
 }
