@@ -1,8 +1,8 @@
 package io.miranum.platform.engine.application.service;
 
 import io.miranum.platform.engine.application.port.in.processconfig.ProcessConfigQuery;
-import io.miranum.platform.engine.application.port.out.processconfig.ProcessConfigPort;
-import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
+import io.miranum.platform.engine.application.port.out.process.ProcessConfigPort;
+import io.miranum.platform.engine.domain.process.ProcessConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

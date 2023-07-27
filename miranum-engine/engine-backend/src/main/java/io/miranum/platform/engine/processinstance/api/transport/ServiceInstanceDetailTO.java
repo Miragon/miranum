@@ -1,6 +1,6 @@
 package io.miranum.platform.engine.processinstance.api.transport;
 
-import io.miranum.platform.engine.domain.processconfig.ProcessConfig;
+import io.miranum.platform.engine.domain.process.ProcessConfig;
 import io.miranum.platform.engine.processinstance.domain.model.HistoryTask;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
