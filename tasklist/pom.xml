@@ -17,4 +17,14 @@
         <module>tasklist-polyflow-connector</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.holunda.data</groupId>
+                <artifactId>camunda-bpm-data</artifactId>
+                <version>1.2.8</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>
