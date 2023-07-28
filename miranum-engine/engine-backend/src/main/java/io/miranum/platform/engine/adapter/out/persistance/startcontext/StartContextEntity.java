@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "StartContext")
-@Table(name = "DWF_START_CONTEXT", indexes = {@Index(name = "IDX_DWF_CONTEXT_USER", columnList = "userid_, definitionkey_")})
+@Table(name = "MIRANUM_START_CONTEXT", indexes = {@Index(name = "IDX_DWF_CONTEXT_USER", columnList = "userid_, definitionkey_")})
 public class StartContextEntity {
 
     @Id

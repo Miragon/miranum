@@ -20,7 +20,7 @@ import org.springframework.web.client.HttpServerErrorException;
 public class PostPresignedUrlAdapter implements PresignedUrlAdapter {
 
     private final PresignedUrlRepository presignedUrlRepository;
-    private final S3Properties s3Properties;
+    private final S3ProcessProperties s3Properties;
 
 
     @Override

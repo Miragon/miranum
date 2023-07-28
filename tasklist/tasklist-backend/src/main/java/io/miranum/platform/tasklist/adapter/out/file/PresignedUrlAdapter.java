@@ -1,6 +1,6 @@
 package io.miranum.platform.tasklist.adapter.out.file;
 
-import io.muenchendigital.digiwf.s3.integration.client.repository.presignedurl.PresignedUrlRepository;
+import io.miranum.integration.s3.client.repository.presignedurl.PresignedUrlRepository;
 import io.miranum.platform.tasklist.application.port.out.file.PresignedUrlPort;
 import io.miranum.platform.tasklist.domain.PresignedUrlAction;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +42,13 @@ public class PresignedUrlAdapter implements PresignedUrlPort {
             }
         } catch (final Exception ex) {
             log.error("Getting presigned url for %s file {} failed: {}", actionString, pathToFile, ex);
-            if (ex.getMessage().contains("No handler specified for action")){
+            if (ex.getMessage().contains("No handler specified for action")) {
                 throw new RuntimeException(ex.getMessage());
             }
             if (action == PresignedUrlAction.POST && ex.getMessage().contains(HttpStatus.CONFLICT.toString())) {
                 throw new ConflictingResourceException(String.format("Getting presigned url for " + actionString + " file " + pathToFile + " failed"));
             }
-            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Getting presigned url for " + actionString + " file " + pathToFile +" failed"));
+            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Getting presigned url for " + actionString + " file " + pathToFile + " failed"));
         }
     }
 

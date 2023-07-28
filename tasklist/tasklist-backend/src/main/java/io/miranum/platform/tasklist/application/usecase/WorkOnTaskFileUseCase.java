@@ -1,6 +1,7 @@
 package io.miranum.platform.tasklist.application.usecase;
 
 import io.holunda.polyflow.view.Task;
+import io.miranum.integration.s3.client.repository.DocumentStorageFolderRepository;
 import io.miranum.platform.tasklist.application.port.in.WorkOnTaskFile;
 import io.miranum.platform.tasklist.application.port.out.file.PresignedUrlPort;
 import io.miranum.platform.tasklist.application.port.out.file.TaskFileConfigResolverPort;
@@ -8,7 +9,6 @@ import io.miranum.platform.tasklist.application.port.out.polyflow.TaskQueryPort;
 import io.miranum.platform.tasklist.application.port.out.security.CurrentUserPort;
 import io.miranum.platform.tasklist.domain.PresignedUrlAction;
 import io.miranum.platform.tasklist.domain.TaskFileConfig;
-import io.muenchendigital.digiwf.s3.integration.client.repository.DocumentStorageFolderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -93,7 +93,6 @@ public class WorkOnTaskFileUseCase implements WorkOnTaskFile {
         val currentUser = currentUserPort.getCurrentUser();
         return taskQueryPort.getTaskByIdForCurrentUser(currentUser, taskId);
     }
-
 
 
 }

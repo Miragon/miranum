@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <artifactId>s3-integration-client</artifactId>
@@ -112,9 +112,9 @@
                             <generatorName>java</generatorName>
                             <output>${project.basedir}</output>
 
-                            <apiPackage>io.muenchendigital.digiwf.s3.integration.gen.api</apiPackage>
-                            <modelPackage>io.muenchendigital.digiwf.s3.integration.gen.model</modelPackage>
-                            <invokerPackage>io.muenchendigital.digiwf.s3.integration.gen</invokerPackage>
+                            <apiPackage>io.miranum.integration.s3.gen.api</apiPackage>
+                            <modelPackage>io.miranum.integration.s3.gen.model</modelPackage>
+                            <invokerPackage>io.miranum.integration.s3.gen</invokerPackage>
 
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>

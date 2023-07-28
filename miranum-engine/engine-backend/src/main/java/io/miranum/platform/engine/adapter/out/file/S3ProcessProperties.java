@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Component
 @Validated
 @ConfigurationProperties(prefix = "miranum.s3service")
-public class S3Properties {
+public class S3ProcessProperties {
 
     @NotBlank
     private String httpAPI;

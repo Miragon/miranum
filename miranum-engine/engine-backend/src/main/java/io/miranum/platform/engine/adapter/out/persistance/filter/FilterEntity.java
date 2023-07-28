@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Filter")
-@Table(name = "DWF_FILTER", indexes = {@Index(name = "IDX_DWF_FILTER_USERID", columnList = "userid_")})
+@Table(name = "MIRANUM_FILTER", indexes = {@Index(name = "IDX_DWF_FILTER_USERID", columnList = "userid_")})
 public class FilterEntity {
 
     @Id
