@@ -11,9 +11,9 @@ import java.util.Map;
 @Mapper()
 public interface ProcessDefinitionApiMapper {
 
-    List<ServiceDefinitionDto> map2TO(List<MiranumProcessDefinition> list);
+    List<ProcessDefinitionDto> map2TO(List<MiranumProcessDefinition> list);
 
-    ServiceDefinitionWithSchemaDto map2TO(MiranumProcessDefinitionWithSchema obj);
+    ProcessDefinitionWithSchemaDto map2TO(MiranumProcessDefinitionWithSchema obj);
 
     default Map<String, Object> mapJsonSchema(JsonSchema jsonSchema) {
         return jsonSchema.asMap();
