@@ -10,11 +10,24 @@
       <span class="processName grey--text">{{ task.processName }}</span>
       <h1>{{ task.name }}</h1>
       <p>{{ task.description }}</p>
+      <base-form
+        v-if="task.form"
+        :form="task.form"
+        :has-complete-error="hasCompleteError"
+        :has-save-error="hasSaveError"
+        :init-model="task.variables"
+        :is-completing="isCompleting"
+        :is-saving="isSaving"
+        class="taskForm"
+        @model-changed="modelChanged"
+        @complete-form="handleCompleteTask"
+      />
       <app-json-form
+        v-else
         :schema="task.schema"
         :value="task.variables"
         @input="modelChanged"
-        @complete-form="completeTask"
+        @complete-form="handleCompleteTask"
       />
     </v-flex>
     <v-flex class="buttonWrapper">
@@ -65,16 +78,16 @@
           <v-icon> mdi-content-save</v-icon>
         </loading-fab>
 
-        <!--        <loading-fab-->
-        <!--          v-if="task.isCancelable"-->
-        <!--          :button-text="cancelText"-->
-        <!--          :has-error="hasCancelError"-->
-        <!--          :is-loading="isCancelling"-->
-        <!--          color="white"-->
-        <!--          @on-click="cancelTask"-->
-        <!--        >-->
-        <!--          <v-icon> mdi-cancel</v-icon>-->
-        <!--        </loading-fab>-->
+        <loading-fab
+          v-if="task?.isCancelable"
+          :button-text="cancelText"
+          :has-error="hasCancelError"
+          :is-loading="isCancelling"
+          color="white"
+          @on-click="handleCancelTask"
+        >
+          <v-icon> mdi-cancel</v-icon>
+        </loading-fab>
 
         <loading-fab
           v-if="hasDownloadButton"
@@ -129,8 +142,7 @@
 </style>
 
 <script lang="ts">
-
-import {Component, Prop, Provide} from "vue-property-decorator";
+import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
 import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
@@ -140,20 +152,21 @@ import LoadingFab from "@/components/UI/LoadingFab.vue";
 import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
 import {
-  cancelTaskInEngine,
+  cancelTask,
   completeTask,
   deferTask,
   downloadPDFFromEngine,
   loadTask,
   saveTask
 } from "../middleware/tasks/taskMiddleware";
-import {HumanTaskDetails} from "../middleware/tasks/tasksModels";
-
+import {HumanTaskDetails} from "../middleware/tasks/tasksModels"
+import router from "../router";
+import {shouldUseTaskService} from "../utils/featureToggles";
 
 @Component({
   components: {TaskFollowUpDialog, BaseForm, AppToast, TaskForm: BaseForm, AppViewLayout, AppYesNoDialog, LoadingFab}
 })
-export default class TaskDetail {
+export default class TaskDetail extends Vue {
 
   task: HumanTaskDetails | null = null;
   followUpDate: string | null = "";
@@ -186,20 +199,23 @@ export default class TaskDetail {
   id!: string;
   @Provide('apiEndpoint')
   apiEndpoint = ApiConfig.base;
+  @Provide('taskServiceApiEndpoint')
+  taskServiceApiEndpoint = ApiConfig.tasklistBase;
+  @Provide('shouldUseTaskService')
+  shouldUseTaskService = shouldUseTaskService();
 
   @Provide('formContext')
   get formContext(): FormContext {
-    return {id: this.id, type: "task"}
-  };
+    return {id: this.id, type: "task"};
+  }
 
   created() {
     loadTask(this.id).then(({data, error}) => {
-      console.log(data)
       if (!!data) {
         this.task = data.task;
         this.model = data.model;
         this.followUpDate = data.followUpDate;
-        this.cancelText = data.cancelText
+        this.cancelText = data.cancelText;
         this.hasDownloadButton = data.hasDownloadButton;
         this.downloadButtonText = data.downloadButtonText;
       }
@@ -209,14 +225,27 @@ export default class TaskDetail {
     });
   }
 
-  completeTask(model: any) {
+  mounted() {
+    // Apply a @click.stop to the .v-speed-dial__list that wraps the default slot
+    this.$el
+      .querySelector(".v-speed-dial__list")!
+      .addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+  }
+
+  handleCompleteTask(model: any) {
     this.isCompleting = true;
     completeTask(this.id, model)
       .then(result => {
         this.isCompleting = false;
         this.hasCompleteError = result.isError;
         this.errorMessage = result.errorMessage || "";
-      })
+        if (!result.isError) {
+          this.hasChanges = false;
+          router.push({path: "/task"}); // TODO: copied from old source code. Question is why /task is called (path does not exist). check later
+        }
+      });
   }
 
   async saveTask(): Promise<void> {
@@ -226,15 +255,15 @@ export default class TaskDetail {
     return saveTask(this.id, this.model).then((result) => {
       this.isSaving = false;
       this.errorMessage = result.errorMessage || "";
-      this.hasSaveError = result.isError
+      this.hasSaveError = result.isError;
       if (!result.isError) {
         this.hasChanges = false;
       }
 
       return result.isError
         ? Promise.reject()
-        : Promise.resolve()
-    })
+        : Promise.resolve();
+    });
   }
 
   openFollowUp(): void {
@@ -246,7 +275,8 @@ export default class TaskDetail {
     this.isFollowUpDialogVisible = false;
   }
 
-  switchFab(): void {
+  switchFab():
+    void {
     this.fab = !this.fab;
   }
 
@@ -260,18 +290,18 @@ export default class TaskDetail {
       .then(() => {
         deferTask(this.id, followUpDate)
           .then(result => {
-            this.errorMessage = result.errorMessage || ""
-          })
+            this.errorMessage = result.errorMessage || "";
+          });
       });
   }
 
-  cancelTask() {
+  handleCancelTask() {
     this.isCancelling = true;
-    cancelTaskInEngine(this.id).then(result => {
+    cancelTask(this.id).then(result => {
       this.isCancelling = false;
       this.hasCancelError = result.isError;
-      this.errorMessage = result.errorMessage || ""
-    })
+      this.errorMessage = result.errorMessage || "";
+    });
   }
 
   downloadPDF() {
@@ -280,17 +310,13 @@ export default class TaskDetail {
     downloadPDFFromEngine(this.id).then(result => {
       this.errorMessage = result.errorMessage || "";
       this.hasDownloadError = result.isError;
-    })
+    });
   }
 
   modelChanged(model: any) {
     this.model = model;
-    this.hasChanges = true;
   }
 
-  isDirty(): boolean {
-    return this.hasChanges;
-  }
 }
 
 </script>

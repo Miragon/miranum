@@ -1,5 +1,8 @@
 package io.miranum.integration.s3.gen.auth;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.MultiValueMap;
 

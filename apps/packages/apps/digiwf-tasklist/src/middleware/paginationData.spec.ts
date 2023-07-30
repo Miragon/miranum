@@ -10,7 +10,6 @@ jest.mock("vue-router/composables", () => ({
   ...jest.requireActual('vue-router/composables'),
   useRoute: jest.fn(),
   useRouter: jest.fn(() => {
-    console.log("useRouter wird verwendet")
     return {
       currentRoute: {
         path: "#/mytask",

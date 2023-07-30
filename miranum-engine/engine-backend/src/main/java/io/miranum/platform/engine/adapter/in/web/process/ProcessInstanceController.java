@@ -21,7 +21,7 @@ import java.util.List;
 @Transactional
 @RequestMapping("/rest/process/instance")
 @RequiredArgsConstructor
-@Tag(name = "ServiceInstanceController", description = "API to interact with process instances")
+@Tag(name = "ProcessInstanceController", description = "API to interact with process instances")
 public class ProcessInstanceController {
 
     private final MiranumProcessInstanceQuery instanceQuery;

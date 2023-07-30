@@ -27,11 +27,12 @@ import {defineComponent, ref} from "vue";
 
 export default defineComponent ({
   props: [
+    'value',
     'schema',
     'on'
   ],
-  setup({schema, on}){
-    const {title: label, readOnly, description, default: defaultValue} = schema;
+  setup({value, schema, on}){
+    const {title: label, readOnly, description} = schema;
     const {dense, outlined} = schema['x-props'];
     let rules: any[] = [];
 
@@ -39,7 +40,7 @@ export default defineComponent ({
       rules.push((v: string) => !!v || 'Dieses Feld ist ein Pflichtfeld');
     }
 
-    const dateValue = ref(defaultValue);
+    const dateValue = ref(value);
 
     const onChange = () => {
       if(!!on?.input) {

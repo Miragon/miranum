@@ -25,14 +25,32 @@
       <span v-if="appInfo !== null">{{ appInfo.environment }}</span>
       <v-spacer/>
       {{ username }}
-      <v-btn
-        fab
-        text
-      >
-        <v-icon class="white--text">
-          mdi-account-circle
-        </v-icon>
-      </v-btn>
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            fab
+            text
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon class="white--text">
+              mdi-account-circle
+            </v-icon>
+          </v-btn>
+        </template>
+        <v-list v-if="showUseBetaButton">
+          <v-list-item>
+            <v-list-item-title>
+              <v-switch
+                v-model="isDigiWFClassicUsed"
+                label="DigiWF-Classic nutzen"
+                @click.stop.prevent="switchBetaVersion"
+              ></v-switch>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -60,6 +78,29 @@
         <p class="body-2 my-1">
           {{ appInfo.maintenanceInfo2 }}
         </p>
+      </v-banner>
+      <v-banner
+        :value="!loggedIn"
+        color="error"
+        icon="mdi-alert"
+        single-line
+        sticky
+      >
+        <template v-if="loginLoading">
+          Sie werden angemeldet...
+        </template>
+        <template v-else>
+          Sie sind aktuell nicht (mehr) angemeldet!
+        </template>
+        <template #actions>
+          <v-btn
+            :loading="loginLoading"
+            text
+            @click="login"
+          >
+            Login
+          </v-btn>
+        </template>
       </v-banner>
       <v-container fluid>
         <v-fade-transition mode="out-in">
@@ -147,7 +188,9 @@ import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
 import {InfoTO, ServiceInstanceTO, UserTO,} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
-import {useServices} from "./hooks/store";
+import {apiGatewayUrl} from "./utils/envVariables";
+import {queryClient} from "./middleware/queryClient";
+import {shouldShowBetaButton, shouldUseTaskService, switchShouldUseTaskService} from "./utils/featureToggles";
 
 @Component({
   components: {AppMenuList}
@@ -158,38 +201,31 @@ export default class App extends Vue {
   username = "";
   appInfo: InfoTO | null = null;
   loginLoading = false;
-  loggedIn = false;
+  loggedIn = true;
 
-  user: any = null;
-
-  get getCurrentUser() {
-    return this.user;
-  }
+  showUseBetaButton = false;
+  isDigiWFClassicUsed = true;
 
   created(): void {
-    //TODO muss an einer anderen Stelle gefixt werden
     this.loadData();
-    const service = useServices();
-    service.$auth.getUser().then((user) => {
-      this.user = user;
-      console.log("user", user);
-      if (!user) {
-        service.$auth.login();
-      }
-    });
   }
 
   loadData(refresh = false): void {
-    this.$store.dispatch("processInstances/getProcessInstances", refresh);
     this.$store.dispatch("user/getUserInfo", refresh);
     this.$store.dispatch("info/getInfo", refresh);
     this.drawer = this.$store.getters["menu/open"];
+    this.isDigiWFClassicUsed = !shouldUseTaskService();
+    this.showUseBetaButton = shouldShowBetaButton();
   }
 
   getUser(): void {
     this.loginLoading = true;
     this.$store.dispatch("user/getUserInfo", true);
     this.loginLoading = false;
+  }
+
+  switchBetaVersion(): void {
+    switchShouldUseTaskService();
   }
 
   @Watch("$store.state.menu.open")
@@ -201,7 +237,7 @@ export default class App extends Vue {
   setUserName(user: UserTO): void {
     this.username = user.forename + " " + user.surname;
     // if session is not valid, user is updated to an empty object in redux store
-    this.loggedIn = !!user.username
+    this.loggedIn = !!user.username;
   }
 
   @Watch("$store.state.processInstances.processInstances")
@@ -214,5 +250,17 @@ export default class App extends Vue {
     this.appInfo = info;
   }
 
+  login(): void {
+    let popup = window.open(`${apiGatewayUrl}/loginsuccess.html`);
+
+    popup?.focus();
+    let timer = setInterval(() => {
+      if (popup?.closed ?? true) {
+        clearInterval(timer);
+        this.getUser();
+        queryClient.refetchQueries();
+      }
+    }, 1000);
+  }
 }
 </script>

@@ -1,5 +1,6 @@
 package io.miranum.integration.s3.gen.auth;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 

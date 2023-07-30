@@ -92,7 +92,6 @@
 
 import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import router from "../router";
 import {UserTO} from '@miragon/digiwf-engine-api-internal';
@@ -100,6 +99,7 @@ import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
 import {assignTask, loadTask} from "../middleware/tasks/taskMiddleware";
 import {HumanTaskDetails} from "../middleware/tasks/tasksModels";
+import {shouldUseTaskService} from "../utils/featureToggles";
 
 @Component({
   components: {BaseForm, AppToast, TaskForm: BaseForm, AppViewLayout}
@@ -115,6 +115,10 @@ export default class GroupTaskDetail extends Vue {
   id!: string;
   @Provide('apiEndpoint')
   apiEndpoint = ApiConfig.base;
+  @Provide('taskServiceApiEndpoint')
+  taskServiceApiEndpoint = ApiConfig.tasklistBase;
+  @Provide('shouldUseTaskService')
+  shouldUseTaskService = shouldUseTaskService();
 
   @Provide('formContext')
   get formContext(): FormContext {

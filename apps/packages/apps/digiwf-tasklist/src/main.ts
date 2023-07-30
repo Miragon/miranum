@@ -18,22 +18,16 @@ import {VueQueryPlugin} from "@tanstack/vue-query";
 import {queryClient} from "./middleware/queryClient";
 import {initStatusCodeHandling} from "./api/statusCodeHandling";
 import {PageBasedPaginationProvider} from "./middleware/PageBasedPaginationProvider";
+import {initShouldUseTaskServiceFeatureToggle} from "./utils/featureToggles";
 
 
 initStatusCodeHandling();
+initShouldUseTaskServiceFeatureToggle();
 Vue.config.productionTip = false;
 
 Vue.use(VueQueryPlugin, {
   queryClient
 });
-Vue.component('VLdapInput', () => import('@/components/form/BaseLdapInput.vue'));
-Vue.component('VImageOutput', () => import('@/components/form/ImageOutput.vue'));
-Vue.component('VFileOutput', () => import('@/components/form/FileOutput.vue'));
-Vue.component('VPdfOutput', () => import('@/components/form/PdfOutput.vue'));
-Vue.component('VCsvOutput', () => import('@/components/form/CsvOutput.vue'));
-Vue.component('VAlwDocumentInput', () => import('@/components/form/BaseAlwDocumentInput.vue'));
-Vue.component('VDocumentInput', () => import('@/components/form/BaseDocumentInput.vue'));
-Vue.component('VMarkdownOutput', () => import('@/components/form/BaseMarkdownOutput.vue'));
 Vue.component('TextHighlight', TextHighlight);
 Vue.component('VDivider', VDivider);
 Vue.component('AppJsonForm', AppJsonForm);

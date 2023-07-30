@@ -22,7 +22,7 @@ import java.util.List;
 @Transactional
 @RequestMapping("/rest/process/definition")
 @RequiredArgsConstructor
-@Tag(name = "ServiceDefinitionController", description = "API to interact with service definitions")
+@Tag(name = "ProcessDefinitionController", description = "API to interact with service definitions")
 public class ProcessDefinitionController {
 
     private final ProcessDefinitionQuery processDefinitionQuery;
@@ -41,7 +41,7 @@ public class ProcessDefinitionController {
      */
     @GetMapping
     @Operation(description = "load all available service definitions")
-    public ResponseEntity<List<ProcessDefinitionDto>> getServiceDefinitions() {
+    public ResponseEntity<List<ProcessDefinitionDto>> getProcessDefinitions() {
         final List<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
                 this.authenticationProvider.getCurrentUserId(),
                 this.authenticationProvider.getCurrentUserGroups()
@@ -57,7 +57,7 @@ public class ProcessDefinitionController {
      */
     @GetMapping("/{key}")
     @Operation(description = "Get a specific service definition")
-    public ResponseEntity<ProcessDefinitionWithSchemaDto> getServiceDefinition(@PathVariable("key") final String key) {
+    public ResponseEntity<ProcessDefinitionWithSchemaDto> getProcessDefinition(@PathVariable("key") final String key) {
         final MiranumProcessDefinitionWithSchema definition = this.processDefinitionQuery
                 .getProcessDefinitionWithSchema(this.authenticationProvider.getCurrentUserId(), this.authenticationProvider.getCurrentUserGroups(), key);
         return ResponseEntity.ok(this.serviceDefinitionApiMapper.map2TO(definition));

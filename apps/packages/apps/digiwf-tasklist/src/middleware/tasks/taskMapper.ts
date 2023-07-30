@@ -4,7 +4,7 @@ import {Page} from "../commonModels";
 import {PageOfTasks, TaskWithSchema} from "@miragon/digiwf-task-api-internal";
 import {Task} from "@miragon/digiwf-task-api-internal/src";
 import {DateTime} from "luxon";
-import {formatIsoDate, formatIsoDateTime} from "../../utils/time";
+import {formatIsoDate, formatIsoDateTime, getDateFromIsoDateTime} from "../../utils/time";
 import {User} from "../user/userModels";
 
 /**
@@ -14,6 +14,7 @@ import {User} from "../user/userModels";
 export const mapTaskFromEngineService = (response: HumanTaskTO): HumanTask => {
   return {
     followUpDate: response.followUpDate ? DateTime.fromFormat(response.followUpDate, "yyyy-MM-dd").toLocaleString(DateTime.DATE_SHORT) : undefined,
+    followUpDateFormatted: response.followUpDate ? DateTime.fromFormat(response.followUpDate, "yyyy-MM-dd").toLocaleString(DateTime.DATE_SHORT) : undefined,
     createTime: DateTime.fromISO(response.creationTime!).toLocaleString(DateTime.DATETIME_SHORT),
     id: response.id!,
     description: response.description,
@@ -21,8 +22,9 @@ export const mapTaskFromEngineService = (response: HumanTaskTO): HumanTask => {
     processName: response.processName,
     assigneeId: response.assignee,
     assigneeFormatted: response.assigneeFormatted,
-  }
-}
+    inFinishProcess: false,
+  };
+};
 
 /**
  * @deprecated is only necessary until tasks will provided by task service in production
@@ -30,11 +32,13 @@ export const mapTaskFromEngineService = (response: HumanTaskTO): HumanTask => {
  */
 export const mapTaskPageFromEngineService = (response: PageHumanTaskTO): Page<HumanTask> => {
   return {
-    content: response.content?.map(mapTaskFromEngineService),
+    content: response.content?.map(mapTaskFromEngineService) || [],
     totalElements: response.totalElements,
-    totalPages: response.totalPages!,
-  }
-}
+    totalPages: response.totalPages || 0,
+    page: response.number || 0,
+    size: response.size || 0,
+  };
+};
 /**
  * @deprecated
  * @param response
@@ -47,47 +51,53 @@ export const mapTaskDetailsFromEngineService = (response: HumanTaskDetailTO): Hu
     processInstanceId: response.processInstanceId,
     schema: response.jsonSchema,
     statusDocument: response.statusDocument || false,
-    isCancelable: response.form?.buttons?.cancel!.showButton || false
-  }
-}
+    isCancelable: response.form?.buttons?.cancel!.showButton || false,
+  };
+};
 
-export const mapTaskFromTaskService = (response: Task, user?: User): HumanTask => {
+export const mapTaskFromTaskService = (response: Task, inFinishProcess: boolean, user?: User): HumanTask => {
   return {
     createTime: response.createTime ? formatIsoDateTime(response.createTime) : "-",
-    followUpDate: response.followUpDate ? formatIsoDate(response.followUpDate) : undefined,
+    followUpDate: response.followUpDate ? getDateFromIsoDateTime(response.followUpDate) : undefined,
+    followUpDateFormatted: response.followUpDate ? formatIsoDate(response.followUpDate) : undefined,
     id: response.id!,
     description: response.description,
     name: response.name || "-",
     processName: response.processName,
     assigneeId: response.assignee,
     assigneeFormatted: user && user.fullInfo,
+    inFinishProcess,
   };
-}
+};
 
 export const mapTaskPageFromTaskService = (response: PageOfTasks, taskMapperFunction: (task: Task) => HumanTask): Page<HumanTask> => {
   return {
     content: response.content?.map(taskMapperFunction),
     totalElements: response.totalElements,
-    totalPages: response.totalPages!,
-  }
-}
+    totalPages: response.totalPages || 0,
+    page: response.page || 0,
+    size: response.size || 0,
+  };
+};
 
-export const mapTaskDetailsFromTaskService = (response: TaskWithSchema, user?: User): HumanTaskDetails => {
+export const mapTaskDetailsFromTaskService = (response: TaskWithSchema, inFinishProcess: boolean, user?: User): HumanTaskDetails => {
   return {
     createTime: response.createTime ? formatIsoDateTime(response.createTime) : "-",
-    followUpDate: response.followUpDate ? formatIsoDate(response.followUpDate) : undefined,
+    followUpDate: response.followUpDate ? getDateFromIsoDateTime(response.followUpDate) : undefined,
+    followUpDateFormatted: response.followUpDate ? formatIsoDate(response.followUpDate) : undefined,
     id: response.id!,
     description: response.description,
     name: response.name || "-",
     processName: response.processName,
     assigneeId: response.assignee,
     assigneeFormatted: user && `${user.firstName} ${user.surname} (${user.ou})`,
-    form: undefined, // FIXME: check if it is correct
+    form: response.schemaType === "VUETIFY_FORM_BASE" ? response.schema : undefined,
     variables: response.variables,
     processInstanceId: response.processInstanceId,
-    schema: response.schema,
-    statusDocument: false,
+    schema: response.schemaType === "SCHEMA_BASED" ? response.schema : undefined,
 
-    isCancelable: false // TODO: change to Task property when Task Response is updated by TaskList backend service
-  }
-}
+    statusDocument: false,
+    inFinishProcess,
+    isCancelable: response.cancelable
+  };
+};

@@ -8,7 +8,8 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
-    "@miragon/digiwf-engine-api-internal": "^0.1.0"
+    "@miragon/digiwf-engine-api-internal": "^0.1.0",
+    "@miragon/digiwf-task-api-internal": "^0.1.0"
   },
   "peerDependencies": {
     "vue": "^2.7.0",

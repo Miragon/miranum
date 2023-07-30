@@ -34,32 +34,32 @@
     </v-flex>
     <v-flex class="mt-10">
       <v-flex class="tableHeader">
-        <v-flex class="headerTitel"> Aufgabe</v-flex>
+        <v-flex class="headerTitle"> Aufgabe</v-flex>
         <v-flex
           v-if="showAssignee"
-          class="headerTitel"
+          class="headerTitle"
           style="max-width: 148px"
         >
           Bearbeiter*in
         </v-flex>
-        <v-flex class="headerTitel" style="max-width: 198px"> Vorgang</v-flex>
-        <v-flex class="headerTitel" style="max-width: 80px">
+        <v-flex class="headerTitle" style="max-width: 198px"> Vorgang</v-flex>
+        <v-flex class="headerTitle" style="max-width: 80px">
           Erstellt am
         </v-flex>
       </v-flex>
       <hr style="margin: 5px 0 0 0"/>
     </v-flex>
-      <v-data-iterator
-        class="dataContainer"
-        :items="tasks"
-        found-data-text="Aufgaben gefunden"
-        no-data-text="Keine Aufgaben gefunden"
-        hide-default-footer
-      >
-        <template v-for="item in tasks">
-          <slot :item="{ ...item, searchInput: filter || '' }"/>
-        </template>
-      </v-data-iterator>
+    <v-data-iterator
+      class="dataContainer"
+      :items="tasks"
+      found-data-text="Aufgaben gefunden"
+      no-data-text="Keine Aufgaben gefunden"
+      hide-default-footer
+    >
+      <template v-for="item in tasks">
+        <slot :item="{ ...item, searchInput: filter || '' }"/>
+      </template>
+    </v-data-iterator>
   </div>
 </template>
 
@@ -69,7 +69,7 @@
   margin: 0.5rem 45px 0 12px;
 }
 
-.headerTitel {
+.headerTitle {
   margin: 0 5px;
   font-size: 0.9rem;
   font-weight: bold;
@@ -82,21 +82,20 @@
 
 <script lang="ts">
 import AppToast from "@/components/UI/AppToast.vue";
-import TaskItem from "@/components/task/TaskItem.vue";
-import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import SearchField from "./SearchField.vue";
+import SearchField from "../common/SearchField.vue";
 import {HumanTask} from "../../middleware/tasks/tasksModels";
 import {PropType} from "vue";
 
 export default {
-  components: {SearchField, TaskItem, AppToast, AppViewLayout},
+  components: {SearchField, AppToast},
   props: {
     filter: {
       type: String,
       default: "",
     },
     errorMessage: {
-      type: String
+      type: String,
+      default: undefined,
     },
     isLoading: {
       type: Boolean,
@@ -126,5 +125,5 @@ export default {
       type: Function as PropType<(newValue: string) => void>,
     },
   },
-}
+};
 </script>

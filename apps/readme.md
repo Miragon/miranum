@@ -29,7 +29,7 @@ npm run serve:forms
 
 The `npm run dev` command is a shortcut for `npx lerna run watch --stream --parallel` command.
 If you don't want to watch for changes in all components you can add the `--scope` flag to the command,
-e.g. `npx lerna run watch --stream --scope=@muenchen/digiwf-multi-file-input`.
+e.g. `npx lerna run watch --stream --scope=@miragon/digiwf-multi-file-input`.
 
 To run the dev servers for the application you can use the `npm run serve` command.
 If you don't want to serve all applications with one command you can use the helper commands for each
