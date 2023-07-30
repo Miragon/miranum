@@ -12,20 +12,16 @@
   ],
   "tags": [
     {
-      "name": "ServiceInstanceFileRestController",
-      "description": "API to perform actions on service instance files"
-    },
-    {
       "name": "ProcessInstanceController",
       "description": "API to interact with process instances"
     },
     {
-      "name": "ProcessDefinitionController",
-      "description": "API to interact with service definitions"
+      "name": "ProcessInstanceFileRestController",
+      "description": "API to perform actions on service instance files"
     },
     {
-      "name": "ServiceStartFileRestController",
-      "description": "API to perform actions on service start files"
+      "name": "ProcessDefinitionController",
+      "description": "API to interact with service definitions"
     },
     {
       "name": "UserController",
@@ -34,6 +30,10 @@
     {
       "name": "FilterRestController",
       "description": "API to load user filters and perform actions on them"
+    },
+    {
+      "name": "ProcessStartFileRestController",
+      "description": "API to perform actions on service start files"
     }
   ],
   "paths": {
@@ -121,10 +121,10 @@
         }
       }
     },
-    "/rest/service/start/file/{definitionKey}/{filename}": {
+    "/rest/process/start/file/{definitionKey}/{filename}": {
       "post": {
         "tags": [
-          "ServiceStartFileRestController"
+          "ProcessStartFileRestController"
         ],
         "operationId": "getPresignedUrlForFileUpload",
         "parameters": [
@@ -168,7 +168,7 @@
       },
       "delete": {
         "tags": [
-          "ServiceStartFileRestController"
+          "ProcessStartFileRestController"
         ],
         "operationId": "getPresignedUrlForFileDeletion",
         "parameters": [
@@ -211,10 +211,10 @@
         }
       }
     },
-    "/rest/service/instance/file/{instanceId}/{filename}": {
+    "/rest/process/instance/file/{instanceId}/{filename}": {
       "post": {
         "tags": [
-          "ServiceInstanceFileRestController"
+          "ProcessInstanceFileRestController"
         ],
         "operationId": "getPresignedUrlForFileUpload_1",
         "parameters": [
@@ -258,7 +258,7 @@
       },
       "delete": {
         "tags": [
-          "ServiceInstanceFileRestController"
+          "ProcessInstanceFileRestController"
         ],
         "operationId": "getPresignedUrlForFileDeletion_1",
         "parameters": [
@@ -481,10 +481,10 @@
         }
       }
     },
-    "/rest/service/start/file/{definitionKey}": {
+    "/rest/process/start/file/{definitionKey}": {
       "get": {
         "tags": [
-          "ServiceStartFileRestController"
+          "ProcessStartFileRestController"
         ],
         "operationId": "getFileNames",
         "parameters": [
@@ -522,102 +522,15 @@
         }
       }
     },
-    "/rest/service/start/file/{definitionKey}/{fileName}": {
+    "/rest/process/start/file/{definitionKey}/{fileName}": {
       "get": {
         "tags": [
-          "ServiceStartFileRestController"
+          "ProcessStartFileRestController"
         ],
         "operationId": "getPresignedUrlForFileDownload",
         "parameters": [
           {
             "name": "definitionKey",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fileName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "filePath",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rest/service/instance/file/{instanceId}": {
-      "get": {
-        "tags": [
-          "ServiceInstanceFileRestController"
-        ],
-        "operationId": "getFileNames_1",
-        "parameters": [
-          {
-            "name": "instanceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "filePath",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/rest/service/instance/file/{instanceId}/{fileName}": {
-      "get": {
-        "tags": [
-          "ServiceInstanceFileRestController"
-        ],
-        "operationId": "getPresignedUrlForFileDownload_1",
-        "parameters": [
-          {
-            "name": "instanceId",
             "in": "path",
             "required": true,
             "schema": {
@@ -661,16 +574,46 @@
           "ProcessInstanceController"
         ],
         "operationId": "getAssignedInstances",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProcessInstanceDto"
-                  }
+                  "$ref": "#/components/schemas/PageProcessInstanceDto"
                 }
               }
             }
@@ -701,6 +644,93 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ProcessInstanceDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/process/instance/file/{instanceId}": {
+      "get": {
+        "tags": [
+          "ProcessInstanceFileRestController"
+        ],
+        "operationId": "getFileNames_1",
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filePath",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/process/instance/file/{instanceId}/{fileName}": {
+      "get": {
+        "tags": [
+          "ProcessInstanceFileRestController"
+        ],
+        "operationId": "getPresignedUrlForFileDownload_1",
+        "parameters": [
+          {
+            "name": "instanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filePath",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -836,6 +866,78 @@
           }
         }
       },
+      "PageProcessInstanceDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessInstanceDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "ProcessInstanceDto": {
         "type": "object",
         "properties": {
@@ -858,6 +960,20 @@
           },
           "description": {
             "type": "string"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
           }
         }
       },
@@ -905,9 +1021,6 @@
               "$ref": "#/components/schemas/ConfigEntry"
             }
           },
-          "instanceFilePathsReadonly": {
-            "type": "string"
-          },
           "instanceFilePaths": {
             "type": "string"
           },
@@ -922,6 +1035,9 @@
           },
           "ignoreFieldsOnStart": {
             "type": "boolean"
+          },
+          "instanceFilePathsReadonly": {
+            "type": "string"
           }
         }
       },
@@ -992,13 +1108,13 @@
       "PageProcessDefinitionDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "first": {
             "type": "boolean"
@@ -1035,32 +1151,6 @@
           }
         }
       },
-      "PageableObject": {
-        "type": "object",
-        "properties": {
-          "offset": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "sort": {
-            "$ref": "#/components/schemas/SortObject"
-          },
-          "paged": {
-            "type": "boolean"
-          },
-          "unpaged": {
-            "type": "boolean"
-          },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
       "ProcessDefinitionDto": {
         "type": "object",
         "properties": {
@@ -1075,20 +1165,6 @@
           },
           "versionTag": {
             "type": "string"
-          }
-        }
-      },
-      "SortObject": {
-        "type": "object",
-        "properties": {
-          "empty": {
-            "type": "boolean"
-          },
-          "sorted": {
-            "type": "boolean"
-          },
-          "unsorted": {
-            "type": "boolean"
           }
         }
       },

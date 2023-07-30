@@ -1,8 +1,8 @@
 import {
   Configuration,
   FetchUtils,
-  ServiceInstanceFileRestControllerApiFactory,
-  ServiceStartFileRestControllerApiFactory
+  ProcessInstanceFileRestControllerApiFactory,
+  ProcessStartFileRestControllerApiFactory
 } from "@miragon/digiwf-engine-api-internal";
 import {Ref} from "vue";
 import {
@@ -26,7 +26,7 @@ export const getPresignedUrlForPost = async (file: File, config: EngineInteracti
 
   let res: any;
   if (formContext!.type === "start") {
-    res = await ServiceStartFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileUpload(
+    res = await ProcessStartFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileUpload(
       formContext!.id,
       file!.name,
       filePath.value
@@ -37,7 +37,7 @@ export const getPresignedUrlForPost = async (file: File, config: EngineInteracti
     return res;
   } else {
     //type "instance"
-    res = await ServiceInstanceFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileUpload1(
+    res = await ProcessInstanceFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileUpload1(
       formContext!.id,
       file!.name,
       filePath.value
@@ -54,7 +54,7 @@ export const getPresignedUrlForGet = async (filename: string, config: EngineInte
 
   let res: any;
   if (formContext!.type === "start") {
-    res = await ServiceStartFileRestControllerApiFactory(
+    res = await ProcessStartFileRestControllerApiFactory(
       engineAxiosConfig
     ).getPresignedUrlForFileDownload(
       formContext!.id,
@@ -72,7 +72,7 @@ export const getPresignedUrlForGet = async (filename: string, config: EngineInte
     return res;
   } else {
     //type "instance"
-    res = await ServiceInstanceFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileDownload1(
+    res = await ProcessInstanceFileRestControllerApiFactory(engineAxiosConfig).getPresignedUrlForFileDownload1(
       formContext!.id,
       filename,
       filePath.value
@@ -91,7 +91,7 @@ export const getPresignedUrlForDelete = async (filename: string, config: EngineI
 
   let res: any;
   if (formContext!.type === "start") {
-    res = await ServiceStartFileRestControllerApiFactory(
+    res = await ProcessStartFileRestControllerApiFactory(
       engineDeleteAxiosConfig
     ).getPresignedUrlForFileDeletion(
       formContext!.id,
@@ -109,7 +109,7 @@ export const getPresignedUrlForDelete = async (filename: string, config: EngineI
     return res;
   } else {
     //type "instance"
-    res = await ServiceInstanceFileRestControllerApiFactory(engineDeleteAxiosConfig).getPresignedUrlForFileDeletion1(
+    res = await ProcessInstanceFileRestControllerApiFactory(engineDeleteAxiosConfig).getPresignedUrlForFileDeletion1(
       formContext!.id,
       filename,
       filePath.value
@@ -127,7 +127,7 @@ export const getFilenames = async (config: EngineInteractionConfig): Promise<str
 
   let res: any;
   if (formContext!.type === "start") {
-    res = await ServiceStartFileRestControllerApiFactory(engineAxiosConfig).getFileNames(
+    res = await ProcessStartFileRestControllerApiFactory(engineAxiosConfig).getFileNames(
       formContext!.id,
       filePath.value
     );
@@ -141,7 +141,7 @@ export const getFilenames = async (config: EngineInteractionConfig): Promise<str
     return res;
   } else {
     //type "instance"
-    res = await ServiceInstanceFileRestControllerApiFactory(engineAxiosConfig).getFileNames1(
+    res = await ProcessInstanceFileRestControllerApiFactory(engineAxiosConfig).getFileNames1(
       formContext!.id,
       filePath.value
     );

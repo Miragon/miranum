@@ -1,0 +1,28 @@
+digiwf:
+  security:
+    client-registration: keycloak
+    permitted-urls:
+      - /error # allow the error page
+      - /actuator/info # allow access to /actuator/info
+      - /actuator/health #  allow access to /actuator/health for OpenShift Health Check
+      - /actuator/metrics # allow access to /actuator/metrics for Prometheus monitoring in OpenShift
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SSO_ISSUER_URL}
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${SSO_ISSUER_URL}
+            user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/certs
+            user-name-attribute: user_name
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: ${SSO_ENGINE_CLIENT_ID}
+            client-secret: ${SSO_ENGINE_CLIENT_SECRET}
+            scope: email, profile, openid  # needed for userInfo endpoint

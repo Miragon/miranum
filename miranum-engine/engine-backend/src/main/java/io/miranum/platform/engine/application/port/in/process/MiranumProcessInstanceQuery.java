@@ -2,8 +2,8 @@ package io.miranum.platform.engine.application.port.in.process;
 
 import io.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public interface MiranumProcessInstanceQuery {
 
-    List<MiranumProcessInstance> getProcessInstanceByUser(final String userId);
+    Page<MiranumProcessInstance> getProcessInstanceByUser(final String userId, int page, int size, String query);
 
     MiranumProcessInstanceWithData getServiceInstanceWithDataByUser(final String userId, final String instanceId);
 

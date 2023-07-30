@@ -23,9 +23,9 @@ import java.util.List;
  */
 @RestController
 @Transactional
-@RequestMapping("/rest/service/instance/file")
+@RequestMapping("/rest/process/instance/file")
 @RequiredArgsConstructor
-@Tag(name = "ServiceInstanceFileRestController", description = "API to perform actions on service instance files")
+@Tag(name = "ProcessInstanceFileRestController", description = "API to perform actions on service instance files")
 public class ProcessInstanceFileRestController {
 
     private final GetPresignedUrlForProcessInstanceService getPresignedUrlForProcessInstanceService;

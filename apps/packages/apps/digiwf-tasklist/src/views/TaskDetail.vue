@@ -11,7 +11,6 @@
       <h1>{{ task.name }}</h1>
       <p>{{ task.description }}</p>
       <app-json-form
-        v-else
         :schema="task.schema"
         :value="task.variables"
         @input="modelChanged"

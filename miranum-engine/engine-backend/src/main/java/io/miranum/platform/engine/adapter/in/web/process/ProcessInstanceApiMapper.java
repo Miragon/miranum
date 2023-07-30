@@ -16,6 +16,8 @@ public interface ProcessInstanceApiMapper {
 
     List<ProcessInstanceDto> map2TO(List<MiranumProcessInstance> list);
 
+    ProcessInstanceDto map2TO(MiranumProcessInstance obj);
+
     ProcessInstanceDetailDto map2TO(MiranumProcessInstanceWithData instanceDetail);
 
 }

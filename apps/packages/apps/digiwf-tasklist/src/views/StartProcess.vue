@@ -12,7 +12,6 @@
       <h1>{{ process.name }}</h1>
       <p>{{ process.description }}</p>
       <app-json-form
-        v-else
         :is-completing="isCompleting"
         :schema="process.jsonSchema"
         :value="{}"

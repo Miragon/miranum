@@ -73,6 +73,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Security -->
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>spring-security-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Axon -->
         <dependency>
             <groupId>org.axonframework</groupId>

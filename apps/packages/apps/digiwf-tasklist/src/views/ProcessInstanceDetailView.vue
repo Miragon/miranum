@@ -146,9 +146,9 @@ import {DateTime} from "luxon";
 import {
   FetchUtils,
   HistoryTask,
-  ServiceInstanceControllerApiFactory,
-  ServiceInstanceDetailTO,
-  StatusConfigTO
+  ProcessInstanceControllerApiFactory,
+  ProcessInstanceDetailDto,
+  StatusConfig
 } from '@miragon/digiwf-engine-api-internal';
 import AppJsonRenderer from "@/components/schema/AppJsonRenderer.vue";
 import {FormContext} from "@miragon/digiwf-multi-file-input";
@@ -159,7 +159,7 @@ import {ApiConfig} from "../api/ApiConfig";
 })
 export default class ProcessInstanceDetailView extends Vue {
 
-  processInstanceDetail: ServiceInstanceDetailTO | null = null;
+  processInstanceDetail: ProcessInstanceDetailDto | null = null;
   errorMessage = "";
   panel = [0, 1]
 
@@ -174,7 +174,7 @@ export default class ProcessInstanceDetailView extends Vue {
   };
 
   get currentStatus(): number {
-    return this.processInstanceDetail?.processConfig?.statusConfig?.find((status: StatusConfigTO) => status.key === this.processInstanceDetail?.statusKey)?.position || 1;
+    return this.processInstanceDetail?.processConfig?.statusConfig?.find((status: StatusConfig) => status.key === this.processInstanceDetail?.statusKey)?.position || 1;
   }
 
   get sortedHistoricTasks(): HistoryTask[] {
@@ -199,7 +199,7 @@ export default class ProcessInstanceDetailView extends Vue {
   async loadProcessInstanceDetail(): Promise<void> {
     try {
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
-      const res = await ServiceInstanceControllerApiFactory(cfg).getProcessInstanceDetail(this.processId);
+      const res = await ProcessInstanceControllerApiFactory(cfg).getProcessInstanceDetail(this.processId);
       this.processInstanceDetail = res.data;
 
       this.errorMessage = "";

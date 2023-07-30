@@ -43,6 +43,9 @@ public class ProcessDefinitionQueryService implements ProcessDefinitionQuery {
 
     @Override
     public MiranumProcessDefinitionWithSchema getProcessDefinitionWithSchema(String userId, List<String> groups, String key) {
+        if (miranumProcessDefinitionPort.allowedToStartDefinition(userId, groups, key)) {
+            return miranumProcessDefinitionPort.getProcessDefinitionWithSchema(key);
+        }
         return null;
     }
 
