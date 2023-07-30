@@ -1,10 +1,10 @@
 import {ActionContext} from "vuex";
 import {RootState} from "../index";
-import {FetchUtils, UserRestControllerApiFactory, UserTO} from '@miragon/digiwf-engine-api-internal';
+import {FetchUtils, UserControllerApiFactory, UserDto} from '@miragon/digiwf-engine-api-internal';
 import {ApiConfig} from "../../api/ApiConfig";
 
 export interface UserState {
-  info: UserTO;
+  info: UserDto;
   lastFetch: number | null;
 }
 
@@ -23,12 +23,12 @@ export default {
       const currentTimeStamp = new Date().getTime();
       return (currentTimeStamp - lastFetch) / 1000 > 60;
     },
-    info(state: UserState): UserTO {
+    info(state: UserState): UserDto {
       return state.info;
     }
   },
   mutations: {
-    setUser(state: UserState, user: UserTO): void {
+    setUser(state: UserState, user: UserDto): void {
       state.info = user;
     },
     setLastFetch(state: UserState): void {
@@ -43,7 +43,7 @@ export default {
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
 
       try {
-        const res = await UserRestControllerApiFactory(cfg).userinfo();
+        const res = await UserControllerApiFactory(cfg).userinfo();
 
         context.commit('setUser', res.data);
         context.commit('setLastFetch');

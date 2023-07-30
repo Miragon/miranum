@@ -10,18 +10,6 @@
       <span class="processName grey--text">{{ task.processName }}</span>
       <h1>{{ task.name }}</h1>
       <p>{{ task.description }}</p>
-      <base-form
-        v-if="task.form"
-        :form="task.form"
-        :has-complete-error="hasCompleteError"
-        :has-save-error="hasSaveError"
-        :init-model="task.variables"
-        :is-completing="isCompleting"
-        :is-saving="isSaving"
-        class="taskForm"
-        @model-changed="modelChanged"
-        @complete-form="handleCompleteTask"
-      />
       <app-json-form
         v-else
         :schema="task.schema"
@@ -89,16 +77,6 @@
           <v-icon> mdi-cancel</v-icon>
         </loading-fab>
 
-        <loading-fab
-          v-if="hasDownloadButton"
-          :button-text="downloadButtonText"
-          :has-error="hasDownloadButton"
-          :is-loading="isDownloading"
-          color="white"
-          @on-click="downloadPDF"
-        >
-          <v-icon> mdi-download</v-icon>
-        </loading-fab>
       </v-speed-dial>
     </v-flex>
     <task-follow-up-dialog
@@ -144,27 +122,18 @@
 <script lang="ts">
 import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import AppYesNoDialog from "@/components/common/AppYesNoDialog.vue";
 import TaskFollowUpDialog from "@/components/task/TaskFollowUpDialog.vue";
 import LoadingFab from "@/components/UI/LoadingFab.vue";
 import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
-import {
-  cancelTask,
-  completeTask,
-  deferTask,
-  downloadPDFFromEngine,
-  loadTask,
-  saveTask
-} from "../middleware/tasks/taskMiddleware";
+import {cancelTask, completeTask, deferTask, loadTask, saveTask} from "../middleware/tasks/taskMiddleware";
 import {HumanTaskDetails} from "../middleware/tasks/tasksModels"
 import router from "../router";
-import {shouldUseTaskService} from "../utils/featureToggles";
 
 @Component({
-  components: {TaskFollowUpDialog, BaseForm, AppToast, TaskForm: BaseForm, AppViewLayout, AppYesNoDialog, LoadingFab}
+  components: {TaskFollowUpDialog, AppToast, AppViewLayout, AppYesNoDialog, LoadingFab}
 })
 export default class TaskDetail extends Vue {
 
@@ -201,8 +170,6 @@ export default class TaskDetail extends Vue {
   apiEndpoint = ApiConfig.base;
   @Provide('taskServiceApiEndpoint')
   taskServiceApiEndpoint = ApiConfig.tasklistBase;
-  @Provide('shouldUseTaskService')
-  shouldUseTaskService = shouldUseTaskService();
 
   @Provide('formContext')
   get formContext(): FormContext {
@@ -301,15 +268,6 @@ export default class TaskDetail extends Vue {
       this.isCancelling = false;
       this.hasCancelError = result.isError;
       this.errorMessage = result.errorMessage || "";
-    });
-  }
-
-  downloadPDF() {
-    this.isDownloading = true;
-    this.hasDownloadError = false;
-    downloadPDFFromEngine(this.id).then(result => {
-      this.errorMessage = result.errorMessage || "";
-      this.hasDownloadError = result.isError;
     });
   }
 

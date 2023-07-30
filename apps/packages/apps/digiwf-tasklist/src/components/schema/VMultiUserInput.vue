@@ -89,7 +89,7 @@
 <script lang="ts">
 import {Component, Prop, Vue, Watch} from "vue-property-decorator";
 import {VAutocomplete} from "vuetify/lib";
-import {FetchUtils, SearchUserTO, UserRestControllerApiFactory, UserTO} from "@miragon/digiwf-engine-api-internal";
+import {FetchUtils, SearchUserDto, UserControllerApiFactory, UserDto} from "@miragon/digiwf-engine-api-internal";
 import {AxiosResponse} from "axios";
 import {mucatarURL} from "../../constants";
 import {ApiConfig} from "../../api/ApiConfig";
@@ -101,12 +101,12 @@ import {ApiConfig} from "../../api/ApiConfig";
 })
 export default class VMultiUserInput extends Vue {
   search = "";
-  items: UserTO[] = []; // search result
+  items: UserDto[] = []; // search result
   isLoading = false;
   errorMessage = "";
   lastSearch = "";
   locked = false;
-  selectedUsers: UserTO[] = [];
+  selectedUsers: UserDto[] = [];
   readonly = false;
   ldapGroups = "";
 
@@ -144,7 +144,7 @@ export default class VMultiUserInput extends Vue {
     return this.readonly || this.locked;
   }
 
-  get entries(): UserTO[] {
+  get entries(): UserDto[] {
     return this.items.concat(this.selectedUsers);
   }
 
@@ -174,9 +174,9 @@ export default class VMultiUserInput extends Vue {
       let res: AxiosResponse;
       //if number: search by objectId; if string: search by username
       if (id.match(/^-?\d+$/)) {
-        res = await UserRestControllerApiFactory(cfg).getUser(id);
+        res = await UserControllerApiFactory(cfg).getUser(id);
       } else {
-        res = await UserRestControllerApiFactory(cfg).getUserByUsername(id);
+        res = await UserControllerApiFactory(cfg).getUserByUsername(id);
       }
       const user = res.data;
 
@@ -188,11 +188,11 @@ export default class VMultiUserInput extends Vue {
     this.locked = false;
   }
 
-  getFullName(user: UserTO): string {
+  getFullName(user: UserDto): string {
     return user.forename + " " + user.surname;
   }
 
-  filterUsers(item: UserTO, queryText: string): boolean {
+  filterUsers(item: UserDto, queryText: string): boolean {
     const fullName = this.getFullName(item);
     if (fullName.toLowerCase().includes(queryText.toLowerCase())) {
       return true;
@@ -200,7 +200,7 @@ export default class VMultiUserInput extends Vue {
     return false;
   }
 
-  getNamePrefix(user: UserTO): string {
+  getNamePrefix(user: UserDto): string {
     return user.forename!.slice(0, 1) + user.surname!.slice(0, 1);
   }
 
@@ -221,13 +221,12 @@ export default class VMultiUserInput extends Vue {
 
     try {
       this.isLoading = true;
-      const to: SearchUserTO = {
+      const to: SearchUserDto = {
         searchString: this.lastSearch,
-        ous: this.ldapGroups ? this.ldapGroups : undefined
       };
 
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
-      const res = await UserRestControllerApiFactory(cfg).getUsers(to);
+      const res = await UserControllerApiFactory(cfg).getUsers(to);
 
       if (this.lastSearch === this.search.slice(0, 3)) {
         this.items = res.data;
@@ -250,7 +249,7 @@ export default class VMultiUserInput extends Vue {
     this.items = [];
   }
 
-  removeUser(user: UserTO): void {
+  removeUser(user: UserDto): void {
     this.resetInput();
     this.selectedUsers = this.selectedUsers.filter(function (item) {
       return item.lhmObjectId !== user.lhmObjectId;

@@ -18,11 +18,9 @@ import {VueQueryPlugin} from "@tanstack/vue-query";
 import {queryClient} from "./middleware/queryClient";
 import {initStatusCodeHandling} from "./api/statusCodeHandling";
 import {PageBasedPaginationProvider} from "./middleware/PageBasedPaginationProvider";
-import {initShouldUseTaskServiceFeatureToggle} from "./utils/featureToggles";
 
 
 initStatusCodeHandling();
-initShouldUseTaskServiceFeatureToggle();
 Vue.config.productionTip = false;
 
 Vue.use(VueQueryPlugin, {

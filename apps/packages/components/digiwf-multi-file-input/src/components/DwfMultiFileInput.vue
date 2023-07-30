@@ -1,23 +1,23 @@
 <template>
   <div class="pa-0">
     <v-file-input
-        v-model="fileValue"
-        :disabled="isReadonly || !canAddDocument"
-        :rules="rules ? rules : true"
-        :loading="isLoading"
-        outlined
-        multiple
-        :label="label"
-        type="file"
-        truncate-length="50"
-        :error-messages="errorMessage"
-        v-bind="schema['x-props']"
-        @change="changeInput"
+      v-model="fileValue"
+      :disabled="isReadonly || !canAddDocument"
+      :error-messages="errorMessage"
+      :label="label"
+      :loading="isLoading"
+      :rules="rules ? rules : true"
+      multiple
+      outlined
+      truncate-length="50"
+      type="file"
+      v-bind="schema['x-props']"
+      @change="changeInput"
     >
       <template #append-outer>
-        <v-tooltip v-if="schema.description" left :open-on-hover="false">
+        <v-tooltip v-if="schema.description" :open-on-hover="false" left>
           <template v-slot:activator="{ on }">
-            <v-btn icon @click="on.click" @blur="on.blur" retain-focus-on-click>
+            <v-btn icon retain-focus-on-click @blur="on.blur" @click="on.click">
               <v-icon> mdi-information</v-icon>
             </v-btn>
           </template>
@@ -29,10 +29,10 @@
     <div v-if="documents && documents.length > 0" class="listWrapper">
       <template v-for="doc in documents">
         <dwf-file-preview
-            :document="doc"
-            :key="doc.name"
-            :readonly="isReadonly"
-            @remove-document="removeDocument"
+          :key="doc.name"
+          :document="doc"
+          :readonly="isReadonly"
+          @remove-document="removeDocument"
         />
       </template>
     </div>
@@ -81,7 +81,6 @@ export default defineComponent({
 
     const apiEndpoint = inject<string>('apiEndpoint');
     const taskServiceApiEndpoint = inject<string>('taskServiceApiEndpoint');
-    const shouldUseTaskService = inject<boolean>('shouldUseTaskService');
     const formContext = inject<FormContext>('formContext');
 
     const input = (value: any): any => {
@@ -100,10 +99,10 @@ export default defineComponent({
 
     const isReadonly = computed(() => {
       return (
-          props.disabled ||
-          props.readonly ||
-          props.schema.readOnly ||
-          isLoading.value
+        props.disabled ||
+        props.readonly ||
+        props.schema.readOnly ||
+        isLoading.value
       );
     });
 
@@ -131,7 +130,6 @@ export default defineComponent({
           filePath,
           apiEndpoint: apiEndpoint || "",
           formContext,
-          shouldUseTaskService: shouldUseTaskService || false,
           taskServiceApiEndpoint: taskServiceApiEndpoint || ""
         });
         for (const filename of filenames) {
@@ -156,7 +154,6 @@ export default defineComponent({
         filePath,
         apiEndpoint: apiEndpoint || "",
         formContext,
-        shouldUseTaskService: shouldUseTaskService || false,
         taskServiceApiEndpoint: taskServiceApiEndpoint || ""
       });
 
@@ -169,10 +166,10 @@ export default defineComponent({
 
       // push data
       const doc = createDocumentDataInstance(
-          filename,
-          getMimeType(filename),
-          base64OfString(content),
-          size
+        filename,
+        getMimeType(filename),
+        base64OfString(content),
+        size
       );
       documents.value.push(doc);
     }
@@ -201,7 +198,6 @@ export default defineComponent({
           filePath,
           apiEndpoint: apiEndpoint || "",
           formContext,
-          shouldUseTaskService: shouldUseTaskService || false,
           taskServiceApiEndpoint: taskServiceApiEndpoint || ""
         });
 
@@ -210,10 +206,10 @@ export default defineComponent({
         let content = arrayBufferToString(mydata);
 
         const doc = createDocumentDataInstance(
-            file!.name,
-            file!.type,
-            base64OfString(content),
-            mydata.byteLength
+          file!.name,
+          file!.type,
+          base64OfString(content),
+          mydata.byteLength
         );
 
         documents.value.push(doc);
@@ -223,9 +219,9 @@ export default defineComponent({
         input(documents.value.length);
       } catch (error: any) {
         if (
-            error.response &&
-            error.response.status &&
-            error.response.status == 409
+          error.response &&
+          error.response.status &&
+          error.response.status == 409
         ) {
           errorMessage.value = "Das Dokument existiert bereits.";
         } else if (!errorMessage.value) {
@@ -246,10 +242,10 @@ export default defineComponent({
     }
 
     const createDocumentDataInstance = (
-        name: string,
-        type: string,
-        data: string,
-        size: number
+      name: string,
+      type: string,
+      data: string,
+      size: number
     ) => {
       const doc: DocumentData = {
         type: type,
@@ -288,12 +284,11 @@ export default defineComponent({
         if (documents.value[i].name == document.name) {
           try {
             const presignedDeleteUrl = await getPresignedUrlForDelete(
-                document.name,
+              document.name,
               {
                 filePath,
                 apiEndpoint: apiEndpoint || "",
                 formContext,
-                shouldUseTaskService: shouldUseTaskService || false,
                 taskServiceApiEndpoint: taskServiceApiEndpoint || ""
               }
             );
@@ -331,7 +326,7 @@ export default defineComponent({
 
     const isBase64Encoded = (content: string) => {
       const base64Regex =
-          /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+        /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
       return base64Regex.test(content);
     }
 

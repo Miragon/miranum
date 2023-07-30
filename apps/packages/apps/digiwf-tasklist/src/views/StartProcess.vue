@@ -11,17 +11,6 @@
     >
       <h1>{{ process.name }}</h1>
       <p>{{ process.description }}</p>
-      <base-form
-        v-if="process.startForm"
-        :form="process.startForm"
-        :has-complete-error="hasCompleteError"
-        :init-model="$route.query"
-        :is-completing="isCompleting"
-        :show-save-button="false"
-        class="startForm"
-        @model-changed="setDirty"
-        @complete-form="startProcess"
-      />
       <app-json-form
         v-else
         :is-completing="isCompleting"
@@ -43,7 +32,6 @@
 
 import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import router from "../router";
 import AppYesNoDialog from "@/components/common/AppYesNoDialog.vue";
@@ -61,7 +49,7 @@ import {invalidUserTasks} from "../middleware/tasks/taskMiddleware";
 import {invalidProcessInstances} from "../middleware/processInstances/processInstancesMiddleware";
 
 @Component({
-  components: {BaseForm, AppToast, AppViewLayout, AppYesNoDialog}
+  components: {AppToast, AppViewLayout, AppYesNoDialog}
 })
 export default class StartProcess extends Vue {
 

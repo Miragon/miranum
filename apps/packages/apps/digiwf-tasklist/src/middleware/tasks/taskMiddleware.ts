@@ -1,38 +1,21 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
 import {
-  callCancelTaskInEngine,
   callCancelTaskInTaskService,
-  callCompleteTaskInEngine,
   callCompleteTaskInTaskService,
   callDeferTask,
-  callDownloadPdfFromEngine,
-  callGetAssignedGroupTasksFromEngine,
   callGetAssignedGroupTasksFromTaskService,
-  callGetOpenGroupTasksFromEngine,
   callGetOpenGroupTasksFromTaskService,
-  callGetTaskDetailsFromEngine,
   callGetTaskDetailsFromTaskService,
-  callGetTasksFromEngine,
   callGetTasksFromTaskService,
-  callPostAssignTaskInEngine,
   callPostAssignTaskInTaskService,
-  callSaveTaskInEngine,
   callSaveTaskInTaskService,
-  callSetFollowUpTaskInEngine
 } from "../../api/tasks/tasksApiCalls";
 import {computed, ref, Ref} from "vue";
 import {Page} from "../commonModels";
 import {HumanTask, HumanTaskDetails, TaskVariables} from "./tasksModels";
-import {shouldUseTaskService} from "../../utils/featureToggles";
-import {
-  mapTaskDetailsFromEngineService,
-  mapTaskDetailsFromTaskService,
-  mapTaskFromTaskService,
-  mapTaskPageFromEngineService
-} from "./taskMapper";
+import {mapTaskDetailsFromTaskService, mapTaskFromTaskService,} from "./taskMapper";
 import {useStore} from "../../hooks/store";
 import axios, {AxiosError} from "axios";
-import {HumanTaskDetailTO} from "@miragon/digiwf-engine-api-internal";
 import {dateToIsoDateTime, getCurrentDate} from "../../utils/time";
 import router from "../../router";
 import {queryClient} from "../queryClient";
@@ -40,10 +23,6 @@ import store from "../../store";
 import {getUserInfo} from "../user/userMiddleware";
 import {PageOfTasks, Task} from "@miragon/digiwf-task-api-internal";
 import {addFinishedTaskIds, isInFinishedProcess} from "./finishedTaskFilter";
-
-if (shouldUseTaskService()) {
-  console.log("feature toggle enabled. New tasklist service is used for network requests.");
-}
 
 const userTasksQueryId = "user-tasks";
 const assignedGroupTasksQueryId = "assigned-group-tasks";
@@ -107,10 +86,7 @@ export const useMyTasksQuery = (
   queryKey: [userTasksQueryId, page.value, size.value, query.value, !shouldIgnoreFollowUp.value],
 
   queryFn: (): Promise<Page<HumanTask>> => {
-    return shouldUseTaskService()
-      ? handleTaskLoadingFromTaskService(page, size, query, shouldIgnoreFollowUp)
-      : callGetTasksFromEngine(page.value, size.value, query.value, !shouldIgnoreFollowUp.value)
-        .then((r) => Promise.resolve(mapTaskPageFromEngineService(r)));
+    return handleTaskLoadingFromTaskService(page, size, query, shouldIgnoreFollowUp)
   },
 });
 
@@ -121,11 +97,8 @@ export const useOpenGroupTasksQuery = (
 ) => useQuery({
   queryKey: [openGroupTasksQueryId, page.value, size.value, query.value],
   queryFn: (): Promise<Page<HumanTask>> => {
-    return shouldUseTaskService()
-      ? callGetOpenGroupTasksFromTaskService(page.value, size.value, query.value)
-        .then(handlePageOfTaskResponse)
-      : callGetOpenGroupTasksFromEngine(page.value, size.value, query.value)
-        .then((r) => Promise.resolve(mapTaskPageFromEngineService(r)));
+    return callGetOpenGroupTasksFromTaskService(page.value, size.value, query.value)
+      .then(handlePageOfTaskResponse)
   },
 });
 
@@ -136,11 +109,8 @@ export const useAssignedGroupTasksQuery = (
 ) => useQuery({
   queryKey: [assignedGroupTasksQueryId, page.value, size.value, query.value],
   queryFn: (): Promise<Page<HumanTask>> => {
-    return shouldUseTaskService()
-      ? callGetAssignedGroupTasksFromTaskService(page.value, size.value, query.value)
-        .then(handlePageOfTaskResponse)
-      : callGetAssignedGroupTasksFromEngine(page.value, size.value, query.value)
-        .then((r) => Promise.resolve(mapTaskPageFromEngineService(r)));
+    return callGetAssignedGroupTasksFromTaskService(page.value, size.value, query.value)
+      .then(handlePageOfTaskResponse)
   },
 });
 
@@ -171,9 +141,7 @@ export const useAssignTaskMutation = () => {
   const lhmObjectId = (useStore().state as any).user?.info?.lhmObjectId;
   return useMutation<void, any, string>({
     mutationFn: (taskId) => {
-      return shouldUseTaskService()
-        ? callPostAssignTaskInTaskService(taskId, lhmObjectId)
-        : callPostAssignTaskInEngine(taskId);
+      return callPostAssignTaskInTaskService(taskId, lhmObjectId)
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["user-tasks"]);
@@ -214,9 +182,7 @@ export interface LoadTaskResult {
 
 
 export const loadTask = (taskId: string): Promise<LoadTaskResult> => {
-  return shouldUseTaskService()
-    ? loadTaskFromTaskService(taskId)
-    : loadTasksFromEngine(taskId);
+  return loadTaskFromTaskService(taskId)
 };
 
 const loadTaskFromTaskService = (taskId: string): Promise<LoadTaskResult> => {
@@ -260,41 +226,6 @@ const loadTaskFromTaskService = (taskId: string): Promise<LoadTaskResult> => {
  * @deprecated
  * @param id
  */
-const loadTasksFromEngine = (id: string): Promise<LoadTaskResult> => {
-  const hasDownloadButton = (task: HumanTaskDetailTO): boolean => {
-    if (task.form && task.form.buttons) {
-      return task.form.buttons.statusPdf!.showButton || false;
-    } else if (task.statusDocument) {
-      return true;
-    }
-    return false; // I guess that is the default value, before it could be nullable
-  };
-
-  return callGetTaskDetailsFromEngine(id).then(taskDetails => {
-    return Promise.resolve<LoadTaskResult>({
-      data: {
-        task: mapTaskDetailsFromEngineService(taskDetails),
-        model: taskDetails.variables,
-        followUpDate: taskDetails.followUpDate!,
-        cancelText: taskDetails.form?.buttons?.cancel!.buttonText || "Task abbrechen",
-        hasDownloadButton: hasDownloadButton(taskDetails),
-        downloadButtonText: taskDetails.form?.buttons?.statusPdf!.buttonText || ""
-      },
-      error: undefined,
-    });
-  })
-    .catch((error: Error | AxiosError) => {
-      if (axios.isAxiosError(error) && (error as AxiosError).status === 404) {
-        return Promise.resolve({
-          error: "Die Aufgabe oder der zugehörige Vorgang wurden bereits abgeschlossen. Die Aufgabe kann daher nicht mehr angezeigt oder bearbeitet werden."
-        });
-      } else {
-        return Promise.resolve({
-          error: "Die Aufgabe konnte nicht geladen werden."
-        });
-      }
-    });
-};
 
 export interface CancelTaskResult {
   readonly isError: boolean;
@@ -302,14 +233,11 @@ export interface CancelTaskResult {
 }
 
 /**
- * @deprecated
  * @param taskId
  */
 export const cancelTask = (taskId: string): Promise<CancelTaskResult> => {
   return (
-    shouldUseTaskService()
-      ? callCancelTaskInTaskService(taskId)
-      : callCancelTaskInEngine(taskId)
+    callCancelTaskInTaskService(taskId)
   ).then(() => {
     queryClient.invalidateQueries([userTasksQueryId]);
     router.push({path: "/task"});
@@ -333,9 +261,7 @@ interface CompleteTaskResult {
 
 export const completeTask = (taskId: string, variables: TaskVariables): Promise<CompleteTaskResult> => {
   return (
-    shouldUseTaskService()
-      ? callCompleteTaskInTaskService(taskId, variables)
-      : callCompleteTaskInEngine(taskId, variables)
+    callCompleteTaskInTaskService(taskId, variables)
   )
     .then(() => {
       addFinishedTaskIds(taskId);
@@ -359,9 +285,7 @@ interface SetFollowUpResult {
 
 export const deferTask = (taskId: string, followUp: string): Promise<SetFollowUpResult> => {
   return (
-    shouldUseTaskService()
-      ? handleDeferTaskInTaskService(taskId, followUp)
-      : callSetFollowUpTaskInEngine(taskId, followUp)
+    handleDeferTaskInTaskService(taskId, followUp)
   )
     .then(() => {
       invalidUserTasks();
@@ -399,9 +323,7 @@ interface SaveTaskResult {
 
 export const saveTask = (taskId: string, variables: TaskVariables): Promise<SaveTaskResult> => {
   return (
-    shouldUseTaskService()
-      ? callSaveTaskInTaskService(taskId, variables)
-      : callSaveTaskInEngine(taskId, variables)
+    callSaveTaskInTaskService(taskId, variables)
   ).then(() => Promise.resolve({ // FIXME: invalide task list?
     isError: false,
     errorMessage: undefined
@@ -419,9 +341,7 @@ interface AssignTaskResult {
 export const assignTask = (taskId: string,): Promise<AssignTaskResult> => {
   const userId = store.getters["user/info"].lhmObjectId;
   return (
-    shouldUseTaskService()
-      ? callPostAssignTaskInTaskService(taskId, userId)
-      : callPostAssignTaskInEngine(taskId)
+    callPostAssignTaskInTaskService(taskId, userId)
   ).then(() => {
     router.push({path: "/task/" + taskId});
     invalidUserTasks();
@@ -431,40 +351,3 @@ export const assignTask = (taskId: string,): Promise<AssignTaskResult> => {
   }).catch(() => Promise.resolve({isError: true}));
 };
 
-interface DownloadPdfResult {
-  readonly errorMessage?: string;
-  readonly isError: boolean;
-}
-
-export const downloadPDFFromEngine = (taskId: string): Promise<DownloadPdfResult> => {
-
-  return callDownloadPdfFromEngine(taskId)
-    .then(result => {
-      const fileURL = window.URL.createObjectURL(new Blob([base64ToArrayBuffer(result.data as any)], {type: "application/pdf"}));
-      const fileLink = document.createElement("a");
-      fileLink.href = fileURL;
-      fileLink.setAttribute("download", "statusdokument.pdf");
-      document.body.appendChild(fileLink);
-      fileLink.click();
-      return Promise.resolve({
-        isError: false,
-        errorMessage: undefined,
-      });
-    })
-    .catch(_ => {
-      return Promise.resolve({
-        isError: true,
-        errorMessage: "Das Statusdokument konnte nicht erstellt werden."
-      });
-    });
-};
-
-const base64ToArrayBuffer = (base64: string): Uint8Array => {
-  const binaryString = window.atob(base64);
-  const binaryLen = binaryString.length;
-  const bytes = new Uint8Array(binaryLen);
-  for (let i = 0; i < binaryLen; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes;
-};

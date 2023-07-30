@@ -13,6 +13,8 @@ public interface ProcessDefinitionApiMapper {
 
     List<ProcessDefinitionDto> map2TO(List<MiranumProcessDefinition> list);
 
+    ProcessDefinitionDto map2TO(MiranumProcessDefinition obj);
+
     ProcessDefinitionWithSchemaDto map2TO(MiranumProcessDefinitionWithSchema obj);
 
     default Map<String, Object> mapJsonSchema(JsonSchema jsonSchema) {

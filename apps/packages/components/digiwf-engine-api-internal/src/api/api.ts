@@ -93,6 +93,122 @@ export interface HistoryTask {
 /**
  * 
  * @export
+ * @interface PageProcessDefinitionDto
+ */
+export interface PageProcessDefinitionDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageProcessDefinitionDto
+     */
+    'totalElements'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageProcessDefinitionDto
+     */
+    'totalPages'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageProcessDefinitionDto
+     */
+    'first'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageProcessDefinitionDto
+     */
+    'last'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageProcessDefinitionDto
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {Array<ProcessDefinitionDto>}
+     * @memberof PageProcessDefinitionDto
+     */
+    'content'?: Array<ProcessDefinitionDto>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageProcessDefinitionDto
+     */
+    'number'?: number;
+    /**
+     * 
+     * @type {SortObject}
+     * @memberof PageProcessDefinitionDto
+     */
+    'sort'?: SortObject;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageProcessDefinitionDto
+     */
+    'numberOfElements'?: number;
+    /**
+     * 
+     * @type {PageableObject}
+     * @memberof PageProcessDefinitionDto
+     */
+    'pageable'?: PageableObject;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageProcessDefinitionDto
+     */
+    'empty'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageableObject
+ */
+export interface PageableObject {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'offset'?: number;
+    /**
+     * 
+     * @type {SortObject}
+     * @memberof PageableObject
+     */
+    'sort'?: SortObject;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'paged'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'unpaged'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageNumber'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageableObject
+     */
+    'pageSize'?: number;
+}
+/**
+ * 
+ * @export
  * @interface ProcessConfig
  */
 export interface ProcessConfig {
@@ -122,12 +238,6 @@ export interface ProcessConfig {
     'instanceFilePathsReadonly'?: string;
     /**
      * 
-     * @type {boolean}
-     * @memberof ProcessConfig
-     */
-    'ignoreFieldsOnStart'?: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof ProcessConfig
      */
@@ -150,6 +260,12 @@ export interface ProcessConfig {
      * @memberof ProcessConfig
      */
     'instanceSchemaKey'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ProcessConfig
+     */
+    'ignoreFieldsOnStart'?: boolean;
 }
 /**
  * 
@@ -357,6 +473,44 @@ export interface SaveFilterDto {
 /**
  * 
  * @export
+ * @interface SearchUserDto
+ */
+export interface SearchUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SearchUserDto
+     */
+    'searchString'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SortObject
+ */
+export interface SortObject {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SortObject
+     */
+    'empty'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SortObject
+     */
+    'sorted'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SortObject
+     */
+    'unsorted'?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface StartInstanceDto
  */
 export interface StartInstanceDto {
@@ -397,6 +551,43 @@ export interface StatusConfig {
      * @memberof StatusConfig
      */
     'position'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UserDto
+ */
+export interface UserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'username'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'forename'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'surname'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'email'?: string;
 }
 
 /**
@@ -690,10 +881,13 @@ export const ProcessDefinitionControllerApiAxiosParamCreator = function (configu
         },
         /**
          * load all available service definitions
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {string} [query] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProcessDefinitions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getServiceDefinitions: async (page?: number, size?: number, query?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/rest/process/definition`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -705,6 +899,18 @@ export const ProcessDefinitionControllerApiAxiosParamCreator = function (configu
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (query !== undefined) {
+                localVarQueryParameter['query'] = query;
+            }
 
 
     
@@ -807,11 +1013,14 @@ export const ProcessDefinitionControllerApiFp = function(configuration?: Configu
         },
         /**
          * load all available service definitions
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {string} [query] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProcessDefinitions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProcessDefinitionDto>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProcessDefinitions(options);
+        async getServiceDefinitions(page?: number, size?: number, query?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageProcessDefinitionDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getServiceDefinitions(page, size, query, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -855,11 +1064,14 @@ export const ProcessDefinitionControllerApiFactory = function (configuration?: C
         },
         /**
          * load all available service definitions
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {string} [query] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProcessDefinitions(options?: any): AxiosPromise<Array<ProcessDefinitionDto>> {
-            return localVarFp.getProcessDefinitions(options).then((request) => request(axios, basePath));
+        getServiceDefinitions(page?: number, size?: number, query?: string, options?: any): AxiosPromise<PageProcessDefinitionDto> {
+            return localVarFp.getServiceDefinitions(page, size, query, options).then((request) => request(axios, basePath));
         },
         /**
          * Initialize the start context of a specific process
@@ -894,6 +1106,34 @@ export interface ProcessDefinitionControllerApiGetProcessDefinitionRequest {
      * @memberof ProcessDefinitionControllerApiGetProcessDefinition
      */
     readonly key: string
+}
+
+/**
+ * Request parameters for getServiceDefinitions operation in ProcessDefinitionControllerApi.
+ * @export
+ * @interface ProcessDefinitionControllerApiGetServiceDefinitionsRequest
+ */
+export interface ProcessDefinitionControllerApiGetServiceDefinitionsRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof ProcessDefinitionControllerApiGetServiceDefinitions
+     */
+    readonly page?: number
+
+    /**
+     * 
+     * @type {number}
+     * @memberof ProcessDefinitionControllerApiGetServiceDefinitions
+     */
+    readonly size?: number
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ProcessDefinitionControllerApiGetServiceDefinitions
+     */
+    readonly query?: string
 }
 
 /**
@@ -944,12 +1184,13 @@ export class ProcessDefinitionControllerApi extends BaseAPI {
 
     /**
      * load all available service definitions
+     * @param {ProcessDefinitionControllerApiGetServiceDefinitionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProcessDefinitionControllerApi
      */
-    public getProcessDefinitions(options?: AxiosRequestConfig) {
-        return ProcessDefinitionControllerApiFp(this.configuration).getProcessDefinitions(options).then((request) => request(this.axios, this.basePath));
+    public getServiceDefinitions(requestParameters: ProcessDefinitionControllerApiGetServiceDefinitionsRequest = {}, options?: AxiosRequestConfig) {
+        return ProcessDefinitionControllerApiFp(this.configuration).getServiceDefinitions(requestParameters.page, requestParameters.size, requestParameters.query, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2041,6 +2282,333 @@ export class ServiceStartFileRestControllerApi extends BaseAPI {
      */
     public getPresignedUrlForFileUpload(requestParameters: ServiceStartFileRestControllerApiGetPresignedUrlForFileUploadRequest, options?: AxiosRequestConfig) {
         return ServiceStartFileRestControllerApiFp(this.configuration).getPresignedUrlForFileUpload(requestParameters.definitionKey, requestParameters.filename, requestParameters.filePath, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserControllerApi - axios parameter creator
+ * @export
+ */
+export const UserControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUser: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getUser', 'id', id)
+            const localVarPath = `/rest/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} username 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserByUsername: async (username: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'username' is not null or undefined
+            assertParamExists('getUserByUsername', 'username', username)
+            const localVarPath = `/rest/user/uid/{username}`
+                .replace(`{${"username"}}`, encodeURIComponent(String(username)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {SearchUserDto} searchUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsers: async (searchUserDto: SearchUserDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'searchUserDto' is not null or undefined
+            assertParamExists('getUsers', 'searchUserDto', searchUserDto)
+            const localVarPath = `/rest/user/search`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(searchUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userinfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/rest/user/info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserControllerApi - functional programming interface
+ * @export
+ */
+export const UserControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUser(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} username 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserByUsername(username: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserByUsername(username, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {SearchUserDto} searchUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUsers(searchUserDto: SearchUserDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(searchUserDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userinfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userinfo(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserControllerApi - factory interface
+ * @export
+ */
+export const UserControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUser(id: string, options?: any): AxiosPromise<UserDto> {
+            return localVarFp.getUser(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} username 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserByUsername(username: string, options?: any): AxiosPromise<UserDto> {
+            return localVarFp.getUserByUsername(username, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {SearchUserDto} searchUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsers(searchUserDto: SearchUserDto, options?: any): AxiosPromise<Array<UserDto>> {
+            return localVarFp.getUsers(searchUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userinfo(options?: any): AxiosPromise<UserDto> {
+            return localVarFp.userinfo(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getUser operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetUserRequest
+ */
+export interface UserControllerApiGetUserRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserControllerApiGetUser
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getUserByUsername operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetUserByUsernameRequest
+ */
+export interface UserControllerApiGetUserByUsernameRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserControllerApiGetUserByUsername
+     */
+    readonly username: string
+}
+
+/**
+ * Request parameters for getUsers operation in UserControllerApi.
+ * @export
+ * @interface UserControllerApiGetUsersRequest
+ */
+export interface UserControllerApiGetUsersRequest {
+    /**
+     * 
+     * @type {SearchUserDto}
+     * @memberof UserControllerApiGetUsers
+     */
+    readonly searchUserDto: SearchUserDto
+}
+
+/**
+ * UserControllerApi - object-oriented interface
+ * @export
+ * @class UserControllerApi
+ * @extends {BaseAPI}
+ */
+export class UserControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {UserControllerApiGetUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public getUser(requestParameters: UserControllerApiGetUserRequest, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).getUser(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UserControllerApiGetUserByUsernameRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public getUserByUsername(requestParameters: UserControllerApiGetUserByUsernameRequest, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).getUserByUsername(requestParameters.username, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UserControllerApiGetUsersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public getUsers(requestParameters: UserControllerApiGetUsersRequest, options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).getUsers(requestParameters.searchUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserControllerApi
+     */
+    public userinfo(options?: AxiosRequestConfig) {
+        return UserControllerApiFp(this.configuration).userinfo(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

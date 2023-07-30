@@ -28,6 +28,10 @@
       "description": "API to perform actions on service start files"
     },
     {
+      "name": "UserController",
+      "description": "API to get users"
+    },
+    {
       "name": "FilterRestController",
       "description": "API to load user filters and perform actions on them"
     }
@@ -77,6 +81,39 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/FilterDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/search": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "operationId": "getUsers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchUserDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
                 }
               }
             }
@@ -270,17 +307,47 @@
           "ProcessDefinitionController"
         ],
         "description": "load all available service definitions",
-        "operationId": "getProcessDefinitions",
+        "operationId": "getServiceDefinitions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProcessDefinitionDto"
-                  }
+                  "$ref": "#/components/schemas/PageProcessDefinitionDto"
                 }
               }
             }
@@ -330,6 +397,86 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/rest/user/{id}": {
+      "get": {
+        "tags": [
+          "UserController"
+        ],
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/uid/{username}": {
+      "get": {
+        "tags": [
+          "UserController"
+        ],
+        "operationId": "getUserByUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/user/info": {
+      "get": {
+        "tags": [
+          "UserController"
+        ],
+        "operationId": "userinfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
           }
         }
       }
@@ -647,6 +794,34 @@
           }
         }
       },
+      "SearchUserDto": {
+        "type": "object",
+        "properties": {
+          "searchString": {
+            "type": "string"
+          }
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "forename": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
       "StartInstanceDto": {
         "type": "object",
         "properties": {
@@ -733,9 +908,6 @@
           "instanceFilePathsReadonly": {
             "type": "string"
           },
-          "ignoreFieldsOnStart": {
-            "type": "boolean"
-          },
           "instanceFilePaths": {
             "type": "string"
           },
@@ -747,6 +919,9 @@
           },
           "instanceSchemaKey": {
             "type": "string"
+          },
+          "ignoreFieldsOnStart": {
+            "type": "boolean"
           }
         }
       },
@@ -814,6 +989,78 @@
           }
         }
       },
+      "PageProcessDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProcessDefinitionDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "ProcessDefinitionDto": {
         "type": "object",
         "properties": {
@@ -828,6 +1075,20 @@
           },
           "versionTag": {
             "type": "string"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
           }
         }
       },

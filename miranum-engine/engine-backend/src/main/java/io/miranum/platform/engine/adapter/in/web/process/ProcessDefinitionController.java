@@ -9,11 +9,14 @@ import io.miranum.platform.engine.domain.process.MiranumProcessDefinitionWithSch
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.annotation.Nullable;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 /**
  * Rest API to interact with process definitions.
@@ -41,12 +44,20 @@ public class ProcessDefinitionController {
      */
     @GetMapping
     @Operation(description = "load all available service definitions")
-    public ResponseEntity<List<ProcessDefinitionDto>> getProcessDefinitions() {
-        final List<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
+    public Page<ProcessDefinitionDto> getServiceDefinitions(
+            @RequestParam(value = "page", defaultValue = "0", required = false) @Min(0) final int page,
+            @RequestParam(value = "size", defaultValue = "50", required = false) @Min(1) @Max(50) final int size,
+            @RequestParam(value = "query", required = false) @Nullable final String query
+    ) {
+        final Page<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
                 this.authenticationProvider.getCurrentUserId(),
-                this.authenticationProvider.getCurrentUserGroups()
+                this.authenticationProvider.getCurrentUserGroups(),
+                page,
+                size,
+                query
+
         );
-        return ResponseEntity.ok(this.serviceDefinitionApiMapper.map2TO(definitions));
+        return definitions.map(this.serviceDefinitionApiMapper::map2TO);
     }
 
     /**

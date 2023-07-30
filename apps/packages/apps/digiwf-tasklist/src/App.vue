@@ -22,7 +22,6 @@
         </v-toolbar-title>
       </router-link>
       <v-spacer/>
-      <span v-if="appInfo !== null">{{ appInfo.environment }}</span>
       <v-spacer/>
       {{ username }}
 
@@ -39,17 +38,6 @@
             </v-icon>
           </v-btn>
         </template>
-        <v-list v-if="showUseBetaButton">
-          <v-list-item>
-            <v-list-item-title>
-              <v-switch
-                v-model="isDigiWFClassicUsed"
-                label="DigiWF-Classic nutzen"
-                @click.stop.prevent="switchBetaVersion"
-              ></v-switch>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
       </v-menu>
     </v-app-bar>
 
@@ -62,46 +50,6 @@
       <AppMenuList :number-of-process-instances="processInstancesCount"/>
     </v-navigation-drawer>
     <v-main class="main">
-      <v-banner
-        v-if="appInfo && appInfo.maintenanceInfo1"
-        class="maintenance"
-        color="orange darken-1"
-        elevation="1"
-        icon="mdi-alert-circle-outline"
-        icon-color="black"
-        multi-line
-        transition="slide-y-transition"
-      >
-        <p class="body-1 my-1">
-          {{ appInfo.maintenanceInfo1 }}
-        </p>
-        <p class="body-2 my-1">
-          {{ appInfo.maintenanceInfo2 }}
-        </p>
-      </v-banner>
-      <v-banner
-        :value="!loggedIn"
-        color="error"
-        icon="mdi-alert"
-        single-line
-        sticky
-      >
-        <template v-if="loginLoading">
-          Sie werden angemeldet...
-        </template>
-        <template v-else>
-          Sie sind aktuell nicht (mehr) angemeldet!
-        </template>
-        <template #actions>
-          <v-btn
-            :loading="loginLoading"
-            text
-            @click="login"
-          >
-            Login
-          </v-btn>
-        </template>
-      </v-banner>
       <v-container fluid>
         <v-fade-transition mode="out-in">
           <router-view/>
@@ -186,11 +134,10 @@ a {
 <script lang="ts">
 import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
-import {InfoTO, ServiceInstanceTO, UserTO,} from "@miragon/digiwf-engine-api-internal";
+import {ProcessInstanceDto, UserDto} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
 import {apiGatewayUrl} from "./utils/envVariables";
 import {queryClient} from "./middleware/queryClient";
-import {shouldShowBetaButton, shouldUseTaskService, switchShouldUseTaskService} from "./utils/featureToggles";
 
 @Component({
   components: {AppMenuList}
@@ -199,7 +146,6 @@ export default class App extends Vue {
   drawer = true;
   processInstancesCount: number | null = null;
   username = "";
-  appInfo: InfoTO | null = null;
   loginLoading = false;
   loggedIn = true;
 
@@ -214,8 +160,6 @@ export default class App extends Vue {
     this.$store.dispatch("user/getUserInfo", refresh);
     this.$store.dispatch("info/getInfo", refresh);
     this.drawer = this.$store.getters["menu/open"];
-    this.isDigiWFClassicUsed = !shouldUseTaskService();
-    this.showUseBetaButton = shouldShowBetaButton();
   }
 
   getUser(): void {
@@ -224,30 +168,21 @@ export default class App extends Vue {
     this.loginLoading = false;
   }
 
-  switchBetaVersion(): void {
-    switchShouldUseTaskService();
-  }
-
   @Watch("$store.state.menu.open")
   onMenuChanged(menuOpen: boolean): void {
     this.drawer = menuOpen;
   }
 
   @Watch("$store.state.user.info")
-  setUserName(user: UserTO): void {
+  setUserName(user: UserDto): void {
     this.username = user.forename + " " + user.surname;
     // if session is not valid, user is updated to an empty object in redux store
     this.loggedIn = !!user.username;
   }
 
   @Watch("$store.state.processInstances.processInstances")
-  setMyProcessInstancesCount(processInstances: ServiceInstanceTO[]): void {
+  setMyProcessInstancesCount(processInstances: ProcessInstanceDto[]): void {
     this.processInstancesCount = processInstances.length;
-  }
-
-  @Watch("$store.state.info.info")
-  setAppInfo(info: InfoTO): void {
-    this.appInfo = info;
   }
 
   login(): void {

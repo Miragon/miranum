@@ -94,15 +94,14 @@ import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import router from "../router";
-import {UserTO} from '@miragon/digiwf-engine-api-internal';
+import {UserDto} from '@miragon/digiwf-engine-api-internal';
 import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
 import {assignTask, loadTask} from "../middleware/tasks/taskMiddleware";
 import {HumanTaskDetails} from "../middleware/tasks/tasksModels";
-import {shouldUseTaskService} from "../utils/featureToggles";
 
 @Component({
-  components: {BaseForm, AppToast, TaskForm: BaseForm, AppViewLayout}
+  components: {AppToast, AppViewLayout}
 })
 export default class GroupTaskDetail extends Vue {
 
@@ -117,8 +116,6 @@ export default class GroupTaskDetail extends Vue {
   apiEndpoint = ApiConfig.base;
   @Provide('taskServiceApiEndpoint')
   taskServiceApiEndpoint = ApiConfig.tasklistBase;
-  @Provide('shouldUseTaskService')
-  shouldUseTaskService = shouldUseTaskService();
 
   @Provide('formContext')
   get formContext(): FormContext {
@@ -144,8 +141,8 @@ export default class GroupTaskDetail extends Vue {
     loadTask(this.id)
       .then(result => {
         if (result.data?.task?.assigneeId) {
-          const currentUser: UserTO = this.$store.getters['user/info'];
-          if (this.task?.assigneeId != currentUser.lhmObjectId) {
+          const currentUser: UserDto = this.$store.getters['user/info'];
+          if (this.task?.assigneeId != currentUser.id) {
             this.showModal = true;
             setTimeout(() => this.showModal = false, 10000);
           } else {
