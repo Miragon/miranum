@@ -136,11 +136,11 @@ import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
 import {ProcessInstanceDto, UserDto} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
-import {apiGatewayUrl} from "./utils/envVariables";
-import {queryClient} from "./middleware/queryClient";
+import Auth from "./views/Auth.vue";
+import {useServices} from "./hooks/store";
 
 @Component({
-  components: {AppMenuList}
+  components: {Auth, AppMenuList}
 })
 export default class App extends Vue {
   drawer = true;
@@ -149,11 +149,22 @@ export default class App extends Vue {
   loginLoading = false;
   loggedIn = true;
 
-  showUseBetaButton = false;
-  isDigiWFClassicUsed = true;
+  user: any = null;
+
+  get getCurrentUser() {
+    return this.user;
+  }
 
   created(): void {
     this.loadData();
+    const service = useServices();
+    service.$auth.getUser().then((user) => {
+      this.user = user;
+      console.log("user", user);
+      if (!user) {
+        service.$auth.login();
+      }
+    });
   }
 
   loadData(refresh = false): void {
@@ -183,19 +194,6 @@ export default class App extends Vue {
   @Watch("$store.state.processInstances.processInstances")
   setMyProcessInstancesCount(processInstances: ProcessInstanceDto[]): void {
     this.processInstancesCount = processInstances.length;
-  }
-
-  login(): void {
-    let popup = window.open(`${apiGatewayUrl}/loginsuccess.html`);
-
-    popup?.focus();
-    let timer = setInterval(() => {
-      if (popup?.closed ?? true) {
-        clearInterval(timer);
-        this.getUser();
-        queryClient.refetchQueries();
-      }
-    }, 1000);
   }
 }
 </script>

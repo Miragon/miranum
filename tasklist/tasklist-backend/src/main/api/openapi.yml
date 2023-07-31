@@ -5,7 +5,8 @@ info:
   description: API for task management.
   contact:
     name: DigiWF Team
-
+security:
+  - bearerAuth: [ ]
 servers:
   - description: Local
     url: http://localhost:38765/rest/
@@ -326,6 +327,12 @@ paths:
 
 
 components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   parameters:
 

@@ -25,7 +25,6 @@ export default class AuthService {
   }
 
   public signinCallback(): Promise<User | void> {
-    console.log('signinCallback')
     return this.userManager.signinCallback();
   }
 

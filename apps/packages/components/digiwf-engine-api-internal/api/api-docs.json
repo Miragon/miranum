@@ -4,6 +4,11 @@
     "title": "OpenAPI definition",
     "version": "v0"
   },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "servers": [
     {
       "url": "http://localhost:8090",
@@ -794,6 +799,13 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "SaveFilterDto": {
         "required": [
