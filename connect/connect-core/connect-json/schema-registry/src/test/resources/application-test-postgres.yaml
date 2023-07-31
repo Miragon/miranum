@@ -1,0 +1,11 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/schemadb
+    driverClassName: org.postgresql.Driver
+    username: sa
+    password: changeME!234
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
