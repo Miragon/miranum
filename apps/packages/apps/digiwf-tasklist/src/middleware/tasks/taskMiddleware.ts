@@ -340,7 +340,6 @@ interface AssignTaskResult {
 
 export const assignTask = (taskId: string,): Promise<AssignTaskResult> => {
   const username = store.getters["user/info"].username;
-  console.log("assign " + username)
   return (
     callPostAssignTaskInTaskService(taskId, username)
   ).then(() => {

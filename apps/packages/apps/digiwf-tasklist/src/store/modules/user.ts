@@ -45,14 +45,11 @@ export default {
         const res = await auth.getUser()
 
         const user: UserDto = {
+          // @ts-ignore
           username: res!.profile.user_name,
           surname: res!.profile.family_name,
           forename: res!.profile.given_name,
         }
-
-        console.log("USER COMES NOW");
-        console.log(user);
-
         context.commit('setUser', user);
         context.commit('setLastFetch');
       } catch (error: any) {
