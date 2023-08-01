@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum-engine</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <properties>
