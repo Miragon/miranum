@@ -27,12 +27,13 @@ services:
       - .env
     environment:
       SPRING_PROFILES_ACTIVE: mock-user, sampledata
-      #ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
-      ENGINE_DATASOURCE_URL: jdbc:sqlserver://mssql;encrypt=false;integratedSecurity=false;databaseName=${ENGINE_DATASOURCE_DB}
+      ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
       ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
     depends_on:
-      - ${LOCAL_DB_VENDOR}
-      - schema-registry
+      postgres:
+        condition: service_healthy
+      schema-registry:
+        condition: service_started
     networks:
       - internal
 
@@ -47,11 +48,11 @@ services:
     env_file:
       - .env
     environment:
-      #SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
-      SCHEMA_DATASOURCE_URL: jdbc:sqlserver://mssql;encrypt=false;integratedSecurity=false;databaseName=${SCHEMA_DATASOURCE_DB}
+      SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
       SPRING_PROFILES_ACTIVE: sampledata
     depends_on:
-      - ${LOCAL_DB_VENDOR}
+      postgres:
+        condition: service_healthy
     networks:
       - internal
 
@@ -63,7 +64,8 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - keycloak
+      keycloak:
+        condition: service_healthy
     networks:
       - internal
 
@@ -71,10 +73,16 @@ services:
     image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
     container_name: keycloak
     depends_on:
-      - ${LOCAL_DB_VENDOR}
+      postgres:
+        condition: service_healthy
     ports:
       - '9090:8080'
     command: 'start-dev --http-relative-path /auth'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/" ]
+      interval: 5s
+      timeout: 2s
+      retries: 15
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
@@ -95,7 +103,8 @@ services:
     env_file:
       - './.env'
     depends_on:
-      - ${LOCAL_DB_VENDOR}
+      postgres:
+        condition: service_healthy
     environment:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
@@ -114,44 +123,16 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-    profiles:
-      - postgres
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "psql -l | grep keycloak | wc -l" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     environment:
       - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB}
       - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
       - POSTGRES_USER=${LOCAL_DATASOURCE_USERNAME}
-    networks:
-      - internal
-
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql
-    ports:
-      - "1433:1433"
-    profiles:
-      - sqlserver
-    environment:
-      SA_PASSWORD: ${LOCAL_DATASOURCE_PASSWORD}
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Developer"
-    networks:
-      - internal
-
-  sqlserver.configurator:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    volumes:
-      - ./mssql:/docker-entrypoint-initdb.d
-    depends_on:
-      - sqlserver
-    profiles:
-      - sqlserver
-    command: >
-      bash -c '
-      sleep 20;
-      /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P '${LOCAL_DATASOURCE_PASSWORD}' -d master -i docker-entrypoint-initdb.d/setup.sql;
-      echo "All done!";
-      '
     networks:
       - internal
 

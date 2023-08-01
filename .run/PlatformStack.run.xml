@@ -5,7 +5,6 @@
         <option name="envFilePath" value="" />
         <option name="profiles">
           <list>
-            <option value="sqlserver" />
             <option value="engine" />
           </list>
         </option>
