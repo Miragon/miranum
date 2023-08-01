@@ -1,0 +1,22 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "Technical Dept"
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "Technical Dept"
+  - package-ecosystem: npm
+    directory: "/apps"
+    target-branch: "dev"
+    labels:
+      - "Technical Dept"
+    schedule:
+      interval: weekly
