@@ -157,13 +157,14 @@ export default class App extends Vue {
   created(): void {
     this.loadData();
     const service = useServices();
-    service.$auth.getUser().then((user) => {
-      this.user = user;
-      console.log("user", user);
-      if (!user) {
-        service.$auth.login();
-      }
-    });
+    setTimeout(() => {
+      service.$auth.getUser().then((user) => {
+        this.user = user;
+        if (!user) {
+          service.$auth.login();
+        }
+      });
+    }, 1000);
   }
 
   loadData(refresh = false): void {
