@@ -12,21 +12,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ResolveUserProfileUseCase implements ResolveUserProfile {
 
-    private final UserProfilePort userProfilePort;
+  private final UserProfilePort userProfilePort;
 
-    @Override
-    @NonNull
-    public UserProfile resolveUserProfile(@NonNull String userId) {
-        return userProfilePort.findUser(userId);
-    }
+  @Override
+  @NonNull
+  public UserProfile resolveUserProfile(@NonNull String userId) {
+    return userProfilePort.findUser(userId);
+  }
 
-    @Override
-    @NonNull
-    public UserProfile findUserProfile(@NonNull String userId) {
-        try {
-            return userProfilePort.findUser(userId);
-        } catch (UserNotFoundException e) {
-            return UserProfile.createUnknownUser(userId);
-        }
+  @Override
+  @NonNull
+  public UserProfile findUserProfile(@NonNull String userId) {
+    try {
+      return userProfilePort.findUser(userId);
+    } catch (UserNotFoundException e) {
+      return UserProfile.createUnknownUser(userId);
     }
+  }
 }

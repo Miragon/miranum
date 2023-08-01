@@ -2,14 +2,19 @@
   <div>
     <v-list-item
       :aria-label="'Vorgang '+item.definitionName+ ' öffnen'"
-      :to="'/instance/'+item.id"
       class="d-flex justify-space-between"
+      :data-cy="'process-instance-item-' + item.id"
+      :data-element-key="item.id"
+      :to="'/instance/'+item.id"
     >
       <v-flex
         class="d-flex flex-column processColumn"
         style="min-height: 4.5rem; max-height: 6rem; margin: 8px 0"
       >
-        <h2 class="processTitle">
+        <h2
+          class="processTitle"
+          data-cy="definition-name"
+        >
           <text-highlight :queries="searchString">
             {{ item.definitionName }}
           </text-highlight>
@@ -19,19 +24,21 @@
         </span>
       </v-flex>
       <v-flex
-        class="processColumn"
         style="min-width: 150px; max-width: 150px"
+        class="processColumn"
+        data-cy="status"
       >
         <span>
           <text-highlight :queries="searchString"> {{ item.status }}</text-highlight>
         </span>
       </v-flex>
       <v-flex
-        class="processColumn"
         style="min-width: 100px; max-width: 100px"
+        class="processColumn"
+        data-cy="start-time"
       >
         <span class="taskInfo">
-          {{ createdAt }}
+          {{ item.startTime }}
         </span>
       </v-flex>
       <div
@@ -39,24 +46,25 @@
         style="min-width: 30px; max-width: 30px"
       >
         <v-menu
-          offset-x
           top
+          offset-x
         >
           <template #activator="{ on, attrs }">
             <v-btn
-              v-on.prevent="on"
               icon
               v-bind="attrs"
               @click="(event) => { event.preventDefault()}"
+              v-on.prevent="on"
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
           <v-list>
             <v-list-item
-              :to="'/instance/'+item.id"
               link
+              :to="'/instance/'+item.id"
               @click="(event) => { event.preventDefault()}"
+              data-cy="open-instance"
             >
               <v-list-item-title>Anzeigen</v-list-item-title>
             </v-list-item>
@@ -89,27 +97,24 @@
 </style>
 
 <script lang="ts">
-import {Component, Emit, Prop, Vue} from "vue-property-decorator";
-import {ServiceInstanceTO} from '@miragon/digiwf-engine-api-internal';
-import {DateTime} from "luxon";
+import {PropType} from "vue";
+import {ProcessInstance} from "../../middleware/processInstances/processInstancesMiddleware";
 
-@Component
-export default class ProcessDefinitionItem extends Vue {
-
-  @Prop()
-  item!: ServiceInstanceTO;
-
-  @Prop()
-  searchString!: string;
-
-  get createdAt(): string {
-    return DateTime.fromISO(this.item.startTime!).toLocaleString(DateTime.DATETIME_SHORT);
+export default {
+  props: {
+    item: {
+      type: Object as PropType<ProcessInstance>,
+      required: true
+    },
+    searchString: {
+      type: String,
+      default: ""
+    }
+  },
+  emits: {
+    click: {
+      type: Function as PropType<(id: string) => void>
+    }
   }
-
-  @Emit("on-click")
-  onClick(): string {
-    return this.item.id!;
-  }
-
-}
+};
 </script>

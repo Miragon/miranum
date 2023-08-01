@@ -8,7 +8,7 @@
     "watch": "vite build --watch"
   },
   "peerDependencies": {
-    "@miragon/vjsf": "^2.1.4",
+    "@muenchen/vjsf": "^2.21.7",
     "vue": "^2.7.0",
     "vuetify": "^2.6.0"
   },

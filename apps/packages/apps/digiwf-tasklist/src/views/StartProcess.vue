@@ -12,6 +12,7 @@
       <h1>{{ process.name }}</h1>
       <p>{{ process.description }}</p>
       <app-json-form
+        :is-completing="isCompleting"
         :schema="process.jsonSchema"
         :value="{}"
         @complete-form="startProcess"
@@ -28,29 +29,30 @@
 
 <script lang="ts">
 
-import {Component, Prop, Provide} from "vue-property-decorator";
+import {Component, Prop, Provide, Vue} from "vue-property-decorator";
 import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import BaseForm from "@/components/form/BaseForm.vue";
 import AppToast from "@/components/UI/AppToast.vue";
 import router from "../router";
+import AppYesNoDialog from "@/components/common/AppYesNoDialog.vue";
 
 import {
   FetchUtils,
-  ServiceDefinitionControllerApiFactory,
-  ServiceDefinitionDetailTO,
-  StartInstanceTO
+  ProcessDefinitionControllerApiFactory,
+  ProcessDefinitionWithSchemaDto,
+  StartInstanceDto
 } from '@miragon/digiwf-engine-api-internal';
 
 import {FormContext} from "@miragon/digiwf-multi-file-input";
 import {ApiConfig} from "../api/ApiConfig";
-import Vue from "vue";
+import {invalidUserTasks} from "../middleware/tasks/taskMiddleware";
+import {invalidProcessInstances} from "../middleware/processInstances/processInstancesMiddleware";
 
 @Component({
-  components: {BaseForm, AppToast, AppViewLayout}
+  components: {AppToast, AppViewLayout, AppYesNoDialog}
 })
 export default class StartProcess extends Vue {
 
-  process: ServiceDefinitionDetailTO | null = null;
+  process: ProcessDefinitionWithSchemaDto | null = null;
   errorMessage = "";
   hasChanges = false;
   isCompleting = false;
@@ -63,8 +65,8 @@ export default class StartProcess extends Vue {
 
   @Provide('formContext')
   get formContext(): FormContext {
-    return {id: this.processKey, type: "start"}
-  };
+    return {id: this.processKey, type: "start"};
+  }
 
   created() {
     this.loadProcess();
@@ -76,19 +78,19 @@ export default class StartProcess extends Vue {
     let hasError = false;
     const startTime = new Date().getTime();
 
-    const request: StartInstanceTO = {
+    const request: StartInstanceDto = {
       key: this.processKey,
       variables: model
     };
     try {
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getPOSTConfig({}));
-      await ServiceDefinitionControllerApiFactory(cfg).startInstance(request);
+      await ProcessDefinitionControllerApiFactory(cfg).startInstance(request);
 
       this.errorMessage = "";
-      this.$store.dispatch('tasks/getTasks', true);
-      this.$store.dispatch('processInstances/getProcessInstances', true);
+      invalidUserTasks();
+      invalidProcessInstances();
 
-      //hier evenutell zum userTask routen
+      // hier eventuell zum userTask routen
       this.hasChanges = false;
       router.push({path: '/process'});
     } catch (error) {
@@ -107,8 +109,8 @@ export default class StartProcess extends Vue {
     cfg.baseOptions.validateStatus = function (status: number) {
       return status >= 200 && status < 500;
     }; // override axios default impl. (holding back http statuses >= 300)
-    ServiceDefinitionControllerApiFactory(cfg)
-      .getServiceDefinition(this.processKey)
+    ProcessDefinitionControllerApiFactory(cfg)
+      .getProcessDefinition(this.processKey)
       .then((res) => {
         if (res.status >= 200 && res.status < 300) { // as in axios default impl.
           this.process = res.data;
@@ -126,14 +128,6 @@ export default class StartProcess extends Vue {
       .catch(() => {
         this.errorMessage = "Der Vorgang konnte nicht geladen werden.";
       });
-  }
-
-  setDirty(): void {
-    this.hasChanges = true;
-  }
-
-  isDirty(): boolean {
-    return this.hasChanges;
   }
 
 }

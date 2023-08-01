@@ -12,5 +12,10 @@
         <version>${revision}</version>
     </parent>
 
+    <modules>
+        <module>s3-integration</module>
+        <module>spring-security</module>
+    </modules>
+
 
 </project>

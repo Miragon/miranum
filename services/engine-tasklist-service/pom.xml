@@ -17,6 +17,7 @@
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
@@ -69,6 +70,13 @@
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>engine-backend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>spring-security-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 

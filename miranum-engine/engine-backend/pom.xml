@@ -11,10 +11,6 @@
         <version>${revision}</version>
     </parent>
 
-    <properties>
-        <rest.base-package-name>io.miranum.platform.tasklist.adapter.in.rest</rest.base-package-name>
-    </properties>
-
     <dependencies>
 
         <!-- Spring -->
@@ -33,7 +29,24 @@
             <artifactId>camunda-engine</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>s3-integration-client-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- Feign -->
         <dependency>
@@ -76,18 +89,7 @@
             <artifactId>digiwf-json-serialization-starter</artifactId>
             <version>0.17.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine-plugin-spin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
-        </dependency>
+
 
         <!-- OpenApi -->
         <dependency>

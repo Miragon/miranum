@@ -1,5 +1,5 @@
 {
-  "name": "@muenchen/digiwf-apps",
+  "name": "@miragon/digiwf-apps",
   "description": "Vue JS Monorepo with Lerna and Vite",
   "scripts": {
     "init": "npm install && npm run clean && lerna bootstrap",

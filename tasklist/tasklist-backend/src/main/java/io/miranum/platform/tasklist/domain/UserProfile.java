@@ -8,23 +8,22 @@ import org.springframework.lang.NonNull;
  */
 @Data
 public class UserProfile {
-    private final String userId;
-    private final String firstName;
-    private final String lastName;
-    private final String primaryOrgUnit;
+  private final String userId;
+  private final String firstName;
+  private final String lastName;
+  private final String primaryOrgUnit;
 
-    /**
-     * Factory method to create unknown users.
-     *
-     * @param userId user id of the unknown user.
-     * @return Null object.
-     */
-    public static UserProfile createUnknownUser(@NonNull String userId) {
-        return new UserProfile(
-                userId,
-                "Unbekannt",
-                "Unbekannt",
-                "keine"
-        );
-    }
+  /**
+   * Factory method to create unknown users.
+   * @param userId user id of the unknown user.
+   * @return Null object.
+   */
+  public static UserProfile createUnknownUser(@NonNull String userId) {
+    return new UserProfile(
+        userId,
+        "Unbekannt",
+        "Unbekannt",
+        "keine"
+    );
+  }
 }

@@ -94,7 +94,7 @@ spring:
             scope: email, profile, openid
 
 springdoc:
-  packagesToScan: io.miranum.platform
+  packagesToScan: io.miranum.platform.engine
   pathsToMatch: /**
   swagger-ui:
     oauth:
@@ -108,10 +108,15 @@ springdoc:
 
 #Polyflow
 polyflow:
+  axon:
+    kafka:
+      enabled: true
   view:
     jpa:
-      stored-items: TASK, DATA_ENTRY
-
+      stored-items: TASK, DATA_ENTRY # currently only tasks and data entries, no process definition or process instances
+      payload-attribute-level-limit: 1
+      task-filters:
+        include: unknown
 feign:
   client:
     config:
@@ -119,3 +124,7 @@ feign:
         url: ${ENGINE_SCHEMA_URL}
       task-schema:
         url: ${ENGINE_SCHEMA_URL}
+
+miranum:
+  s3service:
+    http-API: ${DOCUMENT_STORAGE_HOST}:${DOCUMENT_STORAGE_PORT}

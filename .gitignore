@@ -397,3 +397,4 @@ gradle-app.setting
 **/application-internal.*
 
 **/credentials.properties
+/platform-stack/minio/

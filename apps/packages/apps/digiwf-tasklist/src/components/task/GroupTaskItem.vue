@@ -147,6 +147,6 @@ export default {
       type: Function as PropType<(id: string) => void>
     }
   }
-}
+};
 
 </script>

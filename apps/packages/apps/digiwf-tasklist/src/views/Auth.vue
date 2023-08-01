@@ -14,8 +14,8 @@ export default defineComponent({
     const service = useServices();
     const authenticateOidc = async () => {
       try {
-        console.log('authenticating')
-        await service.$auth.signinCallback()
+        const user = await service.$auth.signinCallback()
+        console.log(user)
         router.push('/')
       } catch (error) {
         console.log(error)
