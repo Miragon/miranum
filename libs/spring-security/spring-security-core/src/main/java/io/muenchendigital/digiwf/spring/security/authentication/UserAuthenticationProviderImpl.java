@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 import static io.muenchendigital.digiwf.spring.security.SecurityConfiguration.SECURITY;
 
@@ -46,11 +47,17 @@ public class UserAuthenticationProviderImpl implements UserAuthenticationProvide
     @NonNull
     public String getLoggedInUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof Jwt) {
-            final Jwt jwt = (Jwt) authentication.getPrincipal();
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
             return (String) jwt.getClaims().get(userNameAttribute);
         }
         return NAME_UNAUTHENTICATED_USER;
+    }
+
+    @Override
+    @NonNull
+    public List<String> getLoggedInUserRoles() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream().map(Object::toString).map(obj -> obj.replaceFirst("^ROLE_", "")).toList();
     }
 
 }

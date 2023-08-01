@@ -20,7 +20,7 @@ import {dateToIsoDateTime, getCurrentDate} from "../../utils/time";
 import router from "../../router";
 import {queryClient} from "../queryClient";
 import store from "../../store";
-import {getUserInfo} from "../user/userMiddleware";
+import {searchUser} from "../user/userMiddleware";
 import {PageOfTasks, Task} from "@miragon/digiwf-task-api-internal";
 import {addFinishedTaskIds, isInFinishedProcess} from "./finishedTaskFilter";
 
@@ -33,7 +33,7 @@ export const invalidUserTasks = () =>
 const addUserToTask = (r: Task): Promise<HumanTask> => {
   return (
     r.assignee
-      ? getUserInfo(r.assignee)
+      ? searchUser(r.assignee)
       : Promise.resolve(undefined)
   )
     .then(user => Promise.resolve(mapTaskFromTaskService(r, isInFinishedProcess(r.id), user)));
@@ -138,10 +138,10 @@ export const useNumberOfTasks = (): UseNumberOfTasksReturn => {
 export const useAssignTaskMutation = () => {
   const queryClient = useQueryClient();
 
-  const lhmObjectId = (useStore().state as any).user?.info?.lhmObjectId;
+  const username = (useStore().state as any).user?.username;
   return useMutation<void, any, string>({
     mutationFn: (taskId) => {
-      return callPostAssignTaskInTaskService(taskId, lhmObjectId)
+      return callPostAssignTaskInTaskService(taskId, username)
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["user-tasks"]);
@@ -189,7 +189,7 @@ const loadTaskFromTaskService = (taskId: string): Promise<LoadTaskResult> => {
   return callGetTaskDetailsFromTaskService(taskId)
     .then(taskResponse => {
       return (taskResponse.assignee
-          ? getUserInfo(taskResponse.assignee)
+          ? searchUser(taskResponse.assignee)
           : Promise.resolve<undefined>(undefined)
       ).then((user) => {
         const taskDetails = mapTaskDetailsFromTaskService(taskResponse, isInFinishedProcess(taskId), user);
@@ -339,9 +339,10 @@ interface AssignTaskResult {
 }
 
 export const assignTask = (taskId: string,): Promise<AssignTaskResult> => {
-  const userId = store.getters["user/info"].lhmObjectId;
+  const username = store.getters["user/info"].username;
+  console.log("assign " + username)
   return (
-    callPostAssignTaskInTaskService(taskId, userId)
+    callPostAssignTaskInTaskService(taskId, username)
   ).then(() => {
     router.push({path: "/task/" + taskId});
     invalidUserTasks();

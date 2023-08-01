@@ -21,11 +21,6 @@ public class UserQueryService implements UserQuery {
     }
 
     @Override
-    public User getUserById(String id) {
-        return userPort.findById(id).orElseThrow();
-    }
-
-    @Override
     public User getUserByUserName(String username) {
         return this.userPort.findByUsername(username).orElseThrow();
     }

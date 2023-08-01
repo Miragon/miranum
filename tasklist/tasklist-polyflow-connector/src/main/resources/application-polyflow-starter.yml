@@ -31,8 +31,6 @@ polyflow:
           importer:
             enabled: true
             task-filter-type: eventstore
-          excluded-task-event-names: assignment # even if not used in polyflow, but generally ignore
-          excluded-history-event-names: add-identity-link, delete-identity-link # ignore historic events used for assignment
     sender:
       enabled: true
       task:

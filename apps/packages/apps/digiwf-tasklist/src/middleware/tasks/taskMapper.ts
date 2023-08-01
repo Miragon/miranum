@@ -15,7 +15,7 @@ export const mapTaskFromTaskService = (response: Task, inFinishProcess: boolean,
     name: response.name || "-",
     processName: response.processName,
     assigneeId: response.assignee,
-    assigneeFormatted: user && user.fullInfo,
+    assigneeFormatted: user?.firstName + " " + user?.surname,
     inFinishProcess,
   };
 };
@@ -40,7 +40,7 @@ export const mapTaskDetailsFromTaskService = (response: TaskWithSchema, inFinish
     name: response.name || "-",
     processName: response.processName,
     assigneeId: response.assignee,
-    assigneeFormatted: user && `${user.firstName} ${user.surname} (${user.ou})`,
+    assigneeFormatted: user && `${user.firstName} ${user.surname}`,
     variables: response.variables,
     processInstanceId: response.processInstanceId,
     schema: response.schemaType === "SCHEMA_BASED" ? response.schema : undefined,

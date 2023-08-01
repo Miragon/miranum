@@ -32,6 +32,7 @@ export const callGetAssignedGroupTasksFromTaskService = (page: number, size: num
 };
 
 export const callPostAssignTaskInTaskService = (taskId: string, assignee: string): Promise<void> => {
+  console.log("assignee: " + assignee);
   const cfg = ApiConfig.getTasklistAxiosConfig(FetchUtils.getPOSTConfig({}));
   return TaskApiFactory(cfg).assignTask(taskId, {assignee})
     .then(() => Promise.resolve())

@@ -6,14 +6,7 @@ import io.miranum.platform.engine.domain.user.User;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Repository to load users.
- *
- * @author externer.dl.horn
- */
 public interface UserPort {
-
-    Optional<User> findById(String id);
 
     Optional<User> findByUsername(String username);
 

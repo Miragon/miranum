@@ -1,7 +1,7 @@
 import {ActionContext} from "vuex";
 import {RootState} from "../index";
-import {FetchUtils, UserControllerApiFactory, UserDto} from '@miragon/digiwf-engine-api-internal';
-import {ApiConfig} from "../../api/ApiConfig";
+import {FetchUtils, UserDto} from '@miragon/digiwf-engine-api-internal';
+import {useServices} from "../../hooks/store";
 
 export interface UserState {
   info: UserDto;
@@ -40,12 +40,20 @@ export default {
       if (!forceRefresh && !context.getters.shouldUpdate()) {
         return;
       }
-      const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
-
       try {
-        const res = await UserControllerApiFactory(cfg).userinfo();
+        const auth = useServices().$auth;
+        const res = await auth.getUser()
 
-        context.commit('setUser', res.data);
+        const user: UserDto = {
+          username: res!.profile.user_name,
+          surname: res!.profile.family_name,
+          forename: res!.profile.given_name,
+        }
+
+        console.log("USER COMES NOW");
+        console.log(user);
+
+        context.commit('setUser', user);
         context.commit('setLastFetch');
       } catch (error: any) {
         FetchUtils.defaultCatchHandler(error, "Der Benutzer konnte nicht geladen werden. Bitte versuchen Sie es erneut.");

@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+
 import static io.muenchendigital.digiwf.spring.security.NoSecurityConfiguration.NO_SECURITY;
 
 /**
@@ -22,6 +25,11 @@ public class NoSecurityUserAuthenticationProvider implements UserAuthenticationP
     @NonNull
     public String getLoggedInUser() {
         return springSecurityProperties.getFallbackUsername();
+    }
+
+    @Override
+    public List<String> getLoggedInUserRoles() {
+        return Collections.emptyList();
     }
 
 }

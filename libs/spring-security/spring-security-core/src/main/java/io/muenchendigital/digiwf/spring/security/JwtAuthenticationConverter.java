@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-    private static final String CLAIM_ROLES = "user_roles";
+    private static final String CLAIM_ROLES = "roles";
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt source) {

@@ -1,0 +1,56 @@
+id: johndoe
+author: Miranum
+realm: ${SSO_REALM}
+changes:
+  - addUser:
+      name: alex
+      firstName: Alex
+      lastName: Admin
+      enabled: true
+      emailVerified: true
+      email: alex.admin@example.com
+      attributes:
+        user_name:
+          - alex.admin
+      clientRoles:
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: clientrole_deployer
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: clientrole_task_importer
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: admin
+  - updateUserPassword:
+      name: alex
+      password: "test"
+  - addUser:
+      name: oliver
+      firstName: Oliver
+      lastName: Office
+      enabled: true
+      emailVerified: true
+      email: oliver.office@example.com
+      attributes:
+        user_name:
+          - oliver.office
+      clientRoles:
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: office
+  - updateUserPassword:
+      name: oliver
+      password: "test"
+  - addUser:
+      name: olga
+      firstName: Olga
+      lastName: Office
+      enabled: true
+      emailVerified: true
+      email: olga.office@example.com
+      attributes:
+        user_name:
+          - olga.office
+      clientRoles:
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: office
+  - updateUserPassword:
+      name: olga
+      password: "test"

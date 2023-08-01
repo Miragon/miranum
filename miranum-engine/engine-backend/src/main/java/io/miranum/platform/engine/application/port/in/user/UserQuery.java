@@ -8,7 +8,5 @@ public interface UserQuery {
 
     List<User> searchUser(String query);
 
-    User getUserById(String id);
-
     User getUserByUserName(String username);
 }

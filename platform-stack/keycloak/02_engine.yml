@@ -21,3 +21,13 @@ changes:
       clientRole: true
       name: clientrole_task_importer
       description: Can import user task from the engine to Polyflow.
+  - addRole:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientRole: true
+      name: admin
+      description: Role Admin
+  - addRole:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientRole: true
+      name: office
+      description: Office office

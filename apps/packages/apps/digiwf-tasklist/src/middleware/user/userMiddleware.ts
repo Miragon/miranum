@@ -1,9 +1,21 @@
-import {User} from "./userModels";
-import {callGetUserInfoFromTaskService} from "../../api/user/userApiCalls";
-import {mapUserResponse} from "./userMapper";
-import {queryClient} from "../queryClient";
+import {useServices} from "../../hooks/store";
+import {User} from "../user/userModels";
+import {getUserByUsername} from "../../api/users/usersApiCalls";
 
-export const getUserInfo = (id: string) => queryClient.fetchQuery<User>({
-  queryKey: ["user-info", id],
-  queryFn: () => callGetUserInfoFromTaskService(id).then(data => Promise.resolve(mapUserResponse(data)))
-});
+export const getUserInfo = async (): Promise<String> => {
+  const authService = useServices().$auth;
+  const user = await authService.getUser();
+  return user?.profile + "";
+}
+
+export const searchUser = (username: string): Promise<User> => {
+
+  return getUserByUsername(username).then(r => {
+    return {
+      username: r.username!,
+      firstName: r.forename!,
+      surname: r.surname!
+    }
+  });
+
+}
