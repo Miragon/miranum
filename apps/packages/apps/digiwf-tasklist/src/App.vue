@@ -3,7 +3,7 @@
     <v-app-bar
       app
       clipped-left
-      color="secondary"
+      color="primary"
       dark
     >
       <v-app-bar-nav-icon
@@ -17,8 +17,7 @@
         to="/"
       >
         <v-toolbar-title class="font-weight-bold">
-          <span class="white--text">Digi</span>
-          <span style="color: #FFCC00">WF</span>
+          <span class="white--text">Miranum</span>
         </v-toolbar-title>
       </router-link>
       <v-spacer/>

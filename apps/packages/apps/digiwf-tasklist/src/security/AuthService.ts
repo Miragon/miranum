@@ -18,6 +18,7 @@ export default class AuthService {
     };
 
     this.userManager = new UserManager(oidcConfig)
+    this.userManager.startSilentRenew()
   }
 
   public getUser(): Promise<User | null> {

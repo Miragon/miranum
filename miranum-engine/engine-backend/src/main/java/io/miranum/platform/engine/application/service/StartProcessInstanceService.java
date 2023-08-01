@@ -5,9 +5,11 @@ import io.miranum.platform.engine.adapter.out.engine.MiranumEngineDataMapper;
 import io.miranum.platform.engine.application.port.in.process.StartProcessInstanceUseCase;
 import io.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
 import io.miranum.platform.engine.application.port.out.process.MiranumProcessInstancePort;
+import io.miranum.platform.engine.application.port.out.process.StartContextPort;
 import io.miranum.platform.engine.application.port.out.process.StartProcessInstancePort;
 import io.miranum.platform.engine.domain.process.MiranumProcessDefinitionWithSchema;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstance;
+import io.miranum.platform.engine.domain.process.StartContext;
 import io.muenchendigital.digiwf.json.serialization.JsonSerializationService;
 import io.muenchendigital.digiwf.json.validation.JsonSchemaValidator;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Service to query service definitions.
@@ -29,6 +32,7 @@ public class StartProcessInstanceService implements StartProcessInstanceUseCase 
     private final MiranumProcessDefinitionPort miranumProcessDefinitionPort;
     private final StartProcessInstancePort startProcessInstancePort;
     private final MiranumProcessInstancePort miranumProcessInstancePort;
+    private final StartContextPort startContextPort;
 
     private final MiranumEngineDataMapper engineDataMapper;
     private final JsonSchemaValidator validationService;
@@ -42,14 +46,13 @@ public class StartProcessInstanceService implements StartProcessInstanceUseCase 
 
         final MiranumProcessDefinitionWithSchema processDefinition = this.miranumProcessDefinitionPort.getProcessDefinitionWithSchema(definitionKey);
 
-
-        //TODO initialize variables
         final Map<String, Object> serializedVariables = this.serializeVariables(processDefinition, variables);
-
+        final Optional<String> contextId = startContextPort.searchStartContext(userId, processDefinition.getKey()).map(StartContext::getId);
 
         //add other serializer
         variables.put(ProcessConstants.PROCESS_STARTER_OF_INSTANCE, userId);
         variables.put(ProcessConstants.PROCESS_STATUS, "started");
+        contextId.ifPresent(id -> variables.put(ProcessConstants.PROCESS_FILE_CONTEXT, id));
 
         final MiranumProcessInstance processInstance = this.startProcessInstancePort.startProcessInstance(processDefinition.getName(), processDefinition.getKey(), serializedVariables);
 
@@ -67,18 +70,11 @@ public class StartProcessInstanceService implements StartProcessInstanceUseCase 
     }
 
     private Map<String, Object> initalizeData(final MiranumProcessDefinitionWithSchema definition, final Map<String, Object> variables) {
-        //1. filter readonly data
         final JSONObject filteredData = this.serializationService.filter(definition.getJsonSchema().asMap(), variables, true);
-        //2. validate data
         this.validationService.validate(definition.getJsonSchema().asMap(), filteredData.toMap());
-        //3. simulate previous data for merging and removing JSON.null values
         final JSONObject previousData = this.serializationService.initialize(new JSONObject(definition.getJsonSchema()).toString());
         final Map<String, Object> clearedData = this.serializationService.merge(filteredData, previousData);
-        //4. merge with default values
-        final JSONObject defaultValue = this.serializationService.initialize(new JSONObject(definition.getJsonSchema()).toString());
-        final Map<String, Object> serializedData = this.serializationService.merge(new JSONObject(clearedData), defaultValue);
-        //5. map to engine data and return
-        return this.engineDataMapper.mapObjectsToVariables(serializedData);
+        return this.engineDataMapper.mapObjectsToVariables(clearedData);
     }
 
 

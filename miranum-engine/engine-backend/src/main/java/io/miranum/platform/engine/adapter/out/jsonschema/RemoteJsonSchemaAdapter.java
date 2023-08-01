@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class EngineRemoteJsonSchemaAdapter implements JsonSchemaPort {
+public class RemoteJsonSchemaAdapter implements JsonSchemaPort {
 
     private final SchemaClient schemaClient;
     private final JsonSerializationService serializationService;

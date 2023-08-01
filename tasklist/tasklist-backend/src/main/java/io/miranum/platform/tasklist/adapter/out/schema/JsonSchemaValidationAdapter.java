@@ -1,11 +1,11 @@
 package io.miranum.platform.tasklist.adapter.out.schema;
 
 import io.holunda.polyflow.view.Task;
+import io.miranum.platform.tasklist.application.port.out.schema.JsonSchemaValidationPort;
+import io.miranum.platform.tasklist.domain.JsonSchema;
 import io.muenchendigital.digiwf.json.serialization.JsonSerializationService;
 import io.muenchendigital.digiwf.json.validation.DigiWFValidationException;
 import io.muenchendigital.digiwf.json.validation.JsonSchemaValidator;
-import io.miranum.platform.tasklist.application.port.out.schema.JsonSchemaValidationPort;
-import io.miranum.platform.tasklist.domain.JsonSchema;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.json.JSONObject;
@@ -30,10 +30,7 @@ public class JsonSchemaValidationAdapter implements JsonSchemaValidationPort {
         val taskData = this.engineDataMapper.mapToData(task.getPayload());
         val targetData = this.serializationService.deserializeData(schema.asMap(), taskData);
         val serializedData = this.serializationService.merge(filteredData, new JSONObject(targetData));
-        val defaultValue = this.serializationService.initialize(new JSONObject(schema.getSchema()).toString());
-        val serializedDataWithDefaultValues = this.serializationService.merge(new JSONObject(serializedData), defaultValue);
-
-        return this.engineDataMapper.mapObjectsToVariables(serializedDataWithDefaultValues);
+        return this.engineDataMapper.mapObjectsToVariables(serializedData);
     }
 
     @Override

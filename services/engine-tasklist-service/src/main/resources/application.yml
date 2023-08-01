@@ -108,9 +108,6 @@ springdoc:
 
 #Polyflow
 polyflow:
-  axon:
-    kafka:
-      enabled: true
   view:
     jpa:
       stored-items: TASK, DATA_ENTRY # currently only tasks and data entries, no process definition or process instances
@@ -128,3 +125,7 @@ feign:
 miranum:
   s3service:
     http-API: ${DOCUMENT_STORAGE_HOST}:${DOCUMENT_STORAGE_PORT}
+logging.level:
+  io:
+    holunda:
+      polyflow: DEBUG

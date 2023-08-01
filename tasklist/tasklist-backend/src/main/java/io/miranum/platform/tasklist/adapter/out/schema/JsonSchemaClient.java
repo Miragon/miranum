@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Map;
 
 @FeignClient(
-        name = "${feign.client.config.jsonschema.name:jsonschema}",
-        url = "${feign.client.config.jsonschema.url:${feign.client.config.default.url:http://localhost:8080/engine-rest}}"
+        name = "${feign.client.config.jsonschema.name:task-schema}",
+        url = "${feign.client.config.engine-schema.url:${feign.client.config.default.url:http://localhost:8080/schema-registry}}"
 )
 public interface JsonSchemaClient {
 
-  @RequestMapping(value = "/rest/jsonschema/{schemaId}", method = {RequestMethod.GET}, produces = {"application/json"})
-  Map<String, Object> getSchemaById(@PathVariable("schemaId") String schemaId);
+    @RequestMapping(value = "/schema/{bundle}/{ref}/{tag}", method = {RequestMethod.GET}, produces = {"application/json"})
+    Map<String, Object> getSchemaById(@PathVariable("bundle") String bundle, @PathVariable("ref") String ref, @PathVariable("tag") String tag);
 }
