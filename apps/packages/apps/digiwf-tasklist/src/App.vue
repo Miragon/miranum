@@ -165,7 +165,7 @@ export default class App extends Vue {
         }
         this.loadData();
       });
-    }, 1000);
+    }, 500);
   }
 
   loadData(refresh = false): void {

@@ -14,6 +14,7 @@ export default defineComponent({
     const service = useServices();
     const authenticateOidc = async () => {
       try {
+        await service.$auth.initUserManager()
         const user = await service.$auth.signinCallback()
         console.log(user)
         router.push('/')

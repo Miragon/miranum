@@ -8,6 +8,7 @@ export function useStore(key = null) {
 }
 
 const authService = new AuthService();
+authService.initUserManager()
 
 export const useServices = () => {
   return {

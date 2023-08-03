@@ -13,6 +13,7 @@ export default defineComponent({
 
     const logOutOidc = async () => {
       try {
+        await services.$auth.initUserManager()
         await services.$auth.logout()
       } catch (error) {
         console.log(error)
