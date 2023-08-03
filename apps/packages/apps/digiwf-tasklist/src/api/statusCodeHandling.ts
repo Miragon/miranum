@@ -25,7 +25,6 @@ export const initStatusCodeHandling = () => {
 
       // if request is a cors exception or was automatically forwarded
       if (error.code === "ERR_NETWORK" || !configUrl.startsWith(responseURLPath)) {
-        console.log("Request was redirect to other endpoint")
         statusCodeHandler[302] && statusCodeHandler[302](error.response);
       }
       return error

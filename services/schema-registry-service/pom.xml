@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>services</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <properties>
@@ -56,12 +56,18 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>schema-registry</artifactId>
-            <version>0.2.0</version>
+            <version>0.3.0</version>
         </dependency>
 
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

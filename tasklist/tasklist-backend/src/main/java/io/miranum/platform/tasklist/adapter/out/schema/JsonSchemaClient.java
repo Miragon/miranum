@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Map;
 
 @FeignClient(
-        name = "${feign.client.config.task-schema.name:task-schema}",
-        url = "${feign.client.config.task-schema.url:${feign.client.config.default.url:http://localhost:8080/schema-registry}}"
+        name = "${feign.client.config.jsonschema.name:task-schema}",
+        url = "${feign.client.config.engine-schema.url:${feign.client.config.default.url:http://localhost:8080/schema-registry}}"
 )
 public interface JsonSchemaClient {
 

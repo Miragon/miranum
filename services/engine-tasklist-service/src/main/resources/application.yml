@@ -1,7 +1,8 @@
 info:
   application:
-    name: Miranum Engine
-    version: 0.1.0
+    name: @project.artifactId@
+    version: @project.version@
+
 camunda:
   bpm:
     authorization:
@@ -57,9 +58,10 @@ server:
     include-stacktrace: never
     whitelabel:
       enabled: false
+
 spring:
   application:
-    name: ${info.application.name}
+    name: @project.artifactId@
   datasource:
     url: '${ENGINE_DATASOURCE_URL:jdbc:h2:file:~/backenddb;DB_CLOSE_ON_EXIT=FALSE}'
     username: '${ENGINE_DATASOURCE_USER:sa}'
@@ -94,7 +96,7 @@ spring:
             scope: email, profile, openid
 
 springdoc:
-  packagesToScan: io.miranum.platform
+  packagesToScan: io.miranum.platform.engine
   pathsToMatch: /**
   swagger-ui:
     oauth:
@@ -110,8 +112,10 @@ springdoc:
 polyflow:
   view:
     jpa:
-      stored-items: TASK, DATA_ENTRY
-
+      stored-items: TASK, DATA_ENTRY # currently only tasks and data entries, no process definition or process instances
+      payload-attribute-level-limit: 1
+      task-filters:
+        include: unknown
 feign:
   client:
     config:
@@ -119,3 +123,11 @@ feign:
         url: ${ENGINE_SCHEMA_URL}
       task-schema:
         url: ${ENGINE_SCHEMA_URL}
+
+miranum:
+  s3service:
+    http-API: ${DOCUMENT_STORAGE_HOST}:${DOCUMENT_STORAGE_PORT}
+logging.level:
+  io:
+    holunda:
+      polyflow: DEBUG

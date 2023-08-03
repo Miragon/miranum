@@ -8,10 +8,9 @@ import org.springframework.lang.NonNull;
  */
 @Data
 public class UserProfile {
-    private final String userId;
+    private final String username;
     private final String firstName;
     private final String lastName;
-    private final String primaryOrgUnit;
 
     /**
      * Factory method to create unknown users.
@@ -23,8 +22,7 @@ public class UserProfile {
         return new UserProfile(
                 userId,
                 "Unbekannt",
-                "Unbekannt",
-                "keine"
+                "Unbekannt"
         );
     }
 }

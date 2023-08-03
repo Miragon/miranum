@@ -1,5 +1,5 @@
 <template>
-  <div>logged in</div>
+  <div></div>
 </template>
 
 <script lang="ts">
@@ -14,8 +14,9 @@ export default defineComponent({
     const service = useServices();
     const authenticateOidc = async () => {
       try {
-        console.log('authenticating')
-        await service.$auth.signinCallback()
+        await service.$auth.initUserManager()
+        const user = await service.$auth.signinCallback()
+        console.log(user)
         router.push('/')
       } catch (error) {
         console.log(error)

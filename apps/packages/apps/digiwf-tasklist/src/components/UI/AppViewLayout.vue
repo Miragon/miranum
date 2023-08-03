@@ -9,10 +9,7 @@
 <style scoped>
 .viewContainer {
   max-width: 1100px;
-  padding-bottom: 0;
   position: relative;
-  margin-right: auto;
-  margin-left: 50px;
 }
 </style>
 

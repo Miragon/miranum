@@ -204,6 +204,12 @@ export interface Task {
      * @memberof Task
      */
     'schemaRef': string;
+    /**
+     * 
+     * @type {TaskSchemaType}
+     * @memberof Task
+     */
+    'schemaType': TaskSchemaType;
 }
 /**
  * Task assignment information.
@@ -250,6 +256,19 @@ export interface TaskDeferral {
      */
     'followUpDate': string;
 }
+/**
+ * Task schema type.
+ * @export
+ * @enum {string}
+ */
+
+export const TaskSchemaType = {
+    SchemaBased: 'SCHEMA_BASED'
+} as const;
+
+export type TaskSchemaType = typeof TaskSchemaType[keyof typeof TaskSchemaType];
+
+
 /**
  * Represents a user task.
  * @export
@@ -316,6 +335,18 @@ export interface TaskWithDetails {
      * @memberof TaskWithDetails
      */
     'variables': { [key: string]: object; };
+    /**
+     * Flag indicating if a task can be cancelled.
+     * @type {boolean}
+     * @memberof TaskWithDetails
+     */
+    'cancelable': boolean;
+    /**
+     * 
+     * @type {TaskSchemaType}
+     * @memberof TaskWithDetails
+     */
+    'schemaType': TaskSchemaType;
 }
 /**
  * Represents a user task with embedded combined schema.
@@ -383,38 +414,280 @@ export interface TaskWithSchema {
      * @memberof TaskWithSchema
      */
     'variables': { [key: string]: object; };
+    /**
+     * Flag indicating if a task can be cancelled.
+     * @type {boolean}
+     * @memberof TaskWithSchema
+     */
+    'cancelable': boolean;
+    /**
+     * 
+     * @type {TaskSchemaType}
+     * @memberof TaskWithSchema
+     */
+    'schemaType': TaskSchemaType;
 }
+
 /**
- * Profile of the user.
+ * FileApi - axios parameter creator
  * @export
- * @interface UserProfile
  */
-export interface UserProfile {
+export const FileApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get file names for task and fieldKey
+         * @param {string} taskId Task id.
+         * @param {string} filePath File path
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFileNames: async (taskId: string, filePath: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'taskId' is not null or undefined
+            assertParamExists('getFileNames', 'taskId', taskId)
+            // verify required parameter 'filePath' is not null or undefined
+            assertParamExists('getFileNames', 'filePath', filePath)
+            const localVarPath = `/tasks/id/{taskId}/file`
+                .replace(`{${"taskId"}}`, encodeURIComponent(String(taskId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (filePath !== undefined) {
+                localVarQueryParameter['filePath'] = filePath;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a presigned url to load, upload or delete a file for a specific field key and file name
+         * @param {string} taskId Task id.
+         * @param {string} fileName Filename.
+         * @param {string} filePath File path
+         * @param {'GET' | 'PUT' | 'POST' | 'DELETE'} requestMethod HTTP request method.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPresignedUrlForFile: async (taskId: string, fileName: string, filePath: string, requestMethod: 'GET' | 'PUT' | 'POST' | 'DELETE', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'taskId' is not null or undefined
+            assertParamExists('getPresignedUrlForFile', 'taskId', taskId)
+            // verify required parameter 'fileName' is not null or undefined
+            assertParamExists('getPresignedUrlForFile', 'fileName', fileName)
+            // verify required parameter 'filePath' is not null or undefined
+            assertParamExists('getPresignedUrlForFile', 'filePath', filePath)
+            // verify required parameter 'requestMethod' is not null or undefined
+            assertParamExists('getPresignedUrlForFile', 'requestMethod', requestMethod)
+            const localVarPath = `/tasks/id/{taskId}/file/{fileName}`
+                .replace(`{${"taskId"}}`, encodeURIComponent(String(taskId)))
+                .replace(`{${"fileName"}}`, encodeURIComponent(String(fileName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (filePath !== undefined) {
+                localVarQueryParameter['filePath'] = filePath;
+            }
+
+            if (requestMethod !== undefined) {
+                localVarQueryParameter['requestMethod'] = requestMethod;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FileApi - functional programming interface
+ * @export
+ */
+export const FileApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FileApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get file names for task and fieldKey
+         * @param {string} taskId Task id.
+         * @param {string} filePath File path
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFileNames(taskId: string, filePath: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFileNames(taskId, filePath, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a presigned url to load, upload or delete a file for a specific field key and file name
+         * @param {string} taskId Task id.
+         * @param {string} fileName Filename.
+         * @param {string} filePath File path
+         * @param {'GET' | 'PUT' | 'POST' | 'DELETE'} requestMethod HTTP request method.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPresignedUrlForFile(taskId: string, fileName: string, filePath: string, requestMethod: 'GET' | 'PUT' | 'POST' | 'DELETE', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPresignedUrlForFile(taskId, fileName, filePath, requestMethod, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * FileApi - factory interface
+ * @export
+ */
+export const FileApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FileApiFp(configuration)
+    return {
+        /**
+         * Get file names for task and fieldKey
+         * @param {string} taskId Task id.
+         * @param {string} filePath File path
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFileNames(taskId: string, filePath: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getFileNames(taskId, filePath, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a presigned url to load, upload or delete a file for a specific field key and file name
+         * @param {string} taskId Task id.
+         * @param {string} fileName Filename.
+         * @param {string} filePath File path
+         * @param {'GET' | 'PUT' | 'POST' | 'DELETE'} requestMethod HTTP request method.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPresignedUrlForFile(taskId: string, fileName: string, filePath: string, requestMethod: 'GET' | 'PUT' | 'POST' | 'DELETE', options?: any): AxiosPromise<string> {
+            return localVarFp.getPresignedUrlForFile(taskId, fileName, filePath, requestMethod, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getFileNames operation in FileApi.
+ * @export
+ * @interface FileApiGetFileNamesRequest
+ */
+export interface FileApiGetFileNamesRequest {
     /**
-     * Unique user id.
+     * Task id.
      * @type {string}
-     * @memberof UserProfile
+     * @memberof FileApiGetFileNames
      */
-    'userId': string;
+    readonly taskId: string
+
     /**
-     * First name.
+     * File path
      * @type {string}
-     * @memberof UserProfile
+     * @memberof FileApiGetFileNames
      */
-    'firstName': string;
-    /**
-     * Last name.
-     * @type {string}
-     * @memberof UserProfile
-     */
-    'lastName': string;
-    /**
-     * Primary organizational unit.
-     * @type {string}
-     * @memberof UserProfile
-     */
-    'primaryOrgUnit': string;
+    readonly filePath: string
 }
+
+/**
+ * Request parameters for getPresignedUrlForFile operation in FileApi.
+ * @export
+ * @interface FileApiGetPresignedUrlForFileRequest
+ */
+export interface FileApiGetPresignedUrlForFileRequest {
+    /**
+     * Task id.
+     * @type {string}
+     * @memberof FileApiGetPresignedUrlForFile
+     */
+    readonly taskId: string
+
+    /**
+     * Filename.
+     * @type {string}
+     * @memberof FileApiGetPresignedUrlForFile
+     */
+    readonly fileName: string
+
+    /**
+     * File path
+     * @type {string}
+     * @memberof FileApiGetPresignedUrlForFile
+     */
+    readonly filePath: string
+
+    /**
+     * HTTP request method.
+     * @type {'GET' | 'PUT' | 'POST' | 'DELETE'}
+     * @memberof FileApiGetPresignedUrlForFile
+     */
+    readonly requestMethod: 'GET' | 'PUT' | 'POST' | 'DELETE'
+}
+
+/**
+ * FileApi - object-oriented interface
+ * @export
+ * @class FileApi
+ * @extends {BaseAPI}
+ */
+export class FileApi extends BaseAPI {
+    /**
+     * Get file names for task and fieldKey
+     * @param {FileApiGetFileNamesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileApi
+     */
+    public getFileNames(requestParameters: FileApiGetFileNamesRequest, options?: AxiosRequestConfig) {
+        return FileApiFp(this.configuration).getFileNames(requestParameters.taskId, requestParameters.filePath, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a presigned url to load, upload or delete a file for a specific field key and file name
+     * @param {FileApiGetPresignedUrlForFileRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileApi
+     */
+    public getPresignedUrlForFile(requestParameters: FileApiGetPresignedUrlForFileRequest, options?: AxiosRequestConfig) {
+        return FileApiFp(this.configuration).getPresignedUrlForFile(requestParameters.taskId, requestParameters.fileName, requestParameters.filePath, requestParameters.requestMethod, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 /**
  * TaskApi - axios parameter creator
@@ -447,6 +720,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -455,6 +732,43 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(taskAssignment, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Cancels the execution of a user task.
+         * @param {string} taskId Task id.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelTask: async (taskId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'taskId' is not null or undefined
+            assertParamExists('cancelTask', 'taskId', taskId)
+            const localVarPath = `/tasks/id/{taskId}/cancel`
+                .replace(`{${"taskId"}}`, encodeURIComponent(String(taskId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -485,6 +799,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -525,6 +843,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -562,6 +884,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -594,6 +920,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -629,6 +959,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -661,6 +995,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -698,6 +1036,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -734,6 +1076,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -767,6 +1113,10 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -797,6 +1147,16 @@ export const TaskApiFp = function(configuration?: Configuration) {
          */
         async assignTask(taskId: string, taskAssignment: TaskAssignment, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assignTask(taskId, taskAssignment, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Cancels the execution of a user task.
+         * @param {string} taskId Task id.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cancelTask(taskId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTask(taskId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -915,6 +1275,15 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.assignTask(taskId, taskAssignment, options).then((request) => request(axios, basePath));
         },
         /**
+         * Cancels the execution of a user task.
+         * @param {string} taskId Task id.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelTask(taskId: string, options?: any): AxiosPromise<void> {
+            return localVarFp.cancelTask(taskId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Completes task specified by id.
          * @param {string} taskId Task id.
          * @param {{ [key: string]: object; }} requestBody Task variables to use during completion.
@@ -1022,6 +1391,20 @@ export interface TaskApiAssignTaskRequest {
      * @memberof TaskApiAssignTask
      */
     readonly taskAssignment: TaskAssignment
+}
+
+/**
+ * Request parameters for cancelTask operation in TaskApi.
+ * @export
+ * @interface TaskApiCancelTaskRequest
+ */
+export interface TaskApiCancelTaskRequest {
+    /**
+     * Task id.
+     * @type {string}
+     * @memberof TaskApiCancelTask
+     */
+    readonly taskId: string
 }
 
 /**
@@ -1190,6 +1573,17 @@ export class TaskApi extends BaseAPI {
     }
 
     /**
+     * Cancels the execution of a user task.
+     * @param {TaskApiCancelTaskRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TaskApi
+     */
+    public cancelTask(requestParameters: TaskApiCancelTaskRequest, options?: AxiosRequestConfig) {
+        return TaskApiFp(this.configuration).cancelTask(requestParameters.taskId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Completes task specified by id.
      * @param {TaskApiCompleteTaskRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1320,6 +1714,10 @@ export const TasksApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
             }
@@ -1369,6 +1767,10 @@ export const TasksApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -1424,6 +1826,10 @@ export const TasksApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -1702,121 +2108,6 @@ export class TasksApi extends BaseAPI {
      */
     public getUnassignedGroupTasks(requestParameters: TasksApiGetUnassignedGroupTasksRequest = {}, options?: AxiosRequestConfig) {
         return TasksApiFp(this.configuration).getUnassignedGroupTasks(requestParameters.page, requestParameters.size, requestParameters.query, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * UserApi - axios parameter creator
- * @export
- */
-export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Resolves a user by id.
-         * @param {string} userId User id.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resolveUser: async (userId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('resolveUser', 'userId', userId)
-            const localVarPath = `/user/id/{userId}`
-                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * UserApi - functional programming interface
- * @export
- */
-export const UserApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Resolves a user by id.
-         * @param {string} userId User id.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async resolveUser(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserProfile>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resolveUser(userId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * UserApi - factory interface
- * @export
- */
-export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UserApiFp(configuration)
-    return {
-        /**
-         * Resolves a user by id.
-         * @param {string} userId User id.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resolveUser(userId: string, options?: any): AxiosPromise<UserProfile> {
-            return localVarFp.resolveUser(userId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * Request parameters for resolveUser operation in UserApi.
- * @export
- * @interface UserApiResolveUserRequest
- */
-export interface UserApiResolveUserRequest {
-    /**
-     * User id.
-     * @type {string}
-     * @memberof UserApiResolveUser
-     */
-    readonly userId: string
-}
-
-/**
- * UserApi - object-oriented interface
- * @export
- * @class UserApi
- * @extends {BaseAPI}
- */
-export class UserApi extends BaseAPI {
-    /**
-     * Resolves a user by id.
-     * @param {UserApiResolveUserRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public resolveUser(requestParameters: UserApiResolveUserRequest, options?: AxiosRequestConfig) {
-        return UserApiFp(this.configuration).resolveUser(requestParameters.userId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

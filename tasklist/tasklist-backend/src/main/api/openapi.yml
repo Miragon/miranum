@@ -5,7 +5,8 @@ info:
   description: API for task management.
   contact:
     name: DigiWF Team
-
+security:
+  - bearerAuth: [ ]
 servers:
   - description: Local
     url: http://localhost:38765/rest/
@@ -198,6 +199,58 @@ paths:
         404:
           description: Task not found.
 
+  /tasks/id/{taskId}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/TaskIdParam'
+    post:
+      description: Cancels the execution of a user task.
+      operationId: cancelTask
+      tags:
+        - Task
+      responses:
+        204:
+          description: Successful operation.
+        400:
+          description: Task can't be cancelled.
+        404:
+          description: Task not found.
+
+  /tasks/id/{taskId}/file:
+    parameters:
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/FilePathParam'
+    get:
+      description: Get file names for task and fieldKey
+      operationId: getFileNames
+      tags:
+        - File
+      responses:
+        200:
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListOfFilenames"
+
+  /tasks/id/{taskId}/file/{fileName}:
+    parameters:
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/FileNameParam'
+      - $ref: '#/components/parameters/FilePathParam'
+      - $ref: '#/components/parameters/RequestMethodParam'
+    get:
+      description: Get a presigned url to load, upload or delete a file for a specific field key and file name
+      operationId: getPresignedUrlForFile
+      tags:
+        - File
+      responses:
+        200:
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PresignedUrl"
+
   /tasks/user:
     parameters:
       - $ref: '#/components/parameters/PageParam'
@@ -256,24 +309,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageOfTasks"
 
-  /user/id/{userId}:
-    parameters:
-      - $ref: '#/components/parameters/UserIdParam'
-    get:
-      description: Resolves a user by id.
-      operationId: resolveUser
-      tags:
-        - User
-      responses:
-        200:
-          description: Successful operation.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserProfile"
-
-
 components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   parameters:
 
@@ -349,6 +391,34 @@ components:
       schema:
         type: string
 
+    FilePathParam:
+      name: filePath
+      in: query
+      description: File path
+      required: true
+      schema:
+        type: string
+
+    FileNameParam:
+      name: fileName
+      in: path
+      description: Filename.
+      required: true
+      schema:
+        type: string
+
+    RequestMethodParam:
+      name: requestMethod
+      in: query
+      description: HTTP request method.
+      required: true
+      schema:
+        type: string
+        enum:
+          - GET
+          - PUT
+          - POST
+          - DELETE
 
   schemas:
 
@@ -470,9 +540,12 @@ components:
         schemaRef:
           description: Reference to schema id.
           type: string
+        schemaType:
+          $ref: "#/components/schemas/TaskSchemaType"
       required:
         - id
         - schemaRef
+        - schemaType
 
     TaskWithDetails:
       description: Represents a user task.
@@ -512,10 +585,17 @@ components:
           type: object
           additionalProperties:
             type: object
+        cancelable:
+          description: Flag indicating if a task can be cancelled.
+          type: boolean
+        schemaType:
+          $ref: "#/components/schemas/TaskSchemaType"
       required:
         - id
         - schemaRef
         - variables
+        - cancelable
+        - schemaType
 
     TaskWithSchema:
       description: Represents a user task with embedded combined schema.
@@ -557,10 +637,27 @@ components:
           type: object
           additionalProperties:
             type: object
+        cancelable:
+          description: Flag indicating if a task can be cancelled.
+          type: boolean
+        schemaType:
+          $ref: "#/components/schemas/TaskSchemaType"
+
+
       required:
         - id
         - schema
+        - schemaType
         - variables
+        - cancelable
+
+
+    TaskSchemaType:
+      description: Task schema type.
+      type: string
+      enum:
+        - SCHEMA_BASED
+      default: SCHEMA_BASED
 
     TaskAssignment:
       description: Task assignment information.
@@ -603,26 +700,14 @@ components:
       additionalProperties:
         type: object
 
-    UserProfile:
-      description: Profile of the user.
-      type: object
-      properties:
-        userId:
-          description: Unique user id.
-          type: string
-        firstName:
-          description: First name.
-          type: string
-        lastName:
-          description: Last name.
-          type: string
-        primaryOrgUnit:
-          description: Primary organizational unit.
-          type: string
-      required:
-        - userId
-        - firstName
-        - lastName
-        - primaryOrgUnit
+    ListOfFilenames:
+      description: List of filenames.
+      type: array
+      items:
+        type: string
+
+    PresignedUrl:
+      description: Presigned Url.
+      type: string
 
 

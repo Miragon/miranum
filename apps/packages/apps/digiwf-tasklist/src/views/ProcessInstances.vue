@@ -6,61 +6,25 @@
       </v-flex>
       <v-flex class="d-flex justify-space-between align-center searchField">
         <!-- input.native to prevent this issue: https://github.com/vuetifyjs/vuetify/issues/4679 -->
-        <v-combobox
-          id="suchfeld"
-          v-model="filter"
-
-          :items="persistentFilters.map((f) => f.filterString)"
-          clearable
-          color="black"
-          dense
-          flat
-          hide-details
-          label="Aufgaben durchsuchen"
-          outlined
-          style="max-width: 500px"
-          @input.native="onFilterChanged"
-        >
-          <template #append>
-            <div class="v-input__icon">
-              <v-btn
-                v-if="isFilterPersistent"
-                aria-label="Filter speichern"
-                class="v-icon"
-                icon
-                @click="deletePersistentFilter()"
-              >
-                <v-icon color="primary"> mdi-star</v-icon>
-              </v-btn>
-              <v-btn
-                v-else-if="filter"
-                aria-label="Filter löschen"
-                class="v-icon"
-                icon
-                @click="savePersistentFilter()"
-              >
-                <v-icon color="primary"> mdi-star-outline</v-icon>
-              </v-btn>
-            </div>
-            <v-icon class="ml-2"> mdi-magnify</v-icon>
-          </template>
-        </v-combobox>
+        <search-field
+          :on-filter-change="onFilterChanged"
+        />
         <div class="d-flex align-center">
           <v-btn
             aria-label="Vorgänge aktualisieren"
-            color="primary"
-            large
             style="padding-left: 13px;"
+            large
             text
-            @click="loadMyProcessInstances(true)"
+            color="primary"
+            @click="refetch"
           >
             <div style="min-width: 30px">
               <v-progress-circular
                 v-if="isLoading"
                 :size="25"
+                width="2"
                 color="primary"
                 indeterminate
-                width="2"
               />
               <v-icon
                 v-else
@@ -98,25 +62,106 @@
         </v-flex>
         <hr style="margin: 5px 0 0 0">
       </v-flex>
-      <app-pageable-list
-        :items="filteredProcessInstances"
-        :totalNumberOfItems="numberOfProcessInstances"
-        found-data-text="Vorgänge gefunden"
-        no-data-text="Keine laufenden Vorgänge gefunden"
-      >
-        <template #default="props">
-          <template v-for="item in props.items">
-            <process-instance-item
-              :key="item.id"
-              :item="item"
-              :search-string="filter || ''"
-            />
-          </template>
+      <v-list>
+        <template v-for="item in data?.content || []">
+          <process-instance-item
+            :key="item.key"
+            :item="item"
+            :search-string="searchQuery || ''"
+          />
         </template>
-      </app-pageable-list>
+      </v-list>
+
+      <AppPaginationFooter
+        found-data-text="Vorgänge gefunden"
+        :size="pagination.size?.value || 20"
+        :on-size-change="pagination.onSizeChange"
+        :last-page="pagination.lastPage"
+        :last-page-button-disabled="pagination.isLastPageButtonDisabled()"
+        :next-page="pagination.nextPage"
+        :total-number-of-items="data?.totalElements || 0"
+        :next-page-button-disabled="pagination.isNextPageButtonDisabled()"
+        :number-of-pages="data?.totalPages || 1"
+        :page="pagination.getCurrentPageLabel()"
+        :update-items-per-page="pagination.updateItemsPerPage"
+      />
     </div>
   </app-view-layout>
 </template>
+
+<script lang="ts">
+import AppToast from "@/components/UI/AppToast.vue";
+import AppViewLayout from "@/components/UI/AppViewLayout.vue";
+import ProcessInstanceItem from "@/components/process/ProcessInstanceItem.vue";
+import {defineComponent, watch} from "vue";
+import {useGetPaginationData} from "../middleware/paginationData";
+import {useGetProcessInstances} from "../middleware/processInstances/processInstancesMiddleware";
+import AppPaginationFooter from "../components/UI/AppPaginationFooter.vue";
+import SearchField from "../components/common/SearchField.vue";
+
+export default defineComponent({
+    components: {
+      SearchField,
+      AppPaginationFooter, ProcessInstanceItem, AppToast, AppViewLayout
+    },
+    props: [],
+    setup: () => {
+      const {searchQuery, setSearchQuery, page, size, setSize, setPage} = useGetPaginationData();
+
+      const {isLoading, data, error: errorMessage, refetch} = useGetProcessInstances(page, size, searchQuery);
+
+      watch(page, (newPage) => {
+        setPage(newPage);
+        refetch();
+      });
+      watch(size, (newSize) => {
+        setSize(newSize);
+        refetch();
+      });
+
+      const onFilterChanged = (value: string) => {
+        setSearchQuery(value);
+        refetch();
+      };
+
+      return {
+        data,
+        isLoading,
+        searchQuery,
+        errorMessage,
+        onFilterChanged,
+        refetch,
+        pagination: {
+          page,
+          size,
+          onSizeChange: setSize,
+          getCurrentPageLabel: () => page.value + 1,
+          setPage,
+          lastPage: () => {
+            if (page.value === 0) {
+              return;
+            }
+            setPage(page.value - 1);
+            refetch();
+          },
+          nextPage: () => {
+            const totalPages = data.value?.totalPages;
+            if (!totalPages || page.value === totalPages - 1) {
+              return;
+            }
+            setPage(page.value + 1);
+            refetch();
+          },
+          isLastPageButtonDisabled: () => page.value === 0,
+          isNextPageButtonDisabled: () => page.value + 1 >= (data.value?.totalPages || 0),
+          updateItemsPerPage: setSize
+        },
+      };
+    }
+  }
+);
+
+</script>
 
 <style scoped>
 
@@ -136,126 +181,3 @@
   margin: 1rem 0 1rem 0;
 }
 </style>
-
-<script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
-import AppToast from "@/components/UI/AppToast.vue";
-import TaskItem from "@/components/task/TaskItem.vue";
-import AppViewLayout from "@/components/UI/AppViewLayout.vue";
-import {FilterTO, SaveFilterTO, ServiceInstanceTO} from '@miragon/digiwf-engine-api-internal';
-import AppPageableList from "@/components/UI/AppPageableList.vue";
-import ProcessInstanceItem from "@/components/process/ProcessInstanceItem.vue";
-import {
-  deletePersistentFilterForNonHookCompatibleFunction,
-  getPersistentFilterForNonHookCompatibleFunction,
-  savePersistentFilterForNonHookCompatibleFunction
-} from "../middleware/persistentFilter/persistentFilters";
-
-@Component({
-  components: {ProcessInstanceItem, AppPageableList, TaskItem, AppToast, AppViewLayout}
-})
-export default class ProcessInstances extends Vue {
-
-  processInstances: ServiceInstanceTO[] = [];
-  numberOfProcessInstances: number = 0;
-  isLoading = false;
-  filter = "";
-  errorMessage = "";
-  persistentFilters: FilterTO[] = [];
-
-  get filteredProcessInstances(): ServiceInstanceTO[] {
-    this.processInstances = this.$store.getters['processInstances/processInstances'] || [];
-    if (!this.filter) {
-      return this.processInstances;
-    }
-    return this.processInstances.filter(task => JSON.stringify(Object.values(task)).toLocaleLowerCase().includes(this.filter.toLocaleLowerCase()));
-  }
-
-  get isFilterPersistent(): boolean {
-    if (
-      !this.filter ||
-      this.filter.length == 0 ||
-      !this.persistentFilters ||
-      this.persistentFilters!.length == 0
-    ) {
-      return false;
-    }
-    return (
-      this.persistentFilters!.find(
-        (fl: FilterTO) => fl.filterString == this.filter
-      ) != undefined
-    );
-  }
-
-  created(): void {
-    this.loadMyProcessInstances();
-    this.loadFilter();
-    this.loadPersistentFilters();
-  }
-
-  async loadMyProcessInstances(refresh = false): Promise<void> {
-    this.processInstances = this.$store.getters['processInstances/processInstances'];
-    this.numberOfProcessInstances = this.processInstances.length
-    this.isLoading = true;
-    const startTime = new Date().getTime();
-    try {
-      await this.$store.dispatch('processInstances/getProcessInstances', refresh);
-      this.errorMessage = "";
-    } catch (error) {
-      this.errorMessage = error.message;
-    }
-    setTimeout(() => this.isLoading = false, Math.max(0, 500 - (new Date().getTime() - startTime)));
-  }
-
-  loadFilter(): void {
-    this.filter = this.$route.query.filter as string ?? "";
-    if (!this.filter) {
-      this.filter = this.$store.getters["processInstances/filter"];
-      this.$router.replace({query: {filter: this.filter}});
-    }
-  }
-
-  onFilterChanged(event: Event) {
-    const el = event.target as HTMLInputElement
-    this.filter = el.value;
-    this.$store.commit('processInstances/setFilter', this.filter);
-    this.$router.replace({query: {filter: el.value}})
-  }
-
-  async savePersistentFilter() {
-    if (!this.filter) {
-      return;
-    }
-    const request: SaveFilterTO = {
-      pageId: "processinstances",
-      filterString: this.filter,
-    }
-    try {
-      await savePersistentFilterForNonHookCompatibleFunction(request)
-      this.errorMessage = "";
-    } catch (error) {
-      this.errorMessage = 'Der Filter konnte nicht gespeichert werden.';
-    }
-  }
-
-  async deletePersistentFilter() {
-    const id = this.persistentFilters!.find((f: FilterTO) => f.filterString == this.filter)?.id!
-    try {
-      await deletePersistentFilterForNonHookCompatibleFunction(id);
-      this.errorMessage = "";
-    } catch (error) {
-      this.errorMessage = 'Der Filter konnte nicht gelöscht werden.';
-    }
-  }
-
-  async loadPersistentFilters(refresh = false): Promise<void> {
-    try {
-      const serverSideFilters = await getPersistentFilterForNonHookCompatibleFunction() || [];
-      this.persistentFilters = serverSideFilters.filter((filter: FilterTO) => filter.pageId === "processinstances");
-      this.errorMessage = "";
-    } catch (error) {
-      this.errorMessage = error.message;
-    }
-  }
-}
-</script>

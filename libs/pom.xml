@@ -9,8 +9,13 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum-platform</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
+
+    <modules>
+        <module>s3-integration</module>
+        <module>spring-security</module>
+    </modules>
 
 
 </project>

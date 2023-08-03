@@ -5,25 +5,28 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.miranum.platform</groupId>
     <artifactId>miranum-platform</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>miranum-platform</name>
     <packaging>pom</packaging>
     <description>Miranum Platform</description>
     <url>https://github.com/FlowSquad/miranum-platform</url>
 
     <properties>
+        <revision>0.2.0-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>2.7.12</spring-boot.version>
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <lombok.version>1.18.26</lombok.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <camunda.version>7.19.0</camunda.version>
-        <polyflow.version>3.11.0</polyflow.version>
+        <polyflow.version>3.14.0</polyflow.version>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.8.21</kotlin.version>
+        <logstash.encoder.version>7.3</logstash.encoder.version>
     </properties>
 
     <modules>
@@ -105,6 +108,12 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
                 <version>0.2.6</version>
+            </dependency>
+            <!-- Logging -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.encoder.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

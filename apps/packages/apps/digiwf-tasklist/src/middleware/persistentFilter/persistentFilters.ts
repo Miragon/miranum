@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
 import {callDeleteFilter, callGetFilters, callSaveFilter} from "../../api/persistentFilters/persistentFilterApiCalls";
-import {FilterTO, SaveFilterTO} from "@miragon/digiwf-engine-api-internal";
+import {FilterDto, SaveFilterDto} from "@miragon/digiwf-engine-api-internal";
 import {queryClient} from "../queryClient";
 
 export const useGetPersistentFilters = () => useQuery({
@@ -10,9 +10,8 @@ export const useGetPersistentFilters = () => useQuery({
 
 export const useSavePersistentFilters = () => {
   const queryClient = useQueryClient();
-  return useMutation<FilterTO, any, SaveFilterTO>({
-    mutationFn: (filter: SaveFilterTO) => {
-      console.log("mutationFn of useSavePersistentFilters", filter)
+  return useMutation<FilterDto, any, SaveFilterDto>({
+    mutationFn: (filter: SaveFilterDto) => {
       return callSaveFilter(filter)
     },
     onSuccess: () => {
@@ -49,6 +48,6 @@ export const deletePersistentFilterForNonHookCompatibleFunction = (id: string) =
 /**
  * @deprecated can be deleted after switching process instances to tanstack
  */
-export const savePersistentFilterForNonHookCompatibleFunction = (filter: SaveFilterTO) => {
+export const savePersistentFilterForNonHookCompatibleFunction = (filter: SaveFilterDto) => {
   callSaveFilter(filter).then(() => queryClient.invalidateQueries(["persistent-filter"]))
 }

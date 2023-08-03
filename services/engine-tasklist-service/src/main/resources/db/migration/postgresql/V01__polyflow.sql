@@ -30,6 +30,41 @@ create table token_entry
     primary key (processor_name, segment)
 );
 
+CREATE TABLE domain_event_entry
+(
+    global_index         BIGINT       NOT NULL,
+    event_identifier     VARCHAR(255) NOT NULL,
+    meta_data            BYTEA,
+    payload              BYTEA        NOT NULL,
+    payload_revision     VARCHAR(255),
+    payload_type         VARCHAR(255) NOT NULL,
+    time_stamp           VARCHAR(255) NOT NULL,
+    aggregate_identifier VARCHAR(255) NOT NULL,
+    sequence_number      BIGINT       NOT NULL,
+    type                 VARCHAR(255),
+    PRIMARY KEY (global_index)
+);
+
+CREATE TABLE snapshot_event_entry
+(
+    aggregate_identifier VARCHAR(255) NOT NULL,
+    sequence_number      BIGINT       NOT NULL,
+    type                 VARCHAR(255) NOT NULL,
+    event_identifier     VARCHAR(255) NOT NULL,
+    meta_data            BYTEA,
+    payload              BYTEA        NOT NULL,
+    payload_revision     VARCHAR(255),
+    payload_type         VARCHAR(255) NOT NULL,
+    time_stamp           VARCHAR(255) NOT NULL,
+    PRIMARY KEY (aggregate_identifier, sequence_number, type)
+);
+
+ALTER TABLE snapshot_event_entry
+    ADD CONSTRAINT UK_e1uucjseo68gopmnd0vgdl44h UNIQUE (event_identifier);
+
+ALTER TABLE domain_event_entry
+    ADD CONSTRAINT UK_fwe6lsa8bfo6hyas6ud3m8c7x UNIQUE (event_identifier);
+
 create index IDX_association_value_entry_stakav on association_value_entry (saga_type, association_key, association_value);
 create index IDX_association_value_entry_sist on association_value_entry (saga_id, saga_type);
 

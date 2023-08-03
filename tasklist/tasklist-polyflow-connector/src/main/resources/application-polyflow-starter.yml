@@ -1,9 +1,3 @@
-digiwf:
-  task-management:
-    assignment:
-      shadow: true # should assignment be shadowed to process variables?
-      local: true # should we store variables task local or not?
-      delete: false # should assignment be deleted from the attributes of Camunda User Tasks?
 axon:
   serializer:
     events: jackson
@@ -18,6 +12,9 @@ camunda:
 
 polyflow:
   integration:
+    client:
+      camunda:
+        application-name: ${spring.application.name}  # default
     collector:
       camunda:
         application-name: ${spring.application.name}
@@ -29,18 +26,11 @@ polyflow:
           enabled: false
         task:
           enabled: true
-          assigner:
-            type: processVariables
-            assignee: app_task_assignee
-            candidate-users: app_task_candidate_users
-            candidate-groups: app_task_candidate_groups
           enricher:
-            type: processVariables
+            type: custom
           importer:
             enabled: true
             task-filter-type: eventstore
-          excluded-task-event-names: assignment # even if not used in polyflow, but generally ignore
-          excluded-history-event-names: add-identity-link, delete-identity-link # ignore historic events used for assignment
     sender:
       enabled: true
       task:

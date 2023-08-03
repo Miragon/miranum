@@ -54,7 +54,7 @@
 <script lang="ts">
 import {Component, Prop, Vue, Watch} from "vue-property-decorator";
 import {VAutocomplete} from "vuetify/lib";
-import {FetchUtils, SearchUserTO, UserRestControllerApiFactory, UserTO} from '@miragon/digiwf-engine-api-internal';
+import {FetchUtils, SearchUserDto, UserControllerApiFactory, UserDto} from '@miragon/digiwf-engine-api-internal';
 import {AxiosResponse} from 'axios';
 import {ApiConfig} from "../../api/ApiConfig";
 
@@ -66,7 +66,7 @@ import {ApiConfig} from "../../api/ApiConfig";
 export default class VUserInput extends Vue {
 
   search = "";
-  items: UserTO[] = [];
+  items: UserDto[] = [];
   isLoading = false;
   errorMessage = "";
   model = "";
@@ -100,7 +100,7 @@ export default class VUserInput extends Vue {
     return this.readonly || this.locked;
   }
 
-  get entries(): UserTO [] {
+  get entries(): UserDto [] {
     return this.items;
   }
 
@@ -126,10 +126,10 @@ export default class VUserInput extends Vue {
       //if number search by objectId, if string search by username
       if (id.match(/^-?\d+$/)) {
         //user = await UserService.searchUser(id);
-        res = await UserRestControllerApiFactory(cfg).getUser(id);
+        res = await UserControllerApiFactory(cfg).getUser(id);
       } else {
         //user = await UserService.searchUserByUid(id);
-        res = await UserRestControllerApiFactory(cfg).getUserByUsername(id);
+        res = await UserControllerApiFactory(cfg).getUserByUsername(id);
       }
       const user = res.data;
 
@@ -145,16 +145,16 @@ export default class VUserInput extends Vue {
     this.locked = false;
   }
 
-  getFullName(user: UserTO): string {
+  getFullName(user: UserDto): string {
     return user.forename + " " + user.surname;
   }
 
-  filterUsers(item: UserTO, queryText: string): boolean {
+  filterUsers(item: UserDto, queryText: string): boolean {
     const fullName = this.getFullName(item);
     return fullName.toLowerCase().includes(queryText.toLowerCase());
   }
 
-  getNamePrefix(user: UserTO): string {
+  getNamePrefix(user: UserDto): string {
     return user.forename!.slice(0, 1) + user.surname!.slice(0, 1);
   }
 
@@ -181,13 +181,12 @@ export default class VUserInput extends Vue {
       // searchString: this.lastSearch,
       // ous: this.ldapOus ? this.ldapOus : null
       // });
-      const to: SearchUserTO = {
-        searchString: this.lastSearch,
-        ous: this.ldapOus ? this.ldapOus : undefined
+      const to: SearchUserDto = {
+        searchString: this.lastSearch
       };
 
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
-      const res = await UserRestControllerApiFactory(cfg).getUsers(to);
+      const res = await UserControllerApiFactory(cfg).getUsers(to);
 
       if (this.lastSearch === this.search.slice(0, 3)) {
         this.items = res.data;

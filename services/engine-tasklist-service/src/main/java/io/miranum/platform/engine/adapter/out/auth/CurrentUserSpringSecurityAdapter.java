@@ -2,10 +2,11 @@ package io.miranum.platform.engine.adapter.out.auth;
 
 import io.holunda.polyflow.view.auth.User;
 import io.miranum.platform.tasklist.application.port.out.security.CurrentUserPort;
+import io.muenchendigital.digiwf.spring.security.authentication.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Service to resolve currently logged-in user.
@@ -13,11 +14,14 @@ import java.util.Collections;
 @Component
 @RequiredArgsConstructor
 public class CurrentUserSpringSecurityAdapter implements CurrentUserPort {
+    private final UserAuthenticationProvider userAuthenticationProvider;
 
 
     @Override
     public User getCurrentUser() {
-        return new User("123456789", Collections.emptySet());
+
+
+        return new User(userAuthenticationProvider.getLoggedInUser(), new HashSet<>(userAuthenticationProvider.getLoggedInUserRoles()));
     }
 
     /**

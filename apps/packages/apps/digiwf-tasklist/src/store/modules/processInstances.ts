@@ -1,10 +1,10 @@
 import {ActionContext} from "vuex";
 import {RootState} from "../index";
-import {FetchUtils, ServiceInstanceControllerApiFactory, ServiceInstanceTO} from '@miragon/digiwf-engine-api-internal';
+import {FetchUtils, ProcessInstanceControllerApiFactory, ProcessInstanceDto} from '@miragon/digiwf-engine-api-internal';
 import {ApiConfig} from "../../api/ApiConfig";
 
 export interface ProcessInstancesState {
-  processInstances: ServiceInstanceTO[];
+  processInstances: ProcessInstanceDto[];
   lastFetch: number;
   filter: string;
 }
@@ -12,7 +12,7 @@ export interface ProcessInstancesState {
 export default {
   namespaced: true,
   state: {
-    processInstances: new Array<ServiceInstanceTO>(),
+    processInstances: new Array<ProcessInstanceDto>(),
     lastFetch: 0,
     filter: ""
   } as ProcessInstancesState,
@@ -25,7 +25,7 @@ export default {
       const currentTimeStamp = new Date().getTime();
       return (currentTimeStamp - lastFetch) / 1000 > 60;
     },
-    processInstances(state: ProcessInstancesState): ServiceInstanceTO[] {
+    processInstances(state: ProcessInstancesState): ProcessInstanceDto[] {
       return state.processInstances.filter(Boolean).sort((a, b) => b.startTime!.localeCompare(a.startTime!));
     },
     filter(state: ProcessInstancesState): string | null {
@@ -33,7 +33,7 @@ export default {
     }
   },
   mutations: {
-    setProcessInstances(state: ProcessInstancesState, processInstances: ServiceInstanceTO[]): void {
+    setProcessInstances(state: ProcessInstancesState, processInstances: ProcessInstanceDto[]): void {
       state.processInstances = processInstances;
     },
     setLastFetch(state: ProcessInstancesState, date: number): void {
@@ -52,7 +52,7 @@ export default {
       const cfg = ApiConfig.getAxiosConfig(FetchUtils.getGETConfig());
 
       try {
-        const res = await ServiceInstanceControllerApiFactory(cfg).getAssignedInstances();
+        const res = await ProcessInstanceControllerApiFactory(cfg).getAssignedInstances();
 
         context.commit('setLastFetch', new Date().getTime());
         context.commit('setProcessInstances', res.data);

@@ -9,12 +9,13 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum-platform</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <modules>
         <module>engine-tasklist-service</module>
         <module>schema-registry-service</module>
+        <module>s3-integration-service</module>
     </modules>
 
 </project>

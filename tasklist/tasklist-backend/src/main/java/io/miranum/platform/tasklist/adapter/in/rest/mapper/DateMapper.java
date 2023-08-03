@@ -9,6 +9,6 @@ import java.time.ZoneOffset;
 @Mapper(componentModel = "spring")
 public interface DateMapper {
     default OffsetDateTime to(Instant instant) {
-        return instant == null ? null : OffsetDateTime.ofInstant(instant, ZoneOffset.UTC);
+        return instant == null ? null : OffsetDateTime.ofInstant(instant, ZoneOffset.systemDefault());
     }
 }

@@ -3,7 +3,7 @@
     <v-app-bar
       app
       clipped-left
-      color="secondary"
+      color="primary"
       dark
     >
       <v-app-bar-nav-icon
@@ -17,22 +17,27 @@
         to="/"
       >
         <v-toolbar-title class="font-weight-bold">
-          <span class="white--text">Digi</span>
-          <span style="color: #FFCC00">WF</span>
+          <span class="white--text">Miranum</span>
         </v-toolbar-title>
       </router-link>
       <v-spacer/>
-      <span v-if="appInfo !== null">{{ appInfo.environment }}</span>
       <v-spacer/>
       {{ username }}
-      <v-btn
-        fab
-        text
-      >
-        <v-icon class="white--text">
-          mdi-account-circle
-        </v-icon>
-      </v-btn>
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            fab
+            text
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon class="white--text">
+              mdi-account-circle
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -44,23 +49,6 @@
       <AppMenuList :number-of-process-instances="processInstancesCount"/>
     </v-navigation-drawer>
     <v-main class="main">
-      <v-banner
-        v-if="appInfo && appInfo.maintenanceInfo1"
-        class="maintenance"
-        color="orange darken-1"
-        elevation="1"
-        icon="mdi-alert-circle-outline"
-        icon-color="black"
-        multi-line
-        transition="slide-y-transition"
-      >
-        <p class="body-1 my-1">
-          {{ appInfo.maintenanceInfo1 }}
-        </p>
-        <p class="body-2 my-1">
-          {{ appInfo.maintenanceInfo2 }}
-        </p>
-      </v-banner>
       <v-container fluid>
         <v-fade-transition mode="out-in">
           <router-view/>
@@ -145,20 +133,20 @@ a {
 <script lang="ts">
 import Vue from "vue";
 import {Component, Watch} from "vue-property-decorator";
-import {InfoTO, ServiceInstanceTO, UserTO,} from "@miragon/digiwf-engine-api-internal";
+import {ProcessInstanceDto, UserDto} from "@miragon/digiwf-engine-api-internal";
 import AppMenuList from "./components/UI/appMenu/AppMenuList.vue";
+import Auth from "./views/Auth.vue";
 import {useServices} from "./hooks/store";
 
 @Component({
-  components: {AppMenuList}
+  components: {Auth, AppMenuList}
 })
 export default class App extends Vue {
   drawer = true;
   processInstancesCount: number | null = null;
   username = "";
-  appInfo: InfoTO | null = null;
   loginLoading = false;
-  loggedIn = false;
+  loggedIn = true;
 
   user: any = null;
 
@@ -167,20 +155,20 @@ export default class App extends Vue {
   }
 
   created(): void {
-    //TODO muss an einer anderen Stelle gefixt werden
     this.loadData();
     const service = useServices();
-    service.$auth.getUser().then((user) => {
-      this.user = user;
-      console.log("user", user);
-      if (!user) {
-        service.$auth.login();
-      }
-    });
+    setTimeout(() => {
+      service.$auth.getUser().then((user) => {
+        this.user = user;
+        if (!user) {
+          service.$auth.login();
+        }
+        this.loadData();
+      });
+    }, 500);
   }
 
   loadData(refresh = false): void {
-    this.$store.dispatch("processInstances/getProcessInstances", refresh);
     this.$store.dispatch("user/getUserInfo", refresh);
     this.$store.dispatch("info/getInfo", refresh);
     this.drawer = this.$store.getters["menu/open"];
@@ -198,21 +186,15 @@ export default class App extends Vue {
   }
 
   @Watch("$store.state.user.info")
-  setUserName(user: UserTO): void {
+  setUserName(user: UserDto): void {
     this.username = user.forename + " " + user.surname;
     // if session is not valid, user is updated to an empty object in redux store
-    this.loggedIn = !!user.username
+    this.loggedIn = !!user.username;
   }
 
   @Watch("$store.state.processInstances.processInstances")
-  setMyProcessInstancesCount(processInstances: ServiceInstanceTO[]): void {
+  setMyProcessInstancesCount(processInstances: ProcessInstanceDto[]): void {
     this.processInstancesCount = processInstances.length;
   }
-
-  @Watch("$store.state.info.info")
-  setAppInfo(info: InfoTO): void {
-    this.appInfo = info;
-  }
-
 }
 </script>
