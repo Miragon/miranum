@@ -59,7 +59,7 @@ public class MiranumProcessInstanceQueryService implements MiranumProcessInstanc
      */
     public MiranumProcessInstanceWithData getServiceInstanceWithDataByUser(final String userId, final String instanceId) {
 
-        if (!miranumProcessInstancePort.hasAccess(userId, instanceId)) {
+        if (!miranumProcessInstancePort.hasAccess(instanceId, userId)) {
             throw new RuntimeException("User does not have access to this instance");
         }
 
