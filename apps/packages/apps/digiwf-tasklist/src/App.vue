@@ -163,6 +163,7 @@ export default class App extends Vue {
         if (!user) {
           service.$auth.login();
         }
+        this.loadData();
       });
     }, 1000);
   }
