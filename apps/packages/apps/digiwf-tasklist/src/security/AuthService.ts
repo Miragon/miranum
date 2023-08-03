@@ -19,6 +19,10 @@ export default class AuthService {
 
     this.userManager = new UserManager(oidcConfig)
     this.userManager.startSilentRenew()
+    this.userManager.events.addSilentRenewError((e) => {
+      console.log("Silent renew error", e);
+      this.logout();
+    });
   }
 
   public getUser(): Promise<User | null> {

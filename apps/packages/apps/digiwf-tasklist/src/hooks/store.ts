@@ -7,8 +7,10 @@ export function useStore(key = null) {
   return inject<Store<RootState>>("store")!;
 }
 
+const authService = new AuthService();
+
 export const useServices = () => {
   return {
-    $auth: new AuthService(),
+    $auth: authService
   }
 }
