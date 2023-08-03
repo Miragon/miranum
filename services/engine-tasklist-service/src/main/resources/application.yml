@@ -1,7 +1,8 @@
 info:
   application:
-    name: Miranum Engine
-    version: 0.1.0
+    name: @project.artifactId@
+    version: @project.version@
+
 camunda:
   bpm:
     authorization:
@@ -57,9 +58,10 @@ server:
     include-stacktrace: never
     whitelabel:
       enabled: false
+
 spring:
   application:
-    name: ${info.application.name}
+    name: @project.artifactId@
   datasource:
     url: '${ENGINE_DATASOURCE_URL:jdbc:h2:file:~/backenddb;DB_CLOSE_ON_EXIT=FALSE}'
     username: '${ENGINE_DATASOURCE_USER:sa}'

@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   tasklist:
-    image: miragon/miranum-platform-tasklist-webapp:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-tasklist-webapp:0.2.0-SNAPSHOT
     container_name: tasklist
     ports:
       - "3000:8080"
@@ -16,7 +16,7 @@ services:
       - internal
 
   engine:
-    image: miragon/miranum-platform-engine-tasklist-service:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-engine-tasklist-service:0.2.0-SNAPSHOT
     container_name: engine
     ports:
       - "8090:8090"
@@ -38,7 +38,7 @@ services:
       - internal
 
   schema-registry:
-    image: miragon/miranum-platform-schema-registry-service:0.1.0-SNAPSHOT
+    image: miragon/miranum-platform-schema-registry-service:0.2.0-SNAPSHOT
     container_name: schema-registry
     ports:
       - "8091:8091"
@@ -140,8 +140,8 @@ services:
     image: quay.io/minio/minio:latest
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: Test1234
+      MINIO_ROOT_USER: ${S3_ACCESSKEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRETKEY}
     ports:
       - '9000:9000'
       - '9001:9001'
