@@ -37,9 +37,6 @@ export default class AuthService {
 
       oidcConfig.redirect_uri = `${window.location.origin}/auth/`;
       oidcConfig.post_logout_redirect_uri = `${window.location.origin}/logout/`
-
-      console.log(oidcConfig)
-
       const userManager = new UserManager(oidcConfig)
       userManager.startSilentRenew()
       userManager.events.addSilentRenewError((e) => {
