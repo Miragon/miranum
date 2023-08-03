@@ -209,7 +209,7 @@ export default class TaskDetail extends Vue {
         this.errorMessage = result.errorMessage || "";
         if (!result.isError) {
           this.hasChanges = false;
-          router.push({path: "/task"}); // TODO: copied from old source code. Question is why /task is called (path does not exist). check later
+          router.push({path: "/mytask"}); // TODO: copied from old source code. Question is why /task is called (path does not exist). check later
         }
       });
   }

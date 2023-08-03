@@ -95,6 +95,10 @@ const router = new Router({
       path: "/logout",
       name: "logout",
       component: Logout
+    },
+    {
+      path: "*",
+      redirect: "/mytask"
     }
   ]
 });
