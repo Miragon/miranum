@@ -14,15 +14,15 @@
 <br />
 <div align="center">
     <a href="#">
-        <img src="/images/miranum_logo.png" alt="Logo" height="180">
+        <img src="images/miranum_logo.png" alt="Logo" height="180">
     </a>
     <h3><a href="https://miranum.com/">Miranum Connect</a></h3>
     <p>
         <i>Simplifying the complexity of process automation.</i>
         <br />
-        <a href="https://github.com/FlowSquad/miranum-connect/issues">Report Bug</a>
+        <a href="https://github.com/Miragon/miranum-connect/issues">Report Bug</a>
         ·
-        <a href="https://github.com/FlowSquad/miranum-connect/pulls">Request Feature</a>
+        <a href="https://github.com/Miragon/miranum-connect/pulls">Request Feature</a>
     </p>
 </div>
 
@@ -59,7 +59,7 @@ choose one of the following modules: worker-api, message-api, process-api, json-
 This library can be used only in combination with SpringBoot.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-For fully executable examples, take a look at our [miranum-consulting repository](https://github.com/FlowSquad/miranum-consulting). 
+For fully executable examples, take a look at our [miranum-consulting repository](https://github.com/Miragon/miranum-consulting). 
 Below, only small non-executable snippets are shown.
 
 ### Miranum-Worker
@@ -156,7 +156,7 @@ public void correlateMessage(CorrelateMessageCommand message) {
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
 contributions you make are **greatly appreciated**.
-To collect, prioritise and work on issues in a collaborative fashion we have established some [contribution guidelines](https://miranum.com/docs/components/contributing) as well as a [GitHub project](https://github.com/orgs/FlowSquad/projects/9).
+To collect, prioritise and work on issues in a collaborative fashion we have established some [contribution guidelines](https://miranum.com/docs/components/contributing) as well as a [GitHub project](https://github.com/orgs/Miragon/projects/9).
 Please make sure to read through these guidelines before starting with your contribution.
 
 ### PRs for every change
@@ -181,20 +181,20 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/FlowSquad/miranum-connect.svg?style=for-the-badge
-[contributors-url]: https://github.com/FlowSquad/miranum-connect/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/Miragon/miranum-connect.svg?style=for-the-badge
+[contributors-url]: https://github.com/Miragon/miranum-connect/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/FlowSquad/miragon-connect.svg?style=for-the-badge
-[forks-url]: https://github.com/FlowSquad/miranum-connect/network/members
+[forks-shield]: https://img.shields.io/github/forks/Miragon/miranum-connect.svg?style=for-the-badge
+[forks-url]: https://github.com/Miragon/miranum-connect/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/FlowSquad/miragon-connect.svg?style=for-the-badge
-[stars-url]: https://github.com/FlowSquad/miranum-connect/stargazers
+[stars-shield]: https://img.shields.io/github/stars/Miragon/miranum-connect.svg?style=for-the-badge
+[stars-url]: https://github.com/Miragon/miranum-connect/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/FlowSquad/miranum-connect.svg?style=for-the-badge
-[issues-url]: https://github.com/FlowSquad/miranum-connect/issues
+[issues-shield]: https://img.shields.io/github/issues/Miragon/miranum-connect.svg?style=for-the-badge
+[issues-url]: https://github.com/Miragon/miranum-connect/issues
 
-[license-shield]: https://img.shields.io/github/license/FlowSquad/miranum-connect.svg?style=for-the-badge
-[license-url]: https://github.com/FlowSquad/miranum-connect/blob/main/LICENSE
+[license-shield]: https://img.shields.io/github/license/Miragon/miranum-connect.svg?style=for-the-badge
+[license-url]: https://github.com/Miragon/miranum-connect/blob/main/LICENSE
 
 [c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue.svg?style=for-the-badge
 [c7-url]: https://camunda.com/de/platform-7/
