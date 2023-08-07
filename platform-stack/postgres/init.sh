@@ -2,6 +2,21 @@
 set -e
 set -u
 
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+  DO
+  \$do\$
+  BEGIN
+    IF NOT EXISTS (
+      SELECT FROM pg_catalog.pg_roles
+      WHERE rolname = 'root') THEN
+
+      CREATE USER root;
+      ALTER USER root WITH SUPERUSER;
+    END IF;
+  END
+  \$do\$;
+EOSQL
+
 function create_user_and_database() {
 	local database=$1
 	echo "  Creating user and database '$database' with $POSTGRES_USER"
