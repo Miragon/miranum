@@ -8,6 +8,8 @@ services:
     ports:
       - "3000:8080"
     restart: unless-stopped
+    volumes:
+      - ./tasklist-webapp/keycloak.json:/usr/share/nginx/html/config.json
     profiles:
       - engine
     depends_on:
@@ -26,11 +28,11 @@ services:
     env_file:
       - .env
     environment:
-      SPRING_PROFILES_ACTIVE: mock-user, sampledata
+      SPRING_PROFILES_ACTIVE: sampledata
       ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
-      ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
+      ENGINE_SCHEMA_URL: http://schema-registry:8091/
     depends_on:
-      postgres:
+      keycloak:
         condition: service_healthy
       schema-registry:
         condition: service_started
@@ -51,7 +53,7 @@ services:
       SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
       SPRING_PROFILES_ACTIVE: sampledata
     depends_on:
-      postgres:
+      keycloak:
         condition: service_healthy
     networks:
       - internal
@@ -103,13 +105,12 @@ services:
     env_file:
       - './.env'
     depends_on:
-      postgres:
+      keycloak:
         condition: service_healthy
     environment:
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:9090/auth
-      WAIT_FOR_KEYCLOAK: 'true'
+      ADMIN_USER: ${SSO_ADMIN:-admin}
+      ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
+      BASEURL: http://keycloak:8080/auth
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
       - './keycloak:/migration'
@@ -125,8 +126,8 @@ services:
       - './.env'
     ports:
       - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data  
+    #volumes:
+    #  - ./data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "psql -l | grep keycloak | wc -l" ]
