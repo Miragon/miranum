@@ -8,8 +8,6 @@ services:
     ports:
       - "3000:8080"
     restart: unless-stopped
-    volumes:
-      - ./tasklist-webapp/keycloak.json:/usr/share/nginx/html/config.json
     profiles:
       - engine
     depends_on:
