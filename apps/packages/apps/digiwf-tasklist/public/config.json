@@ -1,6 +1,6 @@
 {
   "SSO_SETTINGS": {
-    "authority": "http://localhost:9090/auth/realms/miranum",
+    "authority": "http://keycloak:9090/auth/realms/miranum",
     "client_id": "miranum",
     "redirect_uri": "http://localhost:8081/#/auth",
     "response_type": "code",
