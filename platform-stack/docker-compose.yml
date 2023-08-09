@@ -108,7 +108,7 @@ services:
     environment:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:8080/auth
+      BASEURL: http://keycloak:9090/auth
       WAIT_FOR_KEYCLOAK: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
