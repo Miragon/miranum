@@ -26,9 +26,7 @@ docker-compose --profile engine up -d
 ```
 
 ### Smoke Test
-If all containers are up and running (except keycloak-init), you can do a first test, if everything
-works. Goto http://localhost:3000. Now you should be redirected to the keycloak login. You can login as one
-of the following:
+The tasklist is the last container starting. As soon that's up and running, open `localhost:8081`. You will be redirected to keycloak, which needs you to authenticate with one of the users below. 
 
 alex / test (role admin)
 oliver / test (role office)
