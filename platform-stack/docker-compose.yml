@@ -113,10 +113,10 @@ services:
       - local-keycloak
 
   postgres:
-    build:
-      context: ./postgres
-    image: miranum_postgres:0.0.1
+    image: postgres:13.2
     container_name: postgres
+    volumes:
+      - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     #volumes:
