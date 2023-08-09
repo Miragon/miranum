@@ -11,7 +11,8 @@ services:
     profiles:
       - engine
     depends_on:
-      - engine
+      engine:
+        condition: service_started
     networks:
       - internal
 
@@ -30,8 +31,6 @@ services:
       ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
       ENGINE_SCHEMA_URL: http://schema-registry:8091/
     depends_on:
-      keycloak:
-        condition: service_healthy
       schema-registry:
         condition: service_started
     networks:
@@ -76,10 +75,10 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - '9090:8080'
-    command: 'start-dev --http-relative-path /auth'
+      - '9090:9090'
+    command: 'start-dev --http-relative-path /auth --http-port=9090'
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:9090/auth/realms/miranum/.well-known/openid-configuration" ]
       interval: 5s
       timeout: 2s
       retries: 15
@@ -102,13 +101,11 @@ services:
     container_name: keycloak-init
     env_file:
       - './.env'
-    depends_on:
-      keycloak:
-        condition: service_healthy
     environment:
       ADMIN_USER: ${SSO_ADMIN:-admin}
       ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
-      BASEURL: http://keycloak:8080/auth
+      BASEURL: http://keycloak:9090/auth
+      WAIT_FOR_KEYCLOAK: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
       - './keycloak:/migration'

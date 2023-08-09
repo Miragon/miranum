@@ -2,32 +2,19 @@
 
 For local development you can use the following tools:
 
-- **SSO**: Keycloak
 - **SSO**: [Keycloak](https://www.keycloak.org/)
-- **DB**: Postgresql database and mssql
+- **DB**: [PostgreSQL](https://www.postgresql.org/)
+- **Minio**: [Minio](https://min.io/)
 
-## Postgres Setup
-
-````
-chmod +x platform-stack/postgres/init.sh
-````
-
-## Docker
-
-Use docker compose to start the infrastructure components:
-
-### Postgres
-
-To use postgres as database, enable the postgres config in .env and start the following script:
-
+IMPORTANT NOTE: You must have keycloak configured in your hosts-file to run the sack locally!
+On Mac/Linux it is located in `/etc/hosts` on Win `C:\Windows\System32\Drivers\etc\hosts`:
 ```bash
-chmod +x platform-stack/postgres/init.sh
-docker compose --profile postgres up -d
+127.0.0.1 localhost keycloak
 ```
 
-### MSSQL
+## Docker
+Use docker compose to start the infrastructure components:
 
 ```bash
-# with mssql
-docker compose --profile mssql up -d
+docker compose --profile engine up -d
 ```
