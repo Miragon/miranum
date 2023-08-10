@@ -398,3 +398,4 @@ gradle-app.setting
 
 **/credentials.properties
 /platform-stack/minio/
+/platform-stack/data/
