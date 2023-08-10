@@ -121,11 +121,11 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
-#    healthcheck:
-#      test: [ "CMD-SHELL", "psql -l | grep keycloak | wc -l" ]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
+    healthcheck:
+      test: [ "CMD-SHELL", "su - postgres -c 'psql -l | grep keycloak | wc -l'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     environment:
       - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB},${S3INTEGRATION_DATASOURCE_DB}
       - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
