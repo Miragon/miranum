@@ -15,14 +15,8 @@ On Mac/Linux it is located in `/etc/hosts` on Win `C:\Windows\System32\drivers\e
 ## Docker
 Use docker compose to start the infrastructure components:
 
-On Mac/Linux:
 ```bash
 docker compose --profile engine up -d
-```
-
-On Windows:
-```bash
-docker-compose --profile engine up -d
 ```
 
 ### Smoke Test
@@ -33,3 +27,48 @@ oliver / test (role office)
 olga / test (role office)
 
 Now the tasklist should be open and you can see your login name and role in right upper corner.
+
+### Error Handling
+In some rare cases the init script doesn't work. You can see that in the stacktrace of the postgres container. When 
+you're starting the docker compose the very first time and you see something like 'Skipping initialization', then the
+initial DB creation for the other services failed. In this case to can start postgres as single container:
+
+```bash
+docker compose up postgres -d
+```
+
+Then log into the containers bash:
+```bash
+docker exec -it postgres /bin/bash
+```
+
+Log into psql:
+```bash
+su - postgres
+psql
+```
+
+Create the databases by hand:
+```sql
+CREATE USER engine;
+CREATE DATABASE engine;
+GRANT ALL PRIVILEGES ON DATABASE engine TO engine;
+
+CREATE USER schemadb;
+CREATE DATABASE schemadb;
+GRANT ALL PRIVILEGES ON DATABASE schemadb TO schemadb;
+
+CREATE USER keycloak;
+CREATE DATABASE keycloak;
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+
+CREATE USER s3db;
+CREATE DATABASE s3db;
+GRANT ALL PRIVILEGES ON DATABASE s3db TO s3db;
+```
+
+You can check, if the DBs have been created:
+```bash
+\l
+```
+If so, your postgres server is ready. You can now start the complete infrastructure (see command above). 
