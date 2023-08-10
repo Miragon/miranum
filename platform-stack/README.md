@@ -22,9 +22,11 @@ docker compose --profile engine up -d
 ### Smoke Test
 The tasklist is the last container starting. As soon that's up and running, open `localhost:8081`. You will be redirected to keycloak, which needs you to authenticate with one of the users below. 
 
-alex / test (role admin)
-oliver / test (role office)
-olga / test (role office)
+| User   | Password | Role    |
+|--------|----------|---------|
+| alex   | test     | admin   |
+| oliver | test     | office  |
+| olga   | test     | office  |
 
 Now the tasklist should be open and you can see your login name and role in right upper corner.
 
