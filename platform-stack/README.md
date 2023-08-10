@@ -33,7 +33,7 @@ Now the tasklist should be open and you can see your login name and role in righ
 ### Error Handling
 In some rare cases the init script doesn't work. You can see that in the stacktrace of the postgres container. When 
 you're starting the docker compose the very first time and you see something like 'Skipping initialization', then the
-initial DB creation for the other services failed. In this case you can start postgres as single container:
+initial DB creation for the other services failed. In this case, you can start postgres as single container:
 
 ```bash
 docker compose up postgres -d
