@@ -11,7 +11,8 @@ services:
     profiles:
       - engine
     depends_on:
-      - engine
+      engine:
+        condition: service_started
     networks:
       - internal
 
@@ -26,12 +27,10 @@ services:
     env_file:
       - .env
     environment:
-      SPRING_PROFILES_ACTIVE: mock-user, sampledata
+      SPRING_PROFILES_ACTIVE: sampledata
       ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
-      ENGINE_SCHEMA_URL: http://host.docker.internal:8081/schema-registry
+      ENGINE_SCHEMA_URL: http://schema-registry:8091/
     depends_on:
-      postgres:
-        condition: service_healthy
       schema-registry:
         condition: service_started
     networks:
@@ -51,7 +50,7 @@ services:
       SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
       SPRING_PROFILES_ACTIVE: sampledata
     depends_on:
-      postgres:
+      keycloak:
         condition: service_healthy
     networks:
       - internal
@@ -64,7 +63,7 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      keycloak:
+      postgres:
         condition: service_healthy
     networks:
       - internal
@@ -76,10 +75,10 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - '9090:8080'
-    command: 'start-dev --http-relative-path /auth'
+      - '9090:9090'
+    command: 'start-dev --http-relative-path /auth --http-port=9090'
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:9090/auth/realms/miranum/.well-known/openid-configuration" ]
       interval: 5s
       timeout: 2s
       retries: 15
@@ -102,13 +101,10 @@ services:
     container_name: keycloak-init
     env_file:
       - './.env'
-    depends_on:
-      postgres:
-        condition: service_healthy
     environment:
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:8080/auth
+      ADMIN_USER: ${SSO_ADMIN:-admin}
+      ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
+      BASEURL: http://keycloak:9090/auth
       WAIT_FOR_KEYCLOAK: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
@@ -117,15 +113,16 @@ services:
       - local-keycloak
 
   postgres:
-    image: postgres:13.2
+    image: postgres:15.3
     container_name: postgres
     volumes:
-      - ./postgres:/docker-entrypoint-initdb.d
+      - ./postgres/:/docker-entrypoint-initdb.d/
+      - ./data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "psql -l | grep keycloak | wc -l" ]
+      test: [ "CMD-SHELL", "su - postgres -c 'psql -l | grep $${SSO_DATASOURCE_DB} | wc -l'" ]
       interval: 5s
       timeout: 5s
       retries: 5
