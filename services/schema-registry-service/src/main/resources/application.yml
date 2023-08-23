@@ -1,7 +1,7 @@
 info:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: '@project.artifactId@'
+    version: '@project.version@'
 
 management:
   server:
@@ -27,7 +27,7 @@ server:
 
 spring:
   application:
-    name: @project.artifactId@
+    name: '@project.artifactId@'
   datasource:
     url: '${SCHEMA_DATASOURCE_URL:jdbc:h2:file:~/backenddb;DB_CLOSE_ON_EXIT=FALSE}'
     username: '${SCHEMA_DATASOURCE_USER:sa}'

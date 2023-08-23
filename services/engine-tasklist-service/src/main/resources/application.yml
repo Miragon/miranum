@@ -1,7 +1,7 @@
 info:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: '@project.artifactId@'
+    version: '@project.version@'
 
 camunda:
   bpm:
@@ -61,7 +61,7 @@ server:
 
 spring:
   application:
-    name: @project.artifactId@
+    name: '@project.artifactId@'
   datasource:
     url: '${ENGINE_DATASOURCE_URL:jdbc:h2:file:~/backenddb;DB_CLOSE_ON_EXIT=FALSE}'
     username: '${ENGINE_DATASOURCE_USER:sa}'

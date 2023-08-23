@@ -6,3 +6,4 @@ includes:
   - path: 02_engine.yml
   - path: 03_engine_protocol_mapper.yml
   - path: 04_users.yml
+  - path: 05_worker.yml
