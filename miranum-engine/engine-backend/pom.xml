@@ -90,6 +90,12 @@
             <version>0.17.9</version>
         </dependency>
 
+        <!-- Miranum Deployment -->
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
+            <version>0.2.1</version>
+        </dependency>
 
         <!-- OpenApi -->
         <dependency>

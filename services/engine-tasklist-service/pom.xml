@@ -92,7 +92,6 @@
             </exclusions>
         </dependency>
 
-
         <!--- Libs -->
         <dependency>
             <groupId>org.flywaydb</groupId>

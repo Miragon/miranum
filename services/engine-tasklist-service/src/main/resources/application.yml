@@ -127,6 +127,13 @@ feign:
 miranum:
   s3service:
     http-API: ${DOCUMENT_STORAGE_HOST}:${DOCUMENT_STORAGE_PORT}
+  # override default security settings
+  security:
+    permittedUrls:
+      - "/error"
+      - "/actuator/**"
+      - "/engine-rest/deployment"
+      - "/rest/deployment"
 logging.level:
   io:
     holunda:

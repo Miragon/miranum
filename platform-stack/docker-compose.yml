@@ -55,6 +55,28 @@ services:
     networks:
       - internal
 
+  deployment:
+    image: miragon/miranum-deployment-service:latest
+    container_name: miranum-deployment
+    ports:
+      - "8092:8080"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MIRANUM_DEPLOYMENT_SERVER_BPMN_TEST_URL: http://host.docker.internal
+      MIRANUM_DEPLOYMENT_SERVER_BPMN_TEST_PORT: 8090
+      MIRANUM_DEPLOYMENT_SERVER_DMN_TEST_URL: http://host.docker.internal
+      MIRANUM_DEPLOYMENT_SERVER_DMN_TEST_PORT: 8090
+      MIRANUM_DEPLOYMENT_SERVER_FORM_TEST_URL: http://host.docker.internal
+      MIRANUM_DEPLOYMENT_SERVER_FORM_TEST_PORT: 8091
+      MIRANUM_DEPLOYMENT_SERVER_CONFIG_TEST_URL: http://host.docker.internal
+      MIRANUM_DEPLOYMENT_SERVER_CONFIG_TEST_PORT: 8091
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - internal
+
   nginx:
     image: nginx:1.24.0
     container_name: nginx
@@ -67,6 +89,8 @@ services:
         condition: service_healthy
     networks:
       - internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   keycloak:
     image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
