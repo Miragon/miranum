@@ -46,7 +46,7 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Engine-Tasklist-Service / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.2
+        uses: FlowSquad/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-engine-tasklist-service.outputs.sarif }}
       # DOCKERIZE SCHEMA-REGISTRY-SERVICE
@@ -61,7 +61,7 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Schema-Registry-Service / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.2
+        uses: FlowSquad/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
       # DOCKERIZE TASKLIST-WEB-APP
@@ -76,6 +76,6 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Tasklist-Webapp / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.2
+        uses: FlowSquad/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-tasklist-webapp.outputs.sarif }}
