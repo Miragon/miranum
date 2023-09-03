@@ -23,7 +23,7 @@
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <camunda.version>7.19.0</camunda.version>
-        <polyflow.version>3.14.0</polyflow.version>
+        <polyflow.version>3.14.3</polyflow.version>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.8.21</kotlin.version>
         <logstash.encoder.version>7.3</logstash.encoder.version>
