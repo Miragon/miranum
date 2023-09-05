@@ -26,7 +26,7 @@
         <polyflow.version>3.14.3</polyflow.version>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.8.21</kotlin.version>
-        <logstash.encoder.version>7.3</logstash.encoder.version>
+        <logstash.encoder.version>7.4</logstash.encoder.version>
     </properties>
 
     <modules>
