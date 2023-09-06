@@ -4,19 +4,19 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: weekly
     labels:
-      - "Technical Dept"
+      - "Technical Debt"
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: weekly
     labels:
-      - "Technical Dept"
+      - "Technical Debt"
   - package-ecosystem: npm
     directory: "/apps"
     target-branch: "dev"
     labels:
-      - "Technical Dept"
+      - "Technical Debt"
     schedule:
       interval: weekly
