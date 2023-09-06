@@ -84,7 +84,7 @@
         <dependency>
             <groupId>io.muenchendigital.digiwf</groupId>
             <artifactId>digiwf-json-serialization-starter</artifactId>
-            <version>0.17.18</version>
+            <version>0.18.0</version>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
