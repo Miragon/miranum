@@ -42,6 +42,21 @@ public class Camunda8AdapterTest {
         then(client).should().newCompleteCommand(1L);
     }
 
+    @Test
+    void givenDefaultUseCaseWithNullInputType_thenShouldNotThrowAnyException() {
+        final ActivatedJob job = this.givenDefaultJob(1L);
+        final WorkerExecutor executor = this.givenDefaultExecutor("defaultUseCase", 100L);
+        given(executor.getInputType()).willReturn(null);
+        final Map<String, Object> result = Map.of("value", "test");
+        final JobClient client = this.givenDefaultClient(result);
+
+        given(this.workerExecuteApi.execute(any(), any())).willReturn(result);
+
+        this.adapter.execute(client, job, executor);
+
+        then(client).should().newCompleteCommand(1L);
+    }
+
     private ActivatedJob givenDefaultJob(final Long jobKey) {
         final ActivatedJob job = Mockito.mock(ActivatedJob.class);
         given(job.getKey()).willReturn(jobKey);

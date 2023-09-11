@@ -34,9 +34,8 @@ public class Camunda8WorkerAdapter implements WorkerSubscription {
 
     public void execute(final JobClient client, final ActivatedJob job, final WorkerExecutor workerExecutor) {
         try {
-            final Map<String, Object> result = this.workerExecuteApi.execute(
-                    workerExecutor, job.getVariablesAsType(workerExecutor.getInputType())
-            );
+            var input = workerExecutor.hasInputType() ? job.getVariablesAsType(workerExecutor.getInputType()) : null;
+            final Map<String, Object> result = this.workerExecuteApi.execute(workerExecutor, input);
             final CompleteJobCommandStep1 cmd = client.newCompleteCommand(job.getKey());
             cmd.variables(result);
             cmd.send().join();

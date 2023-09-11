@@ -39,7 +39,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
     private Object mapInput(final Class<?> inputType, final Object object) {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.convertValue(object, inputType);
+        return Objects.nonNull(inputType) ? mapper.convertValue(object, inputType) : null;
     }
 
     private Map<String, Object> mapOutput(final Object output) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
@@ -22,6 +23,10 @@ public class WorkerExecutor {
 
     private Class<?> outputType;
 
+    public boolean hasInputType() {
+        return Objects.nonNull(this.inputType);
+    }
+
     /**
      * Executes the worker.
      *
@@ -31,6 +36,8 @@ public class WorkerExecutor {
      * @throws IllegalAccessException    if this method object is enforcing Java language access control and the underlying method is inaccessible.
      */
     public Object execute(final Object data) throws InvocationTargetException, IllegalAccessException {
-        return this.getMethod().invoke(this.instance, data);
+        return hasInputType() ?
+                this.getMethod().invoke(this.instance, data) :
+                this.getMethod().invoke(this.instance);
     }
 }

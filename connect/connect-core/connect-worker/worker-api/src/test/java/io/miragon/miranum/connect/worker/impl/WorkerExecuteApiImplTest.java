@@ -89,4 +89,15 @@ public class WorkerExecuteApiImplTest {
         Assertions.assertThrows(BusinessException.class, () ->
                 this.workerExecuteApi.execute(this.workerExecutor, this.event));
     }
+
+    @Test
+    void testExecuteWorker_withNullInputType_shouldNotThrowException() throws InvocationTargetException, IllegalAccessException {
+        when(this.workerExecutor.getType()).thenReturn("exampleWorker");
+        doReturn(null).when(this.workerExecutor).getInputType();
+        doReturn(Map.class).when(this.workerExecutor).getOutputType();
+        when(this.workerExecutor.execute(null)).thenReturn(this.event);
+
+        final Object result = this.workerExecuteApi.execute(this.workerExecutor, null);
+        Assertions.assertEquals(this.event, result);
+    }
 }
