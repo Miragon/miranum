@@ -2,6 +2,7 @@
   <configuration default="false" name="Local" type="CompoundRunConfigurationType">
     <toRun name="TasklistWebapp" type="MavenRunConfiguration" />
     <toRun name="EngineTasklistApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="S3IntegrationApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="SchemaRegistryApplication" type="SpringBootApplicationConfigurationType" />
     <method v="2" />
   </configuration>
