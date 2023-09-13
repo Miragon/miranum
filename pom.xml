@@ -12,7 +12,7 @@
     <url>https://github.com/FlowSquad/miranum-platform</url>
 
     <properties>
-        <revision>0.2.0-SNAPSHOT</revision>
+        <revision>0.3.0-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>

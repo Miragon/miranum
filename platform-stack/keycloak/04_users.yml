@@ -1,4 +1,4 @@
-id: johndoe
+id: users
 author: Miranum
 realm: ${SSO_REALM}
 changes:

@@ -40,6 +40,7 @@ jobs:
         run: ./mvnw -f apps clean install
       - name: BUILD / APPS / Build Tasklist-Web-App
         run: ./mvnw -f apps -Pbuild
+      # DOCKERIZE & PUBLISH ALL IMAGES
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-engine-tasklist-service
         uses: docker/build-push-action@v4
         with:
@@ -53,6 +54,13 @@ jobs:
           context: ./services/schema-registry-service/.
           push: true
           tags: miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-schema-registry-service:latest
+          platforms: linux/amd64, linux/arm64/v8
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-s3-integration-service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./services/s3-integration-service/.
+          push: true
+          tags: miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-s3-integration-service:latest
           platforms: linux/amd64, linux/arm64/v8
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-tasklist-webapp
         uses: docker/build-push-action@v4

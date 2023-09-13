@@ -46,7 +46,7 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Engine-Tasklist-Service / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.3
+        uses: Miragon/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-engine-tasklist-service.outputs.sarif }}
       # DOCKERIZE SCHEMA-REGISTRY-SERVICE
@@ -61,9 +61,24 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Schema-Registry-Service / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.3
+        uses: Miragon/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
+      # DOCKERIZE S3-INTEGRATION-SERVICE
+      - name: DOCKERIZE / S3-Integration-Service / Build image
+        run: docker build ./services/s3-integration-service/. -t miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }}
+      - name: DOCKERIZE / S3-Integration-Service / Scan image
+        id: scan-s3-integration-service
+        uses: anchore/scan-action@v3
+        with:
+          image: miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }}
+          fail-build: false
+          debug: false
+          acs-report-enable: true
+      - name: DOCKERIZE / S3-Integration-Service / Parse SARIF file
+        uses: Miragon/sarif-report-parse@v1.0.3
+        with:
+          sarif-file: ${{ steps.scan-s3-integration-service.outputs.sarif }}
       # DOCKERIZE TASKLIST-WEB-APP
       - name: DOCKERIZE / Tasklist-Webapp / Build image
         run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }}
@@ -76,6 +91,6 @@ jobs:
           debug: false
           acs-report-enable: true
       - name: DOCKERIZE / Tasklist-Webapp / Parse SARIF file
-        uses: FlowSquad/sarif-report-parse@v1.0.3
+        uses: Miragon/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-tasklist-webapp.outputs.sarif }}
