@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-connect</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>miranum-connect-coverage</artifactId>
     <name>miranum-connect-coverage</name>
