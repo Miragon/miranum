@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-cloudevents</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>cloudevents-spring-webmvc</artifactId>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>cloudevents-core</artifactId>
-            <version>0.3.0-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

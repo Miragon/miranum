@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <artifactId>fit-connect-example-c8</artifactId>
@@ -10,7 +10,7 @@
     <parent>
         <groupId>io.miragon.miranum</groupId>
         <artifactId>fit-connect-example</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <dependencies>
@@ -45,8 +45,8 @@
 
         <!--Camunda-->
         <dependency>
-            <groupId>io.camunda</groupId>
-            <artifactId>spring-zeebe-starter</artifactId>
+            <groupId>io.camunda.spring</groupId>
+            <artifactId>spring-boot-starter-camunda</artifactId>
             <version>${camunda8.version}</version>
         </dependency>
     </dependencies>
