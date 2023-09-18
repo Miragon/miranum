@@ -13,6 +13,8 @@
 
     <properties>
         <spring-boot.version>3.1.0</spring-boot.version>
+        <miranum-ide.version>0.3.0</miranum-ide.version>
+        <miranum-connect.version>0.4.0</miranum-connect.version>
     </properties>
 
     <dependencyManagement>
@@ -47,7 +49,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
-            <version>0.3.0</version>
+            <version>${miranum-ide.version}</version>
         </dependency>
 
         <!--- Libs -->
@@ -63,7 +65,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>schema-registry</artifactId>
-            <version>0.3.0</version>
+            <version>${miranum-connect.version}</version>
         </dependency>
 
     </dependencies>

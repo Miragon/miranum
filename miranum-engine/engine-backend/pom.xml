@@ -11,6 +11,11 @@
         <version>${revision}</version>
     </parent>
 
+    <properties>
+        <!-- TODO: change to 0.3.0 after camunda 7.20 release which should work with spring-boot-3 -->
+        <miranum-ide.version>0.2.1</miranum-ide.version>
+    </properties>
+
     <dependencies>
 
         <!-- Spring -->
@@ -94,7 +99,7 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
-            <version>0.2.1</version>
+            <version>${miranum-ide.version}</version>
         </dependency>
 
         <!-- OpenApi -->
