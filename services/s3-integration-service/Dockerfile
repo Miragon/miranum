@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/openjdk-11:latest
+FROM amazoncorretto:17-alpine
 
 EXPOSE 8080
 

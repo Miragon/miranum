@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   tasklist:
-    image: miragon/miranum-platform-tasklist-webapp:0.2.0-SNAPSHOT
+    image: miragon/miranum-platform-tasklist-webapp:${MIRANUM_PLATFORM_VERSION}
     container_name: tasklist
     ports:
       - "3000:8080"
@@ -17,7 +17,7 @@ services:
       - internal
 
   engine:
-    image: miragon/miranum-platform-engine-tasklist-service:0.2.0-SNAPSHOT
+    image: miragon/miranum-platform-engine-tasklist-service:${MIRANUM_PLATFORM_VERSION}
     container_name: engine
     ports:
       - "8090:8090"
@@ -33,11 +33,13 @@ services:
     depends_on:
       schema-registry:
         condition: service_started
+      s3-integration:
+        condition: service_started
     networks:
       - internal
 
   schema-registry:
-    image: miragon/miranum-platform-schema-registry-service:0.2.0-SNAPSHOT
+    image: miragon/miranum-platform-schema-registry-service:${MIRANUM_PLATFORM_VERSION}
     container_name: schema-registry
     ports:
       - "8091:8091"
@@ -52,6 +54,28 @@ services:
     depends_on:
       keycloak:
         condition: service_healthy
+    networks:
+      - internal
+
+  s3-integration:
+    image: miragon/miranum-platform-s3-integration-service:${MIRANUM_PLATFORM_VERSION}
+    container_name: s3-integration
+    ports:
+      - "8086:8086"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      S3INTEGRATION_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${S3INTEGRATION_DATASOURCE_DB}
+      S3_URL: http://minio:9000
+      DOCUMENT_STORAGE_HOST: http://minio:9001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
     networks:
       - internal
 
@@ -105,7 +129,7 @@ services:
       test: [ "CMD", "curl", "-f", "http://localhost:9090/auth/realms/miranum/.well-known/openid-configuration" ]
       interval: 5s
       timeout: 2s
-      retries: 15
+      retries: 30
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
