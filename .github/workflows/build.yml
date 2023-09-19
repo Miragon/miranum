@@ -22,7 +22,7 @@ jobs:
       - name: PREP / Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: PREP / Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - name: PREP / Set Release version env variable
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
