@@ -53,9 +53,11 @@ public class Camunda7PojoMapper {
         if (value.toString().startsWith("[")) {
             return mapper.readValue(value.toString(), new TypeReference<List<?>>() {
             });
+        } else if (value.toString().startsWith("{")) {
+            return mapper.readValue(value.toString(), new TypeReference<Map<String, Object>>() {
+            });
         }
-        return mapper.readValue(value.toString(), new TypeReference<Map<String, Object>>() {
-        });
+        return value.toString();
     }
 
 }
