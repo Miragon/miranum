@@ -2,9 +2,11 @@ package io.miragon.miranum.connect.c7.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.Variables;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -47,6 +49,39 @@ public class Camunda7PojoMapperTest {
 
         // Then
         assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testMapFromEngineData_JsonObjectValue_ShouldReturnMap() {
+        // Given a VariableMap with a JSON object value
+        VariableMap variableMap = Variables.createVariables()
+                .putValueTyped("var1", Variables
+                        .objectValue("{\"key\":\"value\"}")
+                        .serializationDataFormat(Variables.SerializationDataFormats.JSON)
+                        .create());
+
+        // When
+        Map<String, Object> result = mapper.mapFromEngineData(variableMap);
+
+        // Then
+        assertEquals(1, result.size());
+        assertEquals(Map.of("key", "value"), result.get("var1"));
+    }
+
+    @Test
+    public void testMapFromEngineData_JsonArrayToList() {
+        String jsonArray = "[{\"key\":\"value1\"}, {\"key2\":\"value2\"}]";
+        VariableMap variableMap = Variables.createVariables()
+                .putValueTyped("var1", Variables
+                        .objectValue(jsonArray)
+                        .serializationDataFormat(Variables.SerializationDataFormats.JSON)
+                        .create());
+
+        // When
+        Map<String, Object> result = mapper.mapFromEngineData(variableMap);
+
+        // Then
+        assertEquals(List.of(Map.of("key", "value1"), Map.of("key2", "value2")), result.get("var1"));
     }
 
 }

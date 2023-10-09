@@ -35,7 +35,7 @@ public class Camunda7PojoMapper {
         final Map<String, Object> data = new HashMap<>();
         variables.keySet().forEach(key -> {
             final TypedValue value = variables.getValueTyped(key);
-            if (value.getType().getName().equals("json")) {
+            if (value.getType().getName().equals("object")) {
                 try {
                     data.put(key, this.mapFromEngineData(value.getValue()));
                 } catch (final JsonProcessingException e) {
