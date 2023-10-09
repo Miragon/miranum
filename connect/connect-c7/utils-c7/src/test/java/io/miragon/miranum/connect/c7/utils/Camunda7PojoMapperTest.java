@@ -70,6 +70,7 @@ public class Camunda7PojoMapperTest {
 
     @Test
     public void testMapFromEngineData_JsonArrayToList() {
+        // Given a VariableMap with a JSON list
         String jsonArray = "[{\"key\":\"value1\"}, {\"key2\":\"value2\"}]";
         VariableMap variableMap = Variables.createVariables()
                 .putValueTyped("var1", Variables
