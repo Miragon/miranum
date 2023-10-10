@@ -50,6 +50,7 @@ public class Camunda7PojoMapper {
     }
 
     public Object mapFromEngineData(final Object value) throws JsonProcessingException {
+        // TODO: Check if Variables.SerializationDataFormats.JSON. May we support XML and JAVA as well?
         final ObjectMapper mapper = new ObjectMapper();
         if (value.toString().startsWith("[")) {
             return mapper.readValue(value.toString(), new TypeReference<List<?>>() {
