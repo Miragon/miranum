@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ClassUtils;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.type.PrimitiveValueType;
 import org.camunda.bpm.engine.variable.value.TypedValue;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class Camunda7PojoMapper {
         final Map<String, Object> data = new HashMap<>();
         variables.keySet().forEach(key -> {
             final TypedValue value = variables.getValueTyped(key);
-            if (value.getType().getName().equals("json")) {
+            if (value.getType().getName().equals(PrimitiveValueType.OBJECT.getName())) {
                 try {
                     data.put(key, this.mapFromEngineData(value.getValue()));
                 } catch (final JsonProcessingException e) {
@@ -49,13 +50,16 @@ public class Camunda7PojoMapper {
     }
 
     public Object mapFromEngineData(final Object value) throws JsonProcessingException {
+        // TODO: Check if Variables.SerializationDataFormats.JSON. May we support XML and JAVA as well?
         final ObjectMapper mapper = new ObjectMapper();
         if (value.toString().startsWith("[")) {
             return mapper.readValue(value.toString(), new TypeReference<List<?>>() {
             });
+        } else if (value.toString().startsWith("{")) {
+            return mapper.readValue(value.toString(), new TypeReference<Map<String, Object>>() {
+            });
         }
-        return mapper.readValue(value.toString(), new TypeReference<Map<String, Object>>() {
-        });
+        return value.toString();
     }
 
 }
