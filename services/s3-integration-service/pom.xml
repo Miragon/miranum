@@ -16,7 +16,7 @@
     <properties>
         <logstash.encoder>7.4</logstash.encoder>
         <apache.commons.csv>1.10.0</apache.commons.csv>
-        <apache.commons.io>2.13.0</apache.commons.io>
+        <apache.commons.io>2.14.0</apache.commons.io>
         <apache.commons.lang3>3.13.0</apache.commons.lang3>
         <apache.commons.text>1.10.0</apache.commons.text>
         <apache.commons.validator>1.7</apache.commons.validator>
