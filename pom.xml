@@ -27,7 +27,7 @@
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <maven.surfire.plugin.version>3.1.2</maven.surfire.plugin.version>
         <okhttp.version>4.8.1</okhttp.version>
-        <jacoco.version>0.8.10</jacoco.version>
+        <jacoco.version>0.8.11</jacoco.version>
         <apache.commons.lang3.version>3.13.0</apache.commons.lang3.version>
         <jackson.databind.nullable.version>0.2.6</jackson.databind.nullable.version>
         <swagger.annotations.version>2.2.17</swagger.annotations.version>
@@ -191,7 +191,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.10</version>
+                    <version>0.8.11</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
