@@ -14,7 +14,7 @@
     <properties>
         <rest.base-package-name>io.miranum.platform.tasklist.adapter.in.rest</rest.base-package-name>
         <wiremock.version>2.35.1</wiremock.version>
-        <camunda-platform-7-mockito.version>6.19.0</camunda-platform-7-mockito.version>
+        <camunda-platform-7-mockito.version>7.20.0</camunda-platform-7-mockito.version>
     </properties>
 
     <dependencies>
