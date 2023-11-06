@@ -25,7 +25,7 @@
         <lombok.version>1.18.30</lombok.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <maven.surfire.plugin.version>3.1.2</maven.surfire.plugin.version>
+        <maven.surfire.plugin.version>3.2.1</maven.surfire.plugin.version>
         <okhttp.version>4.8.1</okhttp.version>
         <jacoco.version>0.8.11</jacoco.version>
         <apache.commons.lang3.version>3.13.0</apache.commons.lang3.version>
@@ -177,7 +177,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <argLine>@{argLine} -Xms256m -Xmx2048m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                         <runOrder>random</runOrder>
