@@ -87,7 +87,7 @@ public class Camunda7AdapterTest {
 
         var retriesCaptor = ArgumentCaptor.forClass(Integer.class);
         then(service).should().handleFailure((ExternalTask) any(), any(), any(), retriesCaptor.capture(), anyLong());
-        assertEquals(3, retriesCaptor.getValue());
+        assertEquals(3-1, retriesCaptor.getValue());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class Camunda7AdapterTest {
 
         adapter.execute(defaultWorker, externalTask, service);
 
-        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(bpmnRetries), anyLong());
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(bpmnRetries-1), anyLong());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class Camunda7AdapterTest {
 
         adapter.execute(defaultWorker, externalTask, service);
 
-        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(workerRetries), anyLong());
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(workerRetries-1), anyLong());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class Camunda7AdapterTest {
 
         adapter.execute(defaultWorker, externalTask, service);
 
-        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(defaultRetries), anyLong());
+        then(service).should().handleFailure((ExternalTask) any(), any(), any(), eq(defaultRetries-1), anyLong());
     }
 
     @Test

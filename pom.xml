@@ -12,7 +12,7 @@
     <url>https://github.com/flowsquad/miranum-connect</url>
 
     <properties>
-        <revision>0.4.0-SNAPSHOT</revision>
+        <revision>0.5.0-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <apache.commons.lang.version>3.13.0</apache.commons.lang.version>

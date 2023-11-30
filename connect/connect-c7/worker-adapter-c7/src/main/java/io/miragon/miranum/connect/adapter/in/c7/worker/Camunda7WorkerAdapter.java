@@ -66,11 +66,15 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
      * @return The remaining number of retries for the task.
      */
     private int getRemainingRetries(Integer externalTaskRetries, Integer workerRetries) {
+        int retries = 0;
         if (Objects.isNull(externalTaskRetries)) {
-            return Objects.isNull(workerRetries) ?
+            retries = Objects.isNull(workerRetries) ?
                     camunda7WorkerProperties.getDefaultRetries() :
                     workerRetries;
+        }else {
+            retries = externalTaskRetries;
         }
-        return externalTaskRetries;
+        retries -= 1;
+        return Math.max(retries, 0);
     }
 }
