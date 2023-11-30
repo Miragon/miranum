@@ -49,7 +49,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
         } catch (final Exception error) {
             int retries = getRemainingRetries(externalTask.getRetries(), workerRetries);
             log.severe("Error while executing external task " + error.getMessage());
-            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries, 5000L);
+            service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries -1, 5000L);
         }
     }
 

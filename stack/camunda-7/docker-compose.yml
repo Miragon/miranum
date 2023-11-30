@@ -1,7 +1,8 @@
 # Use this only in dev environments. It's not intended for production usage.
 version: '3'
 services:
-  camunda:
-    image: camunda/camunda-bpm-platform:7.18.0
+  camunda-miranum:
+    image: camunda/camunda-bpm-platform:7.20.0
+    container_name: camunda-miranum
     ports:
       - "8080:8080"
