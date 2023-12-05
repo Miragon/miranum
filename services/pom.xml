@@ -16,6 +16,7 @@
         <module>engine-tasklist-service</module>
         <module>schema-registry-service</module>
         <module>s3-integration-service</module>
+        <module>deployment-service</module>
     </modules>
 
 </project>

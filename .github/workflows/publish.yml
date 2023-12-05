@@ -16,7 +16,7 @@ jobs:
       - name: PREP / Checkout sources
         uses: actions/checkout@v4
       - name: PREP / Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'corretto'
@@ -54,6 +54,13 @@ jobs:
           context: ./services/schema-registry-service/.
           push: true
           tags: miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-schema-registry-service:latest
+          platforms: linux/amd64, linux/arm64/v8
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-deployment-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/deployment-service/.
+          push: true
+          tags: miragon/miranum-platform-deployment-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-deployment-service:latest
           platforms: linux/amd64, linux/arm64/v8
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-s3-integration-service
         uses: docker/build-push-action@v5

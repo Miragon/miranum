@@ -80,7 +80,7 @@ services:
       - internal
 
   deployment:
-    image: miragon/miranum-deployment-service:latest
+    image: miragon/miranum-platform-deployment-service:${MIRANUM_PLATFORM_VERSION}
     container_name: miranum-deployment
     ports:
       - "8092:8080"
@@ -88,14 +88,10 @@ services:
     env_file:
       - .env
     environment:
-      MIRANUM_DEPLOYMENT_SERVER_BPMN_TEST_URL: http://host.docker.internal
-      MIRANUM_DEPLOYMENT_SERVER_BPMN_TEST_PORT: 8090
-      MIRANUM_DEPLOYMENT_SERVER_DMN_TEST_URL: http://host.docker.internal
-      MIRANUM_DEPLOYMENT_SERVER_DMN_TEST_PORT: 8090
-      MIRANUM_DEPLOYMENT_SERVER_FORM_TEST_URL: http://host.docker.internal
-      MIRANUM_DEPLOYMENT_SERVER_FORM_TEST_PORT: 8091
-      MIRANUM_DEPLOYMENT_SERVER_CONFIG_TEST_URL: http://host.docker.internal
-      MIRANUM_DEPLOYMENT_SERVER_CONFIG_TEST_PORT: 8091
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_BPMN: http://host.docker.internal:8090/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_DMN: http://host.docker.internal:8090/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_FORM: http://host.docker.internal:8090/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_CONFIG: http://host.docker.internal:8090/rest/deployment
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:

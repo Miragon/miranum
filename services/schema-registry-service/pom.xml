@@ -13,7 +13,7 @@
 
     <properties>
         <spring-boot.version>3.1.0</spring-boot.version>
-        <miranum-ide.version>0.3.0</miranum-ide.version>
+        <miranum-ide.version>0.3.1</miranum-ide.version>
         <miranum-connect.version>0.4.0</miranum-connect.version>
     </properties>
 

@@ -15,7 +15,7 @@ jobs:
       - name: PREP / Checkout sources
         uses: actions/checkout@v4
       - name: PREP / Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'corretto'
@@ -64,6 +64,21 @@ jobs:
         uses: Miragon/sarif-report-parse@v1.0.3
         with:
           sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
+      # DOCKERIZE DEPLOYMENT-SERVICE
+      - name: DOCKERIZE / Deployment-Service / Build image
+        run: docker build ./services/deployment-service/. -t miragon/miranum-platform-deployment-service:${{ env.RELEASE_VERSION }}
+      - name: DOCKERIZE / Deployment-Service / Scan image
+        id: scan-deployment-service
+        uses: anchore/scan-action@v3
+        with:
+          image: miragon/miranum-platform-deployment-service:${{ env.RELEASE_VERSION }}
+          fail-build: false
+          debug: false
+          acs-report-enable: true
+      - name: DOCKERIZE / Deployment-Service / Parse SARIF file
+        uses: Miragon/sarif-report-parse@v1.0.3
+        with:
+          sarif-file: ${{ steps.scan-deployment-service.outputs.sarif }}
       # DOCKERIZE S3-INTEGRATION-SERVICE
       - name: DOCKERIZE / S3-Integration-Service / Build image
         run: docker build ./services/s3-integration-service/. -t miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }}
