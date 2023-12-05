@@ -1,0 +1,5 @@
+io:
+  miranum:
+    deploymentserver:
+      rest:
+        enabled: true
