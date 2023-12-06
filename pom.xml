@@ -9,10 +9,10 @@
     <name>miranum-platform</name>
     <packaging>pom</packaging>
     <description>Miranum Platform</description>
-    <url>https://github.com/FlowSquad/miranum-platform</url>
+    <url>https://github.com/Miragon/miranum-platform</url>
 
     <properties>
-        <revision>0.3.0-SNAPSHOT</revision>
+        <revision>0.3.1-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>

@@ -25,23 +25,27 @@ public class SchemaDeploymentReceiver implements MiranumDeploymentReceiver {
 
     @Override
     public void deploy(final Deployment deployment, final List<String> tags) {
-        // process configs and forms are both json schemas and saved the same way
-        if (deployment.getType().equalsIgnoreCase("form") || deployment.getType().equalsIgnoreCase("config")) {
-            try {
-                final JsonNode jsonSchema = this.objectMapper.readTree(deployment.getFile());
-                this.deployJsonSchema(jsonSchema, deployment.getNamespace(), tags);
-                log.info("Deployed json schema {} of type {}", deployment.getFilename(), deployment.getType());
-            } catch (final IOException e) {
-                log.error("Could not parse schema {}", deployment.getFilename(), e);
-                throw new DeploymentFailedException("Could not parse schema " + deployment.getFilename());
+        try {
+            final String namespace = deployment.getNamespace();
+            final JsonNode jsonNode = this.objectMapper.readTree(deployment.getFile());
+            final String schemaRef = Optional.of(jsonNode.get("key")).map(JsonNode::asText)
+                    .orElseThrow(() -> new DeploymentFailedException("No key found in schema " + jsonNode.get("key")));
+
+            switch (deployment.getType().toLowerCase()) {
+                case "form":
+                    final JsonNode schema = jsonNode.get("schema");
+                    this.saveSchemaUseCase.saveSchema(new SaveSchemaInCommand(namespace, schemaRef, tags, schema));
+                    break;
+                case "config":
+                    this.saveSchemaUseCase.saveSchema(new SaveSchemaInCommand(namespace, schemaRef, tags, jsonNode));
+                    break;
+                default:
+                    log.info("Ignoring deployment of type {}", deployment.getType().toLowerCase());
             }
+        } catch (final IOException e) {
+            log.error("Could not parse schema {}", deployment.getFilename(), e);
+            throw new DeploymentFailedException("Could not parse schema " + deployment.getFilename());
         }
     }
 
-    private void deployJsonSchema(final JsonNode schema, final String namespace, final List<String> tags) {
-        final String schemaRef = Optional.of(schema.get("key")).map(JsonNode::asText)
-                .orElseThrow(() -> new DeploymentFailedException("No key found in schema " + schema.get("key")));
-        final SaveSchemaInCommand saveSchemaInCommand = new SaveSchemaInCommand(namespace, schemaRef, tags, schema);
-        this.saveSchemaUseCase.saveSchema(saveSchemaInCommand);
-    }
 }
