@@ -42,7 +42,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
             log.severe("use case could not be executed " + exception.getMessage());
-            service.handleBpmnError(externalTask, exception.getCode());
+            service.handleBpmnError(externalTask, exception.getCode(), exception.getMessage());
         } catch (final TechnicalException error) {
             log.severe("Technical error while executing task " + error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
@@ -62,7 +62,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
      * For subsequent runs, where externalTaskRetries is not null, it is used.
      *
      * @param externalTaskRetries The number of retries specified for the external task.
-     * @param workerRetries The number of retries specified for the worker as an input in the bpmn.
+     * @param workerRetries       The number of retries specified for the worker as an input in the bpmn.
      * @return The remaining number of retries for the task.
      */
     private int getRemainingRetries(Integer externalTaskRetries, Integer workerRetries) {
@@ -71,7 +71,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
             retries = Objects.isNull(workerRetries) ?
                     camunda7WorkerProperties.getDefaultRetries() :
                     workerRetries;
-        }else {
+        } else {
             retries = externalTaskRetries;
         }
         retries -= 1;
