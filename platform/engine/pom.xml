@@ -13,6 +13,7 @@
     </parent>
 
     <modules>
+        <module>engine-user</module>
         <module>engine-core</module>
         <module>engine-task</module>
         <module>engine-s3</module>

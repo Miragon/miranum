@@ -1,17 +1,17 @@
 package io.miranum.platform.tasklist.domain;
 
-import io.holunda.polyflow.view.Task;
 import lombok.Data;
-import org.springframework.lang.NonNull;
+
+import java.util.Map;
 
 @Data
 public class TaskWithSchema {
-  @NonNull
-  private final Task task;
-  @NonNull
-  private final boolean cancelable;
 
-  private final TaskSchemaType schemaType;
+    private final Task task;
 
-  private final JsonSchema schema;
+    private final boolean cancelable;
+
+    private final Map<String, Object> data;
+
+    private final JsonSchema schema;
 }

@@ -9,6 +9,7 @@
         <version>${revision}</version>
     </parent>
 
+    <name>miranum-unit-test</name>
     <artifactId>miranum-unit-test</artifactId>
     <description>Unit test lib by Miranum</description>
 

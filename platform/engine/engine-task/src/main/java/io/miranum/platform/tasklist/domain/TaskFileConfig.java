@@ -9,16 +9,11 @@ public class TaskFileConfig {
 
     public final String processFileContext;
 
-    public final String processAsyncConfig;
-
-    public final String processSyncConfig;
-
     public final List<String> filePaths;
 
     public final List<String> filePathsReadonly;
 
     private static final String ERRTEXT_ILLEGAL_ACCESS = "No access to defined property";
-
 
 
     public void checkReadAccess(final String filePath) {

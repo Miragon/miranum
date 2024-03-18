@@ -21,6 +21,20 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Camunda -->
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Miranum -->
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>miranum-engine-user</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
         <!-- Feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

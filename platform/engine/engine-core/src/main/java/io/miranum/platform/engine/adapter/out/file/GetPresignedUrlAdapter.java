@@ -19,7 +19,7 @@ import org.springframework.web.client.HttpServerErrorException;
 @RequiredArgsConstructor
 public class GetPresignedUrlAdapter implements PresignedUrlAdapter {
 
-    private final FileOperationsApi presignedUrlRepository;
+    private final FileOperationsApi fileOperationsApi;
     private final S3ProcessProperties s3Properties;
 
 
@@ -31,7 +31,7 @@ public class GetPresignedUrlAdapter implements PresignedUrlAdapter {
     @Override
     public String getPresignedUrl(final String documentStorageUrl, final String pathToFile, final int expireInMinutes) throws HttpServerErrorException {
         try {
-            return this.presignedUrlRepository.getPresignedUrlGetFile(pathToFile, expireInMinutes, documentStorageUrl).block();
+            return this.fileOperationsApi.getFile(pathToFile, expireInMinutes).getUrl();
         } catch (final Exception ex) {
             log.error("Getting presigned url for uploading file {} failed: {}", pathToFile, ex);
             throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Getting presigned url for uploading file %s failed", pathToFile));

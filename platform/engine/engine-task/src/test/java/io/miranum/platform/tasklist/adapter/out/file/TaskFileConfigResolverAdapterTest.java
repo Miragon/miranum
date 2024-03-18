@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static io.miranum.platform.tasklist.adapter.out.schema.TaskVariables.*;
-import static io.miranum.platform.tasklist.application.usecase.TestFixtures.generateTask;
+import static io.miranum.platform.tasklist.application.service.TestFixtures.generateTask;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
