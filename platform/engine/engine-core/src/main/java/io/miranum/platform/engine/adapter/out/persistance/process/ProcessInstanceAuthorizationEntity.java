@@ -1,9 +1,8 @@
 package io.miranum.platform.engine.adapter.out.persistance.process;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 
 /**
  * Entity representation of a form.

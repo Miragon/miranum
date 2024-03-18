@@ -1,8 +1,8 @@
 package io.miranum.platform.engine.adapter.out.file;
 
-import io.miranum.integration.s3.client.repository.presignedurl.PresignedUrlRepository;
 import io.miranum.platform.engine.application.port.out.file.PresignedUrlAdapter;
 import io.miranum.platform.engine.domain.file.PresignedUrlAction;
+import io.miranum.platform.s3.application.port.in.FileOperationsApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import org.springframework.web.client.HttpServerErrorException;
 @RequiredArgsConstructor
 public class GetPresignedUrlAdapter implements PresignedUrlAdapter {
 
-    private final PresignedUrlRepository presignedUrlRepository;
+    private final FileOperationsApi presignedUrlRepository;
     private final S3ProcessProperties s3Properties;
 
 

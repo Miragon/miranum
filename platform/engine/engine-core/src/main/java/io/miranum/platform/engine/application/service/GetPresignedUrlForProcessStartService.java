@@ -1,6 +1,6 @@
 package io.miranum.platform.engine.application.service;
 
-import de.muenchen.oss.digiwf.s3.integration.application.port.in.FolderOperationsApi;
+import io.miranum.platform.s3.application.port.in.FolderOperationsApi;
 import io.miranum.platform.engine.adapter.in.engine.ProcessConfigFunctions;
 import io.miranum.platform.engine.application.port.in.process.GetFileNamesForProcessStartUseCase;
 import io.miranum.platform.engine.application.port.in.process.GetPresignedUrlForProcessStartUseCase;

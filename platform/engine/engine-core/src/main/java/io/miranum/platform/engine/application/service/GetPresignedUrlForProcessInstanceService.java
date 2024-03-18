@@ -4,7 +4,6 @@
 
 package io.miranum.platform.engine.application.service;
 
-import io.miranum.integration.s3.client.repository.DocumentStorageFolderRepository;
 import io.miranum.platform.engine.adapter.in.engine.ProcessConfigFunctions;
 import io.miranum.platform.engine.application.port.out.file.PresignedUrlAdapter;
 import io.miranum.platform.engine.application.port.out.process.MiranumProcessInstancePort;
@@ -13,9 +12,9 @@ import io.miranum.platform.engine.domain.file.IllegalResourceAccessException;
 import io.miranum.platform.engine.domain.file.PresignedUrlAction;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miranum.platform.engine.shared.file.AbstractFileService;
+import io.miranum.platform.s3.application.port.in.FolderOperationsApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -30,19 +29,18 @@ import java.util.List;
 @Service
 public class GetPresignedUrlForProcessInstanceService extends AbstractFileService {
 
-
     private final MiranumProcessInstancePort miranumProcessInstancePort;
     private final ProcessConfigPort processConfigPort;
 
     public GetPresignedUrlForProcessInstanceService(
-            final DocumentStorageFolderRepository documentStorageFolderRepository,
+            final FolderOperationsApi folderOperationsApi,
             final List<PresignedUrlAdapter> presignedUrlAdapters,
             final ProcessConfigFunctions processConfigFunctions,
             final MiranumProcessInstancePort miranumProcessInstancePort,
             final ProcessConfigPort processConfigPort
 
     ) {
-        super(documentStorageFolderRepository, presignedUrlAdapters, processConfigFunctions);
+        super(folderOperationsApi, presignedUrlAdapters, processConfigFunctions);
         this.miranumProcessInstancePort = miranumProcessInstancePort;
         this.processConfigPort = processConfigPort;
     }
@@ -50,7 +48,7 @@ public class GetPresignedUrlForProcessInstanceService extends AbstractFileServic
     public List<String> getFileNames(final String instanceId, final String filePath, final String userId) {
         final MiranumProcessInstance processInstance = this.getProcessInstanceId(instanceId);
         if (!this.miranumProcessInstancePort.hasAccess(instanceId, userId)) {
-            throw new AccessDeniedException("403 returned");
+            throw new RuntimeException("403 returned");
         }
 
         this.checkReadAccess(instanceId, filePath);
@@ -63,7 +61,7 @@ public class GetPresignedUrlForProcessInstanceService extends AbstractFileServic
         final MiranumProcessInstance processInstance = this.getProcessInstanceId(instanceId);
         final String processInstanceId = processInstance.getId();
         if (!this.miranumProcessInstancePort.hasAccess(processInstanceId, userId)) {
-            throw new AccessDeniedException("403 returned");
+            throw new RuntimeException("403 returned");
         }
 
         if (action.equals(PresignedUrlAction.GET)) {
