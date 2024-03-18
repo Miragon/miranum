@@ -69,10 +69,3 @@ jobs:
           push: true
           tags: miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }},miragon/miranum-platform-s3-integration-service:latest
           platforms: linux/amd64, linux/arm64/v8
-      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-platform-tasklist-webapp
-        uses: docker/build-push-action@v5
-        with:
-          context: ./apps/packages/apps/digiwf-tasklist/.
-          push: true
-          tags: miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }},miragon/miranum-platform-tasklist-webapp:latest
-          platforms: linux/amd64, linux/arm64/v8

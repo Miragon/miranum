@@ -397,5 +397,5 @@ gradle-app.setting
 **/application-internal.*
 
 **/credentials.properties
-/platform-stack/minio/
-/platform-stack/data/
+/platform/platform-stack/minio/
+/platform/platform-stack/data/

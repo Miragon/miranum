@@ -1,0 +1,197 @@
+# Use this only in dev environments. It's not intended for production usage.
+version: '3.9'
+services:
+
+  tasklist:
+    image: miragon/miranum-platform-tasklist-webapp:${MIRANUM_PLATFORM_VERSION}
+    container_name: tasklist
+    ports:
+      - "3000:8080"
+    restart: unless-stopped
+    profiles:
+      - engine
+    depends_on:
+      engine:
+        condition: service_started
+    networks:
+      - internal
+
+  engine:
+    image: miragon/miranum-platform-engine-tasklist-service:${MIRANUM_PLATFORM_VERSION}
+    container_name: engine
+    ports:
+      - "8090:8090"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: sampledata
+      ENGINE_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${ENGINE_DATASOURCE_DB}
+      ENGINE_SCHEMA_URL: http://schema-registry:8091/
+    depends_on:
+      schema-registry:
+        condition: service_started
+      s3-integration:
+        condition: service_started
+    networks:
+      - internal
+
+  schema-registry:
+    image: miragon/miranum-platform-schema-registry-service:${MIRANUM_PLATFORM_VERSION}
+    container_name: schema-registry
+    ports:
+      - "8091:8091"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SCHEMA_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${SCHEMA_DATASOURCE_DB}
+      SPRING_PROFILES_ACTIVE: sampledata
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    networks:
+      - internal
+
+  s3-integration:
+    image: miragon/miranum-platform-s3-integration-service:${MIRANUM_PLATFORM_VERSION}
+    container_name: s3-integration
+    ports:
+      - "8086:8086"
+    profiles:
+      - engine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      S3INTEGRATION_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${S3INTEGRATION_DATASOURCE_DB}
+      S3_URL: http://minio:9000
+      DOCUMENT_STORAGE_HOST: http://minio:9001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks:
+      - internal
+
+  deployment:
+    image: miragon/miranum-platform-deployment-service:${MIRANUM_PLATFORM_VERSION}
+    container_name: miranum-deployment
+    profiles:
+      - engine
+    ports:
+      - "8092:8092"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_BPMN: http://engine:8090/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_DMN: http://engine:8090/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_FORM: http://schema-registry:8091/rest/deployment
+      IO_MIRANUM_DEPLOYMENTSERVER_REST_TARGETS_TEST_CONFIG: http://schema-registry:8091/rest/deployment
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:1.24.0
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8081:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  keycloak:
+    image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:20.0.3}
+    container_name: keycloak
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '9090:9090'
+    command: 'start-dev --http-relative-path /auth --http-port=9090'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9090/auth/realms/miranum/.well-known/openid-configuration" ]
+      interval: 5s
+      timeout: 2s
+      retries: 30
+    environment:
+      KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
+      KC_HOSTNAME_STRICT: 'false'
+      KC_DB: ${LOCAL_KEYCLOAK_DB_VENDOR}
+      KC_TRANSACTION_XA_ENABLED: 'false'
+      KC_DB_URL: ${SSO_DATASOURCE_URL}
+      KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
+      KC_DB_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
+      KEYCLOAK_ADMIN: ${SSO_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
+    networks:
+      - local-keycloak
+      - internal
+
+  keycloak-init:
+    image: klg71/keycloakmigration
+    container_name: keycloak-init
+    env_file:
+      - '.env'
+    environment:
+      ADMIN_USER: ${SSO_ADMIN:-admin}
+      ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
+      BASEURL: http://keycloak:9090/auth
+      WAIT_FOR_KEYCLOAK: 'true'
+      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+    volumes:
+      - './keycloak:/migration'
+    networks:
+      - local-keycloak
+
+  postgres:
+    image: postgres:15.3
+    container_name: postgres
+    volumes:
+      - ./postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "su - postgres -c 'psql -l | grep $${SSO_DATASOURCE_DB} | wc -l'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=${ENGINE_DATASOURCE_DB},${SCHEMA_DATASOURCE_DB},${SSO_DATASOURCE_DB},${S3INTEGRATION_DATASOURCE_DB}
+      - POSTGRES_PASSWORD=${LOCAL_DATASOURCE_PASSWORD}
+      - POSTGRES_USER=${LOCAL_DATASOURCE_USERNAME}
+    networks:
+      - internal
+
+  minio:
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESSKEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRETKEY}
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - ./minio:/data
+    networks:
+      - internal
+
+networks:
+  local-keycloak:
+  internal:

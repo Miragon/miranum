@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>miranum-libs</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spring-security</artifactId>
+    <packaging>pom</packaging>
+    <name>spring-security</name>
+    <description>Spring Security Configuration used by Miranum</description>
+
+    <modules>
+        <module>spring-security-core</module>
+        <module>spring-security-starter</module>
+    </modules>
+
+</project>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.miranum.platform</groupId>
+    <artifactId>miranum-platform</artifactId>
+    <version>${revision}</version>
+    <name>miranum-platform</name>
+    <packaging>pom</packaging>
+    <description>Miranum Platform</description>
+    <url>https://github.com/Miragon/miranum-platform</url>
+
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>miranum</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <modules>
+        <module>services</module>
+        <module>engine</module>
+        <module>libs</module>
+    </modules>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+
+</project>

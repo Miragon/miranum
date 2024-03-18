@@ -1,30 +1,15 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PlatformStack" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="platform-stack: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
         <option name="profiles">
           <list>
+            <option value="sqlserver" />
             <option value="engine" />
           </list>
         </option>
-        <option name="sourceFilePath" value="platform-stack/docker-compose.yml" />
-        <option name="upForceRecreate" value="true" />
-        <option name="upRemoveOrphans" value="true" />
-      </settings>
-    </deployment>
-    <method v="2" />
-  </configuration>
-  <configuration default="false" name="PlatformStack" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
-    <deployment type="docker-compose.yml">
-      <settings>
-        <option name="envFilePath" value="" />
-        <option name="profiles">
-          <list>
-            <option value="engine" />
-          </list>
-        </option>
-        <option name="sourceFilePath" value="platform-stack/docker-compose.yml" />
+        <option name="sourceFilePath" value="platform/platform-stack/docker-compose.yml" />
         <option name="upForceRecreate" value="true" />
         <option name="upRemoveOrphans" value="true" />
       </settings>

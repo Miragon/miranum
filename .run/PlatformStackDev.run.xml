@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PlatformStackDev" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="platform-stack: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
         <option name="removeVolumesOnComposeDown" value="true" />
-        <option name="sourceFilePath" value="platform-stack/docker-compose.yml" />
+        <option name="sourceFilePath" value="platform/platform-stack/docker-compose.yml" />
         <option name="upForceRecreate" value="true" />
         <option name="upRemoveOrphans" value="true" />
       </settings>
