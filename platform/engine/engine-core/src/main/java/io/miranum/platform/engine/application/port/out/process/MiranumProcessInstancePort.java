@@ -20,5 +20,4 @@ public interface MiranumProcessInstancePort {
 
     Optional<MiranumProcessInstance> searchProcessInstanceById(String instanceId);
 
-    String getFileContext(String instanceId);
 }

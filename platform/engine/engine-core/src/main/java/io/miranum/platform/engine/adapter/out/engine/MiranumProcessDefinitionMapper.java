@@ -1,7 +1,6 @@
 package io.miranum.platform.engine.adapter.out.engine;
 
 import io.miranum.platform.engine.domain.process.MiranumProcessDefinition;
-import io.miranum.platform.engine.domain.process.MiranumProcessDefinitionWithSchema;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.mapstruct.Mapper;
 
@@ -16,7 +15,5 @@ public interface MiranumProcessDefinitionMapper {
     List<MiranumProcessDefinition> map(List<ProcessDefinition> list);
 
     MiranumProcessDefinition map(ProcessDefinition processDefinition);
-
-    MiranumProcessDefinitionWithSchema mapWithSchema(ProcessDefinition processDefinition);
 
 }

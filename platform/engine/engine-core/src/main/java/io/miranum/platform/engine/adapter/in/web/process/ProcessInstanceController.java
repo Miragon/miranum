@@ -3,16 +3,17 @@ package io.miranum.platform.engine.adapter.in.web.process;
 import io.miranum.platform.engine.api.AppAuthenticationProvider;
 import io.miranum.platform.engine.application.port.in.process.ProcessInstanceQuery;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Nullable;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Rest API to interact with process instances.
@@ -46,16 +47,5 @@ public class ProcessInstanceController {
         return startedInstances.map(this.serviceInstanceApiMapper::map2TO);
     }
 
-    /**
-     * Get detail representation of a process instance.
-     *
-     * @param id Id of the process instance
-     * @return
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<ProcessInstanceDetailDto> getProcessInstanceDetail(@PathVariable("id") final String id) {
-        val startedInstances = this.instanceQuery.getServiceInstanceWithDataByUser(this.authenticationProvider.getCurrentUserId(), id);
-        return ResponseEntity.ok(this.serviceInstanceApiMapper.map2TO(startedInstances));
-    }
 
 }

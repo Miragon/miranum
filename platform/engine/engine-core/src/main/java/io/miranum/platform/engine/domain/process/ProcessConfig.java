@@ -26,11 +26,6 @@ public class ProcessConfig {
     public static final String INSTANCE_SCHEMA_KEY = "app_instance_schema_key";
 
     /**
-     * default status dokument.
-     */
-    private String statusDokument;
-
-    /**
      * status config of the process definition.
      */
     private List<StatusConfig> statusConfig = new ArrayList<>();
@@ -56,28 +51,5 @@ public class ProcessConfig {
                 .orElse(null);
     }
 
-    public boolean isIgnoreFieldsOnStart() {
-        return "1".equals(this.getConfig("ignore_fields_on_start"));
-    }
-
-    public String getInstanceFilePathsReadonly() {
-        return this.getConfig(INSTANCE_FILE_PATHS_READONLY);
-    }
-
-    public String getInstanceFilePaths() {
-        return this.getConfig(INSTANCE_FILE_PATHS);
-    }
-
-    public String getFilePathsReadonly() {
-        return this.getConfig(FILE_PATHS_READONLY);
-    }
-
-    public String getFilePaths() {
-        return this.getConfig(FILE_PATHS);
-    }
-
-    public String getInstanceSchemaKey() {
-        return this.getConfig(INSTANCE_SCHEMA_KEY);
-    }
 
 }

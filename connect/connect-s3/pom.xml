@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>miranum-engine-s3</artifactId>
+    <artifactId>miranum-connect-s3</artifactId>
     <name>miranum-engine-s3</name>
 
     <properties>

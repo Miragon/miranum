@@ -1,14 +1,9 @@
 package io.miranum.platform.tasklist.application.port.in;
 
-import io.miranum.platform.tasklist.domain.TaskData;
-
 import java.util.Map;
 
 
 public interface WorkOnUserTaskUseCase {
-
-
-    TaskData loadUserTask(String user, String taskId);
 
     void completeUserTask(String user, String taskId, Map<String, Object> payload);
 

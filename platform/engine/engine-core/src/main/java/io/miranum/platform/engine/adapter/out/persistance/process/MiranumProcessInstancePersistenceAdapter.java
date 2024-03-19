@@ -1,6 +1,5 @@
 package io.miranum.platform.engine.adapter.out.persistance.process;
 
-import io.miranum.platform.engine.adapter.in.engine.ProcessConstants;
 import io.miranum.platform.engine.application.port.out.process.MiranumProcessInstancePort;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;
@@ -65,12 +64,4 @@ public class MiranumProcessInstancePersistenceAdapter implements MiranumProcessI
         return this.miranumProcessInstanceRepository.findById(instanceId).map(miranumProcessInstanceMapper::map2Model);
     }
 
-    @Override
-    public String getFileContext(final String instanceId) {
-        return (String) this.historyService.createHistoricVariableInstanceQuery()
-                .executionIdIn(instanceId)
-                .processInstanceId(instanceId)
-                .variableName(ProcessConstants.PROCESS_FILE_CONTEXT)
-                .singleResult().getValue();
-    }
 }

@@ -67,14 +67,6 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
-
-        <!-- DigiWF TODO remove when changed to connect-json -->
-        <dependency>
-            <groupId>io.muenchendigital.digiwf</groupId>
-            <artifactId>digiwf-json-serialization-starter</artifactId>
-            <version>0.18.0</version>
-        </dependency>
-
         <!-- Miranum -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
@@ -83,14 +75,10 @@
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>miranum-engine-s3</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${revision}</version>
         </dependency>
+
         <!-- OpenApi -->
         <dependency>
             <groupId>org.springdoc</groupId>

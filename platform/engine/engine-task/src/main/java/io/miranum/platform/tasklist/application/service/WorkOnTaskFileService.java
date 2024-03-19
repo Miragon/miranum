@@ -1,12 +1,12 @@
 package io.miranum.platform.tasklist.application.service;
 
-import io.holunda.polyflow.view.Task;
 import io.miranum.integration.s3.client.repository.DocumentStorageFolderRepository;
 import io.miranum.platform.tasklist.application.port.out.file.PresignedUrlPort;
 import io.miranum.platform.tasklist.application.port.out.file.TaskFileConfigResolverPort;
 import io.miranum.platform.tasklist.application.port.out.polyflow.TaskOutPort;
 import io.miranum.platform.tasklist.application.port.out.security.CurrentUserPort;
 import io.miranum.platform.tasklist.domain.PresignedUrlAction;
+import io.miranum.platform.tasklist.domain.Task;
 import io.miranum.platform.tasklist.domain.TaskFileConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

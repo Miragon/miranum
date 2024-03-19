@@ -1,6 +1,7 @@
 package io.miranum.platform.tasklist.application.port.out.security;
 
-import io.holunda.polyflow.view.auth.User;
+
+import io.miranum.platform.user.domain.User;
 
 /**
  * Port to retrieve currently logged-in user information.
