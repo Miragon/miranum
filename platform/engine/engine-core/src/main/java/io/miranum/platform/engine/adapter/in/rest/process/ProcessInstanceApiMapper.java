@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.adapter.in.web.process;
+package io.miranum.platform.engine.adapter.in.rest.process;
 
 import io.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;

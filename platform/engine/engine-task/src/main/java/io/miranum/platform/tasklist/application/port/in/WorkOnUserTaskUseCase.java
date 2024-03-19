@@ -13,5 +13,5 @@ public interface WorkOnUserTaskUseCase {
 
     void unassignUserTask(String user, String taskId);
 
-    void cancelUserTask(String taskId);
+    void cancelUserTask(String user, String taskId);
 }

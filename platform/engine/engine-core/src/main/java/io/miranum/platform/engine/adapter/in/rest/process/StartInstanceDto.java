@@ -1,4 +1,4 @@
-package io.miranum.platform.engine.adapter.in.web.process;
+package io.miranum.platform.engine.adapter.in.rest.process;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
