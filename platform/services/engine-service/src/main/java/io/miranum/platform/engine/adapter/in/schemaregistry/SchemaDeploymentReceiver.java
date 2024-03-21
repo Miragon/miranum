@@ -1,4 +1,4 @@
-package io.miranum.platform.schemaregistry.deployment;
+package io.miranum.platform.engine.adapter.in.schemaregistry;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,2 +1,0 @@
-org.springframework.boot.env.EnvironmentPostProcessor=\
-io.muenchendigital.digiwf.spring.security.postprocessor.DefaultPropertiesEnvironmentPostProcessor

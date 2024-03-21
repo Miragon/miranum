@@ -7,7 +7,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![C7][c7-shield]][c7-url]
-<!-- END OF PROJECT SHIELDS -->
+<!-- END OF PROJECT SHIELDS --> 
 
 <!-- PROJECT LOGO -->
 <br />

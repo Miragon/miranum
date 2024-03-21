@@ -8,12 +8,12 @@
 
     <parent>
         <groupId>io.miranum.platform</groupId>
-        <artifactId>miranum-platform</artifactId>
+        <artifactId>miranum</artifactId>
         <version>${revision}</version>
     </parent>
 
     <modules>
-        <module>connect-json</module>
+        <module>connect-s3</module>
     </modules>
 
 </project>

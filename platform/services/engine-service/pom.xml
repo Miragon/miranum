@@ -67,11 +67,16 @@
         </dependency>
 
 
-        <!-- Security -->
+        <!-- miranum -->
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
+            <artifactId>schema-registry</artifactId>
+            <version>${miranum-connect.version}</version>
         </dependency>
 
 

@@ -26,6 +26,7 @@
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.9.10</kotlin.version>
         <logstash.encoder.version>7.4</logstash.encoder.version>
+        <miranum-connect.version>0.4.0</miranum-connect.version>
         <archunit.version>1.2.1</archunit.version>
     </properties>
 
@@ -293,6 +294,7 @@
 
     <modules>
         <module>platform</module>
+        <module>connect</module>
     </modules>
 
 

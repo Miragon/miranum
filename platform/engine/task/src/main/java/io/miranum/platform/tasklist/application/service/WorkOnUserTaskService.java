@@ -1,7 +1,6 @@
 package io.miranum.platform.tasklist.application.service;
 
 import io.miranum.platform.tasklist.application.port.in.WorkOnUserTaskUseCase;
-import io.miranum.platform.tasklist.application.port.out.cancellation.CancellationFlagOutPort;
 import io.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,6 @@ import java.util.Map;
 public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
     private final TaskOutPort taskQueryPort;
     private final TaskCommandPort taskCommandPort;
-    private final CancellationFlagOutPort cancellationFlagOutPort;
-
 
     @Override
     public void completeUserTask(String user, String taskId, Map<String, Object> payload) {
@@ -41,11 +38,11 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
     @Override
     public void cancelUserTask(String user, String taskId) {
         val task = taskQueryPort.getTask(user, taskId);
-        if (cancellationFlagOutPort.apply(task)) {
-            taskCommandPort.cancelUserTask(taskId);
-        } else {
-            throw new IllegalArgumentException("Task " + taskId + " can not be cancelled.");
-        }
+        //   if (cancellationFlagOutPort.apply(task)) {
+        taskCommandPort.cancelUserTask(taskId);
+        //   } else {
+        //      throw new IllegalArgumentException("Task " + taskId + " can not be cancelled.");
+        //  }
     }
 
 
