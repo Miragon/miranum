@@ -1,0 +1,108 @@
+{
+  "key": "MyStartForm",
+  "type": "object",
+  "x-display": "stepper",
+  "allOf": [
+    {
+      "key": "sectionKey1",
+      "title": "First Section",
+      "type": "object",
+      "x-options": {
+        "sectionsTitlesClasses": [
+          "d-none"
+        ]
+      },
+      "allOf": [
+        {
+          "key": "group1",
+          "title": "First Group",
+          "type": "object",
+          "additionalProperties": false,
+          "x-options": {
+            "childrenClass": "pl-0"
+          },
+          "properties": {
+            "textFeld": {
+              "fieldType": "text",
+              "title": "Textfield",
+              "type": "string",
+              "key": "textFeld",
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": true
+              },
+              "x-rules": []
+            },
+            "person": {
+              "key": "person",
+              "fieldType": "arrayObject",
+              "additionalProperties": false,
+              "title": "Person",
+              "type": "array",
+              "items": {
+                "additionalProperties": false,
+                "type": "object",
+                "properties": {
+                  "vorname": {
+                    "fieldType": "text",
+                    "title": "Vorname",
+                    "type": "string",
+                    "key": "vorname",
+                    "x-options": {
+                      "fieldColProps": {
+                        "cols": 12,
+                        "sm": 12,
+                        "messages": {}
+                      }
+                    },
+                    "x-props": {
+                      "outlined": true,
+                      "dense": true
+                    },
+                    "x-rules": []
+                  },
+                  "nachname": {
+                    "fieldType": "text",
+                    "title": "Nachname",
+                    "type": "string",
+                    "key": "nachname",
+                    "x-options": {
+                      "fieldColProps": {
+                        "cols": 12,
+                        "sm": 12,
+                        "messages": {}
+                      }
+                    },
+                    "x-props": {
+                      "outlined": true,
+                      "dense": true
+                    },
+                    "x-rules": []
+                  }
+                }
+              },
+              "x-options": {
+                "fieldColProps": {
+                  "cols": 12,
+                  "sm": 12,
+                  "messages": {}
+                }
+              },
+              "x-props": {
+                "outlined": true,
+                "dense": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -22,12 +22,14 @@
         <lombok.version>1.18.28</lombok.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <camunda.version>7.20.0</camunda.version>
+        <camunda7.version>7.20.0</camunda7.version>
+        <camunda8.version>8.4.0</camunda8.version>
         <springdoc-openapi.version>1.7.0</springdoc-openapi.version>
         <kotlin.version>1.9.10</kotlin.version>
         <logstash.encoder.version>7.4</logstash.encoder.version>
         <miranum-connect.version>0.4.0</miranum-connect.version>
         <archunit.version>1.2.1</archunit.version>
+        <apache.commons.lang.version>3.14.0</apache.commons.lang.version>
     </properties>
 
     <dependencyManagement>
@@ -51,7 +53,7 @@
             <dependency>
                 <groupId>org.camunda.bpm</groupId>
                 <artifactId>camunda-bom</artifactId>
-                <version>${camunda.version}</version>
+                <version>${camunda7.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

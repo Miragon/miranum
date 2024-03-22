@@ -1,0 +1,5 @@
+io.miranum.platform.connect.adapter.in.c7.message.Camunda7MessageAutoConfiguration
+org.camunda.community.rest.client.springboot.CamundaOpenApiStarter
+org.camunda.community.rest.client.springboot.CamundaApi
+org.camunda.community.rest.client.springboot.CamundaHistoryApi
+org.camunda.community.rest.client.springboot.CamundaProcessAutodeployment

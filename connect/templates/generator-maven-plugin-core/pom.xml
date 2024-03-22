@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <artifactId>element-templates-generator-maven-plugin-core</artifactId>
+    <name>element-templates-generator-maven-plugin-core</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>connect-element-templates-maven-plugin</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>connect-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>element-template-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>worker-api</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>

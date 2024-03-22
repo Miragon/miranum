@@ -1,0 +1,540 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://camunda.org/schema/element-templates/1.0",
+  "type": "object",
+  "title": "Element Template Schema",
+  "description": "An element template definition",
+  "required": [
+    "name",
+    "id",
+    "appliesTo",
+    "properties"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/name",
+      "type": "string",
+      "title": "element template name",
+      "description": "The name of the element template"
+    },
+    "id": {
+      "$id": "#/id",
+      "type": "string",
+      "title": "element template id",
+      "description": "The identifier of the element template"
+    },
+    "description": {
+      "$id": "#/description",
+      "type": "string",
+      "title": "element template description",
+      "description": "The description of the element template"
+    },
+    "version": {
+      "$id": "#/version",
+      "type": "number",
+      "title": "element template version",
+      "description": "The version of the element template"
+    },
+    "isDefault": {
+      "$id": "#/isDefault",
+      "type": "boolean",
+      "title": "element template is default",
+      "description": "Indicates whether the element template is a default template"
+    },
+    "appliesTo": {
+      "$id": "#/appliesTo",
+      "type": "array",
+      "title": "element template applies to",
+      "description": "The definition for which element types the element template can be applied",
+      "default": [],
+      "items": {
+        "$id": "#/appliesTo/items",
+        "type": "string",
+        "pattern": "^(bpmn:)"
+      }
+    },
+    "properties": {
+      "$id": "#/properties",
+      "type": "array",
+      "title": "element template properties",
+      "description": "The properties of the element template",
+      "default": [],
+      "items": {
+        "$id": "#/properties/property",
+        "type": "object",
+        "title": "element template property",
+        "description": "A property defined for the element template",
+        "default": {},
+        "required": [
+          "binding"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "Dropdown"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "choices"
+              ],
+              "errorMessage": "must provide choices=[] with \"Dropdown\" type"
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "binding": {
+                  "properties": {
+                    "type": {
+                      "const": "property"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "binding"
+              ]
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "String",
+                    "Text",
+                    "Hidden",
+                    "Dropdown",
+                    "Boolean"
+                  ],
+                  "errorMessage": "invalid property type ${0} for binding type \"property\"; must be any of { String, Text, Hidden, Dropdown, Boolean }"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "binding": {
+                  "properties": {
+                    "type": {
+                      "const": "camunda:executionListener"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "binding"
+              ]
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "Hidden"
+                  ],
+                  "errorMessage": "invalid property type ${0} for binding type \"camunda:executionListener\"; must be \"Hidden\""
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "binding": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "camunda:property",
+                        "camunda:outputParameter",
+                        "camunda:in",
+                        "camunda:in:businessKey",
+                        "camunda:out"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "binding"
+              ]
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "String",
+                    "Hidden",
+                    "Dropdown"
+                  ],
+                  "errorMessage": "invalid property type ${0} for binding type ${1/binding/type}; must be any of { String, Hidden, Dropdown }"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "binding": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "camunda:inputParameter",
+                        "camunda:field"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "binding"
+              ]
+            },
+            "then": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "String",
+                    "Text",
+                    "Hidden",
+                    "Dropdown"
+                  ],
+                  "errorMessage": "invalid property type ${0} for binding type ${1/binding/type}; must be any of { String, Text, Hidden, Dropdown }"
+                }
+              }
+            }
+          }
+        ],
+        "properties": {
+          "value": {
+            "$id": "#/properties/property/value",
+            "type": [
+              "string",
+              "boolean"
+            ],
+            "title": "property value",
+            "description": "The value of the control field for the property"
+          },
+          "description": {
+            "$id": "#/properties/property/description",
+            "type": "string",
+            "title": "property description",
+            "description": "The description of the control field"
+          },
+          "label": {
+            "$id": "#/properties/property/label",
+            "type": "string",
+            "title": "property label",
+            "description": "The label of the control field for the property"
+          },
+          "type": {
+            "$id": "#/properties/property/type",
+            "type": "string",
+            "title": "property type",
+            "description": "The type of the control field"
+          },
+          "editable": {
+            "$id": "#/properties/property/editable",
+            "type": "boolean",
+            "title": "property editable",
+            "description": "Indicates whether the property is editable or not"
+          },
+          "choices": {
+            "$id": "#/properties/property/choices",
+            "type": "array",
+            "title": "property choices",
+            "description": "The choices for dropdown properties",
+            "items": {
+              "$id": "#/properties/property/choices/item",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "$id": "#/properties/property/choices/item/name",
+                  "type": "string",
+                  "title": "choice name",
+                  "description": "The name of the choice"
+                },
+                "value": {
+                  "$id": "#/properties/property/choices/item/value",
+                  "type": "string",
+                  "title": "choice value",
+                  "description": "The value of the choice"
+                }
+              },
+              "required": [
+                "value",
+                "name"
+              ],
+              "errorMessage": "{ name, value } must be specified for \"Dropdown\" choices"
+            }
+          },
+          "binding": {
+            "$id": "#/properties/property/binding",
+            "type": "object",
+            "title": "property binding",
+            "description": "A binding to a BPMN 2.0 property",
+            "required": [
+              "type"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "property",
+                        "camunda:property",
+                        "camunda:inputParameter",
+                        "camunda:field"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "name"
+                  ],
+                  "errorMessage": "property.binding ${0/type} requires name"
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "camunda:outputParameter"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "source"
+                  ],
+                  "errorMessage": "property.binding ${0/type} requires source"
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "camunda:in"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "variables"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "target"
+                      ]
+                    }
+                  ],
+                  "errorMessage": "property.binding ${0/type} requires variables or target"
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "camunda:out"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "variables"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "source"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "sourceExpression"
+                      ]
+                    }
+                  ],
+                  "errorMessage": "property.binding ${0/type} requires variables, sourceExpression or source"
+                }
+              }
+            ],
+            "properties": {
+              "type": {
+                "$id": "#/properties/property/binding/type",
+                "type": "string",
+                "title": "property binding type",
+                "enum": [
+                  "property",
+                  "camunda:property",
+                  "camunda:inputParameter",
+                  "camunda:outputParameter",
+                  "camunda:in",
+                  "camunda:out",
+                  "camunda:in:businessKey",
+                  "camunda:executionListener",
+                  "camunda:field"
+                ],
+                "errorMessage": "invalid property.binding type ${0}; must be any of { property, camunda:property, camunda:inputParameter, camunda:outputParameter, camunda:in, camunda:out, camunda:in:businessKey, camunda:executionListener, camunda:field }",
+                "description": "The type of the property binding"
+              },
+              "name": {
+                "$id": "#/properties/property/binding/name",
+                "type": "string",
+                "title": "property binding name",
+                "description": "The name of binding xml property"
+              },
+              "event": {
+                "$id": "#/properties/property/binding/event",
+                "type": "string",
+                "title": "property binding event",
+                "description": "The event type of an execution listener binding"
+              },
+              "scriptFormat": {
+                "$id": "#/properties/property/binding/scriptFormat",
+                "type": "string",
+                "title": "property binding script format",
+                "description": "The format of a script property binding (camunda:outputParameter, camunda:inputParameter)"
+              },
+              "source": {
+                "$id": "#/properties/property/binding/source",
+                "type": "string",
+                "title": "property binding source",
+                "description": "The source value of a property binding (camunda:outputParameter, camunda:out)"
+              },
+              "target": {
+                "$id": "#/properties/property/binding/target",
+                "type": "string",
+                "title": "property binding target",
+                "description": "The target value to be mapped to (camunda:in)"
+              },
+              "expression": {
+                "$id": "#/properties/property/binding/expression",
+                "type": "boolean",
+                "title": "property binding expression",
+                "description": "True indicates that the control field value is an expression (camunda:in, camunda:field)"
+              },
+              "variables": {
+                "$id": "#/properties/property/binding/variables",
+                "type": "string",
+                "title": "property binding variables",
+                "enum": [
+                  "all",
+                  "local"
+                ],
+                "description": "Either all or local indicating the variable mapping (camunda:in)"
+              },
+              "sourceExpression": {
+                "$id": "#/properties/property/binding/sourceExpression",
+                "type": "string",
+                "title": "property binding source expression",
+                "description": "The string containing the expression for the source attribute (camunda:out)"
+              }
+            }
+          },
+          "constraints": {
+            "$id": "#/properties/property/constraints",
+            "type": "object",
+            "title": "property constraints",
+            "description": "The validation constraints",
+            "properties": {
+              "notEmpty": {
+                "$id": "#/properties/property/constraints/notEmpty",
+                "type": "boolean",
+                "title": "property constraints not empty",
+                "description": "The control field must not be empty"
+              },
+              "minLength": {
+                "$id": "#/properties/property/constraints/minLength",
+                "type": "string",
+                "title": "property constraints min length",
+                "description": "The minimal length for the control field value"
+              },
+              "maxLength": {
+                "$id": "#/properties/property/constraints/maxLength",
+                "type": "string",
+                "title": "property constraints max length",
+                "description": "The maximal length for the control field value"
+              },
+              "pattern": {
+                "$id": "#/properties/property/constraints/pattern",
+                "type": "object",
+                "title": "property constraints pattern",
+                "description": "A regular expression pattern for the constraints",
+                "properties": {
+                  "value": {
+                    "$id": "#/properties/property/constraints/pattern/value",
+                    "type": "string",
+                    "title": "property constraints pattern value",
+                    "description": "The regular expression of the pattern constraint"
+                  },
+                  "message": {
+                    "$id": "#/properties/property/constraints/pattern/message",
+                    "type": "string",
+                    "title": "property constraints pattern message",
+                    "description": "The validation message of the pattern constraint"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "$id": "#/metadata",
+      "type": "object",
+      "title": "element template metadata",
+      "description": "Some metadata for further configuration"
+    },
+    "scopes": {
+      "$id": "#/scopes",
+      "type": "object",
+      "title": "element template scope",
+      "description": "Special scoped bindings that allow you to configure nested elements"
+    },
+    "entriesVisible": {
+      "$id": "#/entriesVisible",
+      "deprecated": true,
+      "type": "object",
+      "title": "element template entries visible",
+      "description": "@Deprecated - Select which entries are visible in the properties panel"
+    }
+  }
+}

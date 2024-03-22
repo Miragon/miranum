@@ -1,0 +1,2 @@
+io.miranum.platform.connect.adapter.in.c7.worker.Camunda7WorkerAutoConfiguration
+org.camunda.bpm.client.spring.boot.starter.impl.ClientAutoConfiguration

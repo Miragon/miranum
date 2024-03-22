@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>element-templates-c7</artifactId>
+    <name>element-templates-c7</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>connect-element-templates-maven-plugin</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>element-templates-generator-maven-plugin-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+                    <targetPackage>io.miranum.platform.connect.c7.elementtemplates.gen</targetPackage>
+                    <generateBuilders>true</generateBuilders>
+                    <useJakartaValidation>true</useJakartaValidation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -14,7 +14,6 @@
 
     <modules>
         <module>engine-service</module>
-        <module>schema-registry-service</module>
         <module>deployment-service</module>
     </modules>
 

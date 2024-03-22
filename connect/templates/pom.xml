@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <artifactId>connect-element-templates-maven-plugin</artifactId>
+    <name>connect-element-templates-maven-plugin</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>io.miranum.platform</groupId>
+        <artifactId>miranum-connect</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <modules>
+        <module>generator-maven-plugin</module>
+        <module>generator-maven-plugin-core</module>
+        <module>camunda7</module>
+        <module>camunda8</module>
+    </modules>
+</project>

@@ -1,0 +1,58 @@
+{
+  "definitions": {
+    "address": {
+      "type": "object",
+      "title": "Address",
+      "additionalProperties": false,
+      "properties": {
+        "street_address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "street_address",
+        "city",
+        "state"
+      ]
+    },
+    "user": {
+      "additionalProperties": false,
+      "type": "object",
+      "title": "User",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "mail"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "addressOrUser"
+  ],
+  "properties": {
+    "addressOrUser": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/address"
+        },
+        {
+          "$ref": "#/definitions/user"
+        }
+      ]
+    }
+  }
+}
