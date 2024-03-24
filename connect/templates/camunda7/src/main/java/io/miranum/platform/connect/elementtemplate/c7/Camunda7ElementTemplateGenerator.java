@@ -1,9 +1,9 @@
 package io.miranum.platform.connect.elementtemplate.c7;
 
-import io.miranum.platform.connect.c7.elementtemplates.gen.Binding;
-import io.miranum.platform.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
-import io.miranum.platform.connect.c7.elementtemplates.gen.Constraints;
-import io.miranum.platform.connect.c7.elementtemplates.gen.Property;
+import io.miranum.platform.connect.camnda7.remote.elementtemplates.gen.Binding;
+import io.miranum.platform.connect.camnda7.remote.elementtemplates.gen.CamundaC7ElementTemplate;
+import io.miranum.platform.connect.camnda7.remote.elementtemplates.gen.Constraints;
+import io.miranum.platform.connect.camnda7.remote.elementtemplates.gen.Property;
 import io.miranum.platform.connect.elementtemplate.api.BPMNElementType;
 import io.miranum.platform.connect.elementtemplate.api.PropertyType;
 import io.miranum.platform.connect.elementtemplate.core.*;
