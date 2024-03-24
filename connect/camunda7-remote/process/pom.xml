@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>process-adapter-c7</artifactId>
+    <artifactId>process-camunda7-remote</artifactId>
     <name>process-adapter-c7</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>io.miranum.platform</groupId>
-        <artifactId>connect-c7</artifactId>
+        <artifactId>connect-camunda7-remote</artifactId>
         <version>${revision}</version>
     </parent>
 
@@ -26,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>utils-c7</artifactId>
+            <artifactId>utils-camunda7-remote</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

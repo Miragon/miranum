@@ -28,25 +28,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Camunda -->
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm</groupId>
-            <artifactId>camunda-engine-plugin-spin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.camunda.spin</groupId>
-            <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
-        </dependency>
-
         <!-- Feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -76,6 +57,16 @@
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>connect-message</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>connect-process</artifactId>
             <version>${revision}</version>
         </dependency>
 

@@ -13,7 +13,7 @@
     </parent>
 
     <modules>
-        <module>engine-service</module>
+        <module>camunda7-engine-service</module>
         <module>deployment-service</module>
     </modules>
 
