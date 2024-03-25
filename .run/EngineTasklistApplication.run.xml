@@ -2,7 +2,7 @@
   <configuration default="false" name="EngineTasklistApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <module name="engine-tasklist-service" />
+    <module name="camunda7-engine-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.engine.EngineTasklistApplication" />
     <extension name="coverage">
       <pattern>
