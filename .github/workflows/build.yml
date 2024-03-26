@@ -2,110 +2,29 @@ name: Build Application
 
 on:
   pull_request:
-    branches:
-      - main
   push:
-    branches:
-      - main
+    branches-ignore:
+      - dev
 
 jobs:
-  build_miranum_platform:
+  maven-build:
     runs-on: ubuntu-latest
     steps:
-      - name: PREP / Checkout sources
+      - name: PREP /  Check out Git repository
         uses: actions/checkout@v4
-      - name: PREP / Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'corretto'
-      - name: PREP / Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: PREP / Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: PREP / Set Release version env variable
+      - name: PREP /  Install Java and Maven
+        uses: PREP /  actions/setup-java@v4
+      - name: BUILD /  Build with Maven
         run: |
-          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-      # BUILD ALL SERVICES USING MAVEN
-      - name: BUILD / SERVICES / Execute Maven build
-        run: ./mvnw package
-      # BUILD TASKLIST-WEB-APP
-      - name: BUILD / APPS / Install dependencies
-        run: ./mvnw -f apps clean install
-      - name: BUILD / APPS / Build Tasklist-Web-App
-        run: ./mvnw -f apps -Pbuild
-      # DOCKERIZE ENGINE-TASKLIST-SERVICE
-      - name: DOCKERIZE / Engine-Tasklist-Service / Build image
-        run: docker build ./services/engine-tasklist-service/. -t miragon/miranum-platform-engine-tasklist-service:${{ env.RELEASE_VERSION }}
-      - name: DOCKERIZE / Engine-Tasklist-Service / Scan image
-        id: scan-engine-tasklist-service
-        uses: anchore/scan-action@v3
+         chmod +x ./mvnw
+         ./mvnw --batch-mode clean install
+
+  labelPR:
+    name: Label PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: TimonVS/pr-labeler-action@v5
+        if: github.event_name == 'pull_request'
         with:
-          image: miragon/miranum-platform-engine-tasklist-service:${{ env.RELEASE_VERSION }}
-          fail-build: false
-          debug: false
-          acs-report-enable: true
-      - name: DOCKERIZE / Engine-Tasklist-Service / Parse SARIF file
-        uses: Miragon/sarif-report-parse@v1.0.3
-        with:
-          sarif-file: ${{ steps.scan-engine-tasklist-service.outputs.sarif }}
-      # DOCKERIZE SCHEMA-REGISTRY-SERVICE
-      - name: DOCKERIZE / Schema-Registry-Service / Build image
-        run: docker build ./services/schema-registry-service/. -t miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }}
-      - name: DOCKERIZE / Schema-Registry-Service / Scan image
-        id: scan-schema-registry-service
-        uses: anchore/scan-action@v3
-        with:
-          image: miragon/miranum-platform-schema-registry-service:${{ env.RELEASE_VERSION }}
-          fail-build: false
-          debug: false
-          acs-report-enable: true
-      - name: DOCKERIZE / Schema-Registry-Service / Parse SARIF file
-        uses: Miragon/sarif-report-parse@v1.0.3
-        with:
-          sarif-file: ${{ steps.scan-schema-registry-service.outputs.sarif }}
-      # DOCKERIZE DEPLOYMENT-SERVICE
-      - name: DOCKERIZE / Deployment-Service / Build image
-        run: docker build ./services/deployment-service/. -t miragon/miranum-platform-deployment-service:${{ env.RELEASE_VERSION }}
-      - name: DOCKERIZE / Deployment-Service / Scan image
-        id: scan-deployment-service
-        uses: anchore/scan-action@v3
-        with:
-          image: miragon/miranum-platform-deployment-service:${{ env.RELEASE_VERSION }}
-          fail-build: false
-          debug: false
-          acs-report-enable: true
-      - name: DOCKERIZE / Deployment-Service / Parse SARIF file
-        uses: Miragon/sarif-report-parse@v1.0.3
-        with:
-          sarif-file: ${{ steps.scan-deployment-service.outputs.sarif }}
-      # DOCKERIZE S3-INTEGRATION-SERVICE
-      - name: DOCKERIZE / S3-Integration-Service / Build image
-        run: docker build ./services/s3-integration-service/. -t miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }}
-      - name: DOCKERIZE / S3-Integration-Service / Scan image
-        id: scan-s3-integration-service
-        uses: anchore/scan-action@v3
-        with:
-          image: miragon/miranum-platform-s3-integration-service:${{ env.RELEASE_VERSION }}
-          fail-build: false
-          debug: false
-          acs-report-enable: true
-      - name: DOCKERIZE / S3-Integration-Service / Parse SARIF file
-        uses: Miragon/sarif-report-parse@v1.0.3
-        with:
-          sarif-file: ${{ steps.scan-s3-integration-service.outputs.sarif }}
-      # DOCKERIZE TASKLIST-WEB-APP
-      - name: DOCKERIZE / Tasklist-Webapp / Build image
-        run: docker build ./apps/packages/apps/digiwf-tasklist/. -t miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }}
-      - name: DOCKERIZE / Tasklist-Webapp / Scan image
-        id: scan-tasklist-webapp
-        uses: anchore/scan-action@v3
-        with:
-          image: miragon/miranum-platform-tasklist-webapp:${{ env.RELEASE_VERSION }}
-          fail-build: false
-          debug: false
-          acs-report-enable: true
-      - name: DOCKERIZE / Tasklist-Webapp / Parse SARIF file
-        uses: Miragon/sarif-report-parse@v1.0.3
-        with:
-          sarif-file: ${{ steps.scan-tasklist-webapp.outputs.sarif }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/pr-labeler.yml
