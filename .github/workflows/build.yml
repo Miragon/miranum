@@ -10,11 +10,11 @@ jobs:
   maven-build:
     runs-on: ubuntu-latest
     steps:
-      - name: PREP /  Check out Git repository
+      - name: PREP / Check out Git repository
         uses: actions/checkout@v4
-      - name: PREP /  Install Java and Maven
-        uses: PREP /  actions/setup-java@v4
-      - name: BUILD /  Build with Maven
+      - name: PREP / Install Java and Maven
+        uses: actions/setup-java@v4
+      - name: BUILD / Build with Maven
         run: |
          chmod +x ./mvnw
          ./mvnw --batch-mode clean install
