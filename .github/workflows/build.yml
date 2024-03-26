@@ -3,21 +3,18 @@ name: Build Application
 on:
   pull_request:
   push:
-    branches-ignore:
-      - dev
 
 jobs:
+  # maven build if branch != dev
+  # if branch dev == dev build and release docker images with dev tag
   maven-build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: PREP / Check out Git repository
-        uses: actions/checkout@v4
-      - name: PREP / Install Java and Maven
-        uses: actions/setup-java@v4
-      - name: BUILD / Build with Maven
-        run: |
-         chmod +x ./mvnw
-         ./mvnw --batch-mode clean install
+    uses: ./.github/workflows/workflow-build-and-release-services.yaml
+    with:
+      release-version: dev
+      snapshot-release: true
+      maven-release: false
+      docker-release: ${{ github.ref_name == 'dev' }}
+    secrets: inherit
 
   labelPR:
     name: Label PR
