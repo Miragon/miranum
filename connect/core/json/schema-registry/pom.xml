@@ -50,19 +50,6 @@
             <version>1.7.0</version>
         </dependency>
 
-        <!-- Mapping -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-
         <!-- Database -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>

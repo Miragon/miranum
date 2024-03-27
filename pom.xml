@@ -32,6 +32,11 @@
         <apache.commons.lang.version>3.14.0</apache.commons.lang.version>
     </properties>
 
+    <modules>
+        <module>connect</module>
+        <module>platform</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -50,6 +55,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Camunda -->
             <dependency>
                 <groupId>org.camunda.bpm</groupId>
                 <artifactId>camunda-bom</artifactId>
@@ -92,7 +99,7 @@
                 <version>${logstash.encoder.version}</version>
             </dependency>
 
-            <!-- Archuniut -->
+            <!-- Archunit -->
             <dependency>
                 <groupId>com.tngtech.archunit</groupId>
                 <artifactId>archunit-junit5</artifactId>
@@ -100,6 +107,21 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- Global dependencies for all modules -->
+    <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 
     <build>
@@ -269,12 +291,27 @@
         </plugins>
     </build>
 
-
     <developers>
         <developer>
             <name>Dominik Horn</name>
             <organization>Miragon GmbH</organization>
             <url>https://github.com/dominikhorn93</url>
+            <roles>
+                <role>initiator</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Lukas Mösle</name>
+            <organization>Miragon GmbH</organization>
+            <url>https://github.com/lmoesle</url>
+            <roles>
+                <role>initiator</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Andreas Riepl</name>
+            <organization>Miragon GmbH</organization>
+            <url>https://github.com/DaAnda97</url>
             <roles>
                 <role>initiator</role>
             </roles>
@@ -293,11 +330,5 @@
         <developerConnection>scm:git:git@github.com:FlowSquad/miranum-platform.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
-    <modules>
-        <module>platform</module>
-        <module>connect</module>
-    </modules>
-
 
 </project>

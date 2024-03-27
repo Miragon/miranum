@@ -68,12 +68,12 @@
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>connect-message</artifactId>
+            <artifactId>message-api</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>connect-process</artifactId>
+            <artifactId>process-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
