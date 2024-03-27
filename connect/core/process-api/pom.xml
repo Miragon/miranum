@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>task-api</artifactId>
-    <name>task-api</name>
+    <artifactId>connect-process-api</artifactId>
+    <name>process-core</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>io.miranum.platform</groupId>
-        <artifactId>connect-task</artifactId>
+        <artifactId>connect-core</artifactId>
         <version>${revision}</version>
     </parent>
 

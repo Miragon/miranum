@@ -13,13 +13,13 @@
     </parent>
 
     <modules>
-        <module>task</module>
-        <module>message</module>
-        <module>worker</module>
-        <module>process</module>
+        <module>task-api</module>
+        <module>message-api</module>
+        <module>worker-api</module>
+        <module>process-api</module>
         <module>json</module>
         <module>s3</module>
-        <module>element-templates</module>
+        <module>element-template-api</module>
         <module>shared</module>
     </modules>
 
