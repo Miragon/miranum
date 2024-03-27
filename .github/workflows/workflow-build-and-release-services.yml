@@ -54,14 +54,22 @@ jobs:
           chmod +x ./mvnw
           ./mvnw --batch-mode clean install
 
-      - name: RELEASE / Build and Release Maven
+      - name: RELEASE / Remove SNAPSHOT
         if: inputs.maven-release == true
-        # TODO other command
         run: |
           chmod +x ./mvnw
-          ./mvnw --batch-mode clean install
+          ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
+      - name: RELEASE / Build and Release Maven
+        if: inputs.maven-release == true
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.pgp_private_key }}
+          gpg_passphrase: ${{ secrets.pgp_private_key_secret }}
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}
 
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-camunda7-engine-service
+        if: inputs.docker-release == true
         uses: docker/build-push-action@v5
         with:
           context: ./platform/services/miragon/camunda7-engine-service/.
@@ -69,6 +77,7 @@ jobs:
           tags: miragon/miranum-camunda7-engine-service:${{ env.RELEASE_VERSION }}
           platforms: linux/amd64, linux/arm64/v8
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-service
+        if: inputs.docker-release == true
         uses: docker/build-push-action@v5
         with:
           context: ./platform/services/deployment-service/.
