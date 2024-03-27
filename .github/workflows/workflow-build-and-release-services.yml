@@ -55,7 +55,7 @@ jobs:
           ./mvnw --batch-mode clean install
 
       - name: RELEASE / Remove SNAPSHOT
-        if: inputs.maven-release == true
+        if: inputs.snapshot-release == false
         run: |
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
