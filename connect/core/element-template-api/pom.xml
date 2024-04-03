@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <artifactId>element-template-api</artifactId>
+    <artifactId>connect-element-template-api</artifactId>
     <name>element-template-api</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>io.miranum.platform</groupId>
-        <artifactId>connect-element-templates</artifactId>
+        <artifactId>connect-core</artifactId>
         <version>${revision}</version>
     </parent>
 

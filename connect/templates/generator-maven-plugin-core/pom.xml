@@ -22,12 +22,12 @@
 
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>element-template-api</artifactId>
+            <artifactId>connect-element-template-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>worker-api</artifactId>
+            <artifactId>connect-worker-api</artifactId>
             <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
