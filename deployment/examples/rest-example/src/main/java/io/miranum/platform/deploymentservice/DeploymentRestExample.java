@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class DeploymentEmbeddedExample {
+public class DeploymentRestExample {
 
     public static void main(final String[] args) {
-        SpringApplication.run(DeploymentEmbeddedExample.class, args);
+        SpringApplication.run(DeploymentRestExample.class, args);
     }
 
 }

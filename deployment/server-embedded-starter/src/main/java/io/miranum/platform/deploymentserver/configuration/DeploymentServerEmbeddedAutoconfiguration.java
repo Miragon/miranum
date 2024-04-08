@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"io.miranum.platform.deploymentserver.adapter.out", "io.miranum.platform.deploymentserver.adapter.in.rest", "io.miranum.platform.deploymentserver.mapper"})
+@ComponentScan(basePackages = {"io.miranum.platform.deploymentserver.adapter.out", "io.miranum.platform.deploymentserver.adapter.in.rest"})
 public class DeploymentServerEmbeddedAutoconfiguration {
 
     @Bean

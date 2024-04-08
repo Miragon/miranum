@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>rest-example</module>
         <module>embedded-example</module>
+        <module>rest-example</module>
     </modules>
 
 </project>
