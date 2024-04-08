@@ -51,6 +51,9 @@ jobs:
           password: ${{ secrets.DOCKER_MIRAGON_PASSWORD }}
 
 
+      - name: Test
+        run: echo "${{ secrets.PGP_PRIVATE_KEY }}"
+
       - name: BUILD / Build with Maven
         if: inputs.maven-release == false
         run: |
