@@ -34,6 +34,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+          server-id: "ossrh"
+          server-username: ${{ secrets.nexus_username }}
+          server-password: ${{ secrets.nexus_password }}
       - name: PREP / Set up QEMU
         if: inputs.docker-release == true
         uses: docker/setup-qemu-action@v3
@@ -59,6 +62,26 @@ jobs:
         run: |
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
+
+      #
+      # The GPG key is stored in the secret using the text 'PGP Private Key' format
+      # Import it to GPG keyring and trust it.
+      #
+      - name: RELEASE / Import GPG key
+#        if: inputs.maven-release == true
+        run: echo "${{ secrets.gpg_private_key }}" | gpg --import --no-tty --batch --yes --always-trust
+
+      #
+      # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
+      #
+      - name: RELEASE / List GPG keys available
+#        if: inputs.maven-release == true
+        run: gpg --list-secret-keys --keyid-format=long
+
+      - name: RELEASE / Build and Release Maven
+        if: inputs.maven-release == true
+        run: ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.gpg_keyname }}" -Dgpg.passphrase="${{ secrets.gpg_passphrase }}"
+
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         uses: samuelmeuli/action-maven-publish@v1
