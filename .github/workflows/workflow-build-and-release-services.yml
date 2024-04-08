@@ -54,7 +54,7 @@ jobs:
       # Import it to GPG keyring and trust it.
       #
       - name: PREP / Import GPG key
-#        if: inputs.maven-release == true
+        if: inputs.maven-release == true
         run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
@@ -62,7 +62,7 @@ jobs:
       # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
       #
       - name: PREP / List GPG keys available
-#        if: inputs.maven-release == true
+        if: inputs.maven-release == true
         run: gpg --list-secret-keys --keyid-format=long
 
       - name: BUILD / Build with Maven
