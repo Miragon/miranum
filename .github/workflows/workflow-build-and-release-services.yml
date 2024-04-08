@@ -49,6 +49,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_MIRAGON_USERNAME }}
           password: ${{ secrets.DOCKER_MIRAGON_PASSWORD }}
+      #
+      # The GPG key is stored in the secret using the text 'PGP Private Key' format
+      # Import it to GPG keyring and trust it.
+      #
+      - name: PREP / Import GPG key
+        #        if: inputs.maven-release == true
+        run: |
+          echo "${{ secrets.PGP_PRIVATE_KEY }}"
+          echo $PGP_PRIVATE_KEY
+          echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
+        env:
+          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+      #
+      # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
+      #
+      - name: PREP / List GPG keys available
+#        if: inputs.maven-release == true
+        run: gpg --list-secret-keys --keyid-format=long
 
       - name: BUILD / Build with Maven
         if: inputs.maven-release == false
@@ -61,26 +79,6 @@ jobs:
         run: |
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
-
-      #
-      # The GPG key is stored in the secret using the text 'PGP Private Key' format
-      # Import it to GPG keyring and trust it.
-      #
-      - name: RELEASE / Import GPG key
-        if: inputs.maven-release == true
-        run: |
-          echo "${{ secrets.PGP_PRIVATE_KEY }}"
-          echo $PGP_PRIVATE_KEY
-          echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-        env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-
-      #
-      # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
-      #
-      - name: RELEASE / List GPG keys available
-        if: inputs.maven-release == true
-        run: gpg --list-secret-keys --keyid-format=long
 
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
