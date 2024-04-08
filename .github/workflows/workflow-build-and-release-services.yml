@@ -69,7 +69,7 @@ jobs:
       #
       - name: RELEASE / Import GPG key
 #        if: inputs.maven-release == true
-        run: echo "${{ secrets.gpg_private_key }}" | gpg --import --no-tty --batch --yes --always-trust
+        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
 
       #
       # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
@@ -80,7 +80,7 @@ jobs:
 
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
-        run: ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.gpg_keyname }}" -Dgpg.passphrase="${{ secrets.gpg_passphrase }}"
+        run: ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.PGP_PRIVATE_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
 
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
