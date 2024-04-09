@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>io.miranum.platform</groupId>
-            <artifactId>process-api</artifactId>
+            <artifactId>connect-process-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
