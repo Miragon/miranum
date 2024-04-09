@@ -1,0 +1,77 @@
+name: Bump version
+
+on:
+  workflow_call:
+    inputs:
+      new-maven-version:
+        description: 'New maven version'
+        type: string
+        required: false
+  workflow_dispatch:
+    inputs:
+      new-maven-version:
+        description: 'New maven version'
+        type: string
+        required: false
+
+jobs:
+  bump-versions:
+    name: Bumps versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: PREP / Checkout code
+        uses: actions/checkout@v4
+      - name: PREP / Setup git
+        run: |
+          git config --global user.email "miranum@miragon.de"
+          git config --global user.name "Miranum Github Bot"
+      - name: PREP / Prepare mvnw
+        run: chmod +x ./mvnw
+      - name: PREP / Install Java and Maven
+        if: inputs.bump-services-version== true
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: BUMP VERSION / Raise mvn version
+        if: inputs.new-maven-version != ''
+        run: |
+          ./mvnw versions:set --batch-mode -DprocessAllModules -DnewVersion=${{ inputs.new-maven-version }}-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
+      - name: BUMP VERSION / Raise mvn version
+        if: inputs.new-maven-version == ''
+        run: |
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
+      - name: GIT / Git commit
+        run: |
+          git add .
+          git commit -m "chore: mvn auto version bump to $(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)"
+
+      - name: GIT / Push changes to new branch
+        run: |
+          git checkout -b ${{ github.ref_name }}-version-bump
+          git push --force origin ${{ github.ref_name }}-version-bump
+      - name: GIT / Create pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { repo, owner } = context.repo;
+            const pullResult = await github.rest.pulls.create({
+              title: 'chore: bump release version ${{ github.ref_name }}',
+              owner,
+              repo,
+              head: '${{ github.ref_name }}-version-bump',
+              base: '${{ github.ref_name }}',
+              body: [
+                'This PR is auto-generated'
+              ].join('\n')
+            });
+            await github.rest.issues.addAssignees({
+              owner,
+              repo,
+              issue_number: pullResult.data.number,
+              assignees: ['${{ github.actor }}'],
+            });
+            console.log(`Pull Request created: ${pullResult.data.html_url}`);

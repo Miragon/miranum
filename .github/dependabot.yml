@@ -3,20 +3,15 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    open-pull-requests-limit: 20
     schedule:
       interval: weekly
     labels:
       - "Technical Debt"
   - package-ecosystem: "maven"
     directory: "/"
+    open-pull-requests-limit: 20
     schedule:
       interval: weekly
     labels:
       - "Technical Debt"
-  - package-ecosystem: npm
-    directory: "/apps"
-    target-branch: "dev"
-    labels:
-      - "Technical Debt"
-    schedule:
-      interval: weekly
