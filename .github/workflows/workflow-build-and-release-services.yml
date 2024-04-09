@@ -91,7 +91,7 @@ jobs:
         with:
           context: ./deployment/examples/embedded-example/.
           push: true
-          tags: miragon/miranum-deployment-embedded-example:${{ env.RELEASE_VERSION }}
+          tags: miragon/miranum-deployment-embedded-example:${{ inputs.release-version }}
           platforms: linux/amd64, linux/arm64/v8
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-rest-example
         if: inputs.docker-release == true
@@ -99,5 +99,5 @@ jobs:
         with:
           context: ./deployment/examples/rest-example/.
           push: true
-          tags: miragon/miranum-deployment-rest-example:${{ env.RELEASE_VERSION }}
+          tags: miragon/miranum-deployment-rest-example:${{ inputs.release-version }}
           platforms: linux/amd64, linux/arm64/v8
