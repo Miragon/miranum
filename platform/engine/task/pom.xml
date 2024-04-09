@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum-engine</artifactId>
-        <version>${revision}</version>
+        <version>0.3.1-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Feign -->
