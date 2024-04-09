@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.miranum.platform</groupId>
     <artifactId>miranum</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>miranum</name>
     <packaging>pom</packaging>
     <description>Miranum</description>
     <url>https://github.com/Miragon/miranum</url>
 
     <properties>
+        <revision>0.3.1-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>

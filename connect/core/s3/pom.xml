@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>connect-core</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>miranum-connect-s3</artifactId>

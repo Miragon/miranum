@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum-engine</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <properties>
@@ -64,17 +64,17 @@
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>message-api</artifactId>
-            <version>0.3.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>process-api</artifactId>
-            <version>0.3.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
 
         <!-- OpenApi -->

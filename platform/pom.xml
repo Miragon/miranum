@@ -3,7 +3,9 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>io.miranum.platform</groupId>
     <artifactId>miranum-platform</artifactId>
+    <version>${revision}</version>
     <name>miranum-platform</name>
     <packaging>pom</packaging>
     <description>Miranum Platform</description>
@@ -12,7 +14,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <modules>
