@@ -13,15 +13,15 @@
 <br />
 <div align="center">
     <a href="#">
-        <img src="docs/imgs/logo_blau.png" alt="Logo">
+        <img src="images/logo_blau.png" alt="Logo">
     </a>
-    <h3><a href="https://miranum.com/">Miranum Platform</a></h3>
+    <h3><a href="https://miranum.com/">Miranum</a></h3>
     <p>
         <i>Simplifying the complexity of process automation.</i>
         <br />
-        <a href="https://github.com/Miragon/miranum-platform/issues">Report Bug</a>
+        <a href="https://github.com/Miragon/miranum/issues">Report Bug</a>
         ·
-        <a href="https://github.com/Miragon/miranum-platform/pulls">Request Feature</a>
+        <a href="https://github.com/Miragon/miranum/pulls">Request Feature</a>
     </p>
 </div>
 
@@ -58,7 +58,7 @@ choice.
 Miranum Platform uses Camunda 7 as process engine with Polyflow for task handling.
 In addition, system components such as Keycloak, Nginx, PostgreSQL and Minio are being used.
 The latter tools are interchangeable but work best in the current version.
-![Platform Overview](./docs/imgs/miranum-platform.png)
+![Platform Overview](./images/miranum-platform.png)
 
 Components:
 
@@ -128,25 +128,25 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/Miragon/miranum-platform.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Miragon/miranum.svg?style=for-the-badge
 
-[contributors-url]: https://github.com/Miragon/miranum-platform/graphs/contributors
+[contributors-url]: https://github.com/Miragon/miranum/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/Miragon/miranum-platform.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/Miragon/miranum.svg?style=for-the-badge
 
-[forks-url]: https://github.com/Miragon/miranum-platform/network/members
+[forks-url]: https://github.com/Miragon/miranum/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/Miragon/miranum-platform.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Miragon/miranum.svg?style=for-the-badge
 
-[stars-url]: https://github.com/Miragon/miranum-platform/stargazers
+[stars-url]: https://github.com/Miragon/miranum/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/Miragon/miranum-platform.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Miragon/miranum.svg?style=for-the-badge
 
-[issues-url]: https://github.com/Miragon/miranum-platform/issues
+[issues-url]: https://github.com/Miragon/miranum/issues
 
-[license-shield]: https://img.shields.io/github/license/Miragon/miranum-platform.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Miragon/miranum.svg?style=for-the-badge
 
-[license-url]: https://github.com/Miragon/miranum-platform/blob/main/LICENSE
+[license-url]: https://github.com/Miragon/miranum/blob/main/LICENSE
 
 [c7-shield]: https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%207-blue.svg?style=for-the-badge
 
