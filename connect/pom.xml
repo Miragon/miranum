@@ -9,7 +9,7 @@
     <parent>
         <groupId>io.miranum.platform</groupId>
         <artifactId>miranum</artifactId>
-        <version>${revision}</version>
+        <version>0.3.1-SNAPSHOT</version>
     </parent>
 
     <modules>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>io.miranum.platform</groupId>
             <artifactId>miranum-unit-test</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
