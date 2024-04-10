@@ -17,7 +17,21 @@
     <packaging>pom</packaging>
 
     <dependencyManagement>
+        <dependencies>
+            <!-- Miranum -->
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
+                <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
+                <artifactId>miranum-unit-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 </project>

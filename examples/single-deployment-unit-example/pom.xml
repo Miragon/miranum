@@ -16,6 +16,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>miranum-unit-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
