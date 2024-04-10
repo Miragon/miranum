@@ -84,19 +84,20 @@ jobs:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
           PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
 
-      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-camunda7-engine-service
+      # deployment examples
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example
         if: inputs.docker-release == true
         uses: docker/build-push-action@v5
         with:
-          context: ./platform/services/miragon/camunda7-engine-service/.
+          context: ./deployment/examples/embedded-example/.
           push: true
-          tags: miragon/miranum-camunda7-engine-service:${{ env.RELEASE_VERSION }}
+          tags: miragon/miranum-deployment-embedded-example:${{ inputs.release-version }}
           platforms: linux/amd64, linux/arm64/v8
-      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-service
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-rest-example
         if: inputs.docker-release == true
         uses: docker/build-push-action@v5
         with:
-          context: ./platform/services/deployment-service/.
+          context: ./deployment/examples/rest-example/.
           push: true
-          tags: miragon/miranum-deployment-service:${{ env.RELEASE_VERSION }}
+          tags: miragon/miranum-deployment-rest-example:${{ inputs.release-version }}
           platforms: linux/amd64, linux/arm64/v8

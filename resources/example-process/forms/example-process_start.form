@@ -1,0 +1,48 @@
+{
+    "key": "example-process_start",
+    "schema": {
+        "type": "object",
+        "x-display": "stepper",
+        "allOf": [
+            {
+                "title": "Abschnitt",
+                "description": "",
+                "type": "object",
+                "x-options": {
+                    "sectionsTitlesClasses": [
+                        "d-none"
+                    ]
+                },
+                "allOf": [
+                    {
+                        "containerType": "group",
+                        "title": "Group",
+                        "description": "",
+                        "x-options": {
+                            "childrenClass": "pl-0"
+                        },
+                        "properties": {
+                            "9c827d25-d570-4c84-9c2f-767a2743abe7": {
+                                "x-options": {
+                                    "fieldColProps": {
+                                        "cols": 12,
+                                        "sm": 12
+                                    }
+                                },
+                                "x-props": {
+                                    "outlined": true,
+                                    "dense": true
+                                },
+                                "fieldType": "text",
+                                "title": "Textfield",
+                                "type": "string"
+                            }
+                        },
+                        "key": "b78bf2cf-fb77-46e9-ae80-139d50f0895b"
+                    }
+                ],
+                "key": "caa1cc2b-a140-4d23-8650-c39e39a362d6"
+            }
+        ]
+    }
+}
