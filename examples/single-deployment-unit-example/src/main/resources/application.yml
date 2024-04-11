@@ -96,7 +96,7 @@ spring:
             scope: email, profile, openid
 
 springdoc:
-  packagesToScan: io.miranum.platform.engine
+  packagesToScan: io.miranum.platform
   pathsToMatch: /**
   swagger-ui:
     oauth:
@@ -108,14 +108,6 @@ springdoc:
       enabled: false
   writer-with-default-pretty-printer: true
 
-#feign:
-#  client:
-#    config:
-#      engine-schema:
-#        url: ${ENGINE_SCHEMA_URL}
-#      task-schema:
-#        url: ${ENGINE_SCHEMA_URL}
-
 miranum:
   # override default security settings
   security:
@@ -123,7 +115,7 @@ miranum:
       - "/error"
       - "/actuator/**"
       - "/engine-rest/deployment"
-      - "/rest/deployment"
+      - "/api/deployment"
       - "/swagger-ui/index.html" # allow access to swagger
       - "/swagger-ui*/*swagger-initializer.js" # allow access to swagger
       - "/swagger-ui*/**" # allow access to swagger
