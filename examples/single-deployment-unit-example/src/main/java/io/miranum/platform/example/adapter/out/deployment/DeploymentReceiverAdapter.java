@@ -1,30 +1,31 @@
 package io.miranum.platform.example.adapter.out.deployment;
 
-import io.miranum.platform.deploymentreceiver.application.DeploymentFailedException;
 import io.miranum.platform.deploymentreceiver.application.ports.out.MiranumDeploymentReceiver;
 import io.miranum.platform.deploymentreceiver.domain.Deployment;
-import io.miranum.platform.example.adapter.out.deployment.handler.DeploymentHandler;
+import io.miranum.platform.engine.application.port.in.deployment.ArtifactDeploymentUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class DeploymentReceiverAdapter implements MiranumDeploymentReceiver {
 
-    private final List<DeploymentHandler> deploymentHandlers;
+    private final ArtifactDeploymentUseCase artifactDeploymentUseCase;
 
     @Override
     public void deploy(final Deployment deployment) {
-        this.deploymentHandlers.stream()
-                .filter(handler -> handler.isResponsibleFor(deployment.getType()))
-                .findFirst()
-                .ifPresentOrElse(handler -> handler.deployArtifact(deployment), () -> {
-                    throw new DeploymentFailedException("No handler found for deployment type " + deployment.getType());
-                });
+        if (deployment.getType().equalsIgnoreCase("bpmn")) {
+            log.info("Deploying BPMN artifact: {}", deployment.getFilename());
+            this.artifactDeploymentUseCase.deployBpmn(deployment.getFile(), deployment.getFilename(), deployment.getNamespace(), deployment.getTags());
+        }
+        if (deployment.getType().equalsIgnoreCase("dmn")) {
+            log.info("Deploying DMN artifact: {}", deployment.getFilename());
+            this.artifactDeploymentUseCase.deployDmn(deployment.getFile(), deployment.getFilename(), deployment.getNamespace(), deployment.getTags());
+        }
+
+        // TODO implement forms and config deployments
     }
 
 }
