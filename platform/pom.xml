@@ -16,7 +16,6 @@
     </parent>
 
     <modules>
-        <module>services</module>
         <module>engine</module>
         <module>libs</module>
     </modules>

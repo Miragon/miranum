@@ -1,4 +1,0 @@
-camunda:
-  bpm:
-    deployment-resource-pattern: "classpath*:**/*.bpmn"
-    auto-deployment-enabled: true
