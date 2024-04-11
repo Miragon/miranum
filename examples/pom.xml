@@ -21,7 +21,29 @@
             <!-- Miranum -->
             <dependency>
                 <groupId>io.miranum.platform</groupId>
+                <artifactId>miranum-engine-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
+                <artifactId>miranum-engine-task</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
                 <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- miranum libs -->
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
+                <artifactId>spring-security-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miranum.platform</groupId>
+                <artifactId>schema-registry</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
