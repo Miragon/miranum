@@ -1,0 +1,15 @@
+id: worker
+author: Miranum
+realm: ${SSO_REALM}
+changes:
+  - addSimpleClient:
+      clientId: ${SSO_WORKER_CLIENT_ID}
+      secret: ${SSO_WORKER_CLIENT_SECRET}
+      publicClient: false
+      redirectUris:
+        - '*'
+  - updateClient:
+      clientId: ${SSO_WORKER_CLIENT_ID}
+      serviceAccountsEnabled: true
+      webOrigins:
+        - "*"

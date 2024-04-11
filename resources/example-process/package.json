@@ -5,7 +5,8 @@
   "scripts": {
     "deploy:all": "npm run deploy:embedded && npm run deploy:rest",
     "deploy:embedded": "npx @miragon/miranum-cli deploy -d . -t embedded",
-    "deploy:rest": "npx @miragon/miranum-cli deploy -d . -t rest"
+    "deploy:rest": "npx @miragon/miranum-cli deploy -d . -t rest",
+    "deploy:singleDeploymentUnit": "npx @miragon/miranum-cli deploy -d . -t singleDeploymentUnit"
   },
   "author": "lmoesle",
   "license": "MIT",

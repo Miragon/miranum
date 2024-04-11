@@ -11,11 +11,6 @@
         <version>0.3.1-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <!-- TODO: change to 0.3.0 after camunda 7.20 release which should work with spring-boot-3 -->
-        <miranum-ide.version>0.2.1</miranum-ide.version>
-    </properties>
-
     <dependencies>
 
         <!-- Camunda -->
@@ -57,9 +52,10 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
-            <version>${miranum-ide.version}</version>
+            <groupId>io.miranum.platform</groupId>
+            <artifactId>miranum-deployment-receiver-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.miranum.platform</groupId>
@@ -77,10 +73,15 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <!-- OpenApi -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -91,11 +92,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-        </dependency>
-
     </dependencies>
 
 

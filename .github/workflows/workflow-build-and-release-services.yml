@@ -101,3 +101,13 @@ jobs:
           push: true
           tags: miragon/miranum-deployment-rest-example:${{ inputs.release-version }}
           platforms: linux/amd64, linux/arm64/v8
+
+      # miranum-examples
+      - name: DOCKER / BUILD & PUBLISH / miragon/miranum-single-deployment-unit-example
+        if: inputs.docker-release == true
+        uses: docker/build-push-action@v5
+        with:
+          context: ./examples/single-deployment-unit-example/.
+          push: true
+          tags: miragon/miranum-single-deployment-unit-example:${{ inputs.release-version }}
+          platforms: linux/amd64, linux/arm64/v8

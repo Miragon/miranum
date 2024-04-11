@@ -1,0 +1,26 @@
+id: engine_protocol_mapper
+author: Miranum
+realm: ${SSO_REALM}
+changes:
+  # maps user attribute user_name to a claim user_name
+  - addClientUserAttributeMapper:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      name: user_name
+      userAttribute: user_name
+      claimName: user_name
+      addToUserInfo: true
+      addToAccessToken: true
+  # Maps user client roles of current client prefixed by "ROLE_" into a claim "user_roles"
+  - addClientMapper:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      name: userClientRole
+      protocolMapper: oidc-usermodel-client-role-mapper
+      config:
+        access.token.claim: true
+        id.token.claim: true
+        userinfo.token.claim: true
+        jsonType.label: String
+        multivalued: true
+        claim.name: "roles"
+        usermodel.clientRoleMapping.clientId: ${SSO_ENGINE_CLIENT_ID}
+        usermodel.clientRoleMapping.rolePrefix: "ROLE_"
