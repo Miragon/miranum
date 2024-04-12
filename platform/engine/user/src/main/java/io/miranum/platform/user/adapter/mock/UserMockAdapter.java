@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 @Component
 class UserMockAdapter implements UserPort {
 
-    final User alex = new User("alex.admin", "Alex", "Admin", "alex@example.io");
-    final User oliver = new User("oliver.office", "Oliver", "Office", "oliver@example.io");
-    final User olga = new User("olga.office", "Olga", "Office", "john@example.io");
+    final User alex = new User("alex.admin", "Alex", "Admin", "alex.admin@example.com");
+    final User oliver = new User("oliver.office", "Oliver", "Office", "oliver.office@example.com");
+    final User olga = new User("olga.office", "Olga", "Office", "olga.office@example.com");
     final Map<String, User> users = Map.of("alex.admin", alex, "oliver.office", oliver, "olga.office", olga);
 
     @Override

@@ -78,18 +78,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Todo fixme version conflicts in c7 engine and deployment -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>1.7.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-security</artifactId>
-                <version>1.7.0</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
