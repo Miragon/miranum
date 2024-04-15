@@ -1,4 +1,4 @@
-digiwf:
+miranum:
   security:
     client-registration: keycloak
     permitted-urls:

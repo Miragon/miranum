@@ -1,4 +1,4 @@
-package io.muenchendigital.digiwf.spring.security.autoconfiguration;
+package io.miranum.platform.security.autoconfiguration;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.PropertiesPropertySource;

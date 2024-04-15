@@ -1,4 +1,4 @@
-package io.muenchendigital.digiwf.spring.security;
+package io.miranum.platform.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static io.muenchendigital.digiwf.spring.security.SecurityConfiguration.SECURITY;
+import static io.miranum.platform.security.SecurityConfiguration.SECURITY;
 
 /**
  * The central class for configuration of all security aspects.

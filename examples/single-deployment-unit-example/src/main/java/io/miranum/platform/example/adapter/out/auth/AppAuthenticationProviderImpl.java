@@ -1,7 +1,7 @@
 package io.miranum.platform.example.adapter.out.auth;
 
 import io.miranum.platform.engine.api.AppAuthenticationProvider;
-import io.muenchendigital.digiwf.spring.security.authentication.UserAuthenticationProvider;
+import io.miranum.platform.security.authentication.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

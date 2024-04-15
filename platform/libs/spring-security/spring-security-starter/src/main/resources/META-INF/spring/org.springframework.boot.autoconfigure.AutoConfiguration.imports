@@ -1,1 +1,1 @@
-io.muenchendigital.digiwf.spring.security.autoconfiguration.SpringSecurityAutoConfiguration
+io.miranum.platform.security.autoconfiguration.SpringSecurityAutoConfiguration

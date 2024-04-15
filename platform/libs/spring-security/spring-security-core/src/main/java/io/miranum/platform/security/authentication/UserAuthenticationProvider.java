@@ -1,4 +1,4 @@
-package io.muenchendigital.digiwf.spring.security.authentication;
+package io.miranum.platform.security.authentication;
 
 import org.springframework.lang.NonNull;
 

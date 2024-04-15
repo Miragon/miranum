@@ -1,6 +1,6 @@
-package io.muenchendigital.digiwf.spring.security.authentication;
+package io.miranum.platform.security.authentication;
 
-import io.muenchendigital.digiwf.spring.security.SpringSecurityProperties;
+import io.miranum.platform.security.SpringSecurityProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static io.muenchendigital.digiwf.spring.security.SecurityConfiguration.SECURITY;
+import static io.miranum.platform.security.SecurityConfiguration.SECURITY;
 
 /**
  * User authentication provider.
