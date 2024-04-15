@@ -1,4 +1,4 @@
-package io.muenchendigital.digiwf.spring.security;
+package io.miranum.platform.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
