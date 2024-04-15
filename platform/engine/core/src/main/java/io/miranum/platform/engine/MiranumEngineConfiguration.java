@@ -4,6 +4,8 @@ import io.miranum.platform.deploymentreceiver.application.ports.out.MiranumDeplo
 import io.miranum.platform.engine.adapter.in.deployment.EngineDeploymentReceiver;
 import io.miranum.platform.engine.adapter.out.schema.SchemaClient;
 import io.miranum.platform.engine.application.port.in.deployment.ArtifactDeploymentUseCase;
+import io.miranum.platform.user.adapter.mock.UserMockAdapter;
+import io.miranum.platform.user.application.port.out.UserPort;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -23,6 +25,17 @@ public class MiranumEngineConfiguration {
     @ConditionalOnMissingBean
     public MiranumDeploymentReceiver miranumDeploymentReceiver(final ArtifactDeploymentUseCase artifactDeploymentUseCase) {
         return new EngineDeploymentReceiver(artifactDeploymentUseCase);
+    }
+
+    /**
+     * Example implementation of the UserPort. Provide your own implementation.
+     *
+     * @return UserPort
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public UserPort userPort() {
+        return new UserMockAdapter();
     }
 
 }

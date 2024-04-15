@@ -2,15 +2,13 @@ package io.miranum.platform.user.adapter.mock;
 
 import io.miranum.platform.user.application.port.out.UserPort;
 import io.miranum.platform.user.domain.User;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Component
-class UserMockAdapter implements UserPort {
+public class UserMockAdapter implements UserPort {
 
     final User alex = new User("alex.admin", "Alex", "Admin", "alex.admin@example.com");
     final User oliver = new User("oliver.office", "Oliver", "Office", "oliver.office@example.com");
