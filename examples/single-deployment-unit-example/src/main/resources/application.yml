@@ -20,6 +20,15 @@ camunda:
     database:
       schema-update: false
     auto-deployment-enabled: false
+    admin-user:
+      id: ${CAMUNDA_COCKPIT_USERNAME:demo}
+      password: ${CAMUNDA_COCKPIT_PASSWORD:demo}
+      firstName: ${CAMUNDA_COCKPIT_USER_FIRSTNAME:Demo}
+    filter:
+      create: All tasks
+    metrics:
+      enabled: false
+      db-reporter-activate: false
 
 management:
   server:
@@ -121,6 +130,7 @@ miranum:
       - "/swagger-ui*/**" # allow access to swagger
       - "/v3/api-docs/*" # allow access to swagger
       - "/v3/api-docs" # allow access to swagger
+      - "/camunda/**" # allow camunda webapps
 logging.level:
   io:
     holunda:
