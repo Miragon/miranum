@@ -1,7 +1,6 @@
 package io.miranum.platform.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -32,10 +30,7 @@ public class SecurityConfiguration {
      */
     public static final String SECURITY = "!no-security";
 
-
-    private final RestTemplateBuilder restTemplateBuilder;
     private final SpringSecurityProperties springSecurityProperties;
-    private final ClientRegistrationRepository clientRegistrationRepository;
 
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http, Converter<Jwt, AbstractAuthenticationToken> converter) throws Exception {
