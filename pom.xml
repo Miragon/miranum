@@ -36,6 +36,7 @@
         <module>deployment</module>
         <module>platform</module>
         <module>examples</module>
+        <module>coverage</module>
     </modules>
 
     <dependencyManagement>

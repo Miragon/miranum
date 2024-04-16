@@ -11,10 +11,11 @@
 
     <artifactId>miranum-examples</artifactId>
     <name>miranum-examples</name>
+    <packaging>pom</packaging>
+
     <modules>
         <module>single-deployment-unit-example</module>
     </modules>
-    <packaging>pom</packaging>
 
     <dependencyManagement>
         <dependencies>
