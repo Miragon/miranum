@@ -69,11 +69,11 @@ jobs:
 #          gpg --list-secret-keys --keyid-format=long
 #          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
 #
-#      - name: BUILD / Build with Maven
-#        if: inputs.maven-release == false
-#        run: |
-#          chmod +x ./mvnw
-#          ./mvnw --batch-mode clean install
+      - name: BUILD / Build with Maven
+        if: inputs.maven-release == false
+        run: |
+          chmod +x ./mvnw
+          ./mvnw --batch-mode clean install
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
@@ -95,7 +95,7 @@ jobs:
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
-          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
+          mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
 #          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
