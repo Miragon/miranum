@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'corretto'
+          distribution: 'adopt'
           server-id: "ossrh"
           server-username: ${{ secrets.nexus_username }}
           server-password: ${{ secrets.nexus_password }}
@@ -55,19 +55,19 @@ jobs:
       # The GPG key is stored in the secret using the text 'PGP Private Key' format
       # Import it to GPG keyring and trust it.
       #
-      - name: PREP / Import GPG key
-        if: inputs.maven-release == true
-        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-        env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+#      - name: PREP / Import GPG key
+#        if: inputs.maven-release == true
+#        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
+#        env:
+#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
       #
       # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
       #
-      - name: PREP / List GPG keys available
-        if: inputs.maven-release == true
-        run: |
-          gpg --list-secret-keys --keyid-format=long
-          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
+#      - name: PREP / List GPG keys available
+#        if: inputs.maven-release == true
+#        run: |
+#          gpg --list-secret-keys --keyid-format=long
+#          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
 
       - name: BUILD / Build with Maven
         if: inputs.maven-release == false
@@ -92,19 +92,25 @@ jobs:
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-      - name: RELEASE / Build and Release Maven
-        if: inputs.maven-release == true
-        run: |
-          mvn clean verify -DskipTests
-          mkdir -p ~/.m2
-          echo "<settingsSecurity><master>{<![CDATA[${{ secrets.PGP_PRIVATE_KEY }}]]>}</master></settingsSecurity>" > ~/.m2/settings-security.xml
-          mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
-#          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
-        env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-          PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-          NEXUS_USERNAME: ${{ secrets.nexus_username }}
-          NEXUS_PASSWORD: ${{ secrets.nexus_password }}
+      - name: Release maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.PGP_PRIVATE_KEY }}
+          gpg_passphrase: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
+          nexus_username: ${{ secrets.NEXUS_USERNAME }}
+          nexus_password: ${{ secrets.NEXUS_PASSWORD }}
+
+#      - name: RELEASE / Build and Release Maven
+#        if: inputs.maven-release == true
+#        run: |
+#          mvn clean verify -DskipTests
+#          mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
+##          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
+#        env:
+#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+#          PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
+#          NEXUS_USERNAME: ${{ secrets.nexus_username }}
+#          NEXUS_PASSWORD: ${{ secrets.nexus_password }}
 
       # deployment examples
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example
