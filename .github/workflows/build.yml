@@ -13,9 +13,7 @@ jobs:
       release-version: dev
       snapshot-release: true
       maven-release: false
-      # FIXME rename the feat/new_platform branch
-      # docker-release: ${{ github.ref_name == 'dev' }}
-      docker-release: ${{ github.ref_name == 'feat/new_platform' }}
+      docker-release: ${{ github.ref_name == 'main' }}
     secrets: inherit
 
   labelPR:
