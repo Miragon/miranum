@@ -70,7 +70,6 @@ jobs:
 #          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
 
       - name: BUILD / Build with Maven
-        if: inputs.maven-release == false
         run: |
           chmod +x ./mvnw
           ./mvnw --batch-mode clean install
@@ -92,7 +91,8 @@ jobs:
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-      - name: Release maven package
+      - name: RELEASE / Build and Release Maven
+        if: inputs.maven-release == true
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.PGP_PRIVATE_KEY }}
