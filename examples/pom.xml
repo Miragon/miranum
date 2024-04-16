@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>miranum-examples</artifactId>
@@ -21,35 +21,35 @@
         <dependencies>
             <!-- Miranum -->
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>miranum-engine-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>miranum-engine-task</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>miranum-deployment-server-embedded-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- miranum libs -->
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>spring-security-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>schema-registry</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.miranum.platform</groupId>
+                <groupId>io.miragon.miranum.platform</groupId>
                 <artifactId>miranum-unit-test</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>

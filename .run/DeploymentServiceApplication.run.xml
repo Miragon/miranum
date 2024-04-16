@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DeploymentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="deployment-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.deploymentservice.DeploymentServiceApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.deploymentservice.DeploymentServiceApplication" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="true" />
       <option name="IS_SUBST" value="false" />

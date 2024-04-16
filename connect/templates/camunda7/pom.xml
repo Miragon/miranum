@@ -8,14 +8,14 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -34,7 +34,7 @@
                 <version>1.2.1</version>
                 <configuration>
                     <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-                    <targetPackage>io.miranum.platform.connect.c7.elementtemplates.gen</targetPackage>
+                    <targetPackage>io.miragon.miranum.platform.connect.c7.elementtemplates.gen</targetPackage>
                     <generateBuilders>true</generateBuilders>
                     <useJakartaValidation>true</useJakartaValidation>
                 </configuration>

@@ -3,10 +3,10 @@
     <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <module name="camunda7-engine-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.engine.EngineTasklistApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.engine.EngineTasklistApplication" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="io.miranum.platform.engine.*" />
+        <option name="PATTERN" value="io.miragon.miranum.platform.engine.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

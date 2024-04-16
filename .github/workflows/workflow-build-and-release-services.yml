@@ -33,10 +33,12 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'corretto'
+          distribution: 'adopt'
           server-id: "ossrh"
-          server-username: ${{ secrets.nexus_username }}
-          server-password: ${{ secrets.nexus_password }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.PGP_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: PREP / Set up QEMU
         if: inputs.docker-release == true
         uses: docker/setup-qemu-action@v3
@@ -49,24 +51,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_MIRAGON_USERNAME }}
           password: ${{ secrets.DOCKER_MIRAGON_PASSWORD }}
-      #
-      # The GPG key is stored in the secret using the text 'PGP Private Key' format
-      # Import it to GPG keyring and trust it.
-      #
-      - name: PREP / Import GPG key
-        if: inputs.maven-release == true
-        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-        env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-      #
-      # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
-      #
-      - name: PREP / List GPG keys available
-        if: inputs.maven-release == true
-        run: gpg --list-secret-keys --keyid-format=long
 
       - name: BUILD / Build with Maven
-        if: inputs.maven-release == false
         run: |
           chmod +x ./mvnw
           ./mvnw --batch-mode clean install
@@ -90,10 +76,12 @@ jobs:
 
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
-        run: ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.PGP_PRIVATE_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
+        run: |
+          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
         env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-          PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
+          MAVEN_USERNAME: ${{ secrets.nexus_username }}
+          MAVEN_PASSWORD: ${{ secrets.nexus_password }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
 
       # deployment examples
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example

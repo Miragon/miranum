@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DeploymentEmbeddedExample" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="miranum-deployment-embedded-example" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.deploymentserver.DeploymentEmbeddedExample" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.deploymentserver.DeploymentEmbeddedExample" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="io.miranum.platform.deploymentserver.*" />
+        <option name="PATTERN" value="io.miragon.miranum.platform.deploymentserver.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

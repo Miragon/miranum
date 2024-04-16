@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="MiranumSingleDeploymentUnitExample" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="miranum-single-deployment-unit-example" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miranum.platform.example.MiranumSingleDeploymentUnitExample" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.example.MiranumSingleDeploymentUnitExample" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="true" />
       <option name="IS_SUBST" value="false" />

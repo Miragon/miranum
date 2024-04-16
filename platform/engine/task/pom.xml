@@ -6,9 +6,9 @@
     <name>miranum-engine-task</name>
 
     <parent>
-        <groupId>io.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-engine</artifactId>
-        <version>0.3.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -30,7 +30,7 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
