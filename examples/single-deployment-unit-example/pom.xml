@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-examples</artifactId>
         <version>0.3.1-SNAPSHOT</version>
     </parent>
@@ -66,25 +66,25 @@
 
         <!-- miranum -->
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-task</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-deployment-server-embedded-starter</artifactId>
         </dependency>
 
         <!-- miranum libs -->
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>schema-registry</artifactId>
         </dependency>
 
@@ -96,7 +96,7 @@
 
         <!-- Test -->
         <dependency>
-            <groupId>io.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-unit-test</artifactId>
             <scope>test</scope>
         </dependency>

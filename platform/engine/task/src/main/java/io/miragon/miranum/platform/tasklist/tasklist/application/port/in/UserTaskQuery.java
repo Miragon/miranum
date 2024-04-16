@@ -1,0 +1,15 @@
+package io.miragon.miranum.platform.tasklist.tasklist.application.port.in;
+
+
+import io.miragon.miranum.platform.tasklist.tasklist.domain.Task;
+
+import java.util.List;
+
+public interface UserTaskQuery {
+
+    List<Task> getTasksForUserGroup(String group);
+
+    List<Task> getTasksForUser(String user);
+
+    Task getTask(String user, String taskId);
+}

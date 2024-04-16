@@ -1,0 +1,10 @@
+package io.miragon.miranum.platform.tasklist.tasklist.adapter.out.task;
+
+public class TaskAuthorizations {
+    String taskId;
+
+    String type; //group or user
+
+    String value; // id of group or user
+
+}
