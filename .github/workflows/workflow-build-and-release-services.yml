@@ -55,11 +55,11 @@ jobs:
       # The GPG key is stored in the secret using the text 'PGP Private Key' format
       # Import it to GPG keyring and trust it.
       #
-      - name: PREP / Import GPG key
-        if: inputs.maven-release == true
-        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-        env:
-          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+#      - name: PREP / Import GPG key
+#        if: inputs.maven-release == true
+#        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
+#        env:
+#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
       #
       # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
       #
@@ -92,15 +92,6 @@ jobs:
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-
-      # Temporary maven release fix
-#      - name: RELEASE / Build and Release Maven
-#        uses: samuelmeuli/action-maven-publish@v1
-#        with:
-#          gpg_private_key: ${{ secrets.pgp_private_key }}
-#          gpg_passphrase: ${{ secrets.pgp_private_key_secret }}
-#          nexus_username: ${{ secrets.nexus_username }}
-#          nexus_password: ${{ secrets.nexus_password }}
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
@@ -109,7 +100,8 @@ jobs:
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
           PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-          SECRET_KEY: ${{ env.SECRET_KEY }}
+          NEXUS_USERNAME: ${{ secrets.nexus_username }}
+          NEXUS_PASSWORD: ${{ secrets.nexus_password }}
 
       # deployment examples
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example
