@@ -55,20 +55,20 @@ jobs:
       # The GPG key is stored in the secret using the text 'PGP Private Key' format
       # Import it to GPG keyring and trust it.
       #
-#      - name: PREP / Import GPG key
-#        if: inputs.maven-release == true
-#        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-#        env:
-#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
+      - name: PREP / Import GPG key
+        if: inputs.maven-release == true
+        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
+        env:
+          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
       #
       # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
       #
-#      - name: PREP / List GPG keys available
-#        if: inputs.maven-release == true
-#        run: |
-#          gpg --list-secret-keys --keyid-format=long
-#          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
-#
+      - name: PREP / List GPG keys available
+        if: inputs.maven-release == true
+        run: |
+          gpg --list-secret-keys --keyid-format=long
+          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
+
       - name: BUILD / Build with Maven
         if: inputs.maven-release == false
         run: |
@@ -92,18 +92,12 @@ jobs:
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.pgp_private_key }}
-          gpg_passphrase: ${{ secrets.pgp_private_key_secret }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
           mvn clean verify -DskipTests
+          mkdir -p ~/.m2
+          echo "<settingsSecurity><master>{<![CDATA[${{ secrets.PGP_PRIVATE_KEY }}]]>}</master></settingsSecurity>" > ~/.m2/settings-security.xml
           mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
 #          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
         env:
