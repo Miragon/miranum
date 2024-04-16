@@ -51,23 +51,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_MIRAGON_USERNAME }}
           password: ${{ secrets.DOCKER_MIRAGON_PASSWORD }}
-      #
-      # The GPG key is stored in the secret using the text 'PGP Private Key' format
-      # Import it to GPG keyring and trust it.
-      #
-#      - name: PREP / Import GPG key
-#        if: inputs.maven-release == true
-#        run: echo "${{ secrets.PGP_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes --always-trust
-#        env:
-#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-      #
-      # Show available keys. This will hide the key name (since it is in the secrets), but show for example expiration date
-      #
-#      - name: PREP / List GPG keys available
-#        if: inputs.maven-release == true
-#        run: |
-#          gpg --list-secret-keys --keyid-format=long
-#          echo "SECRET_KEY=$(.gpg --list-secret-keys)" >> $GITHUB_ENV
 
       - name: BUILD / Build with Maven
         run: |
@@ -95,7 +78,6 @@ jobs:
         if: inputs.maven-release == true
         run: |
           ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -X
-#          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
         env:
           MAVEN_USERNAME: ${{ secrets.nexus_username }}
           MAVEN_PASSWORD: ${{ secrets.nexus_password }}
