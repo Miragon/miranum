@@ -90,7 +90,10 @@ jobs:
 
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
-        run: ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.PGP_PRIVATE_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
+        run: |
+          echo "${{ secrets.PGP_PRIVATE_KEY }}"
+          echo "${{ env.PGP_PRIVATE_KEY }}"
+          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles release -DskipTests -Dgpg.keyname="${{ secrets.PGP_PRIVATE_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
         env:
           PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
           PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
