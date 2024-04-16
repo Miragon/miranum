@@ -15,7 +15,8 @@ jobs:
   release-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: PREP / actions/checkout@v4
+      - name: PREP / Check out Git repository
+        uses: actions/checkout@v4
       - name: PREP / Prepare mvnw
         run: chmod +x ./mvnw
       - name: PREP / Remove snapshot from services
