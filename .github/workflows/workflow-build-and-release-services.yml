@@ -35,10 +35,10 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           server-id: "ossrh"
-          server-username: ${{ secrets.nexus_username }}
-          server-password: ${{ secrets.nexus_password }}
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.PGP_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: PREP / Set up QEMU
         if: inputs.docker-release == true
         uses: docker/setup-qemu-action@v3
@@ -103,13 +103,12 @@ jobs:
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
-          mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
+          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
 #          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
-#        env:
-#          PGP_PRIVATE_KEY: ${{ secrets.PGP_PRIVATE_KEY }}
-#          PGP_PRIVATE_KEY_SECRET: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-#          NEXUS_USERNAME: ${{ secrets.nexus_username }}
-#          NEXUS_PASSWORD: ${{ secrets.nexus_password }}
+        env:
+          MAVEN_USERNAME: ${{ secrets.nexus_username }}
+          MAVEN_PASSWORD: ${{ secrets.nexus_password }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
 
       # deployment examples
       - name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example
