@@ -92,6 +92,14 @@ jobs:
           chmod +x ./mvnw
           ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.pgp_private_key }}
+          gpg_passphrase: ${{ secrets.pgp_private_key_secret }}
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}
+
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
