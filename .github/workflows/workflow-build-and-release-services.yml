@@ -95,6 +95,7 @@ jobs:
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
+          mvn clean verify -DskipTests
           mvn --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
 #          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -Dgpg.keyname="${{ env.SECRET_KEY }}" -Dgpg.passphrase="${{ secrets.PGP_PRIVATE_KEY_SECRET }}"
         env:
