@@ -77,7 +77,7 @@ jobs:
       - name: RELEASE / Build and Release Maven
         if: inputs.maven-release == true
         run: |
-          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests -X
+          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.nexus_username }}
           MAVEN_PASSWORD: ${{ secrets.nexus_password }}
