@@ -5,9 +5,9 @@ import io.camunda.zeebe.client.api.ZeebeFuture;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
-import io.miragon.miranum.platform.connect.adapter.in.c8.worker.worker.Camunda8WorkerAdapter;
-import io.miragon.miranum.platform.connect.worker.worker.api.WorkerExecuteApi;
-import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecutor;
+import io.miragon.miranum.platform.connect.adapter.in.c8.worker.Camunda8WorkerAdapter;
+import io.miragon.miranum.platform.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.platform.connect.worker.impl.WorkerExecutor;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

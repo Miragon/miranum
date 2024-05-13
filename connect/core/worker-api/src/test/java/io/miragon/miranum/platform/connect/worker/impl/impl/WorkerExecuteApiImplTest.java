@@ -1,11 +1,11 @@
 package io.miragon.miranum.platform.connect.worker.impl.impl;
 
-import io.miragon.miranum.platform.connect.worker.worker.api.BusinessException;
-import io.miragon.miranum.platform.connect.worker.worker.api.TechnicalException;
-import io.miragon.miranum.platform.connect.worker.worker.api.WorkerExecuteApi;
-import io.miragon.miranum.platform.connect.worker.worker.api.WorkerInterceptor;
-import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecuteApiImpl;
-import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecutor;
+import io.miragon.miranum.platform.connect.worker.api.BusinessException;
+import io.miragon.miranum.platform.connect.worker.api.TechnicalException;
+import io.miragon.miranum.platform.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.platform.connect.worker.api.WorkerInterceptor;
+import io.miragon.miranum.platform.connect.worker.impl.WorkerExecuteApiImpl;
+import io.miragon.miranum.platform.connect.worker.impl.WorkerExecutor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

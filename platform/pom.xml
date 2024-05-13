@@ -10,14 +10,16 @@
     <url>https://github.com/Miragon/miranum-platform</url>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <modules>
+        <module>deployment</module>
         <module>engine</module>
         <module>libs</module>
+        <module>examples</module>
     </modules>
 
     <dependencies>

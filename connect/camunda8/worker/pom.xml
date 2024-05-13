@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-c8</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
@@ -16,7 +16,7 @@
     <dependencies>
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-worker-api</artifactId>
             <version>${project.version}</version>
         </dependency>

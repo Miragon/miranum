@@ -14,7 +14,7 @@
     </organization>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
@@ -55,25 +55,25 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-shared</artifactId>
             <version>${project.version}</version>
         </dependency>

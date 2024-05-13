@@ -57,7 +57,7 @@ jobs:
           chmod +x ./mvnw
           ./mvnw --batch-mode clean install
 
-      - name: Upload coverage to Codecov
+      - name: COVERAGE / Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

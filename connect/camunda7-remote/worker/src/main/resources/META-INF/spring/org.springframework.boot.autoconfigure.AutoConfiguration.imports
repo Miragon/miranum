@@ -1,2 +1,2 @@
-io.miragon.miranum.platform.connect.camunda7.remote.worker.worker.Camunda7WorkerAutoConfiguration
+io.miragon.miranum.platform.connect.camunda7.remote.worker.Camunda7WorkerAutoConfiguration
 org.camunda.bpm.client.spring.boot.starter.impl.ClientAutoConfiguration

@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DeploymentRestExample" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="miranum-deployment-rest-example" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.deploymentservice.DeploymentRestExample" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.deployment.service.DeploymentRestExample" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />

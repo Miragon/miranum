@@ -1,0 +1,16 @@
+server:
+  port: '${MIRANUM_DEPLOYMENT_EXAMPLE_PORT:9001}'
+
+io:
+  miranum:
+    platform:
+      deployment:
+        server:
+          rest:
+            enabled: true
+            targets:
+              rest:
+                bpmn: '${MIRANUM_DEPLOYMENT_EXAMPLE_HOST:http://localhost}:${MIRANUM_DEPLOYMENT_EXAMPLE_PORT:9002}/rest/deployment'
+                dmn: '${MIRANUM_DEPLOYMENT_EXAMPLE_HOST:http://localhost}:${MIRANUM_DEPLOYMENT_EXAMPLE_PORT:9002}/rest/deployment'
+                form: '${MIRANUM_DEPLOYMENT_EXAMPLE_HOST:http://localhost}:${MIRANUM_DEPLOYMENT_EXAMPLE_PORT:9002}/rest/deployment'
+                config: '${MIRANUM_DEPLOYMENT_EXAMPLE_HOST:http://localhost}:${MIRANUM_DEPLOYMENT_EXAMPLE_PORT:9002}/rest/deployment'

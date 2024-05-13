@@ -6,7 +6,7 @@
     <name>miranum-engine-core</name>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-engine</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
@@ -52,23 +52,23 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-receiver-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-message-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-process-api</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -87,10 +87,6 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
             <version>0.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 
