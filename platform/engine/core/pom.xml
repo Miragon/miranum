@@ -65,12 +65,12 @@
         <!-- Miranum Connect -->
         <!-- Todo fixme release connect and use new version -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-message-api</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-process-api</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
