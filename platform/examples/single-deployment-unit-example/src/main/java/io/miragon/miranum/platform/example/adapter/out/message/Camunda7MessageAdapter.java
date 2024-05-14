@@ -1,8 +1,8 @@
 package io.miragon.miranum.platform.example.adapter.out.message;
 
-import io.miragon.miranum.platform.connect.message.api.CorrelateMessageCommand;
-import io.miragon.miranum.platform.connect.message.impl.DeliverMessagePort;
-import io.miragon.miranum.platform.connect.message.impl.MessageCorrelationException;
+import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
+import io.miragon.miranum.connect.message.impl.DeliverMessagePort;
+import io.miragon.miranum.connect.message.impl.MessageCorrelationException;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.stereotype.Component;

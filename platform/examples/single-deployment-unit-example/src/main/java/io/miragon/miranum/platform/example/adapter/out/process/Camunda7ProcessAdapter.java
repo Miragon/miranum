@@ -1,8 +1,8 @@
 package io.miragon.miranum.platform.example.adapter.out.process;
 
-import io.miragon.miranum.platform.connect.process.api.ProcessStartingException;
-import io.miragon.miranum.platform.connect.process.api.StartProcessCommand;
-import io.miragon.miranum.platform.connect.process.impl.StartProcessPort;
+import io.miragon.miranum.connect.process.api.ProcessStartingException;
+import io.miragon.miranum.connect.process.api.StartProcessCommand;
+import io.miragon.miranum.connect.process.impl.StartProcessPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;

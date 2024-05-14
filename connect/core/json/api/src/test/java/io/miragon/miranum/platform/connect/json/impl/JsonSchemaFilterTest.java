@@ -1,9 +1,11 @@
 package io.miragon.miranum.platform.connect.json.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.miragon.miranum.connect.json.api.JsonApi;
+import io.miragon.miranum.connect.json.api.JsonSchema;
+import io.miragon.miranum.connect.json.impl.JsonApiImpl;
+import io.miragon.miranum.connect.json.impl.JsonSchemaFactory;
 import io.miragon.miranum.platform.connect.json.utils.JsonSchemaTestUtils;
-import io.miragon.miranum.platform.connect.json.api.JsonApi;
-import io.miragon.miranum.platform.connect.json.api.JsonSchema;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
