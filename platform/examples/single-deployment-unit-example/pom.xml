@@ -11,6 +11,10 @@
 
     <artifactId>miranum-single-deployment-unit-example</artifactId>
 
+    <properties>
+        <miranum-connect.version>0.6.0-SNAPSHOT</miranum-connect.version>
+    </properties>
+
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -80,19 +84,20 @@
             <artifactId>spring-security-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>schema-registry</artifactId>
+            <version>${miranum-connect.version}</version>
         </dependency>
         <!-- miranum connect -->
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-message-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-process-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${miranum-connect.version}</version>
         </dependency>
 
         <!--- Libs -->
