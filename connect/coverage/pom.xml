@@ -4,164 +4,120 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.miragon.miranum</groupId>
-        <artifactId>miranum</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <groupId>io.miragon.miranum.connect</groupId>
+        <artifactId>miranum-connect</artifactId>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>miranum-coverage</artifactId>
-    <name>miranum-coverage</name>
+    <artifactId>connect-coverage</artifactId>
+    <name>connect-coverage</name>
     <description>Jacoco Code Coverage</description>
     <packaging>pom</packaging>
 
     <dependencies>
-        <!-- connect -->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>message-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>oauth-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>process-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>utils-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>worker-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>message-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>process-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>worker-adapter-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-element-template-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>json-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>schema-registry</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-message-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-process-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>miranum-connect-s3</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-shared</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-task-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-worker-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-generator-maven-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- deployment -->
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-rest-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-embedded-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-engine-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-engine-task</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

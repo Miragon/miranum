@@ -8,7 +8,7 @@
     <name>miranum-deployment-receiver-rest-starter</name>
 
     <parent>
-        <groupId>io.miragon.miranum</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-deployment-rest</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
@@ -44,7 +44,7 @@
 
         <!-- miranum-deployment-receiver library -->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-deployment-receiver-core</artifactId>
             <version>${project.version}</version>
         </dependency>

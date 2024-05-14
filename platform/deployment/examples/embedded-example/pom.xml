@@ -7,7 +7,7 @@
     <name>miranum-deployment-example</name>
 
     <parent>
-        <groupId>io.miragon.miranum</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-deployment-examples</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
@@ -27,14 +27,14 @@
 
         <!-- Deployment receiver starter -->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- Deployment embedded server starter -->
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
+            <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-deployment-server-embedded-starter</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -33,7 +33,7 @@ It transfers the process artifacts to applications which implement the Miranum D
 
 ```xml
 <dependency>
-    <groupId>io.miragon.miranum</groupId>
+    <groupId>io.miragon.miranum.platform</groupId>
     <artifactId>miranum-deployment-server-rest-starter</artifactId>
     <version>${project.version}</version>
 </dependency>
@@ -91,7 +91,7 @@ It provides the Miranum Deployment Server as well as a build in Miranum Deployme
 
 ```xml
 <dependency>
-    <groupId>io.miragon.miranum</groupId>
+    <groupId>io.miragon.miranum.platform</groupId>
     <artifactId>miranum-deployment-server-embedded-starter</artifactId>
     <version>${project.version}</version>
 </dependency>
@@ -130,7 +130,7 @@ In the Miranum Deployment Server you can configure the target applications via t
 
 ```xml
 <dependency>
-    <groupId>io.miragon.miranum</groupId>
+    <groupId>io.miragon.miranum.platform</groupId>
     <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
     <version>${project.version}</version>
 </dependency>

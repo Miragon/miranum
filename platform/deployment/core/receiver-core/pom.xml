@@ -8,7 +8,7 @@
     <name>miranum-deployment-receiver-core</name>
 
     <parent>
-        <groupId>io.miragon.miranum</groupId>
+        <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-deployment-core</artifactId>
         <version>0.3.2-SNAPSHOT</version>
     </parent>
