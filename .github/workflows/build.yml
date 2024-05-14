@@ -1,8 +1,11 @@
 name: Build Application
 
 on:
-  pull_request:
   push:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches:
+      - main
 
 jobs:
   # maven build if branch != main
