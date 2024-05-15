@@ -55,7 +55,7 @@ jobs:
     secrets: inherit
 
   github-release:
-    needs: release-services
+    needs: release
     uses: ./.github/workflows/workflow-github-release.yaml
     with:
       release-tag: ${{ github.event.inputs.release-tag }}
@@ -65,8 +65,8 @@ jobs:
     needs: github-release
     uses: ./.github/workflows/workflow-bump-version.yaml
     with:
-      connect-bump-version: ${{ github.event.inputs.release-connect }}
+      connect-bump-version: ${{ github.event.inputs.release-connect == true }}
       connect-new-maven-version: ${{ github.event.inputs.connect-maven-new-version }}
-      platform-bump-version: ${{ github.event.inputs.release-platform }}
+      platform-bump-version: ${{ github.event.inputs.release-platform == true }}
       platform-new-maven-version: ${{ github.event.inputs.platform-maven-new-version }}
     secrets: inherit

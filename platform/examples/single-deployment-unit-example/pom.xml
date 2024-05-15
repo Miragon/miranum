@@ -11,10 +11,6 @@
 
     <artifactId>miranum-single-deployment-unit-example</artifactId>
 
-    <properties>
-        <miranum-connect.version>0.6.0-SNAPSHOT</miranum-connect.version>
-    </properties>
-
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
