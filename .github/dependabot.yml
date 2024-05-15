@@ -9,7 +9,14 @@ updates:
     labels:
       - "Technical Debt"
   - package-ecosystem: "maven"
-    directory: "/"
+    directory: "platform"
+    open-pull-requests-limit: 20
+    schedule:
+      interval: weekly
+    labels:
+      - "Technical Debt"
+  - package-ecosystem: "maven"
+    directory: "connect"
     open-pull-requests-limit: 20
     schedule:
       interval: weekly
