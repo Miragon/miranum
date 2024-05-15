@@ -5,12 +5,13 @@
     <groupId>io.miragon.miranum.connect</groupId>
     <artifactId>miranum-connect</artifactId>
     <name>miranum-connect</name>
-    <version>0.6.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <description>Engine neutral framework to build integrations. Simplifying the complexity process automation comes with.</description>
     <url>https://github.com/Miragon/miranum</url>
 
     <properties>
+        <revision>0.7.0-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>

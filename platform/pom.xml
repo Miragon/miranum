@@ -6,12 +6,13 @@
     <groupId>io.miragon.miranum.platform</groupId>
     <artifactId>miranum-platform</artifactId>
     <name>miranum-platform</name>
-    <version>0.3.2-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <description>Miranum Platform</description>
     <url>https://github.com/Miragon/miranum</url>
 
     <properties>
+        <revision>0.3.3-SNAPSHOT</revision>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>
