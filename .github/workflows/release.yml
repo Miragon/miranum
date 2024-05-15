@@ -55,7 +55,7 @@ jobs:
     secrets: inherit
 
   github-release:
-    needs: release-services
+    needs: release
     uses: ./.github/workflows/workflow-github-release.yaml
     with:
       release-tag: ${{ github.event.inputs.release-tag }}
