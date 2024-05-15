@@ -26,7 +26,7 @@
         <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
         <kotlin.version>1.9.10</kotlin.version>
         <logstash.encoder.version>7.4</logstash.encoder.version>
-        <miranum-connect.version>0.6.0-SNAPSHOT</miranum-connect.version>
+        <miranum-connect.version>0.6.0</miranum-connect.version>
         <archunit.version>1.2.1</archunit.version>
         <apache.commons.lang.version>3.14.0</apache.commons.lang.version>
     </properties>
