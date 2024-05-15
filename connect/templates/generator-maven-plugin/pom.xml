@@ -20,8 +20,8 @@
     </parent>
 
     <properties>
-        <org.apache.maven.version>3.9.5</org.apache.maven.version>
-        <org.apache.maven.plugin-tools.version>3.10.2</org.apache.maven.plugin-tools.version>
+        <org.apache.maven.version>3.9.6</org.apache.maven.version>
+        <org.apache.maven.plugin-tools.version>3.13.0</org.apache.maven.plugin-tools.version>
         <org.reflections.version>0.10.2</org.reflections.version>
         <org.apache.maven-plugins.version>3.9.0</org.apache.maven-plugins.version>
     </properties>
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.1</version>
+            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
 
