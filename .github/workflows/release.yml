@@ -6,7 +6,7 @@ on:
       release-tag:
         description: 'Release Tag'
         required: false
-        default: 'services_XXX_apps_XXX'
+        default: 'platform_XXX_connect_XXX'
       release-connect:
         description: 'Release miranum connect?'
         type: boolean
