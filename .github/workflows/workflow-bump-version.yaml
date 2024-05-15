@@ -65,8 +65,7 @@ jobs:
         if: inputs.connect-new-maven-version == '' && inputs.connect-bump-version == true
         run: |
           # increment minor version
-          echo "CONNECT_OLD_RELEASE_VERSION=$(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-          sed -i "s/<revision>.*<\/revision>/<revision>$(${{ env.CONNECT_OLD_RELEASE_VERSION }} |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)<\/revision>/" connect/pom.xml
+          sed -i "s/<revision>.*<\/revision>/<revision>$( $(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout) |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)<\/revision>/" connect/pom.xml
       - name: GIT / Git commit
         if: inputs.connect-bump-version == true
         run: |
