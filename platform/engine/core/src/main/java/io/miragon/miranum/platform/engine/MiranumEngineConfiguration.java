@@ -1,11 +1,11 @@
 package io.miragon.miranum.platform.engine;
 
-import io.miragon.miranum.platform.deploymentreceiver.deploymentreceiver.application.ports.out.MiranumDeploymentReceiver;
+import io.miragon.miranum.platform.deployment.receiver.application.ports.out.MiranumDeploymentReceiver;
 import io.miragon.miranum.platform.engine.adapter.in.deployment.EngineDeploymentReceiver;
 import io.miragon.miranum.platform.engine.adapter.out.schema.SchemaClient;
 import io.miragon.miranum.platform.engine.application.port.in.deployment.ArtifactDeploymentUseCase;
-import io.miragon.miranum.platform.user.user.adapter.mock.UserMockAdapter;
-import io.miragon.miranum.platform.user.user.application.port.out.UserPort;
+import io.miragon.miranum.platform.user.adapter.mock.UserMockAdapter;
+import io.miragon.miranum.platform.user.application.port.out.UserPort;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;

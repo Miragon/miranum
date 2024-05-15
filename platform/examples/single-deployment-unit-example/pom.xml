@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.miragon.miranum.platform</groupId>
+        <artifactId>miranum-examples</artifactId>
+        <version>0.3.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>miranum-single-deployment-unit-example</artifactId>
+
+    <properties>
+        <miranum-connect.version>0.6.0-SNAPSHOT</miranum-connect.version>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Camunda -->
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.holunda.data</groupId>
+            <artifactId>camunda-bpm-data</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+        </dependency>
+
+        <!-- miranum -->
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-engine-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-engine-task</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+        </dependency>
+
+        <!-- miranum libs -->
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>spring-security-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>schema-registry</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <!-- miranum connect -->
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-message-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-process-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+
+        <!--- Libs -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-unit-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

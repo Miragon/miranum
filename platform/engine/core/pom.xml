@@ -62,15 +62,17 @@
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- Miranum Connect -->
+        <!-- Todo fixme release connect and use new version -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-message-api</artifactId>
-            <version>${project.version}</version>
+            <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-process-api</artifactId>
-            <version>${project.version}</version>
+            <version>${miranum-connect.version}</version>
         </dependency>
 
         <dependency>
@@ -87,10 +89,6 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
             <version>0.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 

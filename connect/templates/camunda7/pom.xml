@@ -8,14 +8,14 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.connect</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
