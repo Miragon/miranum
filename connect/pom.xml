@@ -5,7 +5,7 @@
     <groupId>io.miragon.miranum.connect</groupId>
     <artifactId>miranum-connect</artifactId>
     <name>miranum-connect</name>
-    <version>0.6.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <description>Engine neutral framework to build integrations. Simplifying the complexity process automation comes with.</description>
     <url>https://github.com/Miragon/miranum</url>
@@ -15,6 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>0.7.0-SNAPSHOT</revision>
         <spring-boot.version>3.1.9</spring-boot.version>
         <spring.cloud.version>2023.0.1</spring.cloud.version>
         <lombok.version>1.18.32</lombok.version>

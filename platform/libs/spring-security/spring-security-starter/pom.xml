@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>spring-security</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>spring-security-starter</artifactId>
