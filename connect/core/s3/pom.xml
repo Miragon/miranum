@@ -13,7 +13,7 @@
     <name>miranum-engine-s3</name>
 
     <properties>
-        <minio.version>8.5.9</minio.version>
+        <minio.version>8.5.10</minio.version>
     </properties>
 
     <dependencies>
