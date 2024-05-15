@@ -5,7 +5,7 @@
     <groupId>io.miragon.miranum.connect</groupId>
     <artifactId>miranum-connect</artifactId>
     <name>miranum-connect</name>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.8.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Engine neutral framework to build integrations. Simplifying the complexity process automation comes with.</description>
     <url>https://github.com/Miragon/miranum</url>

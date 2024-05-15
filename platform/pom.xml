@@ -6,7 +6,7 @@
     <groupId>io.miragon.miranum.platform</groupId>
     <artifactId>miranum-platform</artifactId>
     <name>miranum-platform</name>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.8.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Miranum Platform</description>
     <url>https://github.com/Miragon/miranum</url>
