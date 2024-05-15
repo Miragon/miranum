@@ -63,6 +63,8 @@ jobs:
     needs: github-release
     uses: ./.github/workflows/workflow-bump-version.yaml
     with:
+      connect-bump-version: ${{ github.event.inputs.release-connect }}
       connect-new-maven-version: ${{ github.event.inputs.connect-maven-new-version }}
+      platform-bump-version: ${{ github.event.inputs.release-platform }}
       platform-new-maven-version: ${{ github.event.inputs.platform-maven-new-version }}
     secrets: inherit
