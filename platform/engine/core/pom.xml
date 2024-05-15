@@ -63,7 +63,6 @@
             <version>${project.version}</version>
         </dependency>
         <!-- Miranum Connect -->
-        <!-- Todo fixme release connect and use new version -->
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-message-api</artifactId>

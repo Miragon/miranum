@@ -130,7 +130,15 @@ jobs:
           chmod +x ./mvnw
           ./mvnw -f platform versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
-      - name: RELEASE / Build and Release Maven
+      - name: BUILD / Build Maven
+        run: |
+          ./mvnw -f platform --batch-mode install -DskipTests
+        env:
+          MAVEN_USERNAME: ${{ secrets.nexus_username }}
+          MAVEN_PASSWORD: ${{ secrets.nexus_password }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
+
+      - name: RELEASE / Release Maven
         if: inputs.maven-release == true
         run: |
           ./mvnw -f platform --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
