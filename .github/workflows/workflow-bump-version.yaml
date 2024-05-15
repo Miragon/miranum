@@ -60,15 +60,13 @@ jobs:
       - name: BUMP CONNECT VERSION / Raise mvn version
         if: inputs.connect-new-maven-version != '' && inputs.connect-bump-version == true
         run: |
-          cd connect
-          ./mvnw versions:set --batch-mode -DprocessAllModules -DnewVersion=${{ inputs.connect-new-maven-version }}-SNAPSHOT -DprocessAllModules
-          ./mvnw versions:commit -DprocessAllModules
+          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.connect-new-maven-version }}-SNAPSHOT<\/revision>/" connect/pom.xml
       - name: BUMP CONNECT VERSION / Raise mvn version
         if: inputs.connect-new-maven-version == '' && inputs.connect-bump-version == true
         run: |
-          cd connect
-          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
-          ./mvnw versions:commit -DprocessAllModules
+          # increment minor version
+          echo "CONNECT_OLD_RELEASE_VERSION=$(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          sed -i "s/<revision>.*<\/revision>/<revision>$(${{ env.CONNECT_OLD_RELEASE_VERSION }} |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)<\/revision>/" connect/pom.xml
       - name: GIT / Git commit
         if: inputs.connect-bump-version == true
         run: |
@@ -78,15 +76,13 @@ jobs:
       - name: BUMP PLATFORM VERSION / Raise mvn version
         if: inputs.platform-new-maven-version != '' && inputs.platform-bump-version == true
         run: |
-          cd platform
-          ./mvnw versions:set --batch-mode -DnewVersion=${{ inputs.platform-new-maven-version }}-SNAPSHOT -DprocessAllModules
-          ./mvnw versions:commit -DprocessAllModules
+          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.platform-new-maven-version }}-SNAPSHOT<\/revision>/" connect/pom.xml
       - name: BUMP PLATFORM VERSION / Raise mvn version
         if: inputs.platform-new-maven-version == '' && inputs.platform-bump-version == true
         run: |
-          cd platform
-          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
-          ./mvnw versions:commit -DprocessAllModules
+          # increment minor version
+          echo "PLATFORM_OLD_RELEASE_VERSION=$(./mvnw -f platform help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          sed -i "s/<revision>.*<\/revision>/<revision>$(${{ env.PLATFORM_OLD_RELEASE_VERSION }} |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)<\/revision>/" platform/pom.xml
       - name: GIT / Git commit
         if: inputs.platform-bump-version == true
         run: |
