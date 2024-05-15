@@ -9,17 +9,19 @@ on:
         default: 'services_XXX_apps_XXX'
       release-connect:
         description: 'Release miranum connect?'
-        required: false
+        type: boolean
+        required: true
         default: false
       connect-maven-new-version:
-        description: '(Optional) Specify new maven version - SNAPSHOT will be added to the version'
+        description: '(Optional) Specify new connect maven version - SNAPSHOT will be added to the version'
         required: false
       release-platform:
         description: 'Release miranum platform?'
-        required: false
+        type: boolean
+        required: true
         default: false
       platform-maven-new-version:
-        description: '(Optional) Specify new maven version - SNAPSHOT will be added to the version'
+        description: '(Optional) Specify new platform maven version - SNAPSHOT will be added to the version'
         required: false
 
 jobs:
