@@ -3,7 +3,7 @@ name: Build Application
 on:
   push:
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [ opened, reopened ]
     branches:
       - main
 
