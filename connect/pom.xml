@@ -20,7 +20,7 @@
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <camunda7.version>7.20.0</camunda7.version>
         <camunda8.version>8.4.0</camunda8.version>
-        <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
         <kotlin.version>1.9.10</kotlin.version>
         <logstash.encoder.version>7.4</logstash.encoder.version>
         <archunit.version>1.2.1</archunit.version>
