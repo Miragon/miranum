@@ -60,13 +60,15 @@ jobs:
       - name: BUMP CONNECT VERSION / Raise mvn version
         if: inputs.connect-new-maven-version != '' && inputs.connect-bump-version == true
         run: |
-          ./mvnw -f connect versions:set --batch-mode -DprocessAllModules -DnewVersion=${{ inputs.connect-new-maven-version }}-SNAPSHOT -DprocessAllModules
-          ./mvnw -f connect versions:commit -DprocessAllModules
+          cd connect
+          ./mvnw versions:set --batch-mode -DprocessAllModules -DnewVersion=${{ inputs.connect-new-maven-version }}-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
       - name: BUMP CONNECT VERSION / Raise mvn version
         if: inputs.connect-new-maven-version == '' && inputs.connect-bump-version == true
         run: |
-          ./mvnw -f connect build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
-          ./mvnw -f connect versions:commit -DprocessAllModules
+          cd connect
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
       - name: GIT / Git commit
         if: inputs.connect-bump-version == true
         run: |
@@ -76,13 +78,15 @@ jobs:
       - name: BUMP PLATFORM VERSION / Raise mvn version
         if: inputs.platform-new-maven-version != '' && inputs.platform-bump-version == true
         run: |
-          ./mvnw -f platform versions:set --batch-mode -DnewVersion=${{ inputs.platform-new-maven-version }}-SNAPSHOT -DprocessAllModules
-          ./mvnw -f platform versions:commit -DprocessAllModules
+          cd platform
+          ./mvnw versions:set --batch-mode -DnewVersion=${{ inputs.platform-new-maven-version }}-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
       - name: BUMP PLATFORM VERSION / Raise mvn version
         if: inputs.platform-new-maven-version == '' && inputs.platform-bump-version == true
         run: |
-          ./mvnw -f platform build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
-          ./mvnw -f platform versions:commit -DprocessAllModules
+          cd platform
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT -DprocessAllModules
+          ./mvnw versions:commit -DprocessAllModules
       - name: GIT / Git commit
         if: inputs.platform-bump-version == true
         run: |
