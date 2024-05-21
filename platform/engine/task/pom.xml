@@ -49,6 +49,13 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
         </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-unit-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
