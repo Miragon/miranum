@@ -1,8 +1,8 @@
-package io.miragon.miranum.platform.example.adapter.in.task;
+package io.miragon.miranum.platform.tasklist.adapter.in.task;
 
-import io.miragon.miranum.platform.example.adapter.in.task.dto.AssignTaskDto;
-import io.miragon.miranum.platform.example.adapter.in.task.dto.CompleteTaskDto;
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.platform.tasklist.adapter.in.task.dto.AssignTaskDto;
+import io.miragon.miranum.platform.tasklist.adapter.in.task.dto.CompleteTaskDto;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnUserTaskUseCase;
 import io.miragon.miranum.platform.tasklist.domain.Task;
@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequestMapping("/rest/task")
 @RequiredArgsConstructor
 @Tag(name = "TaskController", description = "API for Tasks from the task list")
+@ConditionalOnProperty(value = "miranum.tasklist.enabled", havingValue = "true", matchIfMissing = true)
 public class TaskController {
 
     private final UserTaskQuery userTaskQuery;
@@ -54,7 +56,7 @@ public class TaskController {
     }
 
     @PostMapping("/{taskId}/assign")
-    public void claimTask(
+    public void assignTask(
             @Parameter(name = "taskId", description = "A task id string used during search with the task string.", in = ParameterIn.PATH) @Valid @PathVariable(value = "taskId", required = false) String taskId,
             @Valid @RequestBody AssignTaskDto assignTaskDto
             ) {

@@ -39,6 +39,11 @@
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>spring-security-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Feign -->
         <dependency>
@@ -57,6 +62,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 </project>
