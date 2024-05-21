@@ -3,7 +3,6 @@ package io.miragon.miranum.platform.tasklist.adapter.out.engine;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import lombok.val;
 import org.camunda.bpm.engine.TaskService;
-import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -14,7 +13,7 @@ import java.util.Map;
 /**
  * Encapsulation of the Camunda client.
  */
-@Component
+//@Component
 public class TaskCommandEngineAdapter implements TaskCommandPort {
 
     public static final String DEFAULT_TASK_CANCELLATION_ERROR = "default_error_code";

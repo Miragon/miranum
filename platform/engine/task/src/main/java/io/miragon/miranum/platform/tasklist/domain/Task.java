@@ -1,23 +1,23 @@
 package io.miragon.miranum.platform.tasklist.domain;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
+@Builder
 public class Task {
 
     private String id;
     private String name;
     private String description;
 
+    private String processName;
+    private String processInstanceId;
+
     private String assignee;
     private String candidateGroups;
     private String candidateUsers;
 
-    private String schemaKey;
-    private Boolean cancelable;
-    private List<String> filesPaths;
-    private List<String> filesPathsReadOnly;
+    private String form;
 
 }

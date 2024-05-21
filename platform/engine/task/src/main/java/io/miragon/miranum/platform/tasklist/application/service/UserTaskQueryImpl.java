@@ -17,18 +17,18 @@ public class UserTaskQueryImpl implements UserTaskQuery {
 
 
     @Override
-    public List<Task> getTasksForUserGroup(String group) {
-        return null;
+    public List<Task> getTasksForUserGroup(final String group, final String user) {
+        return this.taskOutPort.getTasksForUserGroup(group, user);
     }
 
     @Override
-    public List<Task> getTasksForUser(String user) {
-        return null;
+    public List<Task> getTasksForUser(final String user) {
+        return this.taskOutPort.getTasksForUser(user);
     }
 
     @Override
-    public Task getTask(String user, String taskId) {
-        return null;
+    public Task getTask(final String user, final String taskId) {
+        return this.taskOutPort.getTask(user, taskId);
     }
 
 

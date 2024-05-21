@@ -21,13 +21,24 @@ public class MiranumProcessDefinitionAdapter implements MiranumProcessDefinition
     private final MiranumProcessDefinitionMapper miranumProcessDefinitionMapper;
 
     @Override
-    public MiranumProcessDefinition getProcessDefinition(String definitionKey) {
+    public MiranumProcessDefinition getProcessDefinition(final String definitionKey) {
         final ProcessDefinition processDefinition = this.repositoryService.createProcessDefinitionQuery()
                 .latestVersion()
                 .processDefinitionKey(definitionKey)
                 .singleResult();
         return this.miranumProcessDefinitionMapper.map(processDefinition);
 
+    }
+
+    @Override
+    public MiranumProcessDefinition getProcessDefinitionById(final String definitionId) {
+        final ProcessDefinition processDefinition = this.repositoryService.createProcessDefinitionQuery()
+                .processDefinitionId(definitionId)
+                .singleResult();
+        if (processDefinition == null) {
+            throw new IllegalArgumentException(String.format("The servicedefinition with the id %s is not available.", definitionId));
+        }
+        return this.miranumProcessDefinitionMapper.map(processDefinition);
     }
 
 
