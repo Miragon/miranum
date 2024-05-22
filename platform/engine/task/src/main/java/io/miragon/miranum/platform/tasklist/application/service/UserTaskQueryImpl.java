@@ -34,7 +34,7 @@ public class UserTaskQueryImpl implements UserTaskQuery {
         return this.hasAccess(taskId, user);
     }
 
-    private Task hasAccess(final String taskId, final String user) {
+    private Task hasAccess(final String taskId, final String user) throws TaskAccessDeniedException {
         final Task task = this.taskOutPort.getTask(taskId);
         final boolean userInCandidateGroup = authenticationProvider.getLoggedInUserRoles().stream()
                 .anyMatch(role -> task.getCandidateGroups().contains(role));
@@ -43,7 +43,7 @@ public class UserTaskQueryImpl implements UserTaskQuery {
                 || userInCandidateGroup) {
             return task;
         }
-        throw new RuntimeException("User " + user + " has no access to task " + task.getId());
+        throw new TaskAccessDeniedException("User " + user + " has no access to task " + task.getId());
     }
 
 }

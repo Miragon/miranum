@@ -4,7 +4,7 @@ import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRe
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
-import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
+import io.miragon.miranum.platform.tasklist.exception.TaskNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
@@ -35,10 +35,10 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     }
 
     @Override
-    public Task getTask(String taskId) {
+    public Task getTask(String taskId) throws TaskNotFoundException {
         final TaskInfo taskInfo = this.taskInfoRepository.findById(taskId)
                 .map(this.taskMapper::mapToTaskInfo)
-                .orElseThrow(() -> new TaskAccessDeniedException("Task with id " + taskId + " is not found"));
+                .orElseThrow(() -> new TaskNotFoundException("Task with id " + taskId + " is not found"));
         return this.getUserTask(taskInfo);
     }
 

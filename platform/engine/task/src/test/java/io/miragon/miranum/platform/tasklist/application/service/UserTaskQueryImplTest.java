@@ -120,10 +120,19 @@ class UserTaskQueryImplTest {
     void test_get_task_by_id_with_no_access() {
         final String user = "notAssignedUser";
         final String taskId = "5";
-        when(taskOutPort.getTask(taskId)).thenThrow(new TaskAccessDeniedException("Task with id " + taskId + " is not found"));
+        when(taskOutPort.getTask(taskId)).thenReturn(Task.builder()
+                .id("5")
+                .name("Example Task 5")
+                .description("This is another example task")
+                .processName("Example Process")
+                .processInstanceId("5")
+                .assignee("user5")
+                .candidateGroups("group3")
+                .form("exampleForm")
+                .build());
 
         assertThatThrownBy(() -> userTaskQuery.getTask(user, taskId))
                 .isInstanceOf(TaskAccessDeniedException.class)
-                .hasMessage("Task with id " + taskId + " is not found");
+                .hasMessage("User notAssignedUser has no access to task 5");
     }
 }

@@ -2,7 +2,7 @@ package io.miragon.miranum.platform.tasklist.application.port.out.engine;
 
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
-import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
+import io.miragon.miranum.platform.tasklist.exception.TaskNotFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ public interface TaskOutPort {
 
     List<Task> getTasksForUserGroup(String user, String group);
 
-    Task getTask(String taskId) throws TaskAccessDeniedException;
+    Task getTask(String taskId) throws TaskNotFoundException;
 
     Map<String, Object> getTaskData(String user, String taskId);
 
