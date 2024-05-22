@@ -1,20 +1,25 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
+import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
+import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class UserTaskQueryImplTest {
 
     private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
-    private final UserTaskQuery userTaskQuery = new UserTaskQueryImpl(taskOutPort);
+    private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
+    private final UserTaskQuery userTaskQuery = new UserTaskQueryImpl(taskOutPort, authenticationProvider);
 
     private final List<Task> exampleTasks = List.of(
         Task.builder()
@@ -46,6 +51,11 @@ class UserTaskQueryImplTest {
             .form("exampleForm")
             .build()
     );
+
+    @BeforeEach
+    void setUp() {
+        when(authenticationProvider.getLoggedInUserRoles()).thenReturn(List.of("group1"));
+    }
 
     @Test
     void test_get_all_tasks_for_candidate_group() {
@@ -97,7 +107,7 @@ class UserTaskQueryImplTest {
                 .findAny()
                 .orElse(null);
 
-        when(taskOutPort.getTask(user, taskId)).thenReturn(tasks);
+        when(taskOutPort.getTask(taskId)).thenReturn(tasks);
 
         final Task result = userTaskQuery.getTask(user, taskId);
 
@@ -106,4 +116,14 @@ class UserTaskQueryImplTest {
                 .isEqualTo(exampleTasks.get(0));
     }
 
+    @Test
+    void test_get_task_by_id_with_no_access() {
+        final String user = "notAssignedUser";
+        final String taskId = "5";
+        when(taskOutPort.getTask(taskId)).thenThrow(new TaskAccessDeniedException("Task with id " + taskId + " is not found"));
+
+        assertThatThrownBy(() -> userTaskQuery.getTask(user, taskId))
+                .isInstanceOf(TaskAccessDeniedException.class)
+                .hasMessage("Task with id " + taskId + " is not found");
+    }
 }

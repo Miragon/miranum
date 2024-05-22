@@ -4,6 +4,7 @@ import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRe
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
+import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.NotImplementedException;
@@ -11,7 +12,6 @@ import org.camunda.bpm.engine.TaskService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -35,13 +35,10 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     }
 
     @Override
-    public Task getTask(String user, String taskId) {
+    public Task getTask(String taskId) {
         final TaskInfo taskInfo = this.taskInfoRepository.findById(taskId)
                 .map(this.taskMapper::mapToTaskInfo)
-                .orElseThrow(() -> new RuntimeException("Task with id " + taskId + " is not found"));
-        if (taskInfo == null) {
-            throw new RuntimeException("Task with id " + taskId + " is not found or not assigned to user " + user);
-        }
+                .orElseThrow(() -> new TaskAccessDeniedException("Task with id " + taskId + " is not found"));
         return this.getUserTask(taskInfo);
     }
 
@@ -49,11 +46,6 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     public Map<String, Object> getTaskData(String user, String taskId) {
         // TODO: Do we need this method?
         throw new NotImplementedException("Not implemented");
-    }
-
-    @Override
-    public Optional<TaskInfo> getTaskInfo(String taskId) {
-        return this.taskInfoRepository.findById(taskId).map(this.taskMapper::mapToTaskInfo);
     }
 
     @Override

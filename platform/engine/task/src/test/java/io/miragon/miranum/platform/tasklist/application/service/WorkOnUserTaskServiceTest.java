@@ -1,27 +1,50 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
+import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
+import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 class WorkOnUserTaskServiceTest {
 
-    private final TaskOutPort taskQueryPort = mock(TaskOutPort.class);
+    private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
     private final TaskCommandPort taskCommandPort = mock(TaskCommandPort.class);
+    private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
 
-    private final WorkOnUserTaskService workOnUserTaskService = new WorkOnUserTaskService(taskQueryPort, taskCommandPort);
+    private final WorkOnUserTaskService workOnUserTaskService = new WorkOnUserTaskService(taskOutPort, taskCommandPort, authenticationProvider);
+
+    private final String user = "user1";
+    private final String taskId = "task123";
+    private final Task task = Task.builder()
+        .id(taskId)
+        .name("Example Task")
+        .description("This is an example task")
+        .processName("Example Process")
+        .processInstanceId("1")
+        .assignee(user)
+        .candidateGroups("group1")
+        .form("exampleForm")
+        .build();
+
+    @BeforeEach
+    void setUp() {
+        when(authenticationProvider.getLoggedInUserRoles()).thenReturn(List.of("group1"));
+        when(taskOutPort.getTask(taskId)).thenReturn(task);
+    }
 
     @Test
     void testCompleteTask() {
-        final String user = "user1";
-        final String taskId = "task123";
         final Map<String, Object> payload = Map.of("key", "value");
 
         workOnUserTaskService.completeUserTask(user, taskId, payload);
@@ -36,8 +59,6 @@ class WorkOnUserTaskServiceTest {
 
     @Test
     void testSaveUserTask() {
-        final String user = "user1";
-        final String taskId = "task123";
         final Map<String, Object> payload = Map.of("key", "value");
 
         workOnUserTaskService.saveUserTask(user, taskId, payload);
@@ -52,9 +73,6 @@ class WorkOnUserTaskServiceTest {
 
     @Test
     void testAssignUserTask() {
-        final String user = "user1";
-        final String taskId = "task123";
-
         workOnUserTaskService.assignUserTask(user, taskId, user);
 
         final ArgumentCaptor<String> taskIdCaptor = ArgumentCaptor.forClass(String.class);
@@ -66,10 +84,15 @@ class WorkOnUserTaskServiceTest {
     }
 
     @Test
-    void testUnassignUserTask() {
-        final String user = "user1";
-        final String taskId = "task123";
+    void testAssignUserTaskFailsWithAccessDenied() {
+        // different assignee and user
+        assertThatThrownBy(() -> workOnUserTaskService.assignUserTask(user, taskId, "anotherUser"))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage("User " + user + " can not assign task to anotherUser.");
+    }
 
+    @Test
+    void testUnassignUserTask() {
         workOnUserTaskService.unassignUserTask(user, taskId);
 
         final ArgumentCaptor<String> taskIdCaptor = ArgumentCaptor.forClass(String.class);
@@ -80,26 +103,43 @@ class WorkOnUserTaskServiceTest {
 
     @Test
     void testCancelUserTask() {
-        final String user = "user1";
-        final String taskId = "1";
-
-        when(taskQueryPort.getTask(user, taskId))
-                .thenReturn(Task.builder()
-                        .id("1")
-                        .name("Example Task")
-                        .description("This is an example task")
-                        .processName("Example Process")
-                        .processInstanceId("1")
-                        .candidateGroups("group1")
-                        .form("exampleForm")
-                        .build());
-
         workOnUserTaskService.cancelUserTask(user, taskId);
 
         final ArgumentCaptor<String> taskIdCaptor = ArgumentCaptor.forClass(String.class);
         verify(taskCommandPort).cancelUserTask(taskIdCaptor.capture());
 
         assertThat(taskIdCaptor.getValue()).isEqualTo(taskId);
+    }
+
+    @Test
+    void testTaskOperationsFailWithAccessDeniedIfUserHasNoAccessToTask() {
+        final Task task = Task.builder()
+                .id("123456789")
+                .name("Example Task")
+                .description("This is an example task")
+                .processName("Example Process")
+                .processInstanceId("1")
+                .candidateGroups("group2")
+                .form("exampleForm")
+                .build();
+        when(taskOutPort.getTask(task.getId())).thenReturn(task);
+
+        final String errorMsg = "User " + user + " has no access to task " + task.getId();
+        assertThatThrownBy(() -> workOnUserTaskService.completeUserTask(user, task.getId(), Map.of()))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage(errorMsg);
+        assertThatThrownBy(() -> workOnUserTaskService.saveUserTask(user, task.getId(), Map.of()))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage(errorMsg);
+        assertThatThrownBy(() -> workOnUserTaskService.assignUserTask(user, task.getId(), user))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage(errorMsg);
+        assertThatThrownBy(() -> workOnUserTaskService.unassignUserTask(user, task.getId()))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage(errorMsg);
+        assertThatThrownBy(() -> workOnUserTaskService.cancelUserTask(user, task.getId()))
+            .isInstanceOf(TaskAccessDeniedException.class)
+            .hasMessage(errorMsg);
     }
 
 }
