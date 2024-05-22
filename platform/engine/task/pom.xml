@@ -32,11 +32,21 @@
             <artifactId>camunda-engine</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.holunda.data</groupId>
+            <artifactId>camunda-bpm-data</artifactId>
+            <version>1.5.0</version>
+        </dependency>
 
         <!-- Miranum -->
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-engine-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

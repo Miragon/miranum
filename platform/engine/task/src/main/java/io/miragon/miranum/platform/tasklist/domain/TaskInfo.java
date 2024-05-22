@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.domain.task;
+package io.miragon.miranum.platform.tasklist.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +12,8 @@ public class TaskInfo {
     private String definitionName;
     private String instanceId;
     private String assignee;
+    private String candidateUsers;
+    private String candidateGroups;
     private String form;
 
 }

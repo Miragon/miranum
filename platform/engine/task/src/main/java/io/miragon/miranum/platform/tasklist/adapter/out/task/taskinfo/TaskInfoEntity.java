@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.adapter.out.task.taskinfo;
+package io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +32,12 @@ public class TaskInfoEntity {
 
     @Column(name = "assignee_")
     private String assignee;
+
+    @Column(name = "candidateusers_")
+    private String candidateUsers;
+
+    @Column(name = "candidategroups_")
+    private String candidateGroups;
 
     @Column(name = "form_")
     private String form;

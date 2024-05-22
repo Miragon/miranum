@@ -1,8 +1,8 @@
-package io.miragon.miranum.platform.example.adapter.out.task;
+package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
-import io.miragon.miranum.platform.example.adapter.out.task.taskinfo.TaskInfoEntity;
-import io.miragon.miranum.platform.example.domain.task.TaskInfo;
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.domain.Task;
+import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public interface TaskMapper {
                 .processInstanceId(taskInfo.getInstanceId())
                 .assignee(camundaTask.getAssignee())
                 .form(taskInfo.getForm())
-//                 .candidateGroups(camundaTask.get)
-                // .candidateUsers(camundaTask.getCandidateUsers())
+                .candidateGroups(taskInfo.getCandidateGroups())
+                .candidateUsers(taskInfo.getCandidateUsers())
                 .build();
     }
 
