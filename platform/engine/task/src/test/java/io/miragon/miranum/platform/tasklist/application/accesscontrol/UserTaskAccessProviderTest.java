@@ -2,11 +2,13 @@ package io.miragon.miranum.platform.tasklist.application.accesscontrol;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.domain.Task;
+import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -56,6 +58,21 @@ class UserTaskAccessProviderTest {
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(task);
+    }
+
+    @Test
+    void testHasAccess_throwsTaskAccessDeniedException() {
+        final Task task = Task.builder()
+                .id("1")
+                .assignee("user1")
+                .candidateUsers("user1")
+                .candidateGroups("group1")
+                .build();
+        when(authenticationProvider.getLoggedInUserRoles()).thenReturn(List.of("group2"));
+
+        assertThatThrownBy(() -> accessProvider.hasAccess(task, "user2"))
+                .isInstanceOf(TaskAccessDeniedException.class)
+                .hasMessage("User user2 has no access to task 1");
     }
 
 }
