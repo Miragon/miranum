@@ -3,6 +3,8 @@ package io.miragon.miranum.platform.tasklist.domain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class TaskInfo {
@@ -12,8 +14,21 @@ public class TaskInfo {
     private String definitionName;
     private String instanceId;
     private String assignee;
-    private String candidateUsers;
-    private String candidateGroups;
+    private List<TaskAuthorities> authorities;
     private String form;
+
+    public List<String> getCandidateUsers() {
+        return authorities.stream()
+                .filter(authority -> authority.getType().equals("user"))
+                .map(TaskAuthorities::getValue)
+                .toList();
+    }
+
+    public List<String> getCandidateGroups() {
+        return authorities.stream()
+                .filter(authority -> authority.getType().equals("group"))
+                .map(TaskAuthorities::getValue)
+                .toList();
+    }
 
 }

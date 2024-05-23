@@ -1,5 +1,7 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
@@ -24,13 +26,17 @@ public class TaskPersistenceAdapter implements TaskOutPort {
 
     @Override
     public List<Task> getTasksForUser(String user) {
-        final List<TaskInfo> taskInfos = this.taskMapper.mapToTaskInfos(this.taskInfoRepository.findByAssignee(user));
+        final List<TaskInfo> taskInfos = this.taskMapper.mapToTaskInfos(
+                this.taskInfoRepository.findByAssigneeOrAuthorities_typeAndAuthorities_value(user, "user", user)
+        );
         return this.getUserTasks(taskInfos);
     }
 
     @Override
     public List<Task> getTasksForUserGroup(String user, String group) {
-        final List<TaskInfo> taskInfos = this.taskMapper.mapToTaskInfos(this.taskInfoRepository.findByCandidateGroups(group));
+        final List<TaskInfo> taskInfos = this.taskMapper.mapToTaskInfos(
+                this.taskInfoRepository.findByAuthorities_typeAndAuthorities_value("group", group)
+        );
         return this.getUserTasks(taskInfos);
     }
 
@@ -44,17 +50,27 @@ public class TaskPersistenceAdapter implements TaskOutPort {
 
     @Override
     public Map<String, Object> getTaskData(String user, String taskId) {
-        // TODO: Do we need this method?
         throw new NotImplementedException("Not implemented");
     }
 
     @Override
     public void createTaskInfo(final TaskInfo task) {
-        this.taskInfoRepository.save(this.taskMapper.mapToTaskInfoEntity(task));
+        final TaskInfoEntity taskInfoEntity = this.taskMapper.mapToTaskInfoEntity(task);
+        // make sure the TaskAuthorityEntities are persisted too
+        taskInfoEntity.setAuthorities(task.getAuthorities().stream()
+            .map(authority -> TaskAuthorityEntity.builder()
+                .id(authority.getId())
+                .type(authority.getType())
+                .value(authority.getValue())
+                .taskInfo(taskInfoEntity)
+                .build())
+            .toList());
+        this.taskInfoRepository.save(taskInfoEntity);
     }
 
     @Override
     public void updateTaskInfo(final TaskInfo task) {
+        // Note: TaskAuthorityEntities are not updated here
         this.taskInfoRepository.save(this.taskMapper.mapToTaskInfoEntity(task));
     }
 
@@ -79,7 +95,8 @@ public class TaskPersistenceAdapter implements TaskOutPort {
                 .map(TaskInfo::getId)
                 .toList();
         final Map<String, org.camunda.bpm.engine.task.Task> camundaTasks = this.taskService.createTaskQuery()
-                .taskIdIn(String.valueOf(userTaskIds))
+                // this is a hack to call the camunda api correctly
+                .taskIdIn(userTaskIds.toArray(new String[0]))
                 .list()
                 .stream()
                 .collect(Collectors.toMap(org.camunda.bpm.engine.task.Task::getId, task -> task));

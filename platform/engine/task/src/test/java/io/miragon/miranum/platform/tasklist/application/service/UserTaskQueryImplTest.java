@@ -31,7 +31,7 @@ class UserTaskQueryImplTest {
             .description("This is an example task")
             .processName("Example Process")
             .processInstanceId("1")
-            .candidateGroups("group1")
+            .candidateGroups(List.of("group1"))
             .form("exampleForm")
             .build(),
         Task.builder()
@@ -50,7 +50,7 @@ class UserTaskQueryImplTest {
             .processName("Example Process")
             .processInstanceId("3")
             .assignee("user1")
-            .candidateGroups("group1")
+            .candidateGroups(List.of("group1"))
             .form("exampleForm")
             .build()
     );
@@ -130,7 +130,7 @@ class UserTaskQueryImplTest {
                 .processName("Example Process")
                 .processInstanceId("5")
                 .assignee("user5")
-                .candidateGroups("group3")
+                .candidateGroups(List.of("group3"))
                 .form("exampleForm")
                 .build());
 

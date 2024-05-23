@@ -36,7 +36,7 @@ class WorkOnUserTaskServiceTest {
         .processName("Example Process")
         .processInstanceId("1")
         .assignee(user)
-        .candidateGroups("group1")
+        .candidateGroups(List.of("group1"))
         .form("exampleForm")
         .build();
 
@@ -122,7 +122,7 @@ class WorkOnUserTaskServiceTest {
                 .description("This is an example task")
                 .processName("Example Process")
                 .processInstanceId("1")
-                .candidateGroups("group2")
+                .candidateGroups(List.of("group2"))
                 .form("exampleForm")
                 .build();
         when(taskOutPort.getTask(task.getId())).thenReturn(task);

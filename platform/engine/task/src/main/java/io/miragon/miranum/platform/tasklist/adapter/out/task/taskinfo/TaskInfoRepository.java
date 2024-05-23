@@ -8,6 +8,8 @@ public interface TaskInfoRepository extends JpaRepository<TaskInfoEntity, String
 
     List<TaskInfoEntity> findByAssignee(final String assignee);
 
-    List<TaskInfoEntity> findByCandidateGroups(final String group);
+    List<TaskInfoEntity> findByAssigneeOrAuthorities_typeAndAuthorities_value(final String assignee, final String type, final String value);
+
+    List<TaskInfoEntity> findByAuthorities_typeAndAuthorities_value(final String type, final String value);
 
 }

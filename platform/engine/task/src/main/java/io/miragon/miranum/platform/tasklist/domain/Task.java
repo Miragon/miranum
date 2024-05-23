@@ -3,6 +3,8 @@ package io.miragon.miranum.platform.tasklist.domain;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class Task {
@@ -15,8 +17,8 @@ public class Task {
     private String processInstanceId;
 
     private String assignee;
-    private String candidateGroups;
-    private String candidateUsers;
+    private List<String> candidateUsers;
+    private List<String> candidateGroups;
 
     private String form;
 

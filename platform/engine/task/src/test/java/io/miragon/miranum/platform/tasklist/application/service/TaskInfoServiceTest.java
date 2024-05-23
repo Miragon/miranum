@@ -48,8 +48,8 @@ class TaskInfoServiceTest {
         assertThat(taskInfoCaptor.getValue().getDefinitionName()).isEqualTo("Process Name");
         assertThat(taskInfoCaptor.getValue().getInstanceId()).isEqualTo("instance123");
         assertThat(taskInfoCaptor.getValue().getAssignee()).isEqualTo("user123");
-        assertThat(taskInfoCaptor.getValue().getCandidateUsers()).isNull();
-        assertThat(taskInfoCaptor.getValue().getCandidateGroups()).isNull();
+        assertThat(taskInfoCaptor.getValue().getCandidateUsers()).isEmpty();
+        assertThat(taskInfoCaptor.getValue().getCandidateGroups()).isEmpty();
         assertThat(taskInfoCaptor.getValue().getForm()).isBlank();
     }
 

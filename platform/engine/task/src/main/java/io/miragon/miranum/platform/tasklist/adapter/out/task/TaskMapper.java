@@ -2,6 +2,7 @@ package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.domain.Task;
+import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import org.mapstruct.Mapper;
 
@@ -24,10 +25,39 @@ public interface TaskMapper {
                 .build();
     }
 
-    List<TaskInfo> mapToTaskInfos(final List<TaskInfoEntity> entity);
+    default List<TaskInfo> mapToTaskInfos(final List<TaskInfoEntity> entity) {
+        return entity.stream()
+                .map(this::mapToTaskInfo)
+                .toList();
+    }
 
-    TaskInfo mapToTaskInfo(final TaskInfoEntity entity);
+    default TaskInfo mapToTaskInfo(final TaskInfoEntity entity) {
+        return TaskInfo.builder()
+                .id(entity.getId())
+                .description(entity.getDescription())
+                .definitionName(entity.getDefinitionName())
+                .instanceId(entity.getInstanceId())
+                .assignee(entity.getAssignee())
+                .form(entity.getForm())
+                .authorities(entity.getAuthorities().stream()
+                    .map(authority -> TaskAuthorities.builder()
+                            .id(authority.getId())
+                            .type(authority.getType())
+                            .value(authority.getValue())
+                            .build())
+                    .toList())
+                .build();
+    }
 
-    TaskInfoEntity mapToTaskInfoEntity(final TaskInfo taskInfo);
+    default TaskInfoEntity mapToTaskInfoEntity(final TaskInfo taskInfo) {
+        return TaskInfoEntity.builder()
+                .id(taskInfo.getId())
+                .description(taskInfo.getDescription())
+                .definitionName(taskInfo.getDefinitionName())
+                .instanceId(taskInfo.getInstanceId())
+                .assignee(taskInfo.getAssignee())
+                .form(taskInfo.getForm())
+                .build();
+    }
 
 }

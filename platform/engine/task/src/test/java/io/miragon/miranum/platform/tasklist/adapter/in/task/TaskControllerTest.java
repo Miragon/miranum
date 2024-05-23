@@ -30,7 +30,7 @@ class TaskControllerTest {
                     .description("This is an example task")
                     .processName("Example Process")
                     .processInstanceId("1")
-                    .candidateGroups("group1")
+                    .candidateGroups(List.of("group1"))
                     .form("exampleForm")
                     .build(),
             Task.builder()
@@ -49,7 +49,7 @@ class TaskControllerTest {
                     .processName("Example Process")
                     .processInstanceId("3")
                     .assignee(loggedInUser)
-                    .candidateGroups("group1")
+                    .candidateGroups(List.of("group1"))
                     .form("exampleForm")
                     .build()
     );

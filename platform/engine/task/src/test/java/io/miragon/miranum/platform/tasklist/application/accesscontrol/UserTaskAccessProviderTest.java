@@ -35,7 +35,7 @@ class UserTaskAccessProviderTest {
     void testHasAccess_userIsCandidateUser() {
         final Task task = Task.builder()
                 .id("1")
-                .candidateUsers("user1")
+                .candidateUsers(List.of("user1"))
                 .build();
 
         final Task result = accessProvider.hasAccess(task, "user1");
@@ -49,7 +49,7 @@ class UserTaskAccessProviderTest {
     void testHasAccess_userIsCandidateGroup() {
         final Task task = Task.builder()
                 .id("1")
-                .candidateGroups("group1")
+                .candidateGroups(List.of("group1"))
                 .build();
         when(authenticationProvider.getLoggedInUserRoles()).thenReturn(List.of("group1"));
 
@@ -65,8 +65,8 @@ class UserTaskAccessProviderTest {
         final Task task = Task.builder()
                 .id("1")
                 .assignee("user1")
-                .candidateUsers("user1")
-                .candidateGroups("group1")
+                .candidateUsers(List.of("user1"))
+                .candidateGroups(List.of("group1"))
                 .build();
         when(authenticationProvider.getLoggedInUserRoles()).thenReturn(List.of("group2"));
 

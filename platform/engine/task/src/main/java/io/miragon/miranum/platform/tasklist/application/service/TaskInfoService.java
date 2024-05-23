@@ -5,13 +5,13 @@ import io.miragon.miranum.platform.engine.application.port.out.process.MiranumPr
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.delegate.DelegateTask;
-import org.camunda.bpm.engine.task.IdentityLink;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 import static io.holunda.camunda.bpm.data.CamundaBpmData.stringVariable;
 
@@ -31,27 +31,33 @@ public class TaskInfoService implements TaskInfoUseCase {
     public void createTaskInfo(DelegateTask task) {
         final MiranumProcessDefinition miranumProcessDefinition = this.miranumProcessDefinitionPort.getProcessDefinitionById(task.getProcessDefinitionId());
         // get candidate groups and users
-        final String candidateGroups = task.getCandidates().stream()
-                .filter(candidate -> candidate.getType().equals("candidate") || candidate.getGroupId() != null)
-                .map(IdentityLink::getGroupId)
-                // filter out empty strings and make sure that null values are actually null
-                .collect(Collectors.collectingAndThen(Collectors.joining(","), result -> result.isBlank() || result.equals("null") ? null : result));
-        final String candidateUsers = task.getCandidates().stream()
-                .filter(candidate -> candidate.getType().equals("candidate") || candidate.getUserId() != null)
-                .map(IdentityLink::getUserId)
-                // filter out empty strings and make sure that null values are actually null
-                .collect(Collectors.collectingAndThen(Collectors.joining(","), result -> result.isBlank() || result.equals("null") ? null : result));
+        final List<TaskAuthorities> authorities = task.getCandidates().stream()
+            .filter(candidate -> candidate.getType().equals("candidate") || candidate.getGroupId() != null)
+            .map(candidate -> {
+                if (candidate.getGroupId() != null) {
+                    return TaskAuthorities.builder()
+                        .type("group")
+                        .value(candidate.getGroupId())
+                        .build();
+                } else if (candidate.getUserId() != null) {
+                    return TaskAuthorities.builder()
+                            .type("user")
+                            .value(candidate.getUserId())
+                            .build();
+                }
+                return null;
+            })
+            .toList();
 
         final TaskInfo taskInfo = TaskInfo.builder()
-                .id(task.getId())
-                .description(TASK_DESCRIPTION_VARIABLE.from(task).getOrDefault(""))
-                .definitionName(miranumProcessDefinition.getName())
-                .instanceId(task.getProcessInstanceId())
-                .assignee(task.getAssignee())
-                .candidateGroups(candidateGroups)
-                .candidateUsers(candidateUsers)
-                .form(TASK_SCHEMA_VARIABLE.from(task).getOrDefault(""))
-                .build();
+            .id(task.getId())
+            .description(TASK_DESCRIPTION_VARIABLE.from(task).getOrDefault(""))
+            .definitionName(miranumProcessDefinition.getName())
+            .instanceId(task.getProcessInstanceId())
+            .assignee(task.getAssignee())
+            .authorities(authorities)
+            .form(TASK_SCHEMA_VARIABLE.from(task).getOrDefault(""))
+            .build();
         this.taskOutPort.createTaskInfo(taskInfo);
     }
 

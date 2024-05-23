@@ -46,8 +46,6 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
             .definitionName(task.getProcessName())
             .instanceId(task.getProcessInstanceId())
             .assignee(task.getAssignee())
-            .candidateGroups(task.getCandidateGroups())
-            .candidateUsers(task.getCandidateUsers())
             .form(task.getForm())
             .build());
     }
@@ -63,8 +61,6 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
                 .definitionName(task.getProcessName())
                 .instanceId(task.getProcessInstanceId())
                 .assignee(task.getAssignee())
-                .candidateGroups(task.getCandidateGroups())
-                .candidateUsers(task.getCandidateUsers())
                 .form(task.getForm())
                 .build());
     }
