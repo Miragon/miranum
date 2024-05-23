@@ -1,6 +1,8 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
@@ -19,7 +21,8 @@ class UserTaskQueryImplTest {
 
     private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
     private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
-    private final UserTaskQuery userTaskQuery = new UserTaskQueryImpl(taskOutPort, authenticationProvider);
+    private final UserTaskAccessProvider userTaskAccessProvider = new UserTaskAccessProviderImpl(authenticationProvider);
+    private final UserTaskQuery userTaskQuery = new UserTaskQueryImpl(taskOutPort, userTaskAccessProvider);
 
     private final List<Task> exampleTasks = List.of(
         Task.builder()

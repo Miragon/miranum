@@ -1,6 +1,8 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
@@ -21,8 +23,9 @@ class WorkOnUserTaskServiceTest {
     private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
     private final TaskCommandPort taskCommandPort = mock(TaskCommandPort.class);
     private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
+    private final UserTaskAccessProvider userTaskAccessProvider = new UserTaskAccessProviderImpl(authenticationProvider);
 
-    private final WorkOnUserTaskService workOnUserTaskService = new WorkOnUserTaskService(taskOutPort, taskCommandPort, authenticationProvider);
+    private final WorkOnUserTaskService workOnUserTaskService = new WorkOnUserTaskService(taskOutPort, taskCommandPort, userTaskAccessProvider);
 
     private final String user = "user1";
     private final String taskId = "task123";

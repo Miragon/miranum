@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnUserTaskUseCase;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
@@ -18,7 +18,7 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
 
     private final TaskOutPort taskOutPort;
     private final TaskCommandPort taskCommandPort;
-    private final UserAuthenticationProvider authenticationProvider;
+    private final UserTaskAccessProvider userTaskAccessProvider;
 
     @Override
     public void completeUserTask(String user, String taskId, Map<String, Object> payload) throws TaskAccessDeniedException {
@@ -81,14 +81,7 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
 
     private Task hasAccess(final String taskId, final String user) {
         final Task task = this.taskOutPort.getTask(taskId);
-        final boolean userInCandidateGroup = authenticationProvider.getLoggedInUserRoles().stream()
-                .anyMatch(role -> task.getCandidateGroups().contains(role));
-        if ( (task.getAssignee() != null && task.getAssignee().equals(user))
-                || (task.getCandidateUsers() != null && task.getCandidateUsers().contains(user))
-                || userInCandidateGroup) {
-            return task;
-        }
-        throw new TaskAccessDeniedException("User " + user + " has no access to task " + task.getId());
+        return userTaskAccessProvider.hasAccess(task, user);
     }
 
 }

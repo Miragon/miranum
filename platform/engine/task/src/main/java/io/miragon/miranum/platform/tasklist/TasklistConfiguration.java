@@ -1,9 +1,12 @@
 package io.miragon.miranum.platform.tasklist;
 
+import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.adapter.out.engine.TaskCommandEngineAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskMapper;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskPersistenceAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
+import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import org.camunda.bpm.engine.TaskService;
@@ -30,5 +33,11 @@ public class TasklistConfiguration {
     @ConditionalOnMissingBean
     public TaskCommandPort taskCommandPort(final TaskService taskService, final TaskInfoRepository taskInfoRepository) {
         return new TaskCommandEngineAdapter(taskService, taskInfoRepository);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public UserTaskAccessProvider userTaskAccessProvider(final UserAuthenticationProvider authenticationProvider) {
+        return new UserTaskAccessProviderImpl(authenticationProvider);
     }
 }
