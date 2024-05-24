@@ -7,13 +7,12 @@ import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinitio
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Rest API to interact with process definitions.
@@ -35,20 +34,15 @@ public class ProcessDefinitionController {
 
     @GetMapping
     @Operation(description = "load all available service definitions")
-    public Page<ProcessDefinitionDto> getServiceDefinitions(
-            @RequestParam(value = "page", defaultValue = "0", required = false) @Min(0) final int page,
-            @RequestParam(value = "size", defaultValue = "50", required = false) @Min(1) @Max(50) final int size,
+    public List<ProcessDefinitionDto> getServiceDefinitions(
             @RequestParam(value = "query", required = false) @Nullable final String query
     ) {
-        final Page<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
+        final List<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
                 this.authenticationProvider.getCurrentUserId(),
                 this.authenticationProvider.getCurrentUserGroups(),
-                page,
-                size,
                 query
-
         );
-        return definitions.map(this.serviceDefinitionApiMapper::map2TO);
+        return definitions.stream().map(this.serviceDefinitionApiMapper::map2TO).toList();
     }
 
     @PostMapping()

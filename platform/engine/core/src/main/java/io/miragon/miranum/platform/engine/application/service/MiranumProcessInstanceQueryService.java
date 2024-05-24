@@ -8,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,22 +30,9 @@ public class MiranumProcessInstanceQueryService implements ProcessInstanceQuery 
      *
      * @return assigned  instances
      */
-    public Page<MiranumProcessInstance> getProcessInstanceByUser(final String userId, int page, int size, String query) {
+    public List<MiranumProcessInstance> getProcessInstanceByUser(final String userId, String query) {
         val processInstances = this.miranumProcessInstancePort.getAllByUser(userId);
-        val filteredDefinitions = filterByQuery(processInstances, query);
-        return listToPage(filteredDefinitions, page, size);
-    }
-
-
-    private Page<MiranumProcessInstance> listToPage(
-            final List<MiranumProcessInstance> definitions,
-            final int page,
-            final int size) {
-
-        val from = page * size;
-        val to = Math.min((page + 1) * size, definitions.size());
-        val pageContent = definitions.subList(from, to);
-        return new PageImpl<>(pageContent, PageRequest.of(page, size), definitions.size());
+        return filterByQuery(processInstances, query);
     }
 
     private List<MiranumProcessInstance> filterByQuery(
