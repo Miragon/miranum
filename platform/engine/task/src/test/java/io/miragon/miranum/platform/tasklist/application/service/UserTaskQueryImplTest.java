@@ -32,7 +32,7 @@ class UserTaskQueryImplTest {
             .processName("Example Process")
             .processInstanceId("1")
             .candidateGroups(List.of("group1"))
-            .form("exampleForm")
+            .formKey("exampleForm")
             .build(),
         Task.builder()
             .id("2")
@@ -41,7 +41,7 @@ class UserTaskQueryImplTest {
             .processName("Example Process")
             .processInstanceId("2")
             .assignee("user1")
-            .form("exampleForm")
+            .formKey("exampleForm")
             .build(),
         Task.builder()
             .id("3")
@@ -51,7 +51,7 @@ class UserTaskQueryImplTest {
             .processInstanceId("3")
             .assignee("user1")
             .candidateGroups(List.of("group1"))
-            .form("exampleForm")
+            .formKey("exampleForm")
             .build()
     );
 
@@ -131,7 +131,7 @@ class UserTaskQueryImplTest {
                 .processInstanceId("5")
                 .assignee("user5")
                 .candidateGroups(List.of("group3"))
-                .form("exampleForm")
+                .formKey("exampleForm")
                 .build());
 
         assertThatThrownBy(() -> userTaskQuery.getTask(user, taskId))

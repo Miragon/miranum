@@ -19,7 +19,7 @@ public class TaskAuthorityEntity {
      */
     @Id
     @Column(name = "id_", unique = true, nullable = false, length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     /**
      * The type of the authority (e.g. user, group)
@@ -28,7 +28,7 @@ public class TaskAuthorityEntity {
     private String type;
 
     /**
-     * The value of the authority (e.g. the user name, the group name)
+     * The value of the authority (e.g. the username, the group name)
      */
     @Column(name = "value_", nullable = false)
     private String value;
@@ -36,5 +36,12 @@ public class TaskAuthorityEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "taskinfo_id")
     private TaskInfoEntity taskInfo;
+
+    @PrePersist
+    public void generateId() {
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+    }
 
 }

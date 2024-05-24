@@ -56,7 +56,7 @@ public class TaskInfoService implements TaskInfoUseCase {
             .instanceId(task.getProcessInstanceId())
             .assignee(task.getAssignee())
             .authorities(authorities)
-            .form(TASK_SCHEMA_VARIABLE.from(task).getOrDefault(""))
+            .formKey(TASK_SCHEMA_VARIABLE.from(task).getOrDefault(""))
             .build();
         this.taskOutPort.createTaskInfo(taskInfo);
     }

@@ -31,8 +31,8 @@ public class TasklistConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public TaskCommandPort taskCommandPort(final TaskService taskService, final TaskInfoRepository taskInfoRepository) {
-        return new TaskCommandEngineAdapter(taskService, taskInfoRepository);
+    public TaskCommandPort taskCommandPort(final TaskService taskService) {
+        return new TaskCommandEngineAdapter(taskService);
     }
 
     @Bean

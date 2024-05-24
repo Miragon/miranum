@@ -22,13 +22,13 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
 
     @Override
     public void completeUserTask(String user, String taskId, Map<String, Object> payload) throws TaskAccessDeniedException {
-        final Task task = this.hasAccess(taskId, user);
+        final Task task = this.getTaskIfUserHasAccess(taskId, user);
         this.taskCommandPort.completeUserTask(task.getId(), payload);
     }
 
     @Override
     public void saveUserTask(String user, String taskId, Map<String, Object> payload) throws TaskAccessDeniedException {
-        final Task task = this.hasAccess(taskId, user);
+        final Task task = this.getTaskIfUserHasAccess(taskId, user);
         this.taskCommandPort.saveUserTask(task.getId(), payload);
     }
 
@@ -37,7 +37,7 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
         if (!user.equals(assignee)) {
             throw new TaskAccessDeniedException("User " + user + " can not assign task to " + assignee + ".");
         }
-        final Task task = this.hasAccess(taskId, user);
+        final Task task = this.getTaskIfUserHasAccess(taskId, user);
         task.setAssignee(assignee);
         this.taskCommandPort.assignUserTask(task.getId(), assignee);
         this.taskOutPort.updateTaskInfo(TaskInfo.builder()
@@ -46,13 +46,13 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
             .definitionName(task.getProcessName())
             .instanceId(task.getProcessInstanceId())
             .assignee(task.getAssignee())
-            .form(task.getForm())
+            .formKey(task.getFormKey())
             .build());
     }
 
     @Override
     public void unassignUserTask(String user, String taskId) throws TaskAccessDeniedException {
-        final Task task = this.hasAccess(taskId, user);
+        final Task task = this.getTaskIfUserHasAccess(taskId, user);
         task.setAssignee(null);
         this.taskCommandPort.unassignUserTask(task.getId());
         this.taskOutPort.updateTaskInfo(TaskInfo.builder()
@@ -61,13 +61,13 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
                 .definitionName(task.getProcessName())
                 .instanceId(task.getProcessInstanceId())
                 .assignee(task.getAssignee())
-                .form(task.getForm())
+                .formKey(task.getFormKey())
                 .build());
     }
 
     @Override
     public void cancelUserTask(String user, String taskId) throws TaskAccessDeniedException {
-        final Task task = this.hasAccess(taskId, user);
+        final Task task = this.getTaskIfUserHasAccess(taskId, user);
         //   if (cancellationFlagOutPort.apply(task)) {
         taskCommandPort.cancelUserTask(taskId);
         //   } else {
@@ -75,7 +75,7 @@ public class WorkOnUserTaskService implements WorkOnUserTaskUseCase {
         //  }
     }
 
-    private Task hasAccess(final String taskId, final String user) {
+    private Task getTaskIfUserHasAccess(final String taskId, final String user) {
         final Task task = this.taskOutPort.getTask(taskId);
         return userTaskAccessProvider.hasAccess(task, user);
     }

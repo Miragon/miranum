@@ -50,7 +50,7 @@ class TaskInfoServiceTest {
         assertThat(taskInfoCaptor.getValue().getAssignee()).isEqualTo("user123");
         assertThat(taskInfoCaptor.getValue().getCandidateUsers()).isEmpty();
         assertThat(taskInfoCaptor.getValue().getCandidateGroups()).isEmpty();
-        assertThat(taskInfoCaptor.getValue().getForm()).isBlank();
+        assertThat(taskInfoCaptor.getValue().getFormKey()).isBlank();
     }
 
     @Test

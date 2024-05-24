@@ -19,7 +19,7 @@ public interface TaskMapper {
                 .processName(taskInfo.getDefinitionName() != null ? taskInfo.getDefinitionName() : "")
                 .processInstanceId(taskInfo.getInstanceId())
                 .assignee(camundaTask.getAssignee())
-                .form(taskInfo.getForm())
+                .formKey(taskInfo.getFormKey())
                 .candidateGroups(taskInfo.getCandidateGroups())
                 .candidateUsers(taskInfo.getCandidateUsers())
                 .build();
@@ -38,7 +38,7 @@ public interface TaskMapper {
                 .definitionName(entity.getDefinitionName())
                 .instanceId(entity.getInstanceId())
                 .assignee(entity.getAssignee())
-                .form(entity.getForm())
+                .formKey(entity.getFormKey())
                 .authorities(entity.getAuthorities().stream()
                     .map(authority -> TaskAuthorities.builder()
                             .id(authority.getId())
@@ -56,7 +56,7 @@ public interface TaskMapper {
                 .definitionName(taskInfo.getDefinitionName())
                 .instanceId(taskInfo.getInstanceId())
                 .assignee(taskInfo.getAssignee())
-                .form(taskInfo.getForm())
+                .formKey(taskInfo.getFormKey())
                 .build();
     }
 

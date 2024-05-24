@@ -19,7 +19,7 @@ public class Task {
     private String assignee;
     private List<String> candidateUsers;
     private List<String> candidateGroups;
-
-    private String form;
+    
+    private String formKey;
 
 }

@@ -32,8 +32,8 @@ public class TaskInfoEntity {
     @Column(name = "assignee_")
     private String assignee;
 
-    @Column(name = "form_")
-    private String form;
+    @Column(name = "formkey_")
+    private String formKey;
 
     @OneToMany(mappedBy = "taskInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TaskAuthorityEntity> authorities = new ArrayList<>();

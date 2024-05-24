@@ -37,7 +37,7 @@ class WorkOnUserTaskServiceTest {
         .processInstanceId("1")
         .assignee(user)
         .candidateGroups(List.of("group1"))
-        .form("exampleForm")
+        .formKey("exampleForm")
         .build();
 
     @BeforeEach
@@ -123,7 +123,7 @@ class WorkOnUserTaskServiceTest {
                 .processName("Example Process")
                 .processInstanceId("1")
                 .candidateGroups(List.of("group2"))
-                .form("exampleForm")
+                .formKey("exampleForm")
                 .build();
         when(taskOutPort.getTask(task.getId())).thenReturn(task);
 
