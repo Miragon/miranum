@@ -1,13 +1,11 @@
 package io.miragon.miranum.platform.tasklist;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
-import io.miragon.miranum.platform.tasklist.adapter.out.engine.TaskCommandEngineAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskMapper;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskPersistenceAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskCommandPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,12 +25,6 @@ public class TasklistConfiguration {
     @ConditionalOnMissingBean
     public TaskOutPort taskOutPort(final TaskService taskService, final TaskInfoRepository taskInfoRepository, final TaskMapper taskMapper) {
         return new TaskPersistenceAdapter(taskService, taskInfoRepository, taskMapper);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public TaskCommandPort taskCommandPort(final TaskService taskService) {
-        return new TaskCommandEngineAdapter(taskService);
     }
 
     @Bean

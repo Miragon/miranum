@@ -15,6 +15,7 @@
 
     <modules>
         <module>single-deployment-unit-example</module>
+        <module>miranum-process-integration-example</module>
     </modules>
 
     <dependencyManagement>
