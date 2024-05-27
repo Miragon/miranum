@@ -3,7 +3,7 @@ package io.miragon.miranum.platform.tasklist.application.service;
 import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class TaskInfoServiceTest {
     private final TaskInfoUseCase taskInfoService = new TaskInfoService(taskOutPort, miranumProcessDefinitionPort);
 
     @Test
-    void testCreateTaskInfo() {
+    void testCreateTask() {
         // Arrange
         final DelegateTask mockTask = mock(DelegateTask.class);
         when(mockTask.getId()).thenReturn("task123");
@@ -54,7 +54,15 @@ class TaskInfoServiceTest {
     }
 
     @Test
-    void testDeleteTaskInfo() {
+    void testAssignTask() {
+        final String taskId = "12345";
+        final String assignee = "user1";
+        taskInfoService.assignTask(taskId, assignee);
+        verify(taskOutPort).assignTask(taskId, assignee);
+    }
+
+    @Test
+    void testDeleteTask() {
         final String taskId = "12345";
         taskInfoService.deleteTask(taskId);
         verify(taskOutPort).deleteTask(taskId);

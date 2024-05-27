@@ -4,7 +4,7 @@ import io.holunda.camunda.bpm.data.factory.VariableFactory;
 import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import lombok.RequiredArgsConstructor;

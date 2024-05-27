@@ -6,7 +6,7 @@ import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskPersistenceAdap
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

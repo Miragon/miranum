@@ -18,7 +18,7 @@ public interface TaskMapper {
                 .description(taskInfo.getDescription())
                 .processName(taskInfo.getDefinitionName() != null ? taskInfo.getDefinitionName() : "")
                 .processInstanceId(taskInfo.getInstanceId())
-                .assignee(camundaTask.getAssignee())
+                .assignee(taskInfo.getAssignee())
                 .formKey(taskInfo.getFormKey())
                 .candidateGroups(taskInfo.getCandidateGroups())
                 .candidateUsers(taskInfo.getCandidateUsers())

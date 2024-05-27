@@ -4,7 +4,7 @@ import io.miragon.miranum.platform.security.authentication.UserAuthenticationPro
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import org.junit.jupiter.api.BeforeEach;

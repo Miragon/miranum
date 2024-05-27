@@ -3,7 +3,7 @@ package io.miragon.miranum.platform.tasklist.application.service;
 
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;

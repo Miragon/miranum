@@ -3,7 +3,7 @@ package io.miragon.miranum.platform.tasklist.adapter.out.task;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
-import io.miragon.miranum.platform.tasklist.application.port.out.engine.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import io.miragon.miranum.platform.tasklist.exception.TaskNotFoundException;
