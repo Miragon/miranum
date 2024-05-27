@@ -32,6 +32,7 @@
     <modules>
         <module>core</module>
         <module>templates</module>
+        <module>security</module>
         <module>camunda7-remote</module>
         <module>camunda8</module>
         <module>coverage</module>

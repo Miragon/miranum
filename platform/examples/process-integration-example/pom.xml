@@ -11,6 +11,10 @@
 
     <artifactId>miranum-process-integration-example</artifactId>
 
+    <properties>
+        <miranum.connect.version>0.6.0-SNAPSHOT</miranum.connect.version>
+    </properties>
+
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -25,18 +29,23 @@
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>process-camunda7-remote</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${miranum.connect.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>task-camunda7-remote</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${miranum.connect.version}</version>
         </dependency>
 
         <!-- miranum libs -->
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>miranum-connect-security</artifactId>
+            <version>0.6.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
