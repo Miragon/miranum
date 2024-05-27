@@ -38,11 +38,11 @@ class TaskInfoServiceTest {
         when(miranumProcessDefinitionPort.getProcessDefinitionById("processDef123")).thenReturn(mockDefinition);
 
         // Act
-        taskInfoService.createTaskInfo(mockTask);
+        taskInfoService.createTask(mockTask);
 
         // Assert
         final ArgumentCaptor<TaskInfo> taskInfoCaptor = ArgumentCaptor.forClass(TaskInfo.class);
-        verify(taskOutPort).createTaskInfo(taskInfoCaptor.capture());
+        verify(taskOutPort).createTask(taskInfoCaptor.capture());
         assertThat(taskInfoCaptor.getValue().getId()).isEqualTo("task123");
         assertThat(taskInfoCaptor.getValue().getDescription()).isBlank();
         assertThat(taskInfoCaptor.getValue().getDefinitionName()).isEqualTo("Process Name");
@@ -56,8 +56,8 @@ class TaskInfoServiceTest {
     @Test
     void testDeleteTaskInfo() {
         final String taskId = "12345";
-        taskInfoService.deleteTaskInfo(taskId);
-        verify(taskOutPort).deleteTaskInfo(taskId);
+        taskInfoService.deleteTask(taskId);
+        verify(taskOutPort).deleteTask(taskId);
     }
 
 }

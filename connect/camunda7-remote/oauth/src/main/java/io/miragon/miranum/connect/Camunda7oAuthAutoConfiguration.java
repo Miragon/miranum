@@ -1,4 +1,4 @@
-package io.miragon.miranum.connect.adapter.in.c7.oauth;
+package io.miragon.miranum.connect;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import okhttp3.Interceptor;
@@ -9,6 +9,7 @@ import org.camunda.community.rest.client.invoker.ApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,22 +20,21 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
+@Configuration
 public class Camunda7oAuthAutoConfiguration {
 
-    @Value("${miranum.c7.auth.server.url}")
+    @Value("${miranum.security.auth.server.url}")
     private String authServerUrl;
 
-    @Value("${miranum.c7.client.id}")
+    @Value("${miranum.security.client.clientId}")
     private String clientId;
 
-    @Value("${miranum.c7.client.secret}")
+    @Value("${miranum.security.client.clientSecret}")
     private String clientSecret;
 
     @Bean
     public ClientRequestInterceptor interceptor() {
-        return context -> {
-            context.addHeader("Authorization", this.getAccessToken());
-        };
+        return context -> context.addHeader("Authorization", this.getAccessToken());
     }
 
     @Autowired

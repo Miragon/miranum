@@ -54,7 +54,7 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     }
 
     @Override
-    public void createTaskInfo(final TaskInfo task) {
+    public void createTask(final TaskInfo task) {
         final TaskInfoEntity taskInfoEntity = this.taskMapper.mapToTaskInfoEntity(task);
         // make sure the TaskAuthorityEntities are persisted too
         taskInfoEntity.setAuthorities(task.getAuthorities().stream()
@@ -69,13 +69,16 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     }
 
     @Override
-    public void updateTaskInfo(final TaskInfo task) {
+    public void assignTask(final String taskId, final String assignee) {
         // Note: TaskAuthorityEntities are not updated here
-        this.taskInfoRepository.save(this.taskMapper.mapToTaskInfoEntity(task));
+        final TaskInfoEntity task = this.taskInfoRepository.findById(taskId)
+                .orElseThrow(() -> new TaskNotFoundException("Task with id " + taskId + " is not found"));
+        task.setAssignee(assignee);
+        this.taskInfoRepository.save(task);
     }
 
     @Override
-    public void deleteTaskInfo(String taskId) {
+    public void deleteTask(String taskId) {
         this.taskInfoRepository.deleteById(taskId);
     }
 

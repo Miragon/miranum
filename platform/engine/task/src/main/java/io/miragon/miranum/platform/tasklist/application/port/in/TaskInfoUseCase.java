@@ -4,8 +4,10 @@ import org.camunda.bpm.engine.delegate.DelegateTask;
 
 public interface TaskInfoUseCase {
 
-    void createTaskInfo(final DelegateTask task);
+    void createTask(final DelegateTask task);
 
-    void deleteTaskInfo(final String taskId);
+    void assignTask(final String taskId, final String assignee);
+
+    void deleteTask(final String taskId);
 
 }

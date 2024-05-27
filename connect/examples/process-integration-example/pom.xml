@@ -4,16 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
-        <artifactId>miranum-examples</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <groupId>io.miragon.miranum.connect</groupId>
+        <artifactId>miranum-connect-examples</artifactId>
+        <version>0.6.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>miranum-process-integration-example</artifactId>
-
-    <properties>
-        <miranum.connect.version>0.6.0-SNAPSHOT</miranum.connect.version>
-    </properties>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -27,25 +23,36 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>process-camunda7-remote</artifactId>
-            <version>${miranum.connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>task-camunda7-remote</artifactId>
-            <version>${miranum.connect.version}</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
+            <version>${camunda7.version}</version>
         </dependency>
 
         <!-- miranum libs -->
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
+            <version>0.3.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>miranum-connect-security</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <artifactId>oauth-camunda7-remote</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

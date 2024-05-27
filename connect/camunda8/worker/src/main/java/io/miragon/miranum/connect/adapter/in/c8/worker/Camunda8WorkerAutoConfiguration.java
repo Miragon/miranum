@@ -4,8 +4,10 @@ import io.camunda.zeebe.client.ZeebeClient;
 import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @EnableConfigurationProperties
+@Configuration
 public class Camunda8WorkerAutoConfiguration {
 
     @Bean

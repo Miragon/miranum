@@ -42,9 +42,15 @@
 
         <!-- camunda -->
         <dependency>
-            <groupId>org.camunda.community.rest</groupId>
-            <artifactId>camunda-platform-7-rest-client-spring-boot-starter</artifactId>
-            <version>7.20.0</version>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
+            <version>${camunda7.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>utils-camunda7-remote</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,54 +1,43 @@
 package io.miragon.miranum.connect.task;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.miragon.miranum.connect.camnda7.remote.utils.Camunda7RestValueMapper;
 import io.miragon.miranum.connect.task.api.command.AssignUserTaskCommand;
 import io.miragon.miranum.connect.task.api.command.CompleteTaskCommand;
 import io.miragon.miranum.connect.task.api.exception.TaskOperationFailedException;
 import io.miragon.miranum.connect.task.impl.TaskOutPort;
 import lombok.RequiredArgsConstructor;
-import org.camunda.bpm.engine.task.TaskQuery;
-import org.camunda.community.rest.impl.RemoteTaskService;
+import org.camunda.community.rest.client.api.TaskApi;
+import org.camunda.community.rest.client.dto.CompleteTaskDto;
+import org.camunda.community.rest.client.dto.UserIdDto;
+import org.camunda.community.rest.client.invoker.ApiException;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class C7TaskApi implements TaskOutPort {
 
-    private final RemoteTaskService remoteTaskService;
-
-    @Override
-    public boolean userHasAccess(final String taskId, final String user, final List<String> groups) {
-        try {
-            final TaskQuery query = remoteTaskService.createTaskQuery()
-                    .taskId(taskId)
-                    .taskAssignee(user)
-                    .or()
-                    .taskCandidateUser(user);
-            if (groups != null) {
-                query.or().taskCandidateGroupIn(groups);
-            }
-            final org.camunda.bpm.engine.task.Task task = query.singleResult();
-            return task != null;
-        } catch (final RuntimeException e) {
-            return false;
-        }
-    }
+    private final TaskApi taskApi;
+    private final Camunda7RestValueMapper baseVariableMapper;
 
     @Override
     public void completeTask(CompleteTaskCommand command) {
         try {
-            remoteTaskService.complete(command.getTaskId(), command.getVariables());
-        } catch (final RuntimeException e) {
+            final CompleteTaskDto completeTaskDto = new CompleteTaskDto();
+            completeTaskDto.setVariables(baseVariableMapper.map(command.getVariables()));
+            taskApi.complete(command.getTaskId(), completeTaskDto);
+        } catch (final JsonProcessingException | ApiException e) {
             throw new TaskOperationFailedException(e.getMessage());
-        }
+            }
     }
 
     @Override
     public void assignUserTask(AssignUserTaskCommand command) {
         try {
-            remoteTaskService.setAssignee(command.getTaskId(), command.getAssignee());
-        } catch (final RuntimeException e) {
+            final UserIdDto userIdDto = new UserIdDto();
+            userIdDto.setUserId(command.getAssignee());
+            taskApi.claim(command.getTaskId(), userIdDto);
+        } catch (final ApiException e) {
             throw new TaskOperationFailedException(e.getMessage());
         }
     }
@@ -56,8 +45,8 @@ public class C7TaskApi implements TaskOutPort {
     @Override
     public void cancelUserTask(String taskId) {
         try {
-            remoteTaskService.deleteTask(taskId);
-        } catch (final RuntimeException e) {
+            taskApi.deleteTask(taskId);
+        } catch (final ApiException e) {
             throw new TaskOperationFailedException(e.getMessage());
         }
     }

@@ -20,12 +20,16 @@ public class TaskInfoListener {
         switch (delegateTask.getEventName()) {
             case "create":
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
-                this.taskInfoInPort.createTaskInfo(delegateTask);
+                this.taskInfoInPort.createTask(delegateTask);
+                break;
+            case "assignment":
+                log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
+                this.taskInfoInPort.assignTask(delegateTask.getId(), delegateTask.getAssignee());
                 break;
             case "complete":
             case "delete":
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
-                this.taskInfoInPort.deleteTaskInfo(delegateTask.getId());
+                this.taskInfoInPort.deleteTask(delegateTask.getId());
                 break;
         }
     }

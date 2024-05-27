@@ -28,7 +28,7 @@ public class TaskInfoService implements TaskInfoUseCase {
     public static final VariableFactory<String> TASK_SCHEMA_VARIABLE = stringVariable(TASK_SCHEMA);
 
     @Override
-    public void createTaskInfo(DelegateTask task) {
+    public void createTask(DelegateTask task) {
         final MiranumProcessDefinition miranumProcessDefinition = this.miranumProcessDefinitionPort.getProcessDefinitionById(task.getProcessDefinitionId());
         // get candidate groups and users
         final List<TaskAuthorities> authorities = task.getCandidates().stream()
@@ -58,11 +58,16 @@ public class TaskInfoService implements TaskInfoUseCase {
             .authorities(authorities)
             .formKey(TASK_SCHEMA_VARIABLE.from(task).getOrDefault(""))
             .build();
-        this.taskOutPort.createTaskInfo(taskInfo);
+        this.taskOutPort.createTask(taskInfo);
     }
 
     @Override
-    public void deleteTaskInfo(String taskId) {
-        this.taskOutPort.deleteTaskInfo(taskId);
+    public void assignTask(final String taskId, final String assignee) {
+        this.taskOutPort.assignTask(taskId, assignee);
+    }
+
+    @Override
+    public void deleteTask(String taskId) {
+        this.taskOutPort.deleteTask(taskId);
     }
 }

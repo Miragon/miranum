@@ -16,7 +16,7 @@ Authorization: Bearer {{ access_token }}
 
 ### Start Instance
 
-POST http://localhost:8083/rest/process/definition
+POST http://localhost:8084/rest/process/definition
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 
@@ -40,7 +40,7 @@ Authorization: Bearer {{ access_token }}
 
 ### Claim Task for user alex.admin
 
-POST http://localhost:8083/rest/task/{{group_task_id}}/assign
+POST http://localhost:8084/rest/task/{{group_task_id}}/assign
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 
@@ -59,7 +59,7 @@ Authorization: Bearer {{ access_token }}
 %}
 
 ### Complete Task
-POST http://localhost:8083/rest/task/{{first_task}}/complete
+POST http://localhost:8084/rest/task/{{first_task}}/complete
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 

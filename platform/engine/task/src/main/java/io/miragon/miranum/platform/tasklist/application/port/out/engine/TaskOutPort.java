@@ -19,10 +19,10 @@ public interface TaskOutPort {
 
     Map<String, Object> getTaskData(String user, String taskId);
 
-    void createTaskInfo(final TaskInfo task);
+    void createTask(final TaskInfo task);
 
-    void updateTaskInfo(final TaskInfo task);
+    void assignTask(final String taskId, final String assignee);
 
-    void deleteTaskInfo(final String taskId);
+    void deleteTask(final String taskId);
 
 }
