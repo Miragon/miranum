@@ -28,7 +28,7 @@ public class C7TaskApi implements TaskOutPort {
             taskApi.complete(command.getTaskId(), completeTaskDto);
         } catch (final JsonProcessingException | ApiException e) {
             throw new TaskOperationFailedException(e.getMessage());
-            }
+        }
     }
 
     @Override
