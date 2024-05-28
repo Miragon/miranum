@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.miragon.miranum.connect</groupId>
         <artifactId>connect-camunda7-remote</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>task-camunda7-remote</artifactId>
