@@ -1,0 +1,32 @@
+server:
+  port: ${MIRANUM_PROCESS_INTEGRATION_EXAMPLE_PORT}
+
+camunda:
+  autoDeploy:
+    enabled: true
+  bpm:
+    client:
+      base-url: http://localhost:8083/engine-rest
+
+spring:
+  application:
+    name: '@project.artifactId@'
+
+miranum:
+  # override default security settings
+  security:
+    auth:
+      server:
+        url: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/token
+    client:
+      enabled: true
+      clientId: ${SSO_WORKER_CLIENT_ID}
+      clientSecret: ${SSO_WORKER_CLIENT_SECRET}
+    permittedUrls:
+      - "/error"
+      - "/actuator/**"
+      - "/swagger-ui/index.html" # allow access to swagger
+      - "/swagger-ui*/*swagger-initializer.js" # allow access to swagger
+      - "/swagger-ui*/**" # allow access to swagger
+      - "/v3/api-docs/*" # allow access to swagger
+      - "/v3/api-docs" # allow access to swagger

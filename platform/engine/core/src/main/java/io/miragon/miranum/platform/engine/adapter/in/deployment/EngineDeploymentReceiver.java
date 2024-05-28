@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.engine.adapter.in.deployment;
 
-import io.miragon.miranum.platform.deploymentreceiver.deploymentreceiver.application.ports.out.MiranumDeploymentReceiver;
-import io.miragon.miranum.platform.deploymentreceiver.deploymentreceiver.domain.Deployment;
+import io.miragon.miranum.platform.deployment.receiver.application.ports.out.MiranumDeploymentReceiver;
+import io.miragon.miranum.platform.deployment.receiver.domain.Deployment;
 import io.miragon.miranum.platform.engine.application.port.in.deployment.ArtifactDeploymentUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.miragon.miranum.platform</groupId>
+        <artifactId>miranum-platform</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>miranum-examples</artifactId>
+    <name>miranum-examples</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>single-deployment-unit-example</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Miranum -->
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>miranum-engine-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>miranum-engine-task</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- miranum libs -->
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>spring-security-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>schema-registry</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.miragon.miranum.platform</groupId>
+                <artifactId>miranum-unit-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

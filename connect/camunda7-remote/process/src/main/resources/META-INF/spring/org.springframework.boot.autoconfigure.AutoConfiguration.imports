@@ -1,4 +1,4 @@
-io.miragon.miranum.platform.connect.camunda7.remote.remote.Camunda7ProcessAutoConfiguration
+io.miragon.miranum.connect.camunda7.remote.Camunda7ProcessAutoConfiguration
 org.camunda.community.rest.client.springboot.CamundaOpenApiStarter
 org.camunda.community.rest.client.springboot.CamundaApi
 org.camunda.community.rest.client.springboot.CamundaHistoryApi

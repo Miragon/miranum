@@ -1,19 +1,24 @@
 name: Build Application
 
 on:
-  pull_request:
   push:
+  pull_request:
+    types: [ opened, reopened ]
+    branches:
+      - main
 
 jobs:
-  # maven build if branch != dev
-  # if branch dev == dev build and release docker images with dev tag
+  # maven build if branch != main
+  # if branch main == dev build and release docker images with dev tag
   maven-build:
     uses: ./.github/workflows/workflow-build-and-release-services.yml
     with:
-      release-version: dev
+      docker-release-version: dev
       snapshot-release: true
       maven-release: false
       docker-release: ${{ github.ref_name == 'main' }}
+      release-connect: ${{ github.ref_name == 'main' }}
+      release-platform: ${{ github.ref_name == 'main' }}
     secrets: inherit
 
   labelPR:

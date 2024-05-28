@@ -8,9 +8,9 @@
     <packaging>pom</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.connect</groupId>
         <artifactId>miranum-connect</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <modules>
@@ -19,6 +19,7 @@
         <module>process</module>
         <module>worker</module>
         <module>utils</module>
+        <module>task</module>
     </modules>
 
 </project>

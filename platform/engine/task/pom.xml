@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.miragon.miranum.platform</groupId>
         <artifactId>miranum-engine</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <properties>
@@ -21,11 +21,21 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+
         <!-- Camunda -->
         <dependency>
             <groupId>org.camunda.bpm</groupId>
             <artifactId>camunda-engine</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.holunda.data</groupId>
+            <artifactId>camunda-bpm-data</artifactId>
+            <version>1.5.0</version>
         </dependency>
 
         <!-- Miranum -->
@@ -33,6 +43,16 @@
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-engine-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>spring-security-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Feign -->
@@ -44,7 +64,13 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
         </dependency>
-    </dependencies>
 
+        <!-- Test -->
+        <dependency>
+            <groupId>io.miragon.miranum.platform</groupId>
+            <artifactId>miranum-unit-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

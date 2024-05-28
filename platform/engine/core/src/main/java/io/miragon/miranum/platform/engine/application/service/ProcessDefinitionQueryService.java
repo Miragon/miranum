@@ -5,11 +5,7 @@ import io.miragon.miranum.platform.engine.application.port.out.process.MiranumPr
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,11 +18,9 @@ public class ProcessDefinitionQueryService implements ProcessDefinitionQuery {
     private final MiranumProcessDefinitionPort miranumProcessDefinitionPort;
 
     @Override
-    public Page<MiranumProcessDefinition> getProcessDefinitions(
+    public List<MiranumProcessDefinition> getProcessDefinitions(
             String userId,
             List<String> groups,
-            int page,
-            int size,
             String query
     ) {
         final List<MiranumProcessDefinition> processDefinitions = miranumProcessDefinitionPort.getServiceDefinitions();
@@ -37,18 +31,7 @@ public class ProcessDefinitionQueryService implements ProcessDefinitionQuery {
                 .filter(obj -> miranumProcessDefinitionPort.allowedToStartDefinition(userId, groups, obj.getKey()))
                 .toList();
 
-        return listToPage(allowedToStart, page, size);
-    }
-
-    private Page<MiranumProcessDefinition> listToPage(
-            final List<MiranumProcessDefinition> definitions,
-            final int page,
-            final int size) {
-
-        val from = page * size;
-        val to = Math.min((page + 1) * size, definitions.size());
-        val pageContent = definitions.subList(from, to);
-        return new PageImpl<>(pageContent, PageRequest.of(page, size), definitions.size());
+        return allowedToStart;
     }
 
     private List<MiranumProcessDefinition> filterByQuery(

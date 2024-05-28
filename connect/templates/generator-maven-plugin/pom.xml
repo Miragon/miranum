@@ -14,16 +14,16 @@
     </organization>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.connect</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <properties>
-        <org.apache.maven.version>3.9.5</org.apache.maven.version>
-        <org.apache.maven.plugin-tools.version>3.10.2</org.apache.maven.plugin-tools.version>
+        <org.apache.maven.version>3.9.6</org.apache.maven.version>
+        <org.apache.maven.plugin-tools.version>3.13.0</org.apache.maven.plugin-tools.version>
         <org.reflections.version>0.10.2</org.reflections.version>
-        <org.apache.maven-plugins.version>3.9.0</org.apache.maven-plugins.version>
+        <org.apache.maven-plugins.version>3.13.0</org.apache.maven-plugins.version>
     </properties>
 
     <dependencies>
@@ -55,25 +55,25 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c8</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-shared</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.1</version>
+            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
 

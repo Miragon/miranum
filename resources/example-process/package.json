@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "deploy:all": "npm run deploy:embedded && npm run deploy:rest",
+    "deploy:all": "npm run deploy:embedded && npm run deploy:rest && npm run deploy:singleDeploymentUnit",
     "deploy:embedded": "npx @miragon/miranum-cli deploy -d . -t embedded",
     "deploy:rest": "npx @miragon/miranum-cli deploy -d . -t rest",
     "deploy:singleDeploymentUnit": "npx @miragon/miranum-cli deploy -d . -t singleDeploymentUnit"

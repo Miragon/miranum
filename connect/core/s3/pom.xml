@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum.connect</groupId>
         <artifactId>connect-core</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>miranum-connect-s3</artifactId>
     <name>miranum-engine-s3</name>
 
     <properties>
-        <minio.version>8.5.9</minio.version>
+        <minio.version>8.5.10</minio.version>
     </properties>
 
     <dependencies>
