@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.application.port;
+package io.miragon.miranum.platform.application;
 
 import io.miragon.miranum.connect.task.api.exception.TaskAccessDeniedException;
 import io.miragon.miranum.platform.application.port.in.WorkOnUserTaskInPort;
