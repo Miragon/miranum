@@ -305,6 +305,7 @@ typings
 # .idea/modules
 # *.iml
 # *.ipr
+.flattened-pom.xml
 
 # CMake
 
