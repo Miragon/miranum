@@ -25,7 +25,7 @@ public class Camunda8ElementTemplatesGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                1,
                 "test",
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInput.class),
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class)
@@ -54,7 +54,7 @@ public class Camunda8ElementTemplatesGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                1,
                 "test",
                 new ArrayList<>(),
                 new ArrayList<>()
@@ -83,7 +83,7 @@ public class Camunda8ElementTemplatesGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                1,
                 "test",
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInputWithElementTemplatePropertyAnnotation.class),
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class)

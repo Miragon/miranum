@@ -2,6 +2,7 @@
   "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.8.0/resources/schema.json",
   "name": "Test",
   "id": "test",
+  "version": 1,
   "appliesTo": [
     "bpmn:ServiceTask"
   ],
@@ -17,8 +18,8 @@
       }
     },
     {
-      "value": "=",
-      "label": "name",
+      "value": "=name",
+      "label": "Input: name",
       "type": "String",
       "binding": {
         "type": "zeebe:input",
@@ -26,8 +27,8 @@
       }
     },
     {
-      "value": "=",
-      "label": "id",
+      "value": "=id",
+      "label": "Input: id",
       "type": "String",
       "binding": {
         "type": "zeebe:input",
@@ -36,7 +37,7 @@
     },
     {
       "value": "nameResult",
-      "label": "name",
+      "label": "Output: name",
       "type": "String",
       "binding": {
         "type": "zeebe:output",
@@ -45,7 +46,7 @@
     },
     {
       "value": "idResult",
-      "label": "id",
+      "label": "Output: id",
       "type": "String",
       "binding": {
         "type": "zeebe:output",

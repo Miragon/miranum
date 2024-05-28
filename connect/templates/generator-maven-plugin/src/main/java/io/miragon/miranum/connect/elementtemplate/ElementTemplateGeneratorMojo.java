@@ -26,7 +26,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +34,7 @@ import java.util.Set;
 /**
  * A maven mojo for generating element templates.
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.PREPARE_PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
     private final Log log = getLog();
@@ -66,6 +65,9 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
         if (Objects.nonNull(skip) && skip) {
             getLog().info("Element-template generation is skipped.");
             return;
+        } else if (Objects.isNull(targetPlatforms) || targetPlatforms.length == 0) {
+            getLog().info("Element-template generation failed. Please configure a target platform. Valid target platforms are: camunda7 or camunda8");
+            return;
         }
 
         List<ElementTemplateGenerator> generators = ElementTemplateGeneratorsFactory.create(targetPlatforms);
@@ -89,8 +91,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     }
 
     private void saveElementTemplateToFile(ElementTemplateGenerationResult generationResult) {
-        var path = Path.of(generationResult.getTargetPlatform().name(), generationResult.getFileName()).toString();
-        var elementTemplate = new File(outputDirectory, path);
+        var elementTemplate = new File(outputDirectory, generationResult.getFileName());
         boolean dirsCreated = elementTemplate.getParentFile().mkdirs();
         try {
             var fileCreated = elementTemplate.createNewFile();

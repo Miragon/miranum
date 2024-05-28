@@ -19,6 +19,7 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         var elementTemplate = new CamundaC7ElementTemplate()
                 .withName(elementTemplateInfo.getName())
                 .withId(elementTemplateInfo.getId())
+                .withVersion((double) elementTemplateInfo.getVersion())
                 .withAppliesTo(Collections.singletonList(BPMNElementType.BPMN_SERVICE_TASK.getValue()));
 
         // Add external task property
@@ -31,38 +32,51 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
 
         // Add properties for input parameters
         for (var inputProperty : elementTemplateInfo.getInputProperties()) {
-            var property = createPropertyWithValue(inputProperty, false);
+            var property = createInputParameterProp(inputProperty);
             elementTemplate.getProperties().add(property);
         }
 
         // Add properties for output parameters
         for (var outputProperties : elementTemplateInfo.getOutputProperties()) {
-            var property = createPropertyWithValue(outputProperties, true);
+            var property = createOutputParameterProp(outputProperties);
             elementTemplate.getProperties().add(property);
         }
 
         var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
-        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json, TargetPlatform.camunda7);
+        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json);
     }
 
-    private Property createPropertyWithValue(ElementTemplatePropertyInfo info, boolean output) {
-        var value = output ? info.getLabel() + "Result" : "";
-        var bindingType = output ? Binding.Type.CAMUNDA_OUTPUT_PARAMETER : Binding.Type.CAMUNDA_INPUT_PARAMETER;
+    private Property createInputParameterProp(ElementTemplatePropertyInfo info) {
         var property = new Property()
-                .withLabel(info.getLabel())
+                .withLabel("Input: %s".formatted(info.getLabel()))
+                .withValue("${}")
                 .withType(info.getType().getType())
                 .withChoices(null)
                 .withBinding(new Binding()
-                        .withType(bindingType))
-                .withValue(value);
+                        .withType(Binding.Type.CAMUNDA_INPUT_PARAMETER)
+                        .withName(info.getName()));
 
-        if (output) {
-            property.getBinding().setSource("${" + info.getLabel() + "}");
-        } else {
-            property.getBinding().setName(info.getName());
+        if (!info.isNotEmpty()) {
+            property.setConstraints(new Constraints()
+                    .withNotEmpty(info.isNotEmpty()));
         }
 
-        // Only set if false, else jackson will display default value in generated json
+        if (!info.isEditable()) {
+            property.setEditable(info.isEditable());
+        }
+
+        return property;
+    }
+
+    private Property createOutputParameterProp(ElementTemplatePropertyInfo info) {
+        var property = new Property()
+                .withLabel("Output: %s".formatted(info.getLabel()))
+                .withValue("%sResult".formatted(info.getName()))
+                .withType(info.getType().getType())
+                .withChoices(null)
+                .withBinding(new Binding()
+                        .withType(Binding.Type.CAMUNDA_OUTPUT_PARAMETER)
+                        .withSource("${%s}".formatted(info.getName())));
 
         if (!info.isNotEmpty()) {
             property.setConstraints(new Constraints()

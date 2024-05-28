@@ -75,15 +75,13 @@ class ElementTemplateGeneratorMojoTest {
             public void test() {
             }
         }
-        String filename = "test-0-1.json";
+        String filename = "test-v1.json";
 
         // Act
         mojo.execute();
 
         // Assert that file was generated for target
-        File platformDirectory = new File(mojo.outputDirectory, TargetPlatform.camunda7.name());
-        assertTrue(platformDirectory.exists());
-        assertTrue(new File(platformDirectory, filename).exists());
+        assertTrue(new File(mojo.outputDirectory, filename).exists());
     }
 
     @Test
@@ -108,18 +106,15 @@ class ElementTemplateGeneratorMojoTest {
             public void test2() {
             }
         }
-        String filename1 = "test1-0-1.json";
-        String filename2 = "test2-0-1.json";
+        String filename1 = "test1-v1.json";
+        String filename2 = "test2-v1.json";
 
         // Act
         mojo.execute();
 
         // Assert that files were generated for target
-        File platformDirectory = new File(mojo.outputDirectory, TargetPlatform.camunda7.name());
-        assertTrue(platformDirectory.exists());
-        assertTrue(new File(platformDirectory, filename1).exists());
+        assertTrue(new File(mojo.outputDirectory, filename1).exists());
 
-        assertTrue(platformDirectory.exists());
-        assertTrue(new File(platformDirectory, filename2).exists());
+        assertTrue(new File(mojo.outputDirectory, filename2).exists());
     }
 }

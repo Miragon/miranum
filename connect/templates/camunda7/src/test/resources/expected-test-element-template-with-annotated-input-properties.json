@@ -2,6 +2,7 @@
   "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
   "name" : "Test",
   "id" : "test",
+  "version" : 1.0,
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
     "value" : "external",
@@ -22,16 +23,16 @@
       "name" : "camunda:topic"
     }
   }, {
-    "value" : "",
-    "label" : "Property1",
+    "value" : "${}",
+    "label" : "Input: Property1",
     "type" : "Text",
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
     }
   }, {
-    "value" : "",
-    "label" : "Property2",
+    "value" : "${}",
+    "label" : "Input: Property2",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
@@ -42,7 +43,7 @@
     }
   }, {
     "value" : "nameResult",
-    "label" : "name",
+    "label" : "Output: name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
@@ -50,7 +51,7 @@
     }
   }, {
     "value" : "idResult",
-    "label" : "id",
+    "label" : "Output: id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",

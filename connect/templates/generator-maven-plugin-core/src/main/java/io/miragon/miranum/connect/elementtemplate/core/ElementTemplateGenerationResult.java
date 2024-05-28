@@ -9,13 +9,11 @@ public class ElementTemplateGenerationResult {
 
     private String name;
 
-    private String version;
+    private int version;
 
     private String json;
 
-    private TargetPlatform targetPlatform;
-
     public String getFileName() {
-        return name + "-" + version + ".json";
+        return  "%s-v%s.json".formatted(name, version);
     }
 }

@@ -19,6 +19,7 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
         var elementTemplate = new CamundaC8ElementTemplate()
                 .setName(elementTemplateInfo.getName())
                 .setId(elementTemplateInfo.getId())
+                .setVersion(elementTemplateInfo.getVersion())
                 .setAppliesTo(List.of(BPMNElementType.BPMN_SERVICE_TASK.getValue()));
 
         // Add property for the topic of the worker
@@ -35,13 +36,13 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
 
         // Add properties for input parameters
         for (var inputProperty : elementTemplateInfo.getInputProperties()) {
-            var property = createPropertyWithValue(inputProperty, false);
+            var property = createInputParameterProp(inputProperty);
             elementTemplate.getProperties().add(property);
         }
 
         // Add properties for output parameters
         for (var outputProperties : elementTemplateInfo.getOutputProperties()) {
-            var property = createPropertyWithValue(outputProperties, true);
+            var property = createOutputParameterProp(outputProperties);
             elementTemplate.getProperties().add(property);
         }
 
@@ -49,29 +50,42 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
         return new ElementTemplateGenerationResult(
                 elementTemplateInfo.getId(),
                 elementTemplateInfo.getVersion(),
-                json,
-                TargetPlatform.camunda8
+                json
         );
     }
 
-    private Property createPropertyWithValue(ElementTemplatePropertyInfo info, boolean output) {
-        var value = output ? info.getLabel() + "Result" : "=";
-        var bindingType = output ? Binding.Type.ZEEBE_OUTPUT : Binding.Type.ZEEBE_INPUT;
+    private Property createInputParameterProp(ElementTemplatePropertyInfo info) {
         var property = new Property()
-                .setLabel(info.getLabel())
+                .setLabel("Input: %s".formatted(info.getLabel()))
+                .setValue("=%s".formatted(info.getName()))
                 .setType(info.getType().getType())
                 .setChoices(null)
                 .setBinding(new Binding()
-                        .setType(bindingType))
-                .setValue(value);
+                        .setType(Binding.Type.ZEEBE_INPUT)
+                        .setName(info.getName()));
 
-        if (output) {
-            property.getBinding().setSource("=" + info.getLabel());
-        } else {
-            property.getBinding().setName(info.getName());
+        if (!info.isNotEmpty()) {
+            property.setConstraints(new Constraints()
+                    .setNotEmpty(info.isNotEmpty()));
         }
 
-        // Only set if false, else jackson will display default value in generated json
+        if (!info.isEditable()) {
+            property.setEditable(info.isEditable());
+        }
+
+        return property;
+    }
+
+    private Property createOutputParameterProp(ElementTemplatePropertyInfo info) {
+        var property = new Property()
+                .setLabel("Output: %s".formatted(info.getLabel()))
+                .setValue("%sResult".formatted(info.getName()))
+                .setType(info.getType().getType())
+                .setChoices(null)
+                .setBinding(new Binding()
+                        .setType(Binding.Type.ZEEBE_OUTPUT)
+                        .setSource("=%s".formatted(info.getName())));
+
         if (!info.isNotEmpty()) {
             property.setConstraints(new Constraints()
                     .setNotEmpty(info.isNotEmpty()));
