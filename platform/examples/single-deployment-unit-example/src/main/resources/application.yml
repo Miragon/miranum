@@ -4,6 +4,8 @@ info:
     version: '@project.version@'
 
 camunda:
+  authorization:
+    enabled: true
   bpm:
     authorization:
       enabled: false
@@ -131,7 +133,6 @@ miranum:
       - "/v3/api-docs/*" # allow access to swagger
       - "/v3/api-docs" # allow access to swagger
       - "/camunda/**" # allow camunda webapps
-logging.level:
-  io:
-    holunda:
-      polyflow: DEBUG
+  tasklist:
+    # if you want to disable the tasklist, set this to false
+    enabled: true

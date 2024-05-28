@@ -31,3 +31,8 @@ changes:
       clientRole: true
       name: office
       description: Office office
+  - addRole:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientRole: true
+      name: group1
+      description: Group 1

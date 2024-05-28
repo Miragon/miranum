@@ -1,8 +1,9 @@
 package io.miragon.miranum.connect.task;
 
 
-import io.miragon.miranum.connect.task.impl.CompleteTaskPort;
 import io.miragon.miranum.connect.task.impl.TaskApiImpl;
+import io.miragon.miranum.connect.task.impl.TaskOutPort;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class TaskAutoConfiguration {
 
     @Bean
-    public TaskApiImpl miranumTaskApi(final CompleteTaskPort completeTaskPort) {
-        return new TaskApiImpl(completeTaskPort);
+    @ConditionalOnMissingBean
+    public TaskApiImpl miranumTaskApi(final TaskOutPort taskOutPort) {
+        return new TaskApiImpl(taskOutPort);
     }
 }
-

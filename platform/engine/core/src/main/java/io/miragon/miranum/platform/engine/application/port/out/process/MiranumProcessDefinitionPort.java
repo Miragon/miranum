@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface MiranumProcessDefinitionPort {
 
-    MiranumProcessDefinition getProcessDefinition(String definitionKey);
+    MiranumProcessDefinition getProcessDefinition(final String definitionKey);
+
+    MiranumProcessDefinition getProcessDefinitionById(final String definitionId);
 
     List<MiranumProcessDefinition> getServiceDefinitions();
 

@@ -19,6 +19,7 @@
         <module>process</module>
         <module>worker</module>
         <module>utils</module>
+        <module>task</module>
     </modules>
 
 </project>

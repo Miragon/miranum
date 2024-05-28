@@ -1,9 +1,9 @@
 package io.miragon.miranum.connect.camnda7.remote.utils;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@EnableConfigurationProperties
+@Configuration
 public class Camunda7UtilsAutoConfiguration {
 
     @Bean
@@ -11,8 +11,8 @@ public class Camunda7UtilsAutoConfiguration {
         return new Camunda7RestValueMapper();
     }
 
-    @Bean
-    public Camunda7PojoMapper camunda7PojoMapper() {
-        return new Camunda7PojoMapper();
-    }
+//    @Bean
+//    public Camunda7PojoMapper camunda7PojoMapper() {
+//        return new Camunda7PojoMapper();
+//    }
 }

@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UserTaskQuery {
 
-    List<Task> getTasksForUserGroup(String group);
+    List<Task> getTasksForUserGroup(final String group, final String user);
 
-    List<Task> getTasksForUser(String user);
+    List<Task> getTasksForUser(final String user);
 
-    Task getTask(String user, String taskId);
+    Task getTask(final String user, final String taskId);
 }

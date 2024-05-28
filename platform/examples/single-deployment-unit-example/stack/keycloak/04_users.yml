@@ -19,6 +19,8 @@ changes:
           role: clientrole_task_importer
         - client: ${SSO_ENGINE_CLIENT_ID}
           role: admin
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: group1
   - updateUserPassword:
       name: alex
       password: "test"
@@ -35,6 +37,8 @@ changes:
       clientRoles:
         - client: ${SSO_ENGINE_CLIENT_ID}
           role: office
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: group1
   - updateUserPassword:
       name: oliver
       password: "test"
@@ -51,6 +55,8 @@ changes:
       clientRoles:
         - client: ${SSO_ENGINE_CLIENT_ID}
           role: office
+        - client: ${SSO_ENGINE_CLIENT_ID}
+          role: group1
   - updateUserPassword:
       name: olga
       password: "test"

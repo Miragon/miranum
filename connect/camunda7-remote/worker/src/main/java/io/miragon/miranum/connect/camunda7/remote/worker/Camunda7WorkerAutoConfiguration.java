@@ -5,8 +5,10 @@ import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @EnableConfigurationProperties(Camunda7WorkerProperties.class)
+@Configuration
 public class Camunda7WorkerAutoConfiguration {
 
     @Bean
