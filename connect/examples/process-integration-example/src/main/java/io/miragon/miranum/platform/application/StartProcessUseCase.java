@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.application.port;
+package io.miragon.miranum.platform.application;
 
 import io.miragon.miranum.platform.application.port.in.StartProcessInstanceInPort;
 import io.miragon.miranum.platform.application.port.out.StartProcessInstanceOutPort;
