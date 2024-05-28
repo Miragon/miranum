@@ -1,12 +1,12 @@
-package io.miragon.miranum.platform.connect.worker.impl.impl;
+package io.miragon.miranum.connect.worker.impl.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.miragon.miranum.platform.connect.worker.worker.api.BusinessException;
-import io.miragon.miranum.platform.connect.worker.worker.api.TechnicalException;
-import io.miragon.miranum.platform.connect.worker.worker.api.WorkerExecuteApi;
-import io.miragon.miranum.platform.connect.worker.worker.api.WorkerInterceptor;
-import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecuteApiImpl;
-import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecutor;
+import io.miragon.miranum.connect.worker.api.BusinessException;
+import io.miragon.miranum.connect.worker.api.TechnicalException;
+import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
+import io.miragon.miranum.connect.worker.api.WorkerInterceptor;
+import io.miragon.miranum.connect.worker.impl.WorkerExecuteApiImpl;
+import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
