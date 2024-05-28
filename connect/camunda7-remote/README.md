@@ -39,13 +39,13 @@ Suppose we want to set the retry count for a Camunda 7 worker to 5. To do this, 
 
 ##### Configuring the Default Retry Count
 You can configure the default retry count by using an application.properties property.
-In the application.properties file, set the following property for Camunda 7 workers: `miranum.camunda7.worker.defaultRetries`.
+In the application.properties file, set the following property for Camunda 7 workers: `miranum.c7.worker.defaultRetries`.
 This property allows you to set the default retry count for all Camunda 7 workers.
 
 
 ```properties
 # application.properties
-miranum.camunda7.worker.defaultRetries=3
+miranum.c7.worker.defaultRetries=3
 ```
 
 By setting this property, the default retry count for Camunda 7 workers will be adjusted accordingly.

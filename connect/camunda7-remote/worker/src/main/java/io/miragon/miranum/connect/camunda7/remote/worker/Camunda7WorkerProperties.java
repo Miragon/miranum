@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "miranum.camunda7.worker")
+@ConfigurationProperties(prefix = "miranum.c7.worker")
 @Getter
 @Setter
 public class Camunda7WorkerProperties {
