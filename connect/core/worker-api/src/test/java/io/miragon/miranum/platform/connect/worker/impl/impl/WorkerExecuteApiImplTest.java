@@ -1,11 +1,16 @@
 package io.miragon.miranum.platform.connect.worker.impl.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.miragon.miranum.platform.connect.worker.worker.api.BusinessException;
 import io.miragon.miranum.platform.connect.worker.worker.api.TechnicalException;
 import io.miragon.miranum.platform.connect.worker.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.platform.connect.worker.worker.api.WorkerInterceptor;
 import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecuteApiImpl;
 import io.miragon.miranum.platform.connect.worker.worker.impl.WorkerExecutor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -15,6 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
@@ -43,12 +50,12 @@ public class WorkerExecuteApiImplTest {
         when(this.workerExecutor.execute(this.event)).thenReturn(this.event);
 
         final Object result = this.workerExecuteApi.execute(this.workerExecutor, this.event);
-        Assertions.assertEquals(this.event, result);
+        assertEquals(this.event, result);
 
         // make sure that the worker was called
         final ArgumentCaptor<Map<String, Object>> inputArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Mockito.verify(this.workerExecutor).execute(inputArgumentCaptor.capture());
-        Assertions.assertEquals(this.event, inputArgumentCaptor.getValue());
+        assertEquals(this.event, inputArgumentCaptor.getValue());
     }
 
     @Test
@@ -61,13 +68,13 @@ public class WorkerExecuteApiImplTest {
         when(this.workerExecutor.execute(this.event)).thenReturn(this.event);
 
         final Object result = workerExecuteApi.execute(this.workerExecutor, this.event);
-        Assertions.assertEquals(this.event, result);
+        assertEquals(this.event, result);
 
         // make sure that the interceptor was called
         final ArgumentCaptor<WorkerExecutor> workerExecutorArgumentCaptor = ArgumentCaptor.forClass(WorkerExecutor.class);
         final ArgumentCaptor<Map<String, Object>> interceptorArgumentCaptor = ArgumentCaptor.forClass(Map.class);
         Mockito.verify(this.interceptor).intercept(workerExecutorArgumentCaptor.capture(), interceptorArgumentCaptor.capture());
-        Assertions.assertEquals(this.event, interceptorArgumentCaptor.getValue());
+        assertEquals(this.event, interceptorArgumentCaptor.getValue());
     }
 
     @Test
@@ -100,6 +107,193 @@ public class WorkerExecuteApiImplTest {
         when(this.workerExecutor.execute(null)).thenReturn(this.event);
 
         final Object result = this.workerExecuteApi.execute(this.workerExecutor, null);
-        Assertions.assertEquals(this.event, result);
+        assertEquals(this.event, result);
+    }
+
+    @Test
+    void testExecute_withValidComplexInput() throws IllegalAccessException, InvocationTargetException {
+        // Arrange
+        ComplexInputObject inputObject = new ComplexInputObject(
+                "John", "Doe",
+                List.of("Role1", "Role2"),
+                Map.ofEntries(
+                        Map.entry("key1", "value1"),
+                        Map.entry("key2", "value2")
+                )
+        );
+        Map<String, Object> expectedOutput = Map.of("result", "success");
+
+        when(this.workerExecutor.getInputType()).thenReturn((Class) ComplexInputObject.class);
+        when(this.workerExecutor.execute(any())).thenReturn(expectedOutput);
+
+        WorkerInterceptor interceptor = Mockito.mock(WorkerInterceptor.class);
+        List<WorkerInterceptor> interceptors = List.of(interceptor);
+        WorkerExecuteApiImpl workerExecuteApiImpl = new WorkerExecuteApiImpl(interceptors);
+
+        // Act
+        Map<String, Object> result = workerExecuteApiImpl.execute(this.workerExecutor, inputObject);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedOutput, result);
+        Mockito.verify(interceptor, Mockito.times(1)).intercept(any(), any());
+        Mockito.verify(this.workerExecutor, Mockito.times(1)).execute(any());
+    }
+
+    @Test
+    void testExecute_throwsRuntimeExceptionOnIllegalAccessException() throws IllegalAccessException, InvocationTargetException {
+        // Arrange
+        when(this.workerExecutor.getInputType()).thenReturn((Class) ComplexInputObject.class);
+        when(this.workerExecutor.execute(any())).thenThrow(IllegalAccessException.class);
+
+        // Act & Assert
+        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+            workerExecuteApi.execute(this.workerExecutor, new ComplexInputObject(
+                    "John", "Doe",
+                    List.of("Role1", "Role2"),
+                    Map.ofEntries(
+                            Map.entry("key1", "value1"),
+                            Map.entry("key2", "value2")
+                    )
+            ));
+        });
+
+        assertEquals(IllegalAccessException.class, exception.getCause().getClass());
+    }
+
+    @Test
+    void testExecute_withNestedComplexInput() throws IllegalAccessException, InvocationTargetException, JsonProcessingException {
+        // Arrange
+        ComplexInputObject nestedObject = new ComplexInputObject(
+                "Jane", "Doe",
+                List.of("NestedRole1", "NestedRole2"),
+                Map.ofEntries(
+                        Map.entry("nestedKey1", "nestedValue1"),
+                        Map.entry("nestedKey2", "nestedValue2")
+                )
+        );
+
+        ComplexInputObject inputObject = new ComplexInputObject(
+                "John", "Doe",
+                List.of("Role1", "Role2"),
+                Map.ofEntries(
+                        Map.entry("key1", "value1"),
+                        Map.entry("key2", "value2"),
+                        Map.entry("nestedObject", nestedObject.toString())
+                )
+        );
+
+        Map<String, Object> expectedOutput = Map.of("result", "success");
+
+        when(this.workerExecutor.getInputType()).thenReturn((Class) ComplexInputObject.class);
+        when(this.workerExecutor.execute(any())).thenReturn(expectedOutput);
+
+        WorkerInterceptor interceptor = Mockito.mock(WorkerInterceptor.class);
+        List<WorkerInterceptor> interceptors = List.of(interceptor);
+        WorkerExecuteApiImpl workerExecuteApiImpl = new WorkerExecuteApiImpl(interceptors);
+
+        // Act
+        Map<String, Object> result = workerExecuteApiImpl.execute(this.workerExecutor, inputObject);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedOutput, result);
+        Mockito.verify(interceptor, Mockito.times(1)).intercept(any(), any());
+        Mockito.verify(this.workerExecutor, Mockito.times(1)).execute(any());
+    }
+
+    @Test
+    void testMapInput_withNestedComplexInputInnerList() throws InvocationTargetException, IllegalAccessException {
+        // Define the complex input object with the nested object included directly
+        ObjectWithInnerObjectList inputObject = new ObjectWithInnerObjectList(
+                "John",
+                List.of(new NestedObject("hi", "dude"),
+                        new NestedObject("whats", "up"),
+                        new NestedObject("2", "night")));
+
+        Map<String, Object> expectedOutput = Map.of("result", "success");
+
+        when(this.workerExecutor.getInputType()).thenReturn((Class) ObjectWithInnerObjectList.class);
+        when(this.workerExecutor.execute(any())).thenReturn(expectedOutput);
+
+        WorkerInterceptor interceptor = Mockito.mock(WorkerInterceptor.class);
+        List<WorkerInterceptor> interceptors = List.of(interceptor);
+        WorkerExecuteApiImpl workerExecuteApiImpl = new WorkerExecuteApiImpl(interceptors);
+
+        // Act
+        Map<String, Object> result = workerExecuteApiImpl.execute(this.workerExecutor, inputObject);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedOutput, result);
+        Mockito.verify(interceptor, Mockito.times(1)).intercept(any(), any());
+        Mockito.verify(this.workerExecutor, Mockito.times(1)).execute(any());
+    }
+
+    @Test
+    void testMapInput_withNestedComplexInputInnerMap() throws InvocationTargetException, IllegalAccessException {
+        // Define the complex input object with the nested object included directly
+        ObjectWithInnerObjectMap inputObject = new ObjectWithInnerObjectMap(
+                "John",
+                Map.ofEntries(
+                        Map.entry("1", new NestedObject("Hi", "It's me")),
+                        Map.entry("2", new NestedObject("How", "Are You"))
+                ));
+
+        Map<String, Object> expectedOutput = Map.of("result", "success");
+
+        when(this.workerExecutor.getInputType()).thenReturn((Class) ObjectWithInnerObjectMap.class);
+        when(this.workerExecutor.execute(any())).thenReturn(expectedOutput);
+
+        WorkerInterceptor interceptor = Mockito.mock(WorkerInterceptor.class);
+        List<WorkerInterceptor> interceptors = List.of(interceptor);
+        WorkerExecuteApiImpl workerExecuteApiImpl = new WorkerExecuteApiImpl(interceptors);
+
+        // Act
+        Map<String, Object> result = workerExecuteApiImpl.execute(this.workerExecutor, inputObject);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expectedOutput, result);
+        Mockito.verify(interceptor, Mockito.times(1)).intercept(any(), any());
+        Mockito.verify(this.workerExecutor, Mockito.times(1)).execute(any());
+    }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class ComplexInputObject {
+        private String firstName;
+        private String lastName;
+        private List<String> roles;
+        private Map<String, String> attributes;
+    }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class ObjectWithInnerObjectList {
+        private String name;
+        private List<NestedObject> attributes;
+    }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class ObjectWithInnerObjectMap {
+        private String name;
+        private Map<String, NestedObject> attributes;
+    }
+
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class NestedObject {
+        private String nestedField1;
+        private String nestedField2;
     }
 }

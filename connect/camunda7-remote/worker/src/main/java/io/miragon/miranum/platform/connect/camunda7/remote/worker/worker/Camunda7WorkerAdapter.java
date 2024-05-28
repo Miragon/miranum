@@ -14,7 +14,8 @@ import org.camunda.bpm.client.task.ExternalTaskService;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
+
+import static java.util.Objects.nonNull;
 
 @RequiredArgsConstructor
 @Log
@@ -66,15 +67,16 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
      * @return The remaining number of retries for the task.
      */
     private int getRemainingRetries(Integer externalTaskRetries, Integer workerRetries) {
-        int retries = 0;
-        if (Objects.isNull(externalTaskRetries)) {
-            retries = Objects.isNull(workerRetries) ?
-                    camunda7WorkerProperties.getDefaultRetries() :
-                    workerRetries;
-        } else {
+        int retries;
+
+        if (nonNull(externalTaskRetries)) {
             retries = externalTaskRetries;
+        } else if (nonNull(workerRetries)) {
+            retries = workerRetries;
+        } else {
+            retries = camunda7WorkerProperties.getDefaultRetries();
         }
-        retries -= 1;
-        return Math.max(retries, 0);
+
+        return Math.max(retries - 1, 0);
     }
 }

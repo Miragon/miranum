@@ -72,12 +72,12 @@ spring:
   application:
     name: '@project.artifactId@'
   datasource:
-    url: '${ENGINE_DATASOURCE_URL:jdbc:h2:file:~/backenddb;DB_CLOSE_ON_EXIT=FALSE}'
-    username: '${ENGINE_DATASOURCE_USER:sa}'
-    password: '${ENGINE_DATASOURCE_PASSWORD:}'
-    driver-class-name: '${ENGINE_DATASOURCE_DRIVERCLASSNAME:org.h2.Driver}'
+    url: '${ENGINE_DATASOURCE_URL:localhost:5432}'
+    username: '${ENGINE_DATASOURCE_USER:user}'
+    password: '${ENGINE_DATASOURCE_PASSWORD:secret}'
+    driver-class-name: '${ENGINE_DATASOURCE_DRIVERCLASSNAME:org.postgresql.Driver}'
   jpa:
-    database-platform: '${ENGINE_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}'
+    database-platform: '${ENGINE_DATABASE_PLATFORM:org.hibernate.dialect.PostgreSQLDialect}'
     hibernate:
       ddl-auto: validate
     open-in-view: true
