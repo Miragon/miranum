@@ -1,6 +1,5 @@
 package io.miragon.miranum.connect.worker.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +28,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
             final Object in = this.mapInput(executor.getInputType(), data);
             this.interceptors.forEach(obj -> obj.intercept(executor, in));
             return this.mapOutput(executor.execute(in));
-        } catch (final IllegalAccessException | JsonProcessingException e) {
+        } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
         } catch (final InvocationTargetException e) {
             // Unwrap the exception wrapped by the InvocationTargetException
@@ -37,10 +36,11 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         }
     }
 
-    private Object mapInput(final Class<?> inputType, final Object object) throws JsonProcessingException {
+    private Object mapInput(final Class<?> inputType, final Object object) {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return Objects.nonNull(inputType) ? mapper.readValue(mapper.writeValueAsString(object), inputType) : null;
+        mapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        return Objects.nonNull(inputType) ? mapper.convertValue(object, inputType) : null;
     }
 
     private Map<String, Object> mapOutput(final Object output) {
@@ -49,6 +49,7 @@ public class WorkerExecuteApiImpl implements WorkerExecuteApi {
         }
 
         final ObjectMapper mapper = new ObjectMapper();
-        return mapper.convertValue(output, new TypeReference<>() {});
+        return mapper.convertValue(output, new TypeReference<>() {
+        });
     }
 }

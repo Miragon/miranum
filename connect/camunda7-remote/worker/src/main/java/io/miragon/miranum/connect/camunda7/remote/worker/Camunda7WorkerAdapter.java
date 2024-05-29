@@ -42,7 +42,7 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
-            log.severe("use case could not be executed " + exception.getMessage());
+            log.severe("Use case could not be executed " + exception.getMessage());
             service.handleBpmnError(externalTask, exception.getCode(), exception.getMessage());
         } catch (final TechnicalException error) {
             log.severe("Technical error while executing task " + error.getMessage());

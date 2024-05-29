@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,8 +35,8 @@ public class WorkerExecuteApiImplTest {
 
     // test data
     private final Map<String, Object> event = Map.ofEntries(
-            Map.entry("test", "test"),
-            Map.entry("test2", "test2")
+            entry("test", "test"),
+            entry("test2", "test2")
     );
 
     WorkerExecuteApiImplTest() {
@@ -111,14 +112,14 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testExecute_withValidComplexInput() throws IllegalAccessException, InvocationTargetException {
+    void testExecute_withValidComplexInputObjectC8() throws IllegalAccessException, InvocationTargetException {
         // Arrange
         ComplexInputObject inputObject = new ComplexInputObject(
                 "John", "Doe",
                 List.of("Role1", "Role2"),
                 Map.ofEntries(
-                        Map.entry("key1", "value1"),
-                        Map.entry("key2", "value2")
+                        entry("key1", "value1"),
+                        entry("key2", "value2")
                 )
         );
         Map<String, Object> expectedOutput = Map.of("result", "success");
@@ -152,8 +153,8 @@ public class WorkerExecuteApiImplTest {
                     "John", "Doe",
                     List.of("Role1", "Role2"),
                     Map.ofEntries(
-                            Map.entry("key1", "value1"),
-                            Map.entry("key2", "value2")
+                            entry("key1", "value1"),
+                            entry("key2", "value2")
                     )
             ));
         });
@@ -162,14 +163,14 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testExecute_withNestedComplexInput() throws IllegalAccessException, InvocationTargetException, JsonProcessingException {
+    void testExecute_withNestedComplexInputObjectC8() throws IllegalAccessException, InvocationTargetException, JsonProcessingException {
         // Arrange
         ComplexInputObject nestedObject = new ComplexInputObject(
                 "Jane", "Doe",
                 List.of("NestedRole1", "NestedRole2"),
                 Map.ofEntries(
-                        Map.entry("nestedKey1", "nestedValue1"),
-                        Map.entry("nestedKey2", "nestedValue2")
+                        entry("nestedKey1", "nestedValue1"),
+                        entry("nestedKey2", "nestedValue2")
                 )
         );
 
@@ -177,9 +178,9 @@ public class WorkerExecuteApiImplTest {
                 "John", "Doe",
                 List.of("Role1", "Role2"),
                 Map.ofEntries(
-                        Map.entry("key1", "value1"),
-                        Map.entry("key2", "value2"),
-                        Map.entry("nestedObject", nestedObject.toString())
+                        entry("key1", "value1"),
+                        entry("key2", "value2"),
+                        entry("nestedObject", nestedObject.toString())
                 )
         );
 
@@ -203,7 +204,7 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testMapInput_withNestedComplexInputInnerList() throws InvocationTargetException, IllegalAccessException {
+    void testMapInput_withNestedComplexInputInnerListObjectC8() throws InvocationTargetException, IllegalAccessException {
         // Define the complex input object with the nested object included directly
         ObjectWithInnerObjectList inputObject = new ObjectWithInnerObjectList(
                 "John",
@@ -231,13 +232,13 @@ public class WorkerExecuteApiImplTest {
     }
 
     @Test
-    void testMapInput_withNestedComplexInputInnerMap() throws InvocationTargetException, IllegalAccessException {
+    void testMapInput_withNestedComplexInputInnerMapObjectC8() throws InvocationTargetException, IllegalAccessException {
         // Define the complex input object with the nested object included directly
         ObjectWithInnerObjectMap inputObject = new ObjectWithInnerObjectMap(
                 "John",
                 Map.ofEntries(
-                        Map.entry("1", new NestedObject("Hi", "It's me")),
-                        Map.entry("2", new NestedObject("How", "Are You"))
+                        entry("1", new NestedObject("Hi", "It's me")),
+                        entry("2", new NestedObject("How", "Are You"))
                 ));
 
         Map<String, Object> expectedOutput = Map.of("result", "success");
@@ -258,6 +259,7 @@ public class WorkerExecuteApiImplTest {
         Mockito.verify(interceptor, Mockito.times(1)).intercept(any(), any());
         Mockito.verify(this.workerExecutor, Mockito.times(1)).execute(any());
     }
+
 
     @Setter
     @Getter
