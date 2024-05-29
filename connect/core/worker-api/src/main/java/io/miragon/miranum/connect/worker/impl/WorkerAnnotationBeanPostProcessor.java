@@ -4,7 +4,6 @@ import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.connect.worker.api.WorkerRegistry;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;
