@@ -7,7 +7,7 @@ import io.miragon.miranum.connect.worker.api.WorkerExecuteApi;
 import io.miragon.miranum.connect.worker.api.WorkerSubscription;
 import io.miragon.miranum.connect.worker.impl.WorkerExecutor;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -18,7 +18,7 @@ import java.util.Map;
 import static java.util.Objects.nonNull;
 
 @RequiredArgsConstructor
-@Log
+@Slf4j
 public class Camunda7WorkerAdapter implements WorkerSubscription {
 
     private final ExternalTaskClient externalTaskClient;
@@ -38,18 +38,19 @@ public class Camunda7WorkerAdapter implements WorkerSubscription {
         Integer workerRetries = null;
         try {
             final Map<String, Object> data = camunda7PojoMapper.mapFromEngineData(externalTask.getAllVariablesTyped());
+            log.debug("Worker {} called with parameters {}", executor.getType(), data);
             workerRetries = (Integer) data.get("retries");
             final Map<String, Object> result = this.workerExecuteApi.execute(executor, data);
             service.complete(externalTask, null, camunda7PojoMapper.mapToEngineData(result));
         } catch (final BusinessException exception) {
-            log.severe("Use case could not be executed " + exception.getMessage());
+            log.warn("Use case could not be executed {}", exception.getMessage());
             service.handleBpmnError(externalTask, exception.getCode(), exception.getMessage());
         } catch (final TechnicalException error) {
-            log.severe("Technical error while executing task " + error.getMessage());
+            log.warn("Technical error while executing task {}", error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), 0, 0L);
         } catch (final Exception error) {
             int retries = getRemainingRetries(externalTask.getRetries(), workerRetries);
-            log.severe("Error while executing external task " + error.getMessage());
+            log.error("Error while executing external task {}", error.getMessage());
             service.handleFailure(externalTask, error.getMessage(), Arrays.toString(error.getStackTrace()), retries, 5000L);
         }
     }

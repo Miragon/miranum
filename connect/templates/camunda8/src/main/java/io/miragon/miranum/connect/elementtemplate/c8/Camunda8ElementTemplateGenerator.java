@@ -7,11 +7,9 @@ import io.miragon.miranum.connect.elementtemplate.c8.schema.CamundaC8ElementTemp
 import io.miragon.miranum.connect.elementtemplate.c8.schema.Constraints;
 import io.miragon.miranum.connect.elementtemplate.c8.schema.Property;
 import io.miragon.miranum.connect.elementtemplate.core.*;
-import lombok.extern.java.Log;
 
 import java.util.List;
 
-@Log
 public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerator {
 
     @Override
@@ -73,12 +71,11 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
 
         // Only set if false, else jackson will display default value in generated json
         if (!info.isNotEmpty()) {
-            property.setConstraints(new Constraints()
-                    .setNotEmpty(info.isNotEmpty()));
+            property.setConstraints(new Constraints().setNotEmpty(false));
         }
 
         if (!info.isEditable()) {
-            property.setEditable(info.isEditable());
+            property.setEditable(false);
         }
 
         return property;
