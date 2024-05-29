@@ -11,8 +11,8 @@ public class Camunda7UtilsAutoConfiguration {
         return new Camunda7RestValueMapper();
     }
 
-//    @Bean
-//    public Camunda7PojoMapper camunda7PojoMapper() {
-//        return new Camunda7PojoMapper();
-//    }
+    @Bean
+    public Camunda7PojoMapper camunda7PojoMapper() {
+        return new Camunda7PojoMapper();
+    }
 }

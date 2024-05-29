@@ -7,11 +7,11 @@ import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Binding;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Constraints;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Property;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 
-@Log
+@Slf4j
 public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerator {
 
     @Override

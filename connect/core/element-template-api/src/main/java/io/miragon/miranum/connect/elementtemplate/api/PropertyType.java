@@ -1,9 +1,7 @@
 package io.miragon.miranum.connect.elementtemplate.api;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.extern.java.Log;
 
-@Log
 public enum PropertyType {
     STRING("String"),
     TEXT("Text"),
@@ -26,7 +24,7 @@ public enum PropertyType {
 
     public static PropertyType getType(Class<?> type) {
         if (type != String.class) {
-            log.warning(String.format("Unsupported type \"%s\". PropertyType String is assumed.", type.getName()));
+            throw new RuntimeException(String.format("Unsupported type '%s'. PropertyType String is assumed.", type.getName()));
         }
         return PropertyType.STRING;
     }
