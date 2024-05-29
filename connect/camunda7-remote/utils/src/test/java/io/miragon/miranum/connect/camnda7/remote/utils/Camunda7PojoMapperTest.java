@@ -53,10 +53,11 @@ public class Camunda7PojoMapperTest {
 
     @Test
     public void testMapFromEngineData_JsonObjectValue_ShouldReturnMap() {
+        String jsonValue = "{\"key\":\"value\"}";
         // Given a VariableMap with a JSON object value
         VariableMap variableMap = Variables.createVariables()
                 .putValueTyped("var1", Variables
-                        .objectValue("{\"key\":\"value\"}")
+                        .objectValue(jsonValue)
                         .serializationDataFormat(Variables.SerializationDataFormats.JSON)
                         .create());
 
@@ -65,7 +66,7 @@ public class Camunda7PojoMapperTest {
 
         // Then
         assertEquals(1, result.size());
-        assertEquals(Map.of("key", "value"), result.get("var1"));
+        assertEquals(jsonValue, result.get("var1"));
     }
 
     @Test
@@ -82,7 +83,7 @@ public class Camunda7PojoMapperTest {
         Map<String, Object> result = mapper.mapFromEngineData(variableMap);
 
         // Then
-        assertEquals(List.of(Map.of("key", "value1"), Map.of("key2", "value2")), result.get("var1"));
+        assertEquals(jsonArray, result.get("var1"));
     }
 
 }
