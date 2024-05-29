@@ -17,42 +17,21 @@
       }
     },
     {
-      "value": "=",
-      "label": "Input: Property1",
-      "type": "Text",
+      "value": "=name",
+      "label": "Input: name",
+      "type": "String",
       "binding": {
         "type": "zeebe:input",
         "name": "name"
       }
     },
     {
-      "value": "=",
-      "label": "Input: Property2",
+      "value": "=id",
+      "label": "Input: id",
       "type": "String",
-      "constraints": {
-        "notEmpty": false
-      },
       "binding": {
         "type": "zeebe:input",
         "name": "id"
-      }
-    },
-    {
-      "value": "name",
-      "label": "Output: name",
-      "type": "String",
-      "binding": {
-        "type": "zeebe:output",
-        "source": "=name"
-      }
-    },
-    {
-      "value": "id",
-      "label": "Output: id",
-      "type": "String",
-      "binding": {
-        "type": "zeebe:output",
-        "source": "=id"
       }
     }
   ]

@@ -1,9 +1,6 @@
 package io.miragon.miranum.connect.elementtemplate;
 
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerationResult;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateGenerator;
-import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
-import io.miragon.miranum.connect.elementtemplate.core.TargetPlatform;
+import io.miragon.miranum.connect.elementtemplate.core.*;
 import io.miragon.miranum.connect.worker.api.Worker;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
@@ -26,7 +23,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,19 +52,31 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     Boolean skip;
 
     /**
-     * All target platforms for which goal should be executed.
+     * The target platform for which goal should be executed.
      */
-    @Parameter(name = "targetPlatforms", property = "elementtemplategen.targetPlatforms", required = true)
-    TargetPlatform[] targetPlatforms;
+    @Parameter(name = "targetPlatform", property = "elementtemplategen.targetPlatform", required = true)
+    TargetPlatform targetPlatform;
+
+    /**
+     * The naming policy for input values.
+     * EMPTY => ${}
+     * ATTRIBUTE_NAME => ${<attributeName>}
+     */
+    @Parameter(name = "inputValueNamingPolicy", property = "elementtemplategen.inputValueNamingPolicy", defaultValue = "EMPTY")
+    InputValueNamingPolicy inputValueNamingPolicy;
+
 
     @Override
     public void execute() throws MojoExecutionException {
         if (Objects.nonNull(skip) && skip) {
-            getLog().info("Element-template generation is skipped.");
+            getLog().info("Element-Template generation is skipped.");
+            return;
+        } else if (Objects.isNull(targetPlatform)) {
+            getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: camunda7 or Camunda8");
             return;
         }
 
-        List<ElementTemplateGenerator> generators = ElementTemplateGeneratorsFactory.create(targetPlatforms);
+        ElementTemplateGenerator generator = ElementTemplateGeneratorsFactory.create(targetPlatform);
 
         var annotatedMethods = getWorkerAnnotatedMethods();
 
@@ -77,20 +85,17 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
             return;
         }
 
-        for (var generator : generators) {
-            for (var method : annotatedMethods) {
-                var data = ElementTemplateInfoMapper.map(method);
+        for (var method : annotatedMethods) {
+            var data = ElementTemplateInfoMapper.map(method);
 
-                var generationResult = generator.generate(data);
+            var generationResult = generator.generate(data, inputValueNamingPolicy);
 
-                saveElementTemplateToFile(generationResult);
-            }
+            saveElementTemplateToFile(generationResult);
         }
     }
 
     private void saveElementTemplateToFile(ElementTemplateGenerationResult generationResult) {
-        var path = Path.of(generationResult.getTargetPlatform().name(), generationResult.getFileName()).toString();
-        var elementTemplate = new File(outputDirectory, path);
+        var elementTemplate = new File(outputDirectory, generationResult.getFileName());
         boolean dirsCreated = elementTemplate.getParentFile().mkdirs();
         try {
             var fileCreated = elementTemplate.createNewFile();

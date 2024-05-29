@@ -34,7 +34,7 @@ public class ElementTemplateInfoMapper {
                 Objects.nonNull(elementTemplate) ? elementTemplate.name() : method.getName(),
                 Objects.nonNull(elementTemplate) ? elementTemplate.description() : null,
                 worker.type(),
-                Objects.nonNull(elementTemplate) ? elementTemplate.version() : "0-1",
+                Objects.nonNull(elementTemplate) ? elementTemplate.version() : -1,
                 worker.type(),
                 inputProperties,
                 outputProperties

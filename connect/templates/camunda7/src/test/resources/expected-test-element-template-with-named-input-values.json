@@ -22,39 +22,20 @@
       "name" : "camunda:topic"
     }
   }, {
-    "value" : "${}",
-    "label" : "Input: Property1",
-    "type" : "Text",
+    "value" : "${name}",
+    "label" : "Input: name",
+    "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
     }
   }, {
-    "value" : "${}",
-    "label" : "Input: Property2",
+    "value" : "${id}",
+    "label" : "Input: id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "id"
-    },
-    "constraints" : {
-      "notEmpty" : false
-    }
-  }, {
-    "value" : "name",
-    "label" : "Output: name",
-    "type" : "String",
-    "binding" : {
-      "type" : "camunda:outputParameter",
-      "source" : "${name}"
-    }
-  }, {
-    "value" : "id",
-    "label" : "Output: id",
-    "type" : "String",
-    "binding" : {
-      "type" : "camunda:outputParameter",
-      "source" : "${id}"
     }
   } ]
 }

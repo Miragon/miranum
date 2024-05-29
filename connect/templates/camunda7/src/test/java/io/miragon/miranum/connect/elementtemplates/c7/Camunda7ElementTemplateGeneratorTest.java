@@ -5,6 +5,7 @@ import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.elementtemplate.c7.Camunda7ElementTemplateGenerator;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfo;
 import io.miragon.miranum.connect.elementtemplate.core.ElementTemplateInfoMapper;
+import io.miragon.miranum.connect.elementtemplate.core.InputValueNamingPolicy;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ class Camunda7ElementTemplateGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                -1,
                 "test",
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInput.class),
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class));
@@ -33,7 +34,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo, InputValueNamingPolicy.EMPTY);
 
         // Assert
         assertNotNull(result.getJson());
@@ -48,7 +49,7 @@ class Camunda7ElementTemplateGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                -1,
                 "test",
                 new ArrayList<>(),
                 new ArrayList<>());
@@ -56,7 +57,7 @@ class Camunda7ElementTemplateGeneratorTest {
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-no-input-and-output.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo, InputValueNamingPolicy.EMPTY);
 
         // Assert
         assertNotNull(result.getJson());
@@ -72,7 +73,7 @@ class Camunda7ElementTemplateGeneratorTest {
                 "Test",
                 "test",
                 "test",
-                "0-1",
+                -1,
                 "test",
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInputWithElementTemplatePropertyAnnotation.class),
                 ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestOutput.class));
@@ -80,7 +81,55 @@ class Camunda7ElementTemplateGeneratorTest {
         var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-with-annotated-input-properties.json"));
 
         // Act
-        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo);
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo, InputValueNamingPolicy.EMPTY);
+
+        // Assert
+        assertNotNull(result.getJson());
+        assertEquals(expectedJsonResult, result.getJson());
+    }
+
+    @Test
+    void generateCamunda7ElementTemplate_withNoInputAndOutputTypes_shouldReturnValidOutputWithVersion() throws IOException {
+        // Arrange
+        Camunda7ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda7ElementTemplateGenerator();
+        var elementTemplateInfo = new ElementTemplateInfo(
+                "Test",
+                "test",
+                "test",
+                1,
+                "test",
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
+
+        var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-with-version.json"));
+
+        // Act
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo, InputValueNamingPolicy.EMPTY);
+
+        // Assert
+        assertNotNull(result.getJson());
+        assertEquals(expectedJsonResult, result.getJson());
+    }
+
+    @Test
+    void generateCamunda7ElementTemplate_withValidInput_shouldReturnValidOutputWithNamedInputValues() throws IOException {
+        // Arrange
+        Camunda7ElementTemplateGenerator camunda7ElementTemplateGenerator = new Camunda7ElementTemplateGenerator();
+        var elementTemplateInfo = new ElementTemplateInfo(
+                "Test",
+                "test",
+                "test",
+                -1,
+                "test",
+                ElementTemplateInfoMapper.mapTypeToElementTemplateInfos(TestInput.class),
+                new ArrayList<>()
+        );
+
+        var expectedJsonResult = Files.readString(Path.of("./src/test/resources/expected-test-element-template-with-named-input-values.json"));
+
+        // Act
+        var result = camunda7ElementTemplateGenerator.generate(elementTemplateInfo, InputValueNamingPolicy.ATTRIBUTE_NAME);
 
         // Assert
         assertNotNull(result.getJson());

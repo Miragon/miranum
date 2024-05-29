@@ -15,7 +15,7 @@ public class ElementTemplateInfo {
 
     private final String id;
 
-    private final String version;
+    private final int version;
 
     private final String type;
 

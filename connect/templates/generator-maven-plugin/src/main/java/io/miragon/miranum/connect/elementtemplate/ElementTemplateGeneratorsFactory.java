@@ -20,10 +20,10 @@ public class ElementTemplateGeneratorsFactory {
 
     public static ElementTemplateGenerator create(TargetPlatform targetPlatform) {
         switch (targetPlatform) {
-            case camunda7 -> {
+            case C7 -> {
                 return new Camunda7ElementTemplateGenerator();
             }
-            case camunda8 -> {
+            case C8 -> {
                 return new Camunda8ElementTemplateGenerator();
             }
         }

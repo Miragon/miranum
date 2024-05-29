@@ -18,7 +18,7 @@
     },
     {
       "value": "=",
-      "label": "name",
+      "label": "Input: name",
       "type": "String",
       "binding": {
         "type": "zeebe:input",
@@ -27,7 +27,7 @@
     },
     {
       "value": "=",
-      "label": "id",
+      "label": "Input: id",
       "type": "String",
       "binding": {
         "type": "zeebe:input",
@@ -35,8 +35,8 @@
       }
     },
     {
-      "value": "nameResult",
-      "label": "name",
+      "value": "name",
+      "label": "Output: name",
       "type": "String",
       "binding": {
         "type": "zeebe:output",
@@ -44,8 +44,8 @@
       }
     },
     {
-      "value": "idResult",
-      "label": "id",
+      "value": "id",
+      "label": "Output: id",
       "type": "String",
       "binding": {
         "type": "zeebe:output",

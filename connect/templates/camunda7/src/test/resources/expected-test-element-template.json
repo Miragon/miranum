@@ -22,32 +22,32 @@
       "name" : "camunda:topic"
     }
   }, {
-    "value" : "",
-    "label" : "name",
+    "value" : "${}",
+    "label" : "Input: name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "name"
     }
   }, {
-    "value" : "",
-    "label" : "id",
+    "value" : "${}",
+    "label" : "Input: id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:inputParameter",
       "name" : "id"
     }
   }, {
-    "value" : "nameResult",
-    "label" : "name",
+    "value" : "name",
+    "label" : "Output: name",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
       "source" : "${name}"
     }
   }, {
-    "value" : "idResult",
-    "label" : "id",
+    "value" : "id",
+    "label" : "Output: id",
     "type" : "String",
     "binding" : {
       "type" : "camunda:outputParameter",
