@@ -11,7 +11,7 @@
             <configuration>
                 <targetPlatform>C7</targetPlatform>
                 <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
-                <inputNamingPolicy>ATTRIBUTE_NAME</inputNamingPolicy>
+                <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
             </configuration>
         </plugin>
     </plugins>
@@ -20,27 +20,27 @@
 
 ### Configuration
 
-| Name                |                | Description                                                      | Possible Values           | Default Value                                                    |
-|---------------------|----------------|------------------------------------------------------------------|---------------------------|------------------------------------------------------------------|
-| `targetPlatform`    | **(required)** | The target platform for which the templates should be generated. | `C7`, `C8`                | None                                                             |
-| `outputDirectory`   | **(optional)** | The directory where the generated templates should be saved.     | Any valid path            | `${project.build.directory/generated-sources/element-templates}` |
-| `inputNamingPolicy` | **(optional)** | The naming policy for the input value.                           | `EMPTY`, `ATTRIBUTE_NAME` | `EMPTY`                                                          |
+| Name                     |                | Description                                                      | Possible Values           | Default Value                                                    |
+|--------------------------|----------------|------------------------------------------------------------------|---------------------------|------------------------------------------------------------------|
+| `targetPlatform`         | **(required)** | The target platform for which the templates should be generated. | `C7`, `C8`                | None                                                             |
+| `outputDirectory`        | **(optional)** | The directory where the generated templates should be saved.     | Any valid path            | `${project.build.directory/generated-sources/element-templates}` |
+| `inputValueNamingPolicy` | **(optional)** | The naming policy for the input value.                           | `EMPTY`, `ATTRIBUTE_NAME` | `EMPTY`                                                          |
 
 > :information_source: 
-> **Note:** The `inputNamingPolicy` is only relevant for the generation of the input value. 
+> **Note:** The `inputValueNamingPolicy` is only relevant for the generation of the input value. 
 > The default value `EMPTY` will generate an empty input value. 
 > The value `ATTRIBUTE_NAME` will generate an input value with the name of the attribute.
 > ```xml
 > <configuration>
 >    <targetPlatform>C7</targetPlatform>
->    <inputNamingPolicy>EMPTY</inputNamingPolicy>
+>    <inputValueNamingPolicy>EMPTY</inputValueNamingPolicy>
 > </configuration>
 > ```
 >  
-> | `inputNamingPolicy` | Result                                                                                                                                                                                                                                                                                                                                  |
-> |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-> | `EMPTY`             | {<br>&nbsp;&nbsp;<code>"value" : "${}",</code><br>&nbsp;&nbsp;"label" : "Input: orderId",<br>&nbsp;&nbsp;"type" : "String",<br>&nbsp;&nbsp;"editable" : true,<br>&nbsp;&nbsp;"binding" : {<br>&nbsp;&nbsp;&nbsp;&nbsp;"type" : "camunda:inputParameter",<br>&nbsp;&nbsp;&nbsp;&nbsp;"name" : "orderId"<br>&nbsp;&nbsp;}<br>}<br>        |
-> | `ATTRIBUTE_NAME`    | {<br>&nbsp;&nbsp;<code>"value" : "${orderId}",</code><br>&nbsp;&nbsp;"label" : "Input: orderId",<br>&nbsp;&nbsp;"type" : "String",<br>&nbsp;&nbsp;"editable" : true,<br>&nbsp;&nbsp;"binding" : {<br>&nbsp;&nbsp;&nbsp;&nbsp;"type" : "camunda:inputParameter",<br>&nbsp;&nbsp;&nbsp;&nbsp;"name" : "orderId"<br>&nbsp;&nbsp;}<br>}<br> |
+> | `inputValueNamingPolicy` | Result                                                                                                                                                                                                                                                                                                                                  |
+> |--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+> | `EMPTY`                  | {<br>&nbsp;&nbsp;<code>"value" : "${}",</code><br>&nbsp;&nbsp;"label" : "Input: orderId",<br>&nbsp;&nbsp;"type" : "String",<br>&nbsp;&nbsp;"editable" : true,<br>&nbsp;&nbsp;"binding" : {<br>&nbsp;&nbsp;&nbsp;&nbsp;"type" : "camunda:inputParameter",<br>&nbsp;&nbsp;&nbsp;&nbsp;"name" : "orderId"<br>&nbsp;&nbsp;}<br>}<br>        |
+> | `ATTRIBUTE_NAME`         | {<br>&nbsp;&nbsp;<code>"value" : "${orderId}",</code><br>&nbsp;&nbsp;"label" : "Input: orderId",<br>&nbsp;&nbsp;"type" : "String",<br>&nbsp;&nbsp;"editable" : true,<br>&nbsp;&nbsp;"binding" : {<br>&nbsp;&nbsp;&nbsp;&nbsp;"type" : "camunda:inputParameter",<br>&nbsp;&nbsp;&nbsp;&nbsp;"name" : "orderId"<br>&nbsp;&nbsp;}<br>}<br> |
 
 ### Annotations
 
