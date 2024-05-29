@@ -1,7 +1,9 @@
 package io.miragon.miranum.platform.tasklist.adapter.in.task;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.platform.tasklist.adapter.in.task.dto.AssignTaskDto;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
+import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,14 +11,14 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class TaskControllerTest {
 
     private final UserTaskQuery userTaskQuery = mock(UserTaskQuery.class);
     private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
-    private final TaskController taskController = new TaskController(userTaskQuery, authenticationProvider);
+    private final WorkOnTaskUseCase workOnTaskUseCase = mock(WorkOnTaskUseCase.class);
+    private final TaskController taskController = new TaskController(userTaskQuery, workOnTaskUseCase, authenticationProvider);
 
     private final String loggedInUser = "testUser";
     private final List<Task> exampleTasks = List.of(
@@ -104,5 +106,21 @@ class TaskControllerTest {
         final Task result = taskController.getTask(taskId);
 
         assertThat(result).isEqualTo(expectedTask);
+    }
+
+    @Test
+    void test_assign_task() {
+        final String taskId = "1";
+        final String assignee = "testAssignee";
+        final AssignTaskDto assignTaskDto = new AssignTaskDto(assignee);
+        taskController.assignTask(taskId, assignTaskDto);
+        verify(workOnTaskUseCase).assignUserTask(loggedInUser, taskId, assignee);
+    }
+
+    @Test
+    void test_unasign_task() {
+        final String taskId = "1";
+        taskController.unassignTask(taskId);
+        verify(workOnTaskUseCase).unassignUserTask(loggedInUser, taskId);
     }
 }

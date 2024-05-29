@@ -40,7 +40,7 @@ Authorization: Bearer {{ access_token }}
 
 ### Claim Task for user alex.admin
 
-POST http://localhost:8084/rest/task/{{group_task_id}}/assign
+POST http://localhost:8083/rest/task/{{group_task_id}}/assign
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 

@@ -1,6 +1,5 @@
 package io.miragon.miranum.platform.adapter.in.task;
 
-import io.miragon.miranum.platform.adapter.in.task.dto.AssignTaskDto;
 import io.miragon.miranum.platform.adapter.in.task.dto.CompleteTaskDto;
 import io.miragon.miranum.platform.application.port.in.WorkOnUserTaskInPort;
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
@@ -26,21 +25,6 @@ public class TaskController {
             @Valid @RequestBody CompleteTaskDto completeTaskDto
     ) {
         this.workOnUserTaskInPort.completeUserTask(authenticationProvider.getLoggedInUser(), taskId, completeTaskDto.getPayload());
-    }
-
-    @PostMapping("/{taskId}/assign")
-    public void assignTask(
-            @Parameter(name = "taskId", description = "A task id string used during search with the task string.", in = ParameterIn.PATH) @Valid @PathVariable(value = "taskId", required = false) String taskId,
-            @Valid @RequestBody AssignTaskDto assignTaskDto
-            ) {
-        this.workOnUserTaskInPort.assignUserTask(authenticationProvider.getLoggedInUser(), taskId, assignTaskDto.getAssignee());
-    }
-
-    @PostMapping("/{taskId}/unassign")
-    public void unassignTask(
-            @Parameter(name = "taskId", description = "A task id string used during search with the task string.", in = ParameterIn.PATH) @Valid @PathVariable(value = "taskId", required = false) String taskId
-    ) {
-        this.workOnUserTaskInPort.unassignUserTask(authenticationProvider.getLoggedInUser(), taskId);
     }
 
 }

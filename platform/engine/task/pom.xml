@@ -55,6 +55,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- miranum connect -->
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-task-api</artifactId>
+            <version>0.7.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
