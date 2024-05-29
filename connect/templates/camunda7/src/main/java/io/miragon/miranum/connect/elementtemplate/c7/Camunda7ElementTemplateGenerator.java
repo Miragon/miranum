@@ -15,12 +15,15 @@ import java.util.Collections;
 public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerator {
 
     @Override
-    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
+    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo, InputValueNamingPolicy inputValueNamingPolicy) {
         var elementTemplate = new CamundaC7ElementTemplate()
                 .withName(elementTemplateInfo.getName())
                 .withId(elementTemplateInfo.getId())
-                .withVersion((double) elementTemplateInfo.getVersion())
                 .withAppliesTo(Collections.singletonList(BPMNElementType.BPMN_SERVICE_TASK.getValue()));
+
+        if (elementTemplateInfo.getVersion() > 0) {
+            elementTemplate.setVersion((double) elementTemplateInfo.getVersion());
+        }
 
         // Add external task property
         var implementationProperty = createExternalTaskProperty();
@@ -32,7 +35,7 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
 
         // Add properties for input parameters
         for (var inputProperty : elementTemplateInfo.getInputProperties()) {
-            var property = createInputParameterProp(inputProperty);
+            var property = createInputParameterProp(inputProperty, inputValueNamingPolicy);
             elementTemplate.getProperties().add(property);
         }
 
@@ -43,13 +46,16 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         }
 
         var json = CamundaC7ElementTemplateConverter.toJsonString(elementTemplate);
-        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json);
+        return new ElementTemplateGenerationResult(elementTemplateInfo.getId(), elementTemplateInfo.getVersion(), json, TargetPlatform.C7);
     }
 
-    private Property createInputParameterProp(ElementTemplatePropertyInfo info) {
+    private Property createInputParameterProp(ElementTemplatePropertyInfo info, InputValueNamingPolicy inputValueNamingPolicy) {
         var property = new Property()
                 .withLabel("Input: %s".formatted(info.getLabel()))
-                .withValue("${}")
+                .withValue(switch (inputValueNamingPolicy) {
+                    case EMPTY -> "${}";
+                    case ATTRIBUTE_NAME -> "${%s}".formatted(info.getName());
+                })
                 .withType(info.getType().getType())
                 .withChoices(null)
                 .withBinding(new Binding()
@@ -71,7 +77,7 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
     private Property createOutputParameterProp(ElementTemplatePropertyInfo info) {
         var property = new Property()
                 .withLabel("Output: %s".formatted(info.getLabel()))
-                .withValue("%sResult".formatted(info.getName()))
+                .withValue(info.getName())
                 .withType(info.getType().getType())
                 .withChoices(null)
                 .withBinding(new Binding()

@@ -21,5 +21,21 @@
       "type" : "property",
       "name" : "camunda:topic"
     }
+  }, {
+    "value" : "${name}",
+    "label" : "Input: name",
+    "type" : "String",
+    "binding" : {
+      "type" : "camunda:inputParameter",
+      "name" : "name"
+    }
+  }, {
+    "value" : "${id}",
+    "label" : "Input: id",
+    "type" : "String",
+    "binding" : {
+      "type" : "camunda:inputParameter",
+      "name" : "id"
+    }
   } ]
 }

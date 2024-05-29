@@ -35,5 +35,5 @@ public @interface ElementTemplate {
      *
      * @return the version of the element template
      */
-    int version() default 1;
+    int version() default -1;
 }

@@ -47,7 +47,7 @@ class ElementTemplateGeneratorMojoTest {
     public void testExecuteWhenNoAnnotatedMethodsFound_ShouldNotGenerateElementTemplates() throws Exception {
         // Arrange
         mojo.skip = false;
-        mojo.targetPlatforms = new TargetPlatform[]{TargetPlatform.camunda7};
+        mojo.targetPlatform = TargetPlatform.C7;
 
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("test"));
 
@@ -62,7 +62,7 @@ class ElementTemplateGeneratorMojoTest {
     public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
         mojo.skip = false;
-        mojo.targetPlatforms = new TargetPlatform[]{TargetPlatform.camunda7};
+        mojo.targetPlatform = TargetPlatform.C8;
 
         // .class file gets generated in target/test-classes
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
@@ -75,7 +75,7 @@ class ElementTemplateGeneratorMojoTest {
             public void test() {
             }
         }
-        String filename = "test-v1.json";
+        String filename = "test.json";
 
         // Act
         mojo.execute();
@@ -88,7 +88,7 @@ class ElementTemplateGeneratorMojoTest {
     public void testExecuteWithMultipleAnnotatedMethods_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
         mojo.skip = false;
-        mojo.targetPlatforms = new TargetPlatform[]{TargetPlatform.camunda7};
+        mojo.targetPlatform = TargetPlatform.C7;
 
         // .class file gets generated in target/test-classes
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
@@ -106,8 +106,8 @@ class ElementTemplateGeneratorMojoTest {
             public void test2() {
             }
         }
-        String filename1 = "test1-v1.json";
-        String filename2 = "test2-v1.json";
+        String filename1 = "test1.json";
+        String filename2 = "test2.json";
 
         // Act
         mojo.execute();
@@ -116,5 +116,31 @@ class ElementTemplateGeneratorMojoTest {
         assertTrue(new File(mojo.outputDirectory, filename1).exists());
 
         assertTrue(new File(mojo.outputDirectory, filename2).exists());
+    }
+
+    @Test
+    public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplateWithVersion() throws Exception {
+        // Arrange
+        mojo.skip = false;
+        mojo.targetPlatform = TargetPlatform.C8;
+
+        // .class file gets generated in target/test-classes
+        when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
+
+        // Create a test class with a method annotated with @GenerateElementTemplate
+        class Test {
+
+            @Worker(type = "test")
+            @ElementTemplate(name = "Test", version = 1)
+            public void test() {
+            }
+        }
+        String filename = "test-v1.json";
+
+        // Act
+        mojo.execute();
+
+        // Assert that file was generated for target
+        assertTrue(new File(mojo.outputDirectory, filename).exists());
     }
 }

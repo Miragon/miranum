@@ -15,6 +15,24 @@
       "binding": {
         "type": "zeebe:taskDefinition:type"
       }
+    },
+    {
+      "value": "=name",
+      "label": "Input: name",
+      "type": "String",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "name"
+      }
+    },
+    {
+      "value": "=id",
+      "label": "Input: id",
+      "type": "String",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "id"
+      }
     }
   ]
 }

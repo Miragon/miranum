@@ -15,12 +15,15 @@ import java.util.List;
 public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerator {
 
     @Override
-    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo) {
+    public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo, InputValueNamingPolicy inputValueNamingPolicy) {
         var elementTemplate = new CamundaC8ElementTemplate()
                 .setName(elementTemplateInfo.getName())
                 .setId(elementTemplateInfo.getId())
-                .setVersion(elementTemplateInfo.getVersion())
                 .setAppliesTo(List.of(BPMNElementType.BPMN_SERVICE_TASK.getValue()));
+
+        if (elementTemplateInfo.getVersion() > 0) {
+            elementTemplate.setVersion(elementTemplateInfo.getVersion());
+        }
 
         // Add property for the topic of the worker
         var implementationTopicProperty = new Property()
@@ -36,7 +39,7 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
 
         // Add properties for input parameters
         for (var inputProperty : elementTemplateInfo.getInputProperties()) {
-            var property = createInputParameterProp(inputProperty);
+            var property = createInputParameterProp(inputProperty, inputValueNamingPolicy);
             elementTemplate.getProperties().add(property);
         }
 
@@ -50,14 +53,18 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
         return new ElementTemplateGenerationResult(
                 elementTemplateInfo.getId(),
                 elementTemplateInfo.getVersion(),
-                json
+                json,
+                TargetPlatform.C8
         );
     }
 
-    private Property createInputParameterProp(ElementTemplatePropertyInfo info) {
+    private Property createInputParameterProp(ElementTemplatePropertyInfo info, InputValueNamingPolicy inputValueNamingPolicy) {
         var property = new Property()
                 .setLabel("Input: %s".formatted(info.getLabel()))
-                .setValue("=%s".formatted(info.getName()))
+                .setValue(switch (inputValueNamingPolicy) {
+                    case EMPTY -> "=";
+                    case ATTRIBUTE_NAME -> "=%s".formatted(info.getName());
+                })
                 .setType(info.getType().getType())
                 .setChoices(null)
                 .setBinding(new Binding()
@@ -79,7 +86,7 @@ public class Camunda8ElementTemplateGenerator implements ElementTemplateGenerato
     private Property createOutputParameterProp(ElementTemplatePropertyInfo info) {
         var property = new Property()
                 .setLabel("Output: %s".formatted(info.getLabel()))
-                .setValue("%sResult".formatted(info.getName()))
+                .setValue("%s".formatted(info.getName()))
                 .setType(info.getType().getType())
                 .setChoices(null)
                 .setBinding(new Binding()

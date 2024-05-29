@@ -2,7 +2,6 @@
   "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema@0.8.0/resources/schema.json",
   "name": "Test",
   "id": "test",
-  "version": 1,
   "appliesTo": [
     "bpmn:ServiceTask"
   ],
@@ -18,7 +17,7 @@
       }
     },
     {
-      "value": "=name",
+      "value": "=",
       "label": "Input: Property1",
       "type": "Text",
       "binding": {
@@ -27,7 +26,7 @@
       }
     },
     {
-      "value": "=id",
+      "value": "=",
       "label": "Input: Property2",
       "type": "String",
       "constraints": {
@@ -39,7 +38,7 @@
       }
     },
     {
-      "value": "nameResult",
+      "value": "name",
       "label": "Output: name",
       "type": "String",
       "binding": {
@@ -48,7 +47,7 @@
       }
     },
     {
-      "value": "idResult",
+      "value": "id",
       "label": "Output: id",
       "type": "String",
       "binding": {
