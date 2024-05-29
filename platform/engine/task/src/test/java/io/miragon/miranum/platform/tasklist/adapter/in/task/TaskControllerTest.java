@@ -2,6 +2,7 @@ package io.miragon.miranum.platform.tasklist.adapter.in.task;
 
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
+import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,8 @@ class TaskControllerTest {
 
     private final UserTaskQuery userTaskQuery = mock(UserTaskQuery.class);
     private final UserAuthenticationProvider authenticationProvider = mock(UserAuthenticationProvider.class);
-    private final TaskController taskController = new TaskController(userTaskQuery, authenticationProvider);
+    private final WorkOnTaskUseCase workOnTaskUseCase = mock(WorkOnTaskUseCase.class);
+    private final TaskController taskController = new TaskController(userTaskQuery, workOnTaskUseCase, authenticationProvider);
 
     private final String loggedInUser = "testUser";
     private final List<Task> exampleTasks = List.of(

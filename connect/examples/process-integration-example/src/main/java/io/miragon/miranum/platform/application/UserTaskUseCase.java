@@ -19,13 +19,4 @@ public class UserTaskUseCase implements WorkOnUserTaskInPort {
         taskOutPort.completeUserTask(user, taskId, payload);
     }
 
-    @Override
-    public void assignUserTask(String user, String taskId, String assignee) throws TaskAccessDeniedException {
-        taskOutPort.assignUserTask(user, taskId, assignee);
-    }
-
-    @Override
-    public void unassignUserTask(String user, String taskId) throws TaskAccessDeniedException {
-        taskOutPort.unassignUserTask(user, taskId);
-    }
 }
