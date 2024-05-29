@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.tasklist.application.port.out.miranum;
+package io.miragon.miranum.platform.tasklist.adapter.out.task.miranum;
 
 import io.miragon.miranum.connect.task.api.command.AssignUserTaskCommand;
 import io.miragon.miranum.connect.task.api.command.CompleteTaskCommand;
@@ -31,10 +31,6 @@ public class MiranumTaskAdapter implements TaskOutPort {
 
     @Override
     public void cancelUserTask(String taskId) throws TaskOperationFailedException {
-        try {
-            taskService.setAssignee(taskId, null);
-        } catch (final RuntimeException e) {
-            throw new TaskOperationFailedException(e.getMessage());
-        }
+        throw new NotImplementedException("Not implemented");
     }
 }
