@@ -1,6 +1,8 @@
 package io.miragon.miranum.connect.camnda7.remote.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.camunda.bpm.client.variable.ClientValues;
+import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
 import org.junit.jupiter.api.Test;
@@ -54,11 +56,9 @@ public class Camunda7PojoMapperTest {
     @Test
     public void testMapFromEngineData_JsonObjectValue_ShouldReturnMap() {
         // Given a VariableMap with a JSON object value
-        VariableMap variableMap = Variables.createVariables()
-                .putValueTyped("var1", Variables
-                        .objectValue("{\"key\":\"value\"}")
-                        .serializationDataFormat(Variables.SerializationDataFormats.JSON)
-                        .create());
+        VariableMap variableMap = Variables
+                .createVariables()
+                .putValueTyped("var1", new JsonValueImpl("{\"key\":\"value\"}"));
 
         // When
         Map<String, Object> result = mapper.mapFromEngineData(variableMap);
@@ -71,12 +71,9 @@ public class Camunda7PojoMapperTest {
     @Test
     public void testMapFromEngineData_JsonArrayToList() {
         // Given a VariableMap with a JSON list
-        String jsonArray = "[{\"key\":\"value1\"}, {\"key2\":\"value2\"}]";
-        VariableMap variableMap = Variables.createVariables()
-                .putValueTyped("var1", Variables
-                        .objectValue(jsonArray)
-                        .serializationDataFormat(Variables.SerializationDataFormats.JSON)
-                        .create());
+        VariableMap variableMap = Variables
+                .createVariables()
+                .putValueTyped("var1", new JsonValueImpl("[{\"key\":\"value1\"}, {\"key2\":\"value2\"}]"));
 
         // When
         Map<String, Object> result = mapper.mapFromEngineData(variableMap);

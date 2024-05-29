@@ -5,9 +5,7 @@ import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
 import io.miragon.miranum.connect.message.impl.DeliverMessagePort;
 import io.miragon.miranum.connect.message.impl.MessageCorrelationException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 
-@Log
 @RequiredArgsConstructor
 public class Camunda8MessageAdapter implements DeliverMessagePort {
 
