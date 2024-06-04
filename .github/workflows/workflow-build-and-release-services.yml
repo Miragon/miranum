@@ -170,7 +170,7 @@ jobs:
         if: inputs.docker-release == true
         uses: docker/build-push-action@v5
         with:
-          context: ./platform/examples/single-deployment-unit-example/.
+          context: ./examples/single-deployment-unit-example/.
           push: true
           tags: miragon/miranum-single-deployment-unit-example:${{ inputs.docker-release-version }}
           platforms: linux/amd64, linux/arm64/v8
