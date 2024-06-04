@@ -34,7 +34,6 @@
         <module>templates</module>
         <module>camunda7-remote</module>
         <module>camunda8</module>
-        <module>examples</module>
         <module>coverage</module>
     </modules>
 
