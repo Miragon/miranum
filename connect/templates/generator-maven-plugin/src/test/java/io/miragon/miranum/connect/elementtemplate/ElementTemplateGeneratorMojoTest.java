@@ -143,4 +143,42 @@ class ElementTemplateGeneratorMojoTest {
         // Assert that file was generated for target
         assertTrue(new File(mojo.outputDirectory, filename).exists());
     }
+
+    @Test
+    public  void testExecuteWithCleanTrueParameter_ShouldDeleteAllFilesInOutputDir() throws Exception {
+        // Arrange
+        mojo.skip = false;
+        mojo.clean = true;
+        mojo.targetPlatform = TargetPlatform.C8;
+
+        // Create a file in the output directory
+        File file1 = new File(mojo.outputDirectory, "shouldBeDeleted.json");
+        File file2 = new File(mojo.outputDirectory, "shouldBeDeleted2.json");
+        var outputDir = mojo.outputDirectory.mkdirs();
+        var createFile1 = file1.createNewFile();
+        var createFile2 = file2.createNewFile();
+        assertTrue(file1.exists());
+        assertTrue(file2.exists());
+
+        // .class file gets generated in target/test-classes
+        when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
+
+        // Create a test class with a method annotated with @GenerateElementTemplate
+        class Test {
+
+            @Worker(type = "testCleanParam")
+            @ElementTemplate(name = "Test")
+            public void test() {
+            }
+        }
+        String filename = "testCleanParam.json";
+
+        // Act
+        mojo.execute();
+
+        // Assert that the "old" file was deleted and the "new" file was generated
+        assertFalse(file1.exists());
+        assertFalse(file2.exists());
+        assertTrue(new File(mojo.outputDirectory, filename).exists());
+    }
 }

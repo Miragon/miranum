@@ -23,10 +23,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * A maven mojo for generating element templates.
@@ -40,22 +42,16 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     MavenProject project;
 
     /**
-     * Directory to output the generated element templates to.
-     */
-    @Parameter(property = "elementtemplategen.outputDirectory", defaultValue = "${project.build.directory/generated-sources/element-templates}")
-    File outputDirectory;
-
-    /**
-     * A flag indicating if the generation should be skipped.
-     */
-    @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
-    Boolean skip;
-
-    /**
      * The target platform for which goal should be executed.
      */
     @Parameter(name = "targetPlatform", property = "elementtemplategen.targetPlatform", required = true)
     TargetPlatform targetPlatform;
+
+    /**
+     * Directory to output the generated element templates to.
+     */
+    @Parameter(property = "elementtemplategen.outputDirectory", defaultValue = "${project.build.directory/generated-sources/element-templates}")
+    File outputDirectory;
 
     /**
      * The naming policy for input values.
@@ -64,6 +60,18 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
      */
     @Parameter(name = "inputValueNamingPolicy", property = "elementtemplategen.inputValueNamingPolicy", defaultValue = "EMPTY")
     InputValueNamingPolicy inputValueNamingPolicy;
+
+    /**
+     * A flag indicating if the generation should be skipped.
+     */
+    @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
+    Boolean skip;
+
+    /**
+     * A flag indicating if the output directory should be cleaned before generation.
+     */
+    @Parameter(name = "clean", property = "elementtemplategen.clean", defaultValue = "false")
+    Boolean clean;
 
 
     @Override
@@ -83,6 +91,22 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
         if (annotatedMethods.isEmpty()) {
             log.info("No methods annotated with @GenerateElementTemplate found.");
             return;
+        }
+
+        if (clean) {
+            try (Stream<Path> paths = Files.walk(outputDirectory.toPath())) {
+                paths
+                    .filter(Files::isRegularFile)
+                    .forEach(file -> {
+                        try {
+                            Files.delete(file);
+                        } catch (IOException e) {
+                            log.error("Failed to delete file: " + file, e);
+                        }
+                    });
+            } catch (IOException e) {
+                log.error("Failed to clean output directory.", e);
+            }
         }
 
         for (var method : annotatedMethods) {
