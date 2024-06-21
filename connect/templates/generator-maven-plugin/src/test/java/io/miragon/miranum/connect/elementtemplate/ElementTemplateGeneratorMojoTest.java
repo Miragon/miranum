@@ -29,6 +29,8 @@ class ElementTemplateGeneratorMojoTest {
         mojo = new ElementTemplateGeneratorMojo();
         mojo.project = project;
         mojo.outputDirectory = new File(tmpTargetDir, "target");
+        mojo.skip = false;
+        mojo.clean = false;
     }
 
     @Test
@@ -46,7 +48,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWhenNoAnnotatedMethodsFound_ShouldNotGenerateElementTemplates() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C7;
 
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("test"));
@@ -61,7 +62,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C8;
 
         // .class file gets generated in target/test-classes
@@ -87,7 +87,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithMultipleAnnotatedMethods_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C7;
 
         // .class file gets generated in target/test-classes
@@ -121,7 +120,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplateWithVersion() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C8;
 
         // .class file gets generated in target/test-classes
@@ -147,9 +145,8 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public  void testExecuteWithCleanTrueParameter_ShouldDeleteAllFilesInOutputDir() throws Exception {
         // Arrange
-        mojo.skip = false;
-        mojo.clean = true;
         mojo.targetPlatform = TargetPlatform.C8;
+        mojo.clean = true;
 
         // Create a file in the output directory
         File file1 = new File(mojo.outputDirectory, "shouldBeDeleted.json");
