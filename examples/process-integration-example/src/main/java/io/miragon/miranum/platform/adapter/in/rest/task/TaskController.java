@@ -1,6 +1,6 @@
-package io.miragon.miranum.platform.adapter.in.task;
+package io.miragon.miranum.platform.adapter.in.rest.task;
 
-import io.miragon.miranum.platform.adapter.in.task.dto.CompleteTaskDto;
+import io.miragon.miranum.platform.adapter.in.rest.task.dto.CompleteTaskDto;
 import io.miragon.miranum.platform.application.port.in.WorkOnUserTaskInPort;
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.swagger.v3.oas.annotations.Parameter;

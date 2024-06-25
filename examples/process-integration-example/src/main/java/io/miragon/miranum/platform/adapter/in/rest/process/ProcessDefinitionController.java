@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.in.process;
+package io.miragon.miranum.platform.adapter.in.rest.process;
 
 import io.miragon.miranum.platform.application.port.in.StartProcessInstanceInPort;
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProcessDefinitionController {
 
     private final StartProcessInstanceInPort startProcessInstanceInPort;
-
     private final UserAuthenticationProvider authenticationProvider;
 
     @PostMapping()

@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.in.process;
+package io.miragon.miranum.platform.adapter.in.rest.process;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +17,14 @@ import java.util.Map;
 public class StartInstanceDto {
 
     /**
-     * Key of the process that is started.
+     * Process Definition Key
      */
     private String key;
+
+    /**
+     * Unique Key for Process Instance
+     */
+    private String correlationKey;
 
     /**
      * Variables that are passed to the new process instance.

@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.out.miranum;
+package io.miragon.miranum.platform.adapter.out.engine.task;
 
 import io.miragon.miranum.connect.task.api.TaskApi;
 import io.miragon.miranum.connect.task.api.command.CompleteTaskCommand;

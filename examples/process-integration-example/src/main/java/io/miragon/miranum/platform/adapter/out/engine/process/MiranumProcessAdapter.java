@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.out.miranum;
+package io.miragon.miranum.platform.adapter.out.engine.process;
 
 import io.miragon.miranum.connect.process.api.ProcessApi;
 import io.miragon.miranum.connect.process.api.StartProcessCommand;

@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.in.task.dto;
+package io.miragon.miranum.platform.adapter.in.rest.task.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
