@@ -29,15 +29,11 @@ class ElementTemplateGeneratorMojoTest {
         mojo = new ElementTemplateGeneratorMojo();
         mojo.project = project;
         mojo.outputDirectory = new File(tmpTargetDir, "target");
-        mojo.skip = false;
         mojo.clean = false;
     }
 
     @Test
     public void testExecuteWhenSkipIsTrue_ShouldSkipGeneration() throws Exception {
-        // Arrange
-        mojo.skip = true;
-
         // Act
         mojo.execute();
 

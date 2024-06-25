@@ -62,12 +62,6 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     InputValueNamingPolicy inputValueNamingPolicy;
 
     /**
-     * A flag indicating if the generation should be skipped.
-     */
-    @Parameter(name = "skip", property = "elementtemplategen.skip", defaultValue = "false")
-    Boolean skip;
-
-    /**
      * A flag indicating if the output directory should be cleaned before generation.
      */
     @Parameter(name = "clean", property = "elementtemplategen.clean", defaultValue = "false")
@@ -76,10 +70,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        if (Objects.nonNull(skip) && skip) {
-            getLog().info("Element-Template generation is skipped.");
-            return;
-        } else if (Objects.isNull(targetPlatform)) {
+        if (Objects.isNull(targetPlatform)) {
             getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: camunda7 or Camunda8");
             return;
         }

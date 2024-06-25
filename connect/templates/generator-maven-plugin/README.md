@@ -24,7 +24,6 @@
 | `targetPlatform`         | **(required)** | The target platform for which the templates should be generated. | `C7`, `C8`                | None                                                             |
 | `outputDirectory`        | **(optional)** | The directory where the generated templates should be saved.     | Any valid path            | `${project.build.directory/generated-sources/element-templates}` |
 | `inputValueNamingPolicy` | **(optional)** | The naming policy for the input value.                           | `EMPTY`, `ATTRIBUTE_NAME` | `EMPTY`                                                          |
-| `skip`                   | **(optional)** | Skip the execution of the plugin.                                | `true`, `false`           | `false`                                                          |
 | `clean`                  | **(optional)** | Clean the output directory before generating the templates.      | `true`, `false`           | `false`                                                          |
 
 > :information_source: 
