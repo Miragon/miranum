@@ -16,9 +16,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,11 +61,14 @@ class Camunda7ProcessAdapterTest {
                 .variables(this.variableValueDtos);
 
         when(this.baseVariableMapper.map(this.variables)).thenReturn(this.variableValueDtos);
-        when(this.processDefinitionApi.startProcessInstanceByKey(PROCESS_KEY, new StartProcessInstanceDto().variables(this.variableValueDtos)))
+        when(this.processDefinitionApi.startProcessInstanceByKey(eq(PROCESS_KEY), any(StartProcessInstanceDto.class)))
                 .thenReturn(processInstance);
 
         this.processAdapter.startProcess(startProcessCommand);
-        verify(this.processDefinitionApi).startProcessInstanceByKey(PROCESS_KEY, new StartProcessInstanceDto().variables(this.variableValueDtos));
+        verify(this.processDefinitionApi).startProcessInstanceByKey(eq(PROCESS_KEY), argThat(dto ->
+                CORRELATION_KEY.equals(dto.getBusinessKey()) &&
+                        Objects.equals(dto.getVariables(), this.variableValueDtos)
+        ));
     }
 
     @Test

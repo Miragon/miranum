@@ -22,6 +22,7 @@
     <modules>
         <module>connect</module>
         <module>platform</module>
+        <module>examples</module>
     </modules>
 
 </project>

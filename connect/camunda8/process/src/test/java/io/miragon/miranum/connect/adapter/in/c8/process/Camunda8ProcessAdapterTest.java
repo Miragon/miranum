@@ -21,7 +21,7 @@ class Camunda8ProcessAdapterTest {
 
     @Test
     public void testStartProcessSuccess() {
-        final var startProcessCommand = new StartProcessCommand(null, Collections.emptyMap());
+        final var startProcessCommand = new StartProcessCommand(null, null, Collections.emptyMap());
         final var step1 = Mockito.mock(CreateProcessInstanceCommandStep1.class);
         final var step2 = Mockito.mock(CreateProcessInstanceCommandStep1.CreateProcessInstanceCommandStep2.class);
         final var step3 = Mockito.mock(CreateProcessInstanceCommandStep1.CreateProcessInstanceCommandStep3.class);
