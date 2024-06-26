@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>process-integration-example</module>
+        <module>inquiry-integration-service</module>
         <module>single-deployment-unit-example</module>
     </modules>
 
