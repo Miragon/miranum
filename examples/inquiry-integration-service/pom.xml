@@ -18,6 +18,8 @@
         <miranum-connect.version>0.7.1-SNAPSHOT</miranum-connect.version>
         <miranum-platform.version>0.3.3-SNAPSHOT</miranum-platform.version>
         <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
+        <lombok.version>1.18.32</lombok.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -53,7 +55,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.community</groupId>
@@ -84,11 +92,6 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>connect-worker-api</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>worker-camunda7-remote</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
@@ -100,11 +103,6 @@
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c7</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>connect-message-api</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
@@ -133,6 +131,37 @@
                         <phase>process-classes</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <compilerArg>
+                            -Amapstruct.defaultComponentModel=spring
+                        </compilerArg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
