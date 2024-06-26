@@ -29,13 +29,11 @@ class ElementTemplateGeneratorMojoTest {
         mojo = new ElementTemplateGeneratorMojo();
         mojo.project = project;
         mojo.outputDirectory = new File(tmpTargetDir, "target");
+        mojo.clean = false;
     }
 
     @Test
     public void testExecuteWhenSkipIsTrue_ShouldSkipGeneration() throws Exception {
-        // Arrange
-        mojo.skip = true;
-
         // Act
         mojo.execute();
 
@@ -46,7 +44,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWhenNoAnnotatedMethodsFound_ShouldNotGenerateElementTemplates() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C7;
 
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("test"));
@@ -61,7 +58,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C8;
 
         // .class file gets generated in target/test-classes
@@ -87,7 +83,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithMultipleAnnotatedMethods_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C7;
 
         // .class file gets generated in target/test-classes
@@ -121,7 +116,6 @@ class ElementTemplateGeneratorMojoTest {
     @Test
     public void testExecuteWithSingleAnnotatedMethod_ShouldGenerateElementTemplateWithVersion() throws Exception {
         // Arrange
-        mojo.skip = false;
         mojo.targetPlatform = TargetPlatform.C8;
 
         // .class file gets generated in target/test-classes
@@ -141,6 +135,43 @@ class ElementTemplateGeneratorMojoTest {
         mojo.execute();
 
         // Assert that file was generated for target
+        assertTrue(new File(mojo.outputDirectory, filename).exists());
+    }
+
+    @Test
+    public  void testExecuteWithCleanTrueParameter_ShouldDeleteAllFilesInOutputDir() throws Exception {
+        // Arrange
+        mojo.targetPlatform = TargetPlatform.C8;
+        mojo.clean = true;
+
+        // Create a file in the output directory
+        File file1 = new File(mojo.outputDirectory, "shouldBeDeleted.json");
+        File file2 = new File(mojo.outputDirectory, "shouldBeDeleted2.json");
+        var outputDir = mojo.outputDirectory.mkdirs();
+        var createFile1 = file1.createNewFile();
+        var createFile2 = file2.createNewFile();
+        assertTrue(file1.exists());
+        assertTrue(file2.exists());
+
+        // .class file gets generated in target/test-classes
+        when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));
+
+        // Create a test class with a method annotated with @GenerateElementTemplate
+        class Test {
+
+            @Worker(type = "testCleanParam")
+            @ElementTemplate(name = "Test")
+            public void test() {
+            }
+        }
+        String filename = "testCleanParam.json";
+
+        // Act
+        mojo.execute();
+
+        // Assert that the "old" file was deleted and the "new" file was generated
+        assertFalse(file1.exists());
+        assertFalse(file2.exists());
         assertTrue(new File(mojo.outputDirectory, filename).exists());
     }
 }
