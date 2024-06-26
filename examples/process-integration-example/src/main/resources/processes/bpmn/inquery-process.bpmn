@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1d2hcmz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.20.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
-  <bpmn:process id="Process_1snoin5" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1d2hcmz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.20.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="inquiry-process" name="Inquiry Process" isExecutable="true">
     <bpmn:startEvent id="Event_12or2y7" name="Inquiry received">
       <bpmn:outgoing>Flow_0mci6qe</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0mci6qe" sourceRef="Event_12or2y7" targetRef="Activity_12rgiry" />
-    <bpmn:userTask id="Activity_12rgiry" name="Check Resources">
+    <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:candidateGroups="group1">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="app_task_form">check-resources</camunda:inputParameter>
+          <camunda:inputParameter name="app_task_description">Überprüfe Kapazität</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0mci6qe</bpmn:incoming>
       <bpmn:outgoing>Flow_045x41h</bpmn:outgoing>
     </bpmn:userTask>
@@ -15,13 +21,21 @@
       <bpmn:outgoing>Flow_0rtq806</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_045x41h" sourceRef="Activity_12rgiry" targetRef="Gateway_0tmxzuj" />
-    <bpmn:sequenceFlow id="Flow_0gbm3j2" name="enough capacity" sourceRef="Gateway_0tmxzuj" targetRef="Activity_0iahoe8" />
+    <bpmn:sequenceFlow id="Flow_0gbm3j2" name="enough capacity" sourceRef="Gateway_0tmxzuj" targetRef="Activity_0iahoe8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${enough_capacity == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0rtq806" sourceRef="Gateway_0tmxzuj" targetRef="Activity_15vhg4s" />
     <bpmn:endEvent id="Event_1m92ie7" name="Request Rejected">
       <bpmn:incoming>Flow_066p5i1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_066p5i1" sourceRef="Activity_15vhg4s" targetRef="Event_1m92ie7" />
-    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer">
+    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:assignee="alex.admin">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="app_task_form">create-offer</camunda:inputParameter>
+          <camunda:inputParameter name="app_task_description">Create an offer based on inquiry</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0gbm3j2</bpmn:incoming>
       <bpmn:outgoing>Flow_0f10hlq</bpmn:outgoing>
     </bpmn:userTask>
@@ -30,7 +44,7 @@
     <bpmn:intermediateCatchEvent id="Event_1cpfhel" name="Offer accepted">
       <bpmn:incoming>Flow_18yguzf</bpmn:incoming>
       <bpmn:outgoing>Flow_0mhp1yh</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_13bpyvz" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_13bpyvz" messageRef="Message_1oj9rin" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_18yguzf" sourceRef="Gateway_1gflkuj" targetRef="Event_1cpfhel" />
     <bpmn:eventBasedGateway id="Gateway_1gflkuj">
@@ -45,14 +59,23 @@
     <bpmn:intermediateCatchEvent id="Event_1lli2js" name="Offer declined">
       <bpmn:incoming>Flow_10bvner</bpmn:incoming>
       <bpmn:outgoing>Flow_1wuvmm4</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1vrizal" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1vrizal" messageRef="Message_0g1d831" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_10bvner" sourceRef="Gateway_1gflkuj" targetRef="Event_1lli2js" />
     <bpmn:endEvent id="Event_0zlumei" name="Offer Rejected">
       <bpmn:incoming>Flow_1wuvmm4</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1wuvmm4" sourceRef="Event_1lli2js" targetRef="Event_0zlumei" />
-    <bpmn:serviceTask id="Activity_0dedoqm" name="Send Offer" camunda:modelerTemplate="send-offer" camunda:type="external" camunda:topic="send-offer">
+    <bpmn:serviceTask id="Activity_15vhg4s" name="Send Rejection" camunda:type="external" camunda:topic="send-offer">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="inquiryId">${inquiryId}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rtq806</bpmn:incoming>
+      <bpmn:outgoing>Flow_066p5i1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0dedoqm" name="Send Offer" camunda:type="external" camunda:topic="send-offer">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="inquiryId">${inquiryId}</camunda:inputParameter>
@@ -60,10 +83,6 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0f10hlq</bpmn:incoming>
       <bpmn:outgoing>Flow_159b25c</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_15vhg4s" name="Send Rejection">
-      <bpmn:incoming>Flow_0rtq806</bpmn:incoming>
-      <bpmn:outgoing>Flow_066p5i1</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_1j69nnf">
       <bpmn:text>Sales Department</bpmn:text>
@@ -74,8 +93,10 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1ssgqul" associationDirection="None" sourceRef="Activity_0iahoe8" targetRef="TextAnnotation_137nxxb" />
   </bpmn:process>
+  <bpmn:message id="Message_1oj9rin" name="offer-accepted" />
+  <bpmn:message id="Message_0g1d831" name="offer-declined" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1snoin5">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="inquiry-process">
       <bpmndi:BPMNShape id="Event_12or2y7_di" bpmnElement="Event_12or2y7">
         <dc:Bounds x="182" y="142" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -124,11 +145,11 @@
           <dc:Bounds x="1245" y="275" width="71" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0iidn5a_di" bpmnElement="Activity_0dedoqm">
-        <dc:Bounds x="850" y="120" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_177rrlb_di" bpmnElement="Activity_15vhg4s">
         <dc:Bounds x="850" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ebunkg_di" bpmnElement="Activity_0dedoqm">
+        <dc:Bounds x="850" y="120" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1j69nnf_di" bpmnElement="TextAnnotation_1j69nnf">
         <dc:Bounds x="400" y="40" width="100" height="41" />

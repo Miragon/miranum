@@ -4,7 +4,7 @@ import io.miragon.miranum.connect.task.api.exception.TaskAccessDeniedException;
 
 import java.util.Map;
 
-public interface WorkOnUserTaskInPort {
+public interface WorkOnUserTask {
 
     void completeUserTask(String user, String taskId, Map<String, Object> payload) throws TaskAccessDeniedException;
 

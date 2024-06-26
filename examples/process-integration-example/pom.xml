@@ -89,12 +89,27 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>worker-camunda7-remote</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>connect-element-template-api</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
             <artifactId>element-templates-c7</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-message-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>message-camunda7-remote</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
     </dependencies>

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SendOfferWorker {
-    @Worker(type = "send-offer")
-    @ElementTemplate(name = "Inquiry - Send Offer")
-    public void sendOffer(InquiryDto dto) {
-        log.info("Offer sent");
+public class SendRejectionWorker {
+    @Worker(type = "send-rejection")
+    @ElementTemplate(name = "Inquiry - Send Rejection")
+    public void sendRejection(InquiryDto dto) {
+        log.info("Rejection sent");
     }
 }

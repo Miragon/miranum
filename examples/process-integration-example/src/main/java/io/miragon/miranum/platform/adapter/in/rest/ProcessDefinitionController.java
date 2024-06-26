@@ -1,6 +1,8 @@
-package io.miragon.miranum.platform.adapter.in.rest.process;
+package io.miragon.miranum.platform.adapter.in.rest;
 
-import io.miragon.miranum.platform.application.port.in.StartProcessInstanceInPort;
+import io.miragon.miranum.platform.adapter.in.rest.model.StartInstanceDto;
+import io.miragon.miranum.platform.application.port.in.StartProcessInstanceCommand;
+import io.miragon.miranum.platform.application.port.in.StartProcessInstance;
 import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,14 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "ProcessDefinitionController", description = "API to interact with service definitions")
 public class ProcessDefinitionController {
 
-    private final StartProcessInstanceInPort startProcessInstanceInPort;
+    private final StartProcessInstance startProcessInstanceInPort;
     private final UserAuthenticationProvider authenticationProvider;
 
     @PostMapping()
     @Operation(description = "Start a specific service")
     public ResponseEntity<Void> startInstance(@RequestBody final StartInstanceDto to) {
-        this.startProcessInstanceInPort.startInstance(to.getKey(), to.getVariables(), this.authenticationProvider.getLoggedInUser(),
-                this.authenticationProvider.getLoggedInUserRoles());
+        StartProcessInstanceCommand command = new StartProcessInstanceCommand(
+                to.getKey(),
+                to.getCorrelationKey(),
+                to.getVariables(),
+                this.authenticationProvider.getLoggedInUser(),
+                this.authenticationProvider.getLoggedInUserRoles()
+        );
+        this.startProcessInstanceInPort.startInstance(command);
         return ResponseEntity.ok().build();
     }
 

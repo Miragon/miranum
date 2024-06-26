@@ -21,9 +21,10 @@ Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 
 {
-  "key": "example-process_231d8a89-1d7f-4d9b-a6aa-b4fe3c0d5c29",
+  "key": "inquiry-process",
+  "correlationKey": "HG6S76KT1GSO",
   "variables": {
-
+    "inquiryId": "HG6S76KT1GSO"
   }
 }
 
@@ -65,6 +66,6 @@ Authorization: Bearer {{ access_token }}
 
 {
   "payload": {
-    "do17e": {}
+    "enough_capacity": true
   }
 }

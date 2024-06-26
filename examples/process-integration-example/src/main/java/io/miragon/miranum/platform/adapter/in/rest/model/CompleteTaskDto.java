@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.adapter.in.rest.task.dto;
+package io.miragon.miranum.platform.adapter.in.rest.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.Map;
 @NoArgsConstructor
 public class CompleteTaskDto {
 
-    private Map<String, Object> payload;
+    private Map<String, Object> variables;
 
 }
