@@ -51,6 +51,11 @@
             <version>${springdoc-openapi.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.camunda.community</groupId>
             <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
             <version>${camunda7.version}</version>
@@ -78,10 +83,43 @@
             <version>${miranum-connect.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-worker-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-element-template-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>element-templates-c7</artifactId>
+            <version>${miranum-connect.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.miragon.miranum.connect</groupId>
+                <artifactId>element-templates-generator-maven-plugin</artifactId>
+                <version>${miranum-connect.version}</version>
+                <configuration>
+                    <targetPlatform>C7</targetPlatform>
+                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
+                    <outputDirectory>src/main/resources/processes/element-templates</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

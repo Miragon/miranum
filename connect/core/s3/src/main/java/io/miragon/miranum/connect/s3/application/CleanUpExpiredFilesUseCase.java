@@ -23,10 +23,10 @@ public class CleanUpExpiredFilesUseCase implements CleanUpExpiredFilesApi {
 
     @Override
     public void cleanUpExpiredFolders() {
-        log.info("S3 and database clean up for expired files started.");
+        log.debug("S3 and database clean up for expired files started.");
         this.fileRepository.findAllByEndOfLifeNotNullAndEndOfLifeBefore(LocalDate.now())
                 .forEach(this::deleteFile);
-        log.info("S3 and database clean up for expired files finished.");
+        log.debug("S3 and database clean up for expired files finished.");
     }
 
     private void deleteFile(final File file) {

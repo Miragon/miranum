@@ -67,7 +67,7 @@ public class FileOperationsUseCase implements FileOperationsApi {
             final File file = fileOptional.get();
             file.setEndOfLife(endOfLife);
             this.fileRepository.save(file);
-            log.info("End of life updated for file ${} to ${}", file, endOfLife);
+            log.debug("End of life updated for file ${} to ${}", file, endOfLife);
         } else {
             final String message = String.format("No database entry for file %s is found.", pathToFile);
             log.error(message);
@@ -96,13 +96,13 @@ public class FileOperationsUseCase implements FileOperationsApi {
     private void setupFile(final String pathToFile, final LocalDate endOfLife) {
         final Optional<File> fileOptional = this.fileRepository.findByPathToFile(pathToFile);
         if (fileOptional.isEmpty()) {
-            log.info("The database entry for file ${} does not exist.", pathToFile);
+            log.debug("The database entry for file ${} does not exist.", pathToFile);
             final var folder = new File();
             folder.setPathToFile(pathToFile);
             folder.setEndOfLife(endOfLife);
             this.fileRepository.save(folder);
         } else {
-            log.info("The database entry for file ${} already exists.", pathToFile);
+            log.debug("The database entry for file ${} already exists.", pathToFile);
             final File folder = fileOptional.get();
             folder.setEndOfLife(endOfLife);
             this.fileRepository.save(folder);

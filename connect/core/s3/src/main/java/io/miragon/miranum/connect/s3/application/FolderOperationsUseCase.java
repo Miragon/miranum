@@ -34,17 +34,17 @@ public class FolderOperationsUseCase implements FolderOperationsApi {
                 .collect(Collectors.toSet());
         final Set<String> filePathsInFolder = this.s3Repository.getFilePathsFromFolder(pathToFolderWithSeparatorAtTheEnd);
         if (filePathsInDatabase.isEmpty() && filePathsInFolder.isEmpty()) {
-            log.info("Folder in S3 and file entities in database for this folder does not exist -> everything ok.");
+            log.debug("Folder in S3 and file entities in database for this folder does not exist -> everything ok.");
         } else if (SetUtils.isEqualSet(filePathsInDatabase, filePathsInFolder)) {
             // Delete all files on S3
-            log.info("All ${} files in folder ${} will be deleted.", filePathsInFolder.size(), pathToFolderWithSeparatorAtTheEnd);
+            log.debug("All ${} files in folder ${} will be deleted.", filePathsInFolder.size(), pathToFolderWithSeparatorAtTheEnd);
             for (final String pathToFile : filePathsInFolder) {
                 // Delete file on S3
                 this.s3Repository.deleteFile(pathToFile);
                 // Delete database entry
                 this.fileRepository.deleteByPathToFile(pathToFile);
             }
-            log.info("All ${} files in folder ${} will be deleted..", filePathsInFolder.size(), pathToFolderWithSeparatorAtTheEnd);
+            log.debug("All ${} files in folder ${} will be deleted..", filePathsInFolder.size(), pathToFolderWithSeparatorAtTheEnd);
         } else {
             // Out of sync
             final Set<String> filePathDisjunction = SetUtils.disjunction(filePathsInDatabase, filePathsInFolder).toSet();
