@@ -3,17 +3,100 @@
 ## Usage
 
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>element-templates-generator-maven-plugin</artifactId>
-            <configuration>
-                <targetPlatform>${camunda.target.platform}</targetPlatform>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>miranum-inquiry-example</artifactId>
+
+    <parent>
+        <groupId>io.miragon.miranum</groupId>
+        <artifactId>miranum-examples</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <properties>
+        <revision>1.0.0</revision>
+        <spring-boot.version>3.1.9</spring-boot.version>
+        <miranum-connect.version>0.7.1-SNAPSHOT</miranum-connect.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Camunda Client -->
+        <dependency>
+            <groupId>org.camunda.community</groupId>
+            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
+            <version>${camunda7.version}</version>
+        </dependency>
+        
+        <!-- miranum -->
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>worker-camunda7-remote</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>connect-element-template-api</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum.connect</groupId>
+            <artifactId>element-templates-c7</artifactId>
+            <version>${miranum-connect.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.miragon.miranum.connect</groupId>
+                <artifactId>element-templates-generator-maven-plugin</artifactId>
+                <version>${miranum-connect.version}</version>
+                <configuration>
+                    <targetPlatform>C7</targetPlatform>
+                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
+                    <clean>true</clean>
+                    <outputDirectory>src/main/resources/processes/element-templates</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
 ```
 
 ### Configuration
