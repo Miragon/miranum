@@ -4,5 +4,5 @@ import org.jetbrains.annotations.NotNull;
 
 public record NewCustomerMailCommand(
         @NotNull String inquiryId,
-        @NotNull Boolean accepted) {
+        @NotNull Boolean isAccepted) {
 }

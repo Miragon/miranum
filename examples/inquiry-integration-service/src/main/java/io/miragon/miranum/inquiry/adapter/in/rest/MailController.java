@@ -19,7 +19,7 @@ public class MailController {
 
     @PostMapping("/receive")
     public void receiveMail(
-           @Valid @RequestBody MailDto dto
+           @RequestBody MailDto dto
     ) {
         NewCustomerMailCommand command = this.mapper.toCommand(dto);
         this.mailReceived.handle(command);

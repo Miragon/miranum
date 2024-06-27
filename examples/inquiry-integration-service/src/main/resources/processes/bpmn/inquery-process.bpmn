@@ -62,7 +62,7 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1vrizal" messageRef="Message_0g1d831" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_10bvner" sourceRef="Gateway_1gflkuj" targetRef="Event_1lli2js" />
-    <bpmn:endEvent id="Event_0zlumei" name="Offer Rejected">
+    <bpmn:endEvent id="Event_0zlumei" name="Offer Declined">
       <bpmn:incoming>Flow_1wuvmm4</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1wuvmm4" sourceRef="Event_1lli2js" targetRef="Event_0zlumei" />

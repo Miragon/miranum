@@ -70,7 +70,7 @@ public record Inquiry(
                 .capacityCheckedBy(this.capacityCheckedBy)
                 .enoughCapacity(this.enoughCapacity)
                 .offerInEuros(this.offerInEuros)
-                .offerAccepted(command.accepted())
+                .offerAccepted(command.isAccepted())
                 .build();
     }
 }

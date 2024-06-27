@@ -24,7 +24,7 @@ public class InquiryCreateController {
     private final InquiryReceived inquiryReceived;
     private final InquiryRestMapper mapper;
 
-    @PostMapping("create")
+    @PostMapping(value ="create")
     @Operation(summary = "Receive customers inquiry", description = "Handles consulting inquiries")
     public ResponseEntity<NewInquiryResponseDto> handleInquiry(@RequestBody final NewInquiryDto dto) {
 

@@ -37,7 +37,7 @@ public class OfferCreatedUseCase implements OfferCreated {
                 .build();
         this.taskApi.completeTask(completeTaskCommand, currentUser);
 
-        log.info("[{}] Inquiry updated by customer mail: {}", saved.id(), saved);
+        log.info("[{}] Inquiry updated by offer: {}", saved.id(), saved);
     }
 
 }
