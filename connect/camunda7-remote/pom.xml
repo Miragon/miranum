@@ -20,6 +20,7 @@
         <module>worker</module>
         <module>utils</module>
         <module>task</module>
+        <module>all</module>
     </modules>
 
 </project>
