@@ -9,9 +9,7 @@
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-generator-maven-plugin</artifactId>
             <configuration>
-                <targetPlatform>C7</targetPlatform>
-                <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
-                <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
+                <targetPlatform>${camunda.target.platform}</targetPlatform>
             </configuration>
         </plugin>
     </plugins>
@@ -22,20 +20,16 @@
 
 | Name                     |                | Description                                                      | Possible Values           | Default Value                                                    |
 |--------------------------|----------------|------------------------------------------------------------------|---------------------------|------------------------------------------------------------------|
+| `project`                | **(required)** | The Maven project.                                               |                           | ${project}                                                       |
 | `targetPlatform`         | **(required)** | The target platform for which the templates should be generated. | `C7`, `C8`                | None                                                             |
 | `outputDirectory`        | **(optional)** | The directory where the generated templates should be saved.     | Any valid path            | `${project.build.directory/generated-sources/element-templates}` |
 | `inputValueNamingPolicy` | **(optional)** | The naming policy for the input value.                           | `EMPTY`, `ATTRIBUTE_NAME` | `EMPTY`                                                          |
+| `clean`                  | **(optional)** | Clean the output directory before generating the templates.      | `true`, `false`           | `false`                                                          |
 
 > :information_source: 
 > **Note:** The `inputValueNamingPolicy` is only relevant for the generation of the input value. 
 > The default value `EMPTY` will generate an empty input value. 
 > The value `ATTRIBUTE_NAME` will generate an input value with the name of the attribute.
-> ```xml
-> <configuration>
->    <targetPlatform>C7</targetPlatform>
->    <inputValueNamingPolicy>EMPTY</inputValueNamingPolicy>
-> </configuration>
-> ```
 >  
 > | `inputValueNamingPolicy` | Result                                                                                                                                                                                                                                                                                                                                  |
 > |--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
