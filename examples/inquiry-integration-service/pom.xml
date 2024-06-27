@@ -77,37 +77,7 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>process-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>task-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>oauth-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>worker-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>connect-element-template-api</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>element-templates-c7</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>message-camunda7-remote</artifactId>
+            <artifactId>connect-camunda7-remote-all</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
     </dependencies>

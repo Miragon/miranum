@@ -19,6 +19,7 @@
     <properties>
         <revision>1.0.0</revision>
         <spring-boot.version>3.1.9</spring-boot.version>
+        <camunda7.version>7.20.0</camunda7.version>
         <miranum-connect.version>0.7.1-SNAPSHOT</miranum-connect.version>
     </properties>
 
@@ -56,17 +57,7 @@
         <!-- miranum -->
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>worker-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>connect-element-template-api</artifactId>
-            <version>${miranum-connect.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>element-templates-c7</artifactId>
+            <artifactId>connect-camunda7-remote-all</artifactId>
             <version>${miranum-connect.version}</version>
         </dependency>
     </dependencies>
