@@ -3,9 +3,6 @@ author: Miranum
 changes:
   - addRealm:
       name: ${SSO_REALM}
-  - updateRealm:
-      id: ${SSO_REALM}
-      displayName: Local Realm
   - addGroup:
       realm: ${SSO_REALM}
       name: group1
