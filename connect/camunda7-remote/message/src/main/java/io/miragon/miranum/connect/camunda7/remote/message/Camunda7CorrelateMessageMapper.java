@@ -5,9 +5,6 @@ import io.miragon.miranum.connect.camnda7.remote.utils.Camunda7RestValueMapper;
 import io.miragon.miranum.connect.message.api.CorrelateMessageCommand;
 import lombok.AllArgsConstructor;
 import org.camunda.community.rest.client.dto.CorrelationMessageDto;
-import org.camunda.community.rest.client.dto.VariableValueDto;
-
-import java.util.Map;
 
 @AllArgsConstructor
 public class Camunda7CorrelateMessageMapper {
@@ -18,9 +15,7 @@ public class Camunda7CorrelateMessageMapper {
 
         final CorrelationMessageDto correlationMessageDto = new CorrelationMessageDto();
         correlationMessageDto.setMessageName(command.getMessageName());
-
-        final VariableValueDto correlationKey = this.camunda7BaseVariableValueMapper.createValue(command.getCorrelationKey());
-        correlationMessageDto.setLocalCorrelationKeys(Map.of("correlationKey", correlationKey));
+        correlationMessageDto.setBusinessKey(command.getCorrelationKey());
         correlationMessageDto.setProcessVariables(this.camunda7BaseVariableValueMapper.map(command.getVariables()));
         return correlationMessageDto;
     }

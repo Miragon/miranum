@@ -1,7 +1,6 @@
 package io.miragon.miranum.connect.camnda7.remote.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.camunda.bpm.client.variable.ClientValues;
 import org.camunda.bpm.client.variable.impl.value.JsonValueImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;

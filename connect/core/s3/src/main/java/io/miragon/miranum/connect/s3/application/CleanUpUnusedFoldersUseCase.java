@@ -30,11 +30,11 @@ public class CleanUpUnusedFoldersUseCase implements CleanUpUnusedFoldersApi {
      */
     @Override
     public void cleanUpUnusedFolders() {
-        log.info("Database clean up for folder without corresponding S3 folders started.");
+        log.debug("Database clean up for folder without corresponding S3 folders started.");
         this.fileRepository.findAllByEndOfLifeIsNull()
                 .filter(this::shouldDatabaseFileBeDeleted)
                 .forEach(this::deleteFileInDatabase);
-        log.info("Database clean up for folder without corresponding S3 folders finished.");
+        log.debug("Database clean up for folder without corresponding S3 folders finished.");
     }
 
     /**

@@ -3,13 +3,43 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>miranum-single-deployment-unit-example</artifactId>
+
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-examples</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>miranum-single-deployment-unit-example</artifactId>
+    <properties>
+        <revision>1.0.0</revision>
+        <spring-boot.version>3.1.9</spring-boot.version>
+        <lombok.version>1.18.32</lombok.version>
+        <camunda7.version>7.20.0</camunda7.version>
+        <miranum-connect.version>0.7.1-SNAPSHOT</miranum-connect.version>
+        <miranum-platform.version>0.3.3-SNAPSHOT</miranum-platform.version>
+        <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda7.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -63,20 +93,24 @@
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-core</artifactId>
+            <version>${miranum-platform.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-engine-task</artifactId>
+            <version>${miranum-platform.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-deployment-server-embedded-starter</artifactId>
+            <version>${miranum-platform.version}</version>
         </dependency>
 
         <!-- miranum libs -->
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
+            <version>${miranum-platform.version}</version>
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum.connect</groupId>
@@ -100,11 +134,18 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>miranum-unit-test</artifactId>
+            <version>${miranum-platform.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

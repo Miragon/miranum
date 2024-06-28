@@ -1,0 +1,8 @@
+id: initial_realm
+author: Miranum
+changes:
+  - addRealm:
+      name: ${SSO_REALM}
+  - addGroup:
+      realm: ${SSO_REALM}
+      name: group1

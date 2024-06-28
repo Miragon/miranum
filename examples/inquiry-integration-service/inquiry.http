@@ -1,0 +1,97 @@
+### Get Access Token
+POST http://keycloak:9090/auth/realms/miranum/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type = password &
+client_secret = s3creT &
+client_id = miranum &
+username = alex.admin@example.com &
+password = test
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+%}
+
+
+### Create new Inquiry
+POST http://localhost:8084/rest/inquiry/create
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "customerMail": "cio@customer.com",
+  "projectDescription": "Make me digitally successful",
+  "estimatedConsultingHours": 100
+}
+
+> {%
+    var inquiryId = response.body.inquiryId;
+    client.global.set("inquiryId", inquiryId);
+%}
+
+
+### Get Group Tasks for group1
+GET http://localhost:8083/rest/task/group/group1
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+> {%
+    var firstTaskId = response.body[0].id;
+    client.global.set("group_task_id", firstTaskId);
+%}
+
+
+### Claim Task for user alex.admin
+POST http://localhost:8083/rest/task/{{group_task_id}}/assign
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "assignee": "alex.admin"
+}
+
+
+### Complete Capacity Check Task
+POST http://localhost:8084/rest/inquiry/capacity-checked
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "inquiryId": "{{ inquiryId }}",
+  "enoughCapacity": true,
+  "userTaskId": "{{ group_task_id }}"
+}
+
+
+### Get assigned Tasks for user alex.admin
+GET http://localhost:8083/rest/task/user
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+> {%
+    var firstTask = response.body[0].id;
+    client.global.set("user_task_id", firstTask);
+%}
+
+
+### Complete Create Offer Task
+POST http://localhost:8084/rest/inquiry/create-offer
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "inquiryId": "{{ inquiryId }}",
+  "offerInEuros": 12000,
+  "userTaskId": "{{ user_task_id }}"
+}
+
+
+### Simulate Customer Mail Response
+POST http://localhost:8084/rest/mail/receive
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "inquiryId": "{{ inquiryId }}",
+  "isAccepted": true
+}

@@ -15,11 +15,11 @@ public class EngineDeploymentReceiver implements MiranumDeploymentReceiver {
     @Override
     public void deploy(final Deployment deployment) {
         if (deployment.getType().equalsIgnoreCase("bpmn")) {
-            log.info("Deploying BPMN artifact: {}", deployment.getFilename());
+            log.debug("Deploying BPMN artifact: {}", deployment.getFilename());
             this.artifactDeploymentUseCase.deployBpmn(deployment.getFile(), deployment.getFilename(), deployment.getNamespace(), deployment.getTags());
         }
         if (deployment.getType().equalsIgnoreCase("dmn")) {
-            log.info("Deploying DMN artifact: {}", deployment.getFilename());
+            log.debug("Deploying DMN artifact: {}", deployment.getFilename());
             this.artifactDeploymentUseCase.deployDmn(deployment.getFile(), deployment.getFilename(), deployment.getNamespace(), deployment.getTags());
         }
     }

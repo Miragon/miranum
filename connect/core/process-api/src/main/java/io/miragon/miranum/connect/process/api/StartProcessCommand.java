@@ -12,5 +12,6 @@ import java.util.Map;
 public class StartProcessCommand {
 
     private String processKey;
+    private String correlationKey;
     private Map<String, Object> variables;
 }
