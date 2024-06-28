@@ -10,6 +10,7 @@
       <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
       <ENTRIES>
         <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH="examples/single-deployment-unit-example/single-deployment-stack/.env" />
       </ENTRIES>
     </extension>
     <method v="2">
