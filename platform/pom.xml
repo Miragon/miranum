@@ -24,7 +24,7 @@
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <camunda7.version>7.20.0</camunda7.version>
         <camunda8.version>8.4.0</camunda8.version>
-        <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
+        <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
         <kotlin.version>1.9.24</kotlin.version>
         <logstash.encoder.version>7.4</logstash.encoder.version>
         <miranum-connect.version>0.7.0</miranum-connect.version>
