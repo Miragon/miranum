@@ -5,7 +5,7 @@
       <bpmn:outgoing>Flow_0mci6qe</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0mci6qe" sourceRef="Event_12or2y7" targetRef="Activity_12rgiry" />
-    <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:candidateGroups="group1">
+    <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:candidateGroups="group1">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="app_task_form">check-resources</camunda:inputParameter>
@@ -29,7 +29,7 @@
       <bpmn:incoming>Flow_066p5i1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_066p5i1" sourceRef="Activity_15vhg4s" targetRef="Event_1m92ie7" />
-    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:assignee="alex.admin">
+    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:assignee="alex.admin">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="app_task_form">create-offer</camunda:inputParameter>
