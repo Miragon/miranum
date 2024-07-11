@@ -7,11 +7,9 @@ import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPor
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @RequiredArgsConstructor
 public class UserTaskQueryImpl implements UserTaskQuery {
 

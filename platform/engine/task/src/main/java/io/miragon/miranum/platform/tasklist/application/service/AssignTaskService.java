@@ -6,9 +6,7 @@ import io.miragon.miranum.platform.security.authentication.UserAuthenticationPro
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class AssignTaskService implements WorkOnTaskUseCase {
 
@@ -17,6 +15,9 @@ public class AssignTaskService implements WorkOnTaskUseCase {
 
     @Override
     public void assignUserTask(String user, String taskId, String assignee) throws TaskAccessDeniedException {
+        if (!user.equals(assignee)) {
+            throw new TaskAccessDeniedException("User " + user + " can not assign task to " + assignee + ".");
+        }
         final AssignUserTaskCommand command = AssignUserTaskCommand.builder()
             .taskId(taskId)
             .assignee(assignee)
