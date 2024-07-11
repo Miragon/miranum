@@ -15,14 +15,11 @@ public class AssignTaskService implements WorkOnTaskUseCase {
 
     @Override
     public void assignUserTask(String user, String taskId, String assignee) throws TaskAccessDeniedException {
-        if (!user.equals(assignee)) {
-            throw new TaskAccessDeniedException("User " + user + " can not assign task to " + assignee + ".");
-        }
         final AssignUserTaskCommand command = AssignUserTaskCommand.builder()
             .taskId(taskId)
             .assignee(assignee)
             .build();
-        connectTaskApi.assignUserTask(command, assignee, userAuthenticationProvider.getLoggedInUserRoles());
+        connectTaskApi.assignUserTask(command, user, userAuthenticationProvider.getLoggedInUserRoles());
     }
 
     @Override

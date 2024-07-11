@@ -47,6 +47,9 @@ class AssignTaskServiceTest {
 
     @Test
     void testAssignUserTaskThrowsTaskAccessDeniedException() {
+        doThrow(new TaskAccessDeniedException("User testUser can not assign task to someOtherUser."))
+                .when(connectTaskApi).assignUserTask(any(AssignUserTaskCommand.class), anyString(), anyList());
+
         assertThatThrownBy(() -> assignTaskService.assignUserTask(user, taskId, "someOtherUser"))
                 .isInstanceOf(TaskAccessDeniedException.class)
                 .hasMessage("User testUser can not assign task to someOtherUser.");
