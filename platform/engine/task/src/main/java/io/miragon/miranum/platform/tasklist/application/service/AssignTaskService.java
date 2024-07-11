@@ -6,9 +6,7 @@ import io.miragon.miranum.platform.security.authentication.UserAuthenticationPro
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class AssignTaskService implements WorkOnTaskUseCase {
 
@@ -21,7 +19,7 @@ public class AssignTaskService implements WorkOnTaskUseCase {
             .taskId(taskId)
             .assignee(assignee)
             .build();
-        connectTaskApi.assignUserTask(command, assignee, userAuthenticationProvider.getLoggedInUserRoles());
+        connectTaskApi.assignUserTask(command, user, userAuthenticationProvider.getLoggedInUserRoles());
     }
 
     @Override

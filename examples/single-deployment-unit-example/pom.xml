@@ -17,7 +17,7 @@
         <lombok.version>1.18.32</lombok.version>
         <camunda7.version>7.20.0</camunda7.version>
         <miranum-connect.version>0.7.1-SNAPSHOT</miranum-connect.version>
-        <miranum-platform.version>0.3.3-SNAPSHOT</miranum-platform.version>
+        <miranum-platform.version>0.3.4-SNAPSHOT</miranum-platform.version>
         <springdoc-openapi.version>2.5.0</springdoc-openapi.version>
     </properties>
 
