@@ -38,7 +38,7 @@
       "type": "Text",
       "binding": {
         "type": "camunda:inputParameter",
-        "name": "app_task_description"
+        "name": "miranum_task_description"
       }
     },
     {
@@ -47,7 +47,7 @@
       "type": "String",
       "binding": {
         "type": "camunda:inputParameter",
-        "name": "app_task_form"
+        "name": "miranum_task_form"
       }
     }
   ]
