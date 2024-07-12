@@ -12,10 +12,10 @@
     <bpmn:userTask id="Activity_0iqcr9j" name="Example Usertask" camunda:candidateGroups="group1">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="app_task_form">ExampleForm</camunda:inputParameter>
-          <camunda:inputParameter name="app_task_description">This is a example description</camunda:inputParameter>
-          <camunda:inputParameter name="app_task_type">example</camunda:inputParameter>
-          <camunda:inputParameter name="app_task_foo">bar</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_form">ExampleForm</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_description">This is a example description</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_type">example</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_foo">bar</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1v8rmgf</bpmn:incoming>

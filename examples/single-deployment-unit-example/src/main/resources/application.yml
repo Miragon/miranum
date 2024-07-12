@@ -31,6 +31,7 @@ camunda:
     metrics:
       enabled: false
       db-reporter-activate: false
+    deployment-resource-pattern: "processes/*.bpmn"
 
 management:
   server:
