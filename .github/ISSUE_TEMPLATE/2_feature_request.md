@@ -3,7 +3,10 @@ name: 'Feature request'
 about: 'Suggest a feature for miranum'
 title:
 labels: 'type: enhancement'
-assignees: dominikhorn93
+assignees:
+  - 'dominikhorn93 '
+  - 'lmoesle'
+  - 'DaAnda97'
 ---
 
 ### Is your feature request related to a problem? Please describe

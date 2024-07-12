@@ -3,7 +3,10 @@ name: 'Bug report'
 about: 'Report a bug in miranum'
 title:
 labels: 'type: bug :bug:'
-assignees: dominikhorn93
+assignees:
+  - 'dominikhorn93 '
+  - 'lmoesle'
+  - 'DaAnda97'
 ---
 
 ### Steps to reproduce
