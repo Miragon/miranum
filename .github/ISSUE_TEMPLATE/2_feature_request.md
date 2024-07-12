@@ -4,7 +4,7 @@ about: 'Suggest a feature for miranum'
 title:
 labels: 'type: enhancement'
 assignees:
-  - 'dominikhorn93 '
+  - 'dominikhorn93'
   - 'lmoesle'
   - 'DaAnda97'
 ---

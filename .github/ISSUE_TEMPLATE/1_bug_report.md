@@ -4,7 +4,7 @@ about: 'Report a bug in miranum'
 title:
 labels: 'type: bug :bug:'
 assignees:
-  - 'dominikhorn93 '
+  - 'dominikhorn93'
   - 'lmoesle'
   - 'DaAnda97'
 ---
