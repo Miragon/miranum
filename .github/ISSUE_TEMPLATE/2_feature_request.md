@@ -6,15 +6,15 @@ labels: 'type: enhancement'
 assignees: dominikhorn93
 ---
 
-### Scenario
+### Is your feature request related to a problem? Please describe
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]-->
+<!-- Is there a time frame or deadline for the topic? -->
 
-* miranum-connect version:
-* miranum-platform version:
-* Camunda version:
-* Description of your use case: (detailed description or executable reproducer, e.g. GitHub repo)
+### Describe the solution you'd like
+<!-- A clear and concise description of what you want to happen.-->
 
-### Current Behaviour
+### Describe alternatives you've considered
+<!-- A clear and concise description of any alternative solutions or features you've considered.-->
 
-### Wanted Behaviour
-
-### Possible Workarounds
+### Additional context
+<!-- Add any other context or screenshots about the feature request here.-->
