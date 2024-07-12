@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "TaskCustomFields")
 @Table(name = "MIRANUM_TASK_CUSTOM_FIELDS")
-public class TaskCustomFields {
+public class TaskCustomFieldEntity {
 
     /**
      * The id of the authority

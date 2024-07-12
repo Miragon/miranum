@@ -1,11 +1,13 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskCustomFieldEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
 import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
+import io.miragon.miranum.platform.tasklist.domain.TaskCustomFields;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import io.miragon.miranum.platform.tasklist.exception.TaskNotFoundException;
 import org.apache.commons.lang3.NotImplementedException;
@@ -17,6 +19,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentCaptor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -106,7 +109,8 @@ class TaskOutPortTest {
                 .hasFieldOrPropertyWithValue("processInstanceId", instanceId)
                 .hasFieldOrPropertyWithValue("assignee", user)
                 .hasFieldOrPropertyWithValue("candidateUsers", List.of(user))
-                .hasFieldOrPropertyWithValue("formKey", "formKey");
+                .hasFieldOrPropertyWithValue("formKey", "formKey")
+                .hasFieldOrPropertyWithValue("customFields", Map.of());
     }
 
     @Test
@@ -138,7 +142,8 @@ class TaskOutPortTest {
                 .hasFieldOrPropertyWithValue("processInstanceId", instanceId)
                 .hasFieldOrPropertyWithValue("assignee", null)
                 .hasFieldOrPropertyWithValue("candidateGroups", List.of(group))
-                .hasFieldOrPropertyWithValue("formKey", "formKey");
+                .hasFieldOrPropertyWithValue("formKey", "formKey")
+                .hasFieldOrPropertyWithValue("customFields", Map.of());
     }
 
     @Test
@@ -155,6 +160,12 @@ class TaskOutPortTest {
                         .value(group)
                         .build()))
                 .build();
+        taskInfoEntity.setCustomFields(List.of(TaskCustomFieldEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .key("key")
+                .value("value")
+                .taskInfo(taskInfoEntity)
+                .build()));
         when(taskInfoRepository.findById(taskId))
                 .thenReturn(Optional.ofNullable(taskInfoEntity));
 
@@ -168,7 +179,8 @@ class TaskOutPortTest {
                 .hasFieldOrPropertyWithValue("processInstanceId", instanceId)
                 .hasFieldOrPropertyWithValue("assignee", null)
                 .hasFieldOrPropertyWithValue("candidateGroups", List.of(group))
-                .hasFieldOrPropertyWithValue("formKey", "formKey");
+                .hasFieldOrPropertyWithValue("formKey", "formKey")
+                .hasFieldOrPropertyWithValue("customFields", Map.of("key", "value"));
     }
 
     @Test
@@ -201,6 +213,10 @@ class TaskOutPortTest {
                         .type("group")
                         .value(group)
                         .build()))
+                .customFields(List.of(TaskCustomFields.builder()
+                        .key("key")
+                        .value("value")
+                        .build()))
                 .build();
 
         taskOutPort.createTask(taskInfo);
@@ -222,6 +238,12 @@ class TaskOutPortTest {
                 .hasFieldOrProperty("id")
                 .hasFieldOrPropertyWithValue("type", "group")
                 .hasFieldOrPropertyWithValue("value", group);
+        assertThat(capturedEntity.getCustomFields())
+                .hasSize(1)
+                .first()
+                .hasFieldOrProperty("id")
+                .hasFieldOrPropertyWithValue("key", "key")
+                .hasFieldOrPropertyWithValue("value", "value");
     }
 
     @Test

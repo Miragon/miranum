@@ -1,5 +1,7 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskCustomFieldEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
@@ -50,11 +52,18 @@ public interface TaskMapper {
                             .value(authority.getValue())
                             .build())
                     .toList())
+                .customFields(entity.getCustomFields().stream()
+                    .map(customField -> TaskCustomFields.builder()
+                            .id(customField.getId())
+                            .key(customField.getKey())
+                            .value(customField.getValue())
+                            .build())
+                    .toList())
                 .build();
     }
 
     default TaskInfoEntity mapToTaskInfoEntity(final TaskInfo taskInfo) {
-        return TaskInfoEntity.builder()
+        final TaskInfoEntity taskInfoEntity = TaskInfoEntity.builder()
                 .id(taskInfo.getId())
                 .description(taskInfo.getDescription())
                 .definitionName(taskInfo.getDefinitionName())
@@ -62,6 +71,23 @@ public interface TaskMapper {
                 .assignee(taskInfo.getAssignee())
                 .formKey(taskInfo.getFormKey())
                 .build();
+        taskInfoEntity.setAuthorities(taskInfo.getAuthorities().stream()
+                .map(authority -> TaskAuthorityEntity.builder()
+                        .id(authority.getId())
+                        .type(authority.getType())
+                        .value(authority.getValue())
+                        .taskInfo(taskInfoEntity)
+                        .build())
+                .toList());
+        taskInfoEntity.setCustomFields(taskInfo.getCustomFields().stream()
+                .map(customField -> TaskCustomFieldEntity.builder()
+                        .id(customField.getId())
+                        .key(customField.getKey())
+                        .value(customField.getValue())
+                        .taskInfo(taskInfoEntity)
+                        .build())
+                .toList());
+        return taskInfoEntity;
     }
 
 }
