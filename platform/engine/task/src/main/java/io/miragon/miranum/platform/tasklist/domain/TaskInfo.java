@@ -16,6 +16,7 @@ public class TaskInfo {
     private String assignee;
     private List<TaskAuthorities> authorities;
     private String formKey;
+    private List<TaskCustomFields> customFields;
 
     public List<String> getCandidateUsers() {
         return authorities.stream()

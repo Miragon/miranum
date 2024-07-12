@@ -15,6 +15,7 @@ import io.miragon.miranum.platform.tasklist.application.service.UserTaskQueryImp
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @ComponentScan(basePackages = {"io.miragon.miranum.platform.tasklist"})
+@EnableConfigurationProperties(TaskProperties.class)
 @EnableJpaRepositories(basePackages = {"io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo"})
 @EntityScan(basePackages = {"io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo"})
 public class TasklistConfiguration {

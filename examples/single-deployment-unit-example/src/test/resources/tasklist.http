@@ -1,0 +1,33 @@
+### Get Access Token
+POST http://keycloak:9090/auth/realms/miranum/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type = password &
+client_secret = s3creT &
+client_id = miranum &
+username = alex.admin@example.com &
+password = test
+
+> {%
+    client.global.set("access_token", response.body.access_token);
+%}
+
+### Get Group Tasks for group1
+GET http://localhost:8083/rest/task/group/group1
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+> {%
+    var firstTaskId = response.body[0].id;
+    client.global.set("group_task_id", firstTaskId);
+%}
+
+
+### Claim Task for user alex.admin
+POST http://localhost:8083/rest/task/{{group_task_id}}/assign
+Content-Type: application/json
+Authorization: Bearer {{ access_token }}
+
+{
+  "assignee": "alex.admin"
+}

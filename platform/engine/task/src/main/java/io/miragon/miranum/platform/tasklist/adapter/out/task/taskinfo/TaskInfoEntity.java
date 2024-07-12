@@ -38,4 +38,7 @@ public class TaskInfoEntity {
     @OneToMany(mappedBy = "taskInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TaskAuthorityEntity> authorities = new ArrayList<>();
 
+    @OneToMany(mappedBy = "taskInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TaskCustomFields> customFields = new ArrayList<>();
+
 }
