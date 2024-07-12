@@ -7,12 +7,16 @@ import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Binding;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Constraints;
 import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Property;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 
 @Slf4j
+@AllArgsConstructor
 public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerator {
+
+    Camunda7Configuration camunda7Configuration;
 
     @Override
     public ElementTemplateGenerationResult generate(ElementTemplateInfo elementTemplateInfo, InputValueNamingPolicy inputValueNamingPolicy) {
@@ -32,6 +36,14 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
         // Add property for the topic of the external task
         var implementationTopicProperty = createExternalTaskTopicProperty(elementTemplateInfo.getType());
         elementTemplate.getProperties().add(implementationTopicProperty);
+
+        // Add asyncBefore property
+        var asyncBeforeProperty = createAsyncBeforeProperty();
+        elementTemplate.getProperties().add(asyncBeforeProperty);
+
+        // Add asyncAfter property
+        var asyncAfterProperty = createAsyncAfterProperty();
+        elementTemplate.getProperties().add(asyncAfterProperty);
 
         // Add properties for input parameters
         for (var inputProperty : elementTemplateInfo.getInputProperties()) {
@@ -122,5 +134,29 @@ public class Camunda7ElementTemplateGenerator implements ElementTemplateGenerato
                 .withBinding(new Binding()
                         .withType(Binding.Type.PROPERTY)
                         .withName("camunda:topic"));
+    }
+
+    private Property createAsyncBeforeProperty() {
+        return new Property()
+                .withLabel("Async Before")
+                .withType("Boolean")
+                .withValue(camunda7Configuration.getAsyncBeforeDefaultValue())
+                .withEditable(true)
+                .withChoices(null)
+                .withBinding(new Binding()
+                        .withType(Binding.Type.PROPERTY)
+                        .withName("camunda:asyncBefore"));
+    }
+
+    private Property createAsyncAfterProperty() {
+        return new Property()
+                .withLabel("Async After")
+                .withType("Boolean")
+                .withValue(camunda7Configuration.getAsyncAfterDefaultValue())
+                .withEditable(true)
+                .withChoices(null)
+                .withBinding(new Binding()
+                        .withType(Binding.Type.PROPERTY)
+                        .withName("camunda:asyncAfter"));
     }
 }
