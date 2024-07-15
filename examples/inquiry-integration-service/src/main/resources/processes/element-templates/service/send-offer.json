@@ -22,6 +22,24 @@
       "name" : "camunda:topic"
     }
   }, {
+    "value" : false,
+    "label" : "Async Before",
+    "type" : "Boolean",
+    "editable" : true,
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:asyncBefore"
+    }
+  }, {
+    "value" : true,
+    "label" : "Async After",
+    "type" : "Boolean",
+    "editable" : true,
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:asyncAfter"
+    }
+  }, {
     "value" : "${inquiryId}",
     "label" : "Input: ",
     "type" : "String",

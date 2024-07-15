@@ -10,18 +10,18 @@ import java.util.List;
 
 public class ElementTemplateGeneratorsFactory {
 
-    public static List<ElementTemplateGenerator> create(TargetPlatform[] targetPlatform) {
+    public static List<ElementTemplateGenerator> create(TargetPlatform[] targetPlatform, PlatformSpecificConfig platformSpecificConfig) {
         var generators = new ArrayList<ElementTemplateGenerator>(targetPlatform.length);
         for (var platform : targetPlatform) {
-            generators.add(create(platform));
+            generators.add(create(platform, platformSpecificConfig));
         }
         return generators;
     }
 
-    public static ElementTemplateGenerator create(TargetPlatform targetPlatform) {
+    public static ElementTemplateGenerator create(TargetPlatform targetPlatform, PlatformSpecificConfig platformSpecificConfig) {
         switch (targetPlatform) {
             case C7 -> {
-                return new Camunda7ElementTemplateGenerator();
+                return new Camunda7ElementTemplateGenerator(platformSpecificConfig.getC7());
             }
             case C8 -> {
                 return new Camunda8ElementTemplateGenerator();

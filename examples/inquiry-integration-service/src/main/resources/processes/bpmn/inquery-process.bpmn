@@ -5,7 +5,7 @@
       <bpmn:outgoing>Flow_0mci6qe</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_0mci6qe" sourceRef="Event_12or2y7" targetRef="Activity_12rgiry" />
-    <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:candidateGroups="group1">
+    <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:modelerTemplate="io.miranum.basis-usertask">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="miranum_task_form">check-resources</camunda:inputParameter>
@@ -29,7 +29,7 @@
       <bpmn:incoming>Flow_066p5i1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_066p5i1" sourceRef="Activity_15vhg4s" targetRef="Event_1m92ie7" />
-    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:assignee="alex.admin">
+    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="miranum_task_form">create-offer</camunda:inputParameter>
@@ -66,7 +66,7 @@
       <bpmn:incoming>Flow_1wuvmm4</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1wuvmm4" sourceRef="Event_1lli2js" targetRef="Event_0zlumei" />
-    <bpmn:serviceTask id="Activity_15vhg4s" name="Send Rejection" camunda:type="external" camunda:topic="send-offer">
+    <bpmn:serviceTask id="Activity_15vhg4s" name="Send Rejection" camunda:modelerTemplate="send-rejection" camunda:asyncAfter="true" camunda:type="external" camunda:topic="send-rejection">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="inquiryId">${inquiryId}</camunda:inputParameter>
@@ -75,7 +75,7 @@
       <bpmn:incoming>Flow_0rtq806</bpmn:incoming>
       <bpmn:outgoing>Flow_066p5i1</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0dedoqm" name="Send Offer" camunda:type="external" camunda:topic="send-offer">
+    <bpmn:serviceTask id="Activity_0dedoqm" name="Send Offer" camunda:modelerTemplate="send-offer" camunda:asyncAfter="true" camunda:type="external" camunda:topic="send-offer">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="inquiryId">${inquiryId}</camunda:inputParameter>

@@ -1,7 +1,7 @@
 {
   "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
-  "name" : "Inquiry - Send Rejection",
-  "id" : "send-rejection",
+  "name" : "Inquiry - Send Offer",
+  "id" : "send-offer",
   "appliesTo" : [ "bpmn:ServiceTask" ],
   "properties" : [ {
     "value" : "external",
@@ -13,13 +13,31 @@
       "name" : "camunda:type"
     }
   }, {
-    "value" : "send-rejection",
+    "value" : "send-offer",
     "label" : "Topic",
     "type" : "String",
     "editable" : false,
     "binding" : {
       "type" : "property",
       "name" : "camunda:topic"
+    }
+  }, {
+    "value" : false,
+    "label" : "Async Before",
+    "type" : "Boolean",
+    "editable" : true,
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:asyncBefore"
+    }
+  }, {
+    "value" : true,
+    "label" : "Async After",
+    "type" : "Boolean",
+    "editable" : true,
+    "binding" : {
+      "type" : "property",
+      "name" : "camunda:asyncAfter"
     }
   }, {
     "value" : "${inquiryId}",
