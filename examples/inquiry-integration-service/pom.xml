@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>miranum-inquiry-example</artifactId>
@@ -92,7 +92,12 @@
                     <targetPlatform>C7</targetPlatform>
                     <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
                     <clean>true</clean>
-                    <outputDirectory>src/main/resources/processes/element-templates</outputDirectory>
+                    <outputDirectory>src/main/resources/processes/element-templates/service</outputDirectory>
+                    <platformSpecificConfig>
+                        <c7>
+                            <asyncAfterDefaultValue>true</asyncAfterDefaultValue>
+                        </c7>
+                    </platformSpecificConfig>
                 </configuration>
                 <executions>
                     <execution>

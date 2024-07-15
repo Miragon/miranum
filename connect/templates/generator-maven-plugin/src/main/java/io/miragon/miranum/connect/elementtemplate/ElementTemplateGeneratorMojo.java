@@ -67,34 +67,42 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     @Parameter(name = "clean", property = "elementtemplategen.clean", defaultValue = "false")
     Boolean clean;
 
+    @Parameter
+    PlatformSpecificConfig platformSpecificConfig;
+
 
     @Override
     public void execute() throws MojoExecutionException {
         if (Objects.isNull(targetPlatform)) {
-            getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: camunda7 or Camunda8");
+            getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: C7 or C8.");
             return;
         }
 
-        ElementTemplateGenerator generator = ElementTemplateGeneratorsFactory.create(targetPlatform);
+        if (Objects.isNull(platformSpecificConfig)) {
+            getLog().info("Platform specific configuration not provided. Using default configuration.");
+            platformSpecificConfig = createDefaultPlatformSpecificConfig();
+        }
+
+        ElementTemplateGenerator generator = ElementTemplateGeneratorsFactory.create(targetPlatform, platformSpecificConfig);
 
         var annotatedMethods = getWorkerAnnotatedMethods();
 
         if (annotatedMethods.isEmpty()) {
-            log.info("No methods annotated with @GenerateElementTemplate found.");
+            log.info("No methods annotated with @Worker found.");
             return;
         }
 
         if (clean) {
             try (Stream<Path> paths = Files.walk(outputDirectory.toPath())) {
                 paths
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
-                        try {
-                            Files.delete(file);
-                        } catch (IOException e) {
-                            log.error("Failed to delete file: " + file, e);
-                        }
-                    });
+                        .filter(Files::isRegularFile)
+                        .forEach(file -> {
+                            try {
+                                Files.delete(file);
+                            } catch (IOException e) {
+                                log.error("Failed to delete file: " + file, e);
+                            }
+                        });
             } catch (IOException e) {
                 log.error("Failed to clean output directory.", e);
             }
@@ -152,5 +160,13 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
                 .addScanners(Scanners.MethodsAnnotated));
 
         return reflections.getMethodsAnnotatedWith(Worker.class);
+    }
+
+    private PlatformSpecificConfig createDefaultPlatformSpecificConfig() {
+        var config = new PlatformSpecificConfig();
+        var c7Config = new Camunda7ConfigImpl();
+        config.setC7(c7Config);
+
+        return config;
     }
 }

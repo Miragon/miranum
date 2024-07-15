@@ -1,26 +1,51 @@
 {
-  "$schema" : "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
-  "name" : "Test",
-  "id" : "test",
-  "version" : 1.0,
-  "appliesTo" : [ "bpmn:ServiceTask" ],
-  "properties" : [ {
-    "value" : "external",
-    "label" : "Implementation Type",
-    "type" : "String",
-    "editable" : false,
-    "binding" : {
-      "type" : "property",
-      "name" : "camunda:type"
+  "$schema": "https://unpkg.com/@camunda/element-templates-json-schema@0.1.0/resources/schema.json",
+  "name": "Test",
+  "id": "test",
+  "version": 1.0,
+  "appliesTo": [
+    "bpmn:ServiceTask"
+  ],
+  "properties": [
+    {
+      "value": "external",
+      "label": "Implementation Type",
+      "type": "String",
+      "editable": false,
+      "binding": {
+        "type": "property",
+        "name": "camunda:type"
+      }
+    },
+    {
+      "value": "test",
+      "label": "Topic",
+      "type": "String",
+      "editable": false,
+      "binding": {
+        "type": "property",
+        "name": "camunda:topic"
+      }
+    },
+    {
+      "value": true,
+      "label": "Async Before",
+      "type": "Boolean",
+      "editable": true,
+      "binding": {
+        "type": "property",
+        "name": "camunda:asyncBefore"
+      }
+    },
+    {
+      "value": false,
+      "label": "Async After",
+      "type": "Boolean",
+      "editable": true,
+      "binding": {
+        "type": "property",
+        "name": "camunda:asyncAfter"
+      }
     }
-  }, {
-    "value" : "test",
-    "label" : "Topic",
-    "type" : "String",
-    "editable" : false,
-    "binding" : {
-      "type" : "property",
-      "name" : "camunda:topic"
-    }
-  } ]
+  ]
 }
