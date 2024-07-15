@@ -1,6 +1,5 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
-import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;
 import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
@@ -56,15 +55,6 @@ public class TaskPersistenceAdapter implements TaskOutPort {
     @Override
     public void createTask(final TaskInfo task) {
         final TaskInfoEntity taskInfoEntity = this.taskMapper.mapToTaskInfoEntity(task);
-        // make sure the TaskAuthorityEntities are persisted too
-        taskInfoEntity.setAuthorities(task.getAuthorities().stream()
-            .map(authority -> TaskAuthorityEntity.builder()
-                .id(authority.getId())
-                .type(authority.getType())
-                .value(authority.getValue())
-                .taskInfo(taskInfoEntity)
-                .build())
-            .toList());
         this.taskInfoRepository.save(taskInfoEntity);
     }
 

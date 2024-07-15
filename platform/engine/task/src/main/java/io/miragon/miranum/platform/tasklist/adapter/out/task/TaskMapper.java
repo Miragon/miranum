@@ -1,12 +1,16 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task;
 
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskAuthorityEntity;
+import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskCustomFieldEntity;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoEntity;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
+import io.miragon.miranum.platform.tasklist.domain.TaskCustomFields;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface TaskMapper {
@@ -22,6 +26,8 @@ public interface TaskMapper {
                 .formKey(taskInfo.getFormKey())
                 .candidateGroups(taskInfo.getCandidateGroups())
                 .candidateUsers(taskInfo.getCandidateUsers())
+                .customFields(taskInfo.getCustomFields().stream()
+                        .collect(Collectors.toMap(TaskCustomFields::getKey, TaskCustomFields::getValue)))
                 .build();
     }
 
@@ -46,11 +52,18 @@ public interface TaskMapper {
                             .value(authority.getValue())
                             .build())
                     .toList())
+                .customFields(entity.getCustomFields().stream()
+                    .map(customField -> TaskCustomFields.builder()
+                            .id(customField.getId())
+                            .key(customField.getKey())
+                            .value(customField.getValue())
+                            .build())
+                    .toList())
                 .build();
     }
 
     default TaskInfoEntity mapToTaskInfoEntity(final TaskInfo taskInfo) {
-        return TaskInfoEntity.builder()
+        final TaskInfoEntity taskInfoEntity = TaskInfoEntity.builder()
                 .id(taskInfo.getId())
                 .description(taskInfo.getDescription())
                 .definitionName(taskInfo.getDefinitionName())
@@ -58,6 +71,23 @@ public interface TaskMapper {
                 .assignee(taskInfo.getAssignee())
                 .formKey(taskInfo.getFormKey())
                 .build();
+        taskInfoEntity.setAuthorities(taskInfo.getAuthorities().stream()
+                .map(authority -> TaskAuthorityEntity.builder()
+                        .id(authority.getId())
+                        .type(authority.getType())
+                        .value(authority.getValue())
+                        .taskInfo(taskInfoEntity)
+                        .build())
+                .toList());
+        taskInfoEntity.setCustomFields(taskInfo.getCustomFields().stream()
+                .map(customField -> TaskCustomFieldEntity.builder()
+                        .id(customField.getId())
+                        .key(customField.getKey())
+                        .value(customField.getValue())
+                        .taskInfo(taskInfoEntity)
+                        .build())
+                .toList());
+        return taskInfoEntity;
     }
 
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -33,6 +34,7 @@ class UserTaskQueryImplTest {
             .processInstanceId("1")
             .candidateGroups(List.of("group1"))
             .formKey("exampleForm")
+            .customFields(Map.of("customField1", "value1"))
             .build(),
         Task.builder()
             .id("2")

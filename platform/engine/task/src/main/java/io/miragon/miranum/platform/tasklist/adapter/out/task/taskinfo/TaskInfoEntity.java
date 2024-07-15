@@ -35,7 +35,12 @@ public class TaskInfoEntity {
     @Column(name = "formkey_")
     private String formKey;
 
+    @Builder.Default
     @OneToMany(mappedBy = "taskInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TaskAuthorityEntity> authorities = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "taskInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TaskCustomFieldEntity> customFields = new ArrayList<>();
 
 }

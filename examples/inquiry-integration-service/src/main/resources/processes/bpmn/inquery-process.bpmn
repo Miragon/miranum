@@ -8,8 +8,8 @@
     <bpmn:userTask id="Activity_12rgiry" name="Check Resources" camunda:modelerTemplate="io.miranum.basis-usertask">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="app_task_description" />
-          <camunda:inputParameter name="app_task_form" />
+          <camunda:inputParameter name="miranum_task_form">check-resources</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_description">Überprüfe Kapazität</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0mci6qe</bpmn:incoming>
@@ -32,8 +32,8 @@
     <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="app_task_description" />
-          <camunda:inputParameter name="app_task_form" />
+          <camunda:inputParameter name="miranum_task_form">create-offer</camunda:inputParameter>
+          <camunda:inputParameter name="miranum_task_description">Create an offer based on inquiry</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0gbm3j2</bpmn:incoming>

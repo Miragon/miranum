@@ -3,7 +3,7 @@
     <module name="miranum-single-deployment-unit-example" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="io.miragon.miranum.platform.example.MiranumPlatformSDU" />
     <extension name="net.ashald.envfile">
-      <option name="IS_ENABLED" value="false" />
+      <option name="IS_ENABLED" value="true" />
       <option name="IS_SUBST" value="false" />
       <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
       <option name="IS_IGNORE_MISSING_FILES" value="false" />

@@ -2,6 +2,7 @@ package io.miragon.miranum.platform.tasklist.application.service;
 
 import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
+import io.miragon.miranum.platform.tasklist.TaskProperties;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
 import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
@@ -18,8 +19,9 @@ class TaskInfoServiceTest {
 
     private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
     private final MiranumProcessDefinitionPort miranumProcessDefinitionPort = mock(MiranumProcessDefinitionPort.class);
+    private final TaskProperties taskProperties = new TaskProperties();
 
-    private final TaskInfoUseCase taskInfoService = new TaskInfoService(taskOutPort, miranumProcessDefinitionPort);
+    private final TaskInfoUseCase taskInfoService = new TaskInfoService(taskOutPort, miranumProcessDefinitionPort, taskProperties);
 
     @Test
     void testCreateTask() {
@@ -51,6 +53,7 @@ class TaskInfoServiceTest {
         assertThat(taskInfoCaptor.getValue().getCandidateUsers()).isEmpty();
         assertThat(taskInfoCaptor.getValue().getCandidateGroups()).isEmpty();
         assertThat(taskInfoCaptor.getValue().getFormKey()).isBlank();
+        assertThat(taskInfoCaptor.getValue().getCustomFields()).isEmpty();
     }
 
     @Test

@@ -21,7 +21,7 @@ camunda:
         enable-exceptions-after-unhandled-bpmn-error: true
     database:
       schema-update: false
-    auto-deployment-enabled: false
+    auto-deployment-enabled: true
     admin-user:
       id: ${CAMUNDA_COCKPIT_USERNAME:demo}
       password: ${CAMUNDA_COCKPIT_PASSWORD:demo}
@@ -31,6 +31,7 @@ camunda:
     metrics:
       enabled: false
       db-reporter-activate: false
+    deployment-resource-pattern: "processes/*.bpmn"
 
 management:
   server:
@@ -136,3 +137,5 @@ miranum:
   tasklist:
     # if you want to disable the tasklist, set this to false
     enabled: true
+    # if you want a custom prefix for the tasklist custom fields, set this to your desired prefix
+    customFieldsPrefix: "miranum_task_"
