@@ -48,7 +48,6 @@ class ElementTemplateGeneratorMojoTest {
         mojo.platformSpecificConfig = new PlatformSpecificConfig();
         mojo.platformSpecificConfig.setC7(new Camunda7ConfigImpl());
         mojo.platformSpecificConfig.getC7().setAsyncBeforeDefaultValue(true);
-        mojo.platformSpecificConfig.getC7().setAsyncAfterDefaultValue(true);
 
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("test"));
 
@@ -88,10 +87,6 @@ class ElementTemplateGeneratorMojoTest {
     public void testExecuteWithMultipleAnnotatedMethods_ShouldGenerateElementTemplate() throws Exception {
         // Arrange
         mojo.targetPlatform = TargetPlatform.C7;
-        mojo.platformSpecificConfig = new PlatformSpecificConfig();
-        mojo.platformSpecificConfig.setC7(new Camunda7ConfigImpl());
-        mojo.platformSpecificConfig.getC7().setAsyncBeforeDefaultValue(true);
-        mojo.platformSpecificConfig.getC7().setAsyncAfterDefaultValue(true);
 
         // .class file gets generated in target/test-classes
         when(project.getCompileClasspathElements()).thenReturn(Collections.singletonList("target/test-classes"));

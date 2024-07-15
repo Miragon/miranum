@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Camunda7ConfigImpl implements Camunda7Configuration {
-    private Boolean asyncBeforeDefaultValue;
-    private Boolean asyncAfterDefaultValue;
+    private Boolean asyncBeforeDefaultValue = false;
+    private Boolean asyncAfterDefaultValue = false;
 }

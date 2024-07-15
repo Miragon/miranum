@@ -31,7 +31,7 @@
       "name" : "camunda:asyncBefore"
     }
   }, {
-    "value" : false,
+    "value" : true,
     "label" : "Async After",
     "type" : "Boolean",
     "editable" : true,

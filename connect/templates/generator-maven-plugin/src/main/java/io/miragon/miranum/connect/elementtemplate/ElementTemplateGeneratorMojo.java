@@ -74,7 +74,7 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException {
         if (Objects.isNull(targetPlatform)) {
-            getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: camunda7 or Camunda8");
+            getLog().info("Element-Template generation failed. Please configure a target platform. Valid target platforms are: C7 or C8.");
             return;
         }
 
@@ -163,11 +163,8 @@ public class ElementTemplateGeneratorMojo extends AbstractMojo {
     }
 
     private PlatformSpecificConfig createDefaultPlatformSpecificConfig() {
-        var c7Config = new Camunda7ConfigImpl();
-        c7Config.setAsyncBeforeDefaultValue(false);
-        c7Config.setAsyncAfterDefaultValue(false);
-
         var config = new PlatformSpecificConfig();
+        var c7Config = new Camunda7ConfigImpl();
         config.setC7(c7Config);
 
         return config;
