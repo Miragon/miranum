@@ -1,14 +1,12 @@
-package io.miragon.miranum.platform.security.authentication;
+package io.miragon.miranum.platform.example.shared.configuration;
 
-import io.miragon.miranum.platform.security.SpringSecurityProperties;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
@@ -22,31 +20,13 @@ import java.util.List;
 @Profile("!no-security")
 @RequiredArgsConstructor
 @Slf4j
-public class UserAuthenticationProviderImpl implements UserAuthenticationProvider {
+public class UserAuthenticationProvider {
 
     public static final String NAME_UNAUTHENTICATED_USER = "unauthenticated";
-    private final SpringSecurityProperties springSecurityProperties;
-    private final ClientRegistrationRepository clientRegistrationRepository;
+
+    @Value("${spring.security.oauth2.client.provider.keycloak.user-name-attribute}")
     private String userNameAttribute;
 
-    @PostConstruct
-    public void getUsernameAttributeName() {
-        try {
-            userNameAttribute = clientRegistrationRepository
-                    .findByRegistrationId(springSecurityProperties.getClientRegistration())
-                    .getProviderDetails()
-                    .getUserInfoEndpoint()
-                    .getUserNameAttributeName();
-        } catch (Exception e) {
-            userNameAttribute = "user_name";
-            log.error("Error reading username attribute for configured client registration {}. Falling back to {}",
-                    springSecurityProperties.getClientRegistration(),
-                    userNameAttribute,
-                    e);
-        }
-    }
-
-    @Override
     @NonNull
     public String getLoggedInUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,7 +36,6 @@ public class UserAuthenticationProviderImpl implements UserAuthenticationProvide
         return NAME_UNAUTHENTICATED_USER;
     }
 
-    @Override
     @NonNull
     public List<String> getLoggedInUserRoles() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

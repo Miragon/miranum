@@ -4,8 +4,9 @@ info:
     version: '@project.version@'
 
 camunda:
-  authorization:
-    enabled: true
+  sso:
+    webapp-role: "${SSO_ENGINE_CLIENT_ID}:${WEBAPP_REQUIRED_ROLE}"
+    worker-role: "${SSO_ENGINE_CLIENT_ID}:${WORKER_REQUIRED_ROLE}"
   bpm:
     authorization:
       enabled: false
@@ -87,10 +88,9 @@ spring:
   flyway:
     enabled: true
     locations: "classpath:db/migration/{vendor}"
-
   security:
     oauth2:
-      resourceserver:
+      resource-server:
         jwt:
           issuer-uri: ${SSO_ISSUER_URL}
       client:
@@ -103,7 +103,7 @@ spring:
         registration:
           keycloak:
             provider: keycloak
-            client-id: ${SSO_ENGINE_CLIENT_ID}
+            client-id: ${}
             client-secret: ${SSO_ENGINE_CLIENT_SECRET}
             scope: email, profile, openid
 
@@ -121,19 +121,6 @@ springdoc:
   writer-with-default-pretty-printer: true
 
 miranum:
-  # override default security settings
-  security:
-    permittedUrls:
-      - "/error"
-      - "/actuator/**"
-      - "/engine-rest/deployment"
-      - "/api/deployment"
-      - "/swagger-ui/index.html" # allow access to swagger
-      - "/swagger-ui*/*swagger-initializer.js" # allow access to swagger
-      - "/swagger-ui*/**" # allow access to swagger
-      - "/v3/api-docs/*" # allow access to swagger
-      - "/v3/api-docs" # allow access to swagger
-      - "/camunda/**" # allow camunda webapps
   tasklist:
     # if you want to disable the tasklist, set this to false
     enabled: true
