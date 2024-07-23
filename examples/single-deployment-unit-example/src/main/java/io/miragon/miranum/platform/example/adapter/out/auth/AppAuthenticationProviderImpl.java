@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.example.adapter.out.auth;
 
 import io.miragon.miranum.platform.engine.api.AppAuthenticationProvider;
-import io.miragon.miranum.platform.example.shared.configuration.UserAuthenticationProvider;
+import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

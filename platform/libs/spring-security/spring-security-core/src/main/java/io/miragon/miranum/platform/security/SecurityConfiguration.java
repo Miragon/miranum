@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * The central class for configuration of all security aspects.
  */
-@Configuration
 @Profile("!no-security")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
