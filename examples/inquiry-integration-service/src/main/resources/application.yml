@@ -21,8 +21,8 @@ miranum:
         url: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/token
     client:
       enabled: true
-      clientId: ${SSO_WORKER_CLIENT_ID}
-      clientSecret: ${SSO_WORKER_CLIENT_SECRET}
+      clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
+      clientSecret: ${SSO_INQUIRY_WORKER_CLIENT_SECRET}
     permittedUrls:
       - "/error"
       - "/actuator/**"

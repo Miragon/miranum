@@ -7,33 +7,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationInitializer {
 
-    @Value("${camunda.sso.webapp-role}")
-    private String webAppRole;
-
-    @Value("${camunda.sso.worker-role}")
-    private String workerRole;
-
-    public AuthenticationInitializer(AuthorizationService authorizationService) {
+    public AuthenticationInitializer(
+            @Value("${camunda.sso.webapps-role}") String webappsRole,
+            @Value("${camunda.sso.worker-role}") String workerRole,
+            AuthorizationService authorizationService
+    ) {
 
         // User with admin rights
-        AuthorizationHelper.setupGroupAppPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupProcessDefinitionPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupProcessInstancePermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupUserTaskPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupHistoricTaskPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupHistoricProcessInstancePermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupBatchPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupDashboardPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupReportPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupOpLogPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupDeploymentPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupDecisionRequirementPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupDecisionPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupSystemPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupAuthorizationPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupGroupPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupGroupMembershipPermissions(authorizationService, webAppRole);
-        AuthorizationHelper.setupGroupUserPermissions(authorizationService, webAppRole);
+        AuthorizationHelper.setupGroupAppPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupProcessDefinitionPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupProcessInstancePermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupUserTaskPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupHistoricTaskPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupHistoricProcessInstancePermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupBatchPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupDashboardPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupReportPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupOpLogPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupDeploymentPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupDecisionRequirementPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupDecisionPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupSystemPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupAuthorizationPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupGroupPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupGroupMembershipPermissions(authorizationService, webappsRole);
+        AuthorizationHelper.setupGroupUserPermissions(authorizationService, webappsRole);
 
         // Worker
         AuthorizationHelper.setupGroupAppPermissions(authorizationService, workerRole);

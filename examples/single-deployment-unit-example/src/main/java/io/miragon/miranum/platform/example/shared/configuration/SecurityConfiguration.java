@@ -42,8 +42,8 @@ public class SecurityConfiguration {
     private final TokenParsingOAuth2UserService oAuth2UserService;
     private final GrantedAuthoritiesExtractor grantedAuthoritiesExtractor;
 
-    @Value("${camunda.sso.webapp-role}")
-    private String webAppRole;
+    @Value("${camunda.sso.webapps-role}")
+    private String webappsRole;
 
     @Value("${camunda.sso.worker-role}")
     private String workerRole;
@@ -69,7 +69,7 @@ public class SecurityConfiguration {
                                 antMatcher("/api/**"),
                                 antMatcher("/assets/**"),
                                 antMatcher("/lib/**")
-                        ).hasRole(webAppRole)
+                        ).hasRole(webappsRole)
                 ).oauth2Login(
                         oauth2Login -> oauth2Login
                                 .authorizationEndpoint(endpoint ->

@@ -5,12 +5,14 @@ info:
 
 camunda:
   sso:
-    webapp-role: "${SSO_ENGINE_CLIENT_ID}:${WEBAPP_REQUIRED_ROLE}"
-    worker-role: "${SSO_ENGINE_CLIENT_ID}:${WORKER_REQUIRED_ROLE}"
+    webapps-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WEBAPPS_REQUIRED_ROLE}"
+    worker-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WORKER_REQUIRED_ROLE}"
   bpm:
     authorization:
-      enabled: false
+      enabled: true
     job-executor-acquire-by-priority: true
+    webapp:
+      index-redirect-enabled: true
     generic-properties:
       properties:
         history-time-to-live: '185'
@@ -23,10 +25,6 @@ camunda:
     database:
       schema-update: false
     auto-deployment-enabled: true
-    admin-user:
-      id: ${CAMUNDA_COCKPIT_USERNAME:demo}
-      password: ${CAMUNDA_COCKPIT_PASSWORD:demo}
-      firstName: ${CAMUNDA_COCKPIT_USER_FIRSTNAME:Demo}
     filter:
       create: All tasks
     metrics:
@@ -99,7 +97,7 @@ spring:
             issuer-uri: ${SSO_ISSUER_URL}
             user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
             # jwk-set-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/certs
-            user-name-attribute: user_name
+            user-name-attribute: email
         registration:
           keycloak:
             provider: keycloak
