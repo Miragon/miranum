@@ -79,8 +79,9 @@ public class SecurityConfiguration {
                                         .userService(oAuth2UserService)
                                         .oidcUserService(new TokenParsingOidcUserService(oAuth2UserService))
                                 )
-                                .loginProcessingUrl("/camunda" + OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI)
+                                .loginProcessingUrl(OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI)
                                 .loginPage("/camunda" + OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI + "/" + registration)
+                                .successHandler((request, response, authentication) -> response.sendRedirect( "/camunda/app/cockpit/default/"))
                 )
                 // oAuth2 service accounts via keycloak
                 .authorizeHttpRequests(authorize -> authorize

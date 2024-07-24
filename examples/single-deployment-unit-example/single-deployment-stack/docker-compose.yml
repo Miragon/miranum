@@ -1,5 +1,4 @@
 # Use this only in dev environments. It's not intended for production usage.
-version: '3.9'
 services:
 
   keycloak:
