@@ -72,11 +72,6 @@ public class GrantedAuthoritiesExtractor implements Converter<Jwt, AbstractAuthe
         return new JwtAuthenticationToken(jwt, authorities, principalClaimValue);
     }
 
-    public void setPrincipalClaimName(String principalClaimName) {
-        Assert.hasText(principalClaimName, "principalClaimName cannot be empty");
-        this.principalClaimName = principalClaimName;
-    }
-
     protected Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
 
         // Retrieve client roles of all clients

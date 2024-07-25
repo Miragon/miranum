@@ -30,7 +30,7 @@ spring:
             token-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/token
             user-info-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/userinfo
             jwk-set-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/certs
-            user-name-attribute: ${miranum.security.auth.server.user-name-attribute}
+            user-name-attribute: ${miranum.security.server.user-name-attribute}
         registration:
           keycloak:
             provider: keycloak

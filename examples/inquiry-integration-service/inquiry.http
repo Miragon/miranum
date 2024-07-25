@@ -31,7 +31,7 @@ Authorization: Bearer {{ access_token }}
 
 
 ### Get Group Tasks for group1
-GET http://localhost:8083/rest/task/group/group1
+GET http://localhost:8083/rest/task/group/sales-department
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 Authorization: Bearer {{ access_token }}
 
 {
-  "assignee": "alex.admin"
+  "assignee": "alex.admin@example.com"
 }
 
 

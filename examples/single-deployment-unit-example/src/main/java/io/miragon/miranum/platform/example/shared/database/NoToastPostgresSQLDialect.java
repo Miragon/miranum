@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.shared.configuration;
+package io.miragon.miranum.platform.example.shared.database;
 
 import lombok.val;
 import org.hibernate.boot.model.TypeContributions;

@@ -89,24 +89,6 @@ spring:
   flyway:
     enabled: true
     locations: "classpath:db/migration/{vendor}"
-  security:
-    oauth2:
-      resource-server:
-        jwt:
-          issuer-uri: ${SSO_ISSUER_URL}
-      client:
-        provider:
-          keycloak:
-            issuer-uri: ${SSO_ISSUER_URL}
-            authorization-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/auth
-            user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
-            user-name-attribute: email
-        registration:
-          keycloak:
-            provider: keycloak
-            client-id: ${SSO_ENGINE_CLIENT_ID}
-            client-secret: ${SSO_ENGINE_CLIENT_SECRET}
-            scope: email, profile, openid
 
 springdoc:
   packagesToScan: io.miragon.miranum.platform
@@ -122,6 +104,14 @@ springdoc:
   writer-with-default-pretty-printer: true
 
 miranum:
+  security:
+    server:
+      base-url: ${SSO_BASE_URL}
+      realm: ${SSO_REALM}
+      user-name-attribute: email
+    client:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientSecret: ${SSO_ENGINE_CLIENT_SECRET}
   tasklist:
     # if you want to disable the tasklist, set this to false
     enabled: true

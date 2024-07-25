@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.shared.configuration;
+package io.miragon.miranum.platform.example.shared.security;
 
 import io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesExtractor;
 import io.miragon.miranum.platform.example.engine.sso.TokenParsingOAuth2UserService;
@@ -68,7 +68,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 antMatcher("/camunda/**"),
-                                antMatcher("/api/**"),
+                                antMatcher("/rest/**"),
                                 antMatcher("/assets/**"),
                                 antMatcher("/lib/**")
                         ).hasRole(webappsRole)
@@ -99,7 +99,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .requestMatchers(
                                 antMatcher("/engine-rest/**"),
-                                antMatcher("/api/**")
+                                antMatcher("/rest/**")
                         ).hasRole(workerRole)
                 ).oauth2ResourceServer(resource -> resource
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(grantedAuthoritiesExtractor))
