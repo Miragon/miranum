@@ -3,20 +3,30 @@ package io.miragon.miranum.platform.security;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @ConfigurationProperties(prefix = "miranum.security")
 public class SpringSecurityProperties {
-    /**
-     * Name of the registration used in main security protection (as resource server).
-     */
-    private String clientRegistration = "keycloak";
 
-    private String[] permittedUrls = {
-            "/error", // allow the error page
-            "/actuator/info", // allow access to /actuator/info
-            "/actuator/health", // allow access to /actuator/health for OpenShift Health Check
-            "/actuator/metrics", // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
-            "/engine-rest/deployment"
-    };
+    private String clientRegistration;
+    private List<String> permittedUrls = new ArrayList<>();
+    private Server server = new Server();
+    private Client client = new Client();
+
+    @Data
+    public static class Server {
+        private String baseUrl;
+        private String realm;
+        private String userNameAttribute;
+    }
+
+    @Data
+    public static class Client {
+        private String enabled;
+        private String clientId;
+        private String clientSecret;
+    }
 
 }

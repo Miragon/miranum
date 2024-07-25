@@ -22,8 +22,7 @@ import static io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesE
 public class ServiceAccountAuthenticationProvider {
 
     public static final String NAME_UNAUTHENTICATED = "unauthenticated";
-    private final static String SERVICE_ACCOUNT_CLIENT_NAME_CLAIM = "client_id";
-    private final static String SERVICE_ACCOUNT_TENANT_CLAIM = "name";
+    private final static String SERVICE_ACCOUNT_CLIENT_NAME_CLAIM = "clientId";
 
     public String getLoggedInUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,15 +34,7 @@ public class ServiceAccountAuthenticationProvider {
     }
 
     public List<String> getTenant() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AbstractAuthenticationToken && authentication.getPrincipal() instanceof Jwt jwt) {
-            String tenant = (String) jwt.getClaims().get(SERVICE_ACCOUNT_TENANT_CLAIM);
-            if (Objects.isNull(tenant)) {
-                return Collections.emptyList();
-            }
-            return List.of(tenant);
-        }
-        return Collections.emptyList();
+        return List.of("default");
     }
 
     public Set<String> getLoggedInUserRoles() {

@@ -1,11 +1,10 @@
 miranum:
   security:
     client-registration: keycloak
-    auth:
-      server:
-        base-url:
-        realm:
-        user-name-attribute: email
+    server:
+      base-url:
+      realm:
+      user-name-attribute: preferred_username
     client:
       enabled: true
       clientId:
@@ -22,11 +21,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${miranum.security.auth.server.base-url}/realms/${miranum.security.auth.server.realm}
+          issuer-uri: ${miranum.security.server.base-url}/realms/${miranum.security.server.realm}
       client:
         provider:
           keycloak:
-            issuer-uri: ${miranum.security.auth.server.base-url}/realms/${miranum.security.auth.server.realm}
+            issuer-uri: ${miranum.security.server.base-url}/realms/${miranum.security.server.realm}
             authorization-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/auth
             token-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/token
             user-info-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/userinfo

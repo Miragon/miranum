@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,8 +20,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Configuration
+@Profile("!no-security")
 public class Camunda7oAuthAutoConfiguration {
 
     @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
@@ -31,6 +35,10 @@ public class Camunda7oAuthAutoConfiguration {
 
     @Value("${spring.security.oauth2.client.registration.keycloak.client-secret}")
     private String clientSecret;
+
+    private String cachedToken;
+    private Instant tokenExpiry;
+    private final ReentrantLock lock = new ReentrantLock();
 
     @Bean
     public ClientRequestInterceptor interceptor() {
@@ -51,17 +59,31 @@ public class Camunda7oAuthAutoConfiguration {
     }
 
     public String getAccessToken() {
+        lock.lock();
+        try {
+            if (cachedToken == null || Instant.now().isAfter(tokenExpiry)) {
+                fetchAndCacheToken();
+            }
+            return "Bearer " + cachedToken;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    private void fetchAndCacheToken() {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth(this.clientId, this.clientSecret);
 
         final MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "client_credentials");
-        map.add("client_id", this.clientId);
-        map.add("client_secret", this.clientSecret);
 
         final HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
         final ResponseEntity<JsonNode> response = new RestTemplate().postForEntity(this.authServerUrl, request, JsonNode.class);
-        return "Bearer " + response.getBody().get("access_token").asText();
-    }
 
+        JsonNode body = response.getBody();
+        this.cachedToken = body.get("access_token").asText();
+        int expiresIn = body.get("expires_in").asInt();
+        this.tokenExpiry = Instant.now().plusSeconds(expiresIn - 10); // refresh token 10 sec before it actually expires
+    }
 }

@@ -24,12 +24,10 @@ public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthen
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt source) {
-
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         if (source.getClaims().containsKey((CLAIM_ROLES))) {
             authorities.addAll(asAuthorities(source.getClaims().get(CLAIM_ROLES)));
         }
-
         return new JwtAuthenticationToken(source, authorities);
     }
 

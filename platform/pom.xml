@@ -99,11 +99,6 @@
                 <artifactId>miranum-unit-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.miragon.miranum.platform</groupId>
-                <artifactId>spring-security-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

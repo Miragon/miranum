@@ -15,11 +15,10 @@ spring:
 
 miranum:
   security:
-    auth:
-      server:
-        base-url: ${SSO_BASE_URL}
-        realm: ${SSO_REALM}
-        user-name-attribute: email
+    server:
+      base-url: ${SSO_BASE_URL}
+      realm: ${SSO_REALM}
+      user-name-attribute: email
     client:
       clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
       clientSecret: ${SSO_INQUIRY_WORKER_CLIENT_SECRET}
@@ -31,3 +30,7 @@ miranum:
       - "/swagger-ui*/**" # allow access to swagger
       - "/v3/api-docs/*" # allow access to swagger
       - "/v3/api-docs" # allow access to swagger
+
+logging:
+  level:
+    root: debug

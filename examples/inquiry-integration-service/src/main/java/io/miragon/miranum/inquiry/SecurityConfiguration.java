@@ -1,7 +1,8 @@
-package io.miragon.miranum.platform.security;
+package io.miragon.miranum.inquiry;
 
+import io.miragon.miranum.platform.security.JwtAuthenticationConverter;
+import io.miragon.miranum.platform.security.SpringSecurityProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,9 +20,10 @@ import org.springframework.security.web.SecurityFilterChain;
  * The central class for configuration of all security aspects.
  */
 @Profile("!no-security")
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
 
     private final SpringSecurityProperties springSecurityProperties;
@@ -29,7 +31,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http, Converter<Jwt, AbstractAuthenticationToken> converter) throws Exception {
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers(springSecurityProperties.getPermittedUrls())
+                        auth.requestMatchers(springSecurityProperties.getPermittedUrls().toArray(new String[0]))
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
@@ -46,4 +48,5 @@ public class SecurityConfiguration {
 
 
 }
+
 
