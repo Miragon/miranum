@@ -1,28 +1,40 @@
 miranum:
   security:
     client-registration: keycloak
+    auth:
+      server:
+        base-url:
+        realm:
+        user-name-attribute: email
+    client:
+      enabled: true
+      clientId:
+      clientSecret:
     permitted-urls:
       - /error # allow the error page
       - /actuator/info # allow access to /actuator/info
-      - /actuator/health #  allow access to /actuator/health for OpenShift Health Check
-      - /actuator/metrics # allow access to /actuator/metrics for Prometheus monitoring in OpenShift
+      - /actuator/health #  allow access to /actuator/health
+      - /actuator/metrics # allow access to /actuator/metrics
+
 
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${SSO_ISSUER_URL}
+          issuer-uri: ${miranum.security.auth.server.base-url}/realms/${miranum.security.auth.server.realm}
       client:
         provider:
           keycloak:
-            issuer-uri: ${SSO_ISSUER_URL}
-            user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
-            jwk-set-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/certs
-            user-name-attribute: user_name
+            issuer-uri: ${miranum.security.auth.server.base-url}/realms/${miranum.security.auth.server.realm}
+            authorization-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/auth
+            token-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/token
+            user-info-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${spring.security.oauth2.client.provider.keycloak.issuer-uri}/protocol/openid-connect/certs
+            user-name-attribute: ${miranum.security.auth.server.user-name-attribute}
         registration:
           keycloak:
             provider: keycloak
-            client-id: ${SSO_ENGINE_CLIENT_ID}
-            client-secret: ${SSO_ENGINE_CLIENT_SECRET}
+            client-id: ${miranum.security.client.clientId}
+            client-secret: ${miranum.security.client.clientSecret}
             scope: email, profile, openid  # needed for userInfo endpoint

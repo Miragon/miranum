@@ -23,13 +23,13 @@ import java.io.IOException;
 @Configuration
 public class Camunda7oAuthAutoConfiguration {
 
-    @Value("${miranum.security.auth.server.url}")
+    @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
     private String authServerUrl;
 
-    @Value("${miranum.security.client.clientId}")
+    @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
     private String clientId;
 
-    @Value("${miranum.security.client.clientSecret}")
+    @Value("${spring.security.oauth2.client.registration.keycloak.client-secret}")
     private String clientSecret;
 
     @Bean

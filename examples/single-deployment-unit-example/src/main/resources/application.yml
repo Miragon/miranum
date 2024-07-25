@@ -3,7 +3,7 @@ info:
     name: '@project.artifactId@'
     version: '@project.version@'
 
-camunda:
+camunda: # https://docs.camunda.org/manual/7.21/user-guide/spring-boot-integration/configuration
   sso:
     webapps-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WEBAPPS_REQUIRED_ROLE}"
     worker-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WORKER_REQUIRED_ROLE}"
@@ -13,6 +13,9 @@ camunda:
     job-executor-acquire-by-priority: true
     webapp:
       index-redirect-enabled: true
+      header-security:
+        xss-protection-option: SANITIZE # to show keycloak logout page
+        content-security-policy-disabled: true # to show keycloak logout page
     generic-properties:
       properties:
         history-time-to-live: '185'
@@ -24,12 +27,12 @@ camunda:
         enable-exceptions-after-unhandled-bpmn-error: true
     database:
       schema-update: false
-    auto-deployment-enabled: true
     filter:
       create: All tasks
     metrics:
       enabled: false
       db-reporter-activate: false
+    auto-deployment-enabled: false
     deployment-resource-pattern: "processes/*.bpmn"
 
 management:
@@ -95,6 +98,7 @@ spring:
         provider:
           keycloak:
             issuer-uri: ${SSO_ISSUER_URL}
+            authorization-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/auth
             user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
             user-name-attribute: email
         registration:
@@ -114,7 +118,7 @@ springdoc:
       realm: ${SSO_REALM}
       appName: Engine
     csrf:
-      enabled: false
+      enabled: true
   writer-with-default-pretty-printer: true
 
 miranum:

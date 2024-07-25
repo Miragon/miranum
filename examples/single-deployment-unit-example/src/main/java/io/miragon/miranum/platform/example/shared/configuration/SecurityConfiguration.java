@@ -5,6 +5,7 @@ import io.miragon.miranum.platform.example.engine.sso.TokenParsingOAuth2UserServ
 import io.miragon.miranum.platform.example.engine.sso.TokenParsingOidcUserService;
 import io.miragon.miranum.platform.example.engine.sso.rest.RestExceptionHandler;
 import io.miragon.miranum.platform.example.engine.sso.webapp.OAuthContainerBasedAuthenticationProvider;
+import io.miragon.miranum.platform.example.engine.sso.webapp.OAuthLogoutHandler;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class SecurityConfiguration {
 
     private final TokenParsingOAuth2UserService oAuth2UserService;
     private final GrantedAuthoritiesExtractor grantedAuthoritiesExtractor;
+    private final OAuthLogoutHandler oAuthLogoutHandler;
 
     @Value("${camunda.sso.webapps-role}")
     private String webappsRole;
@@ -70,7 +72,8 @@ public class SecurityConfiguration {
                                 antMatcher("/assets/**"),
                                 antMatcher("/lib/**")
                         ).hasRole(webappsRole)
-                ).oauth2Login(
+                )
+                .oauth2Login(
                         oauth2Login -> oauth2Login
                                 .authorizationEndpoint(endpoint ->
                                         endpoint.baseUri("/camunda" + OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI)
@@ -82,6 +85,9 @@ public class SecurityConfiguration {
                                 .loginProcessingUrl(OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI)
                                 .loginPage("/camunda" + OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI + "/" + registration)
                                 .successHandler((request, response, authentication) -> response.sendRedirect( "/camunda/app/cockpit/default/"))
+                ).logout(logout -> logout
+                        .logoutRequestMatcher(antMatcher("/camunda/**/logout"))
+                        .logoutSuccessHandler(oAuthLogoutHandler)
                 )
                 // oAuth2 service accounts via keycloak
                 .authorizeHttpRequests(authorize -> authorize
