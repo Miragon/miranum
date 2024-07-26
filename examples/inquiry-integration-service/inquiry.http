@@ -30,7 +30,7 @@ Authorization: Bearer {{ access_token }}
 %}
 
 
-### Get Group Tasks for group1
+### Get Group Tasks for sales-department
 GET http://localhost:8083/rest/task/group/sales-department
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
@@ -41,7 +41,7 @@ Authorization: Bearer {{ access_token }}
 %}
 
 
-### Claim Task for user alex.admin
+### Claim Task for user Alex Admin
 POST http://localhost:8083/rest/task/{{group_task_id}}/assign
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}
@@ -63,7 +63,7 @@ Authorization: Bearer {{ access_token }}
 }
 
 
-### Get assigned Tasks for user alex.admin
+### Get assigned Tasks for user Alex Admin
 GET http://localhost:8083/rest/task/user
 Content-Type: application/json
 Authorization: Bearer {{ access_token }}

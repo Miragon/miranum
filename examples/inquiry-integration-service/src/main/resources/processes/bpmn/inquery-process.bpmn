@@ -29,7 +29,7 @@
       <bpmn:incoming>Flow_066p5i1</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_066p5i1" sourceRef="Activity_15vhg4s" targetRef="Event_1m92ie7" />
-    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:candidateUsers="alex.admin">
+    <bpmn:userTask id="Activity_0iahoe8" name="Create Offer" camunda:modelerTemplate="io.miranum.basis-usertask" camunda:candidateUsers="alex.admin@example.com">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="miranum_task_form">create-offer</camunda:inputParameter>
