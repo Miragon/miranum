@@ -114,7 +114,7 @@ class UserTaskQueryImplTest {
 
         when(taskOutPort.getTask(taskId)).thenReturn(tasks);
 
-        final Task result = userTaskQuery.getTask(user, taskId);
+        final Task result = userTaskQuery.getTask(taskId, user);
 
         assertThat(result)
                 .isNotNull()
@@ -136,7 +136,7 @@ class UserTaskQueryImplTest {
                 .formKey("exampleForm")
                 .build());
 
-        assertThatThrownBy(() -> userTaskQuery.getTask(user, taskId))
+        assertThatThrownBy(() -> userTaskQuery.getTask(taskId, user))
                 .isInstanceOf(TaskAccessDeniedException.class)
                 .hasMessage("User notAssignedUser has no access to task 5");
     }

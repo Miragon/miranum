@@ -28,7 +28,7 @@ public class UserTaskQueryImpl implements UserTaskQuery {
     }
 
     @Override
-    public Task getTask(final String user, final String taskId) throws TaskAccessDeniedException {
+    public Task getTask(final String taskId, final String user) throws TaskAccessDeniedException {
         final Task task = this.taskOutPort.getTask(taskId);
         return userTaskAccessProvider.hasAccess(task, user);
     }

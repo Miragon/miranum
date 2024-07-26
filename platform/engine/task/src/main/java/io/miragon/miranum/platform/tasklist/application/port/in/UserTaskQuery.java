@@ -11,5 +11,5 @@ public interface UserTaskQuery {
 
     List<Task> getTasksForUser(final String user);
 
-    Task getTask(final String user, final String taskId);
+    Task getTask(final String taskId, final String user);
 }
