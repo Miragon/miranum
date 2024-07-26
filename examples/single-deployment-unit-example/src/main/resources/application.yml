@@ -117,3 +117,6 @@ miranum:
     enabled: true
     # if you want a custom prefix for the tasklist custom fields, set this to your desired prefix
     customFieldsPrefix: "miranum_task_"
+logging:
+  level:
+    root: debug

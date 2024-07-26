@@ -57,7 +57,7 @@ public class SecurityConfiguration {
 
         return http
                 .csrf(csrf -> csrf.ignoringRequestMatchers(
-                        antMatcher("/api/**"),
+                        antMatcher("/rest/**"),
                         antMatcher("/assets/**"),
                         antMatcher("/lib/**"),
                         antMatcher("/actuator/**"),
