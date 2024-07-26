@@ -14,15 +14,14 @@ spring:
     name: '@project.artifactId@'
 
 miranum:
-  # override default security settings
   security:
-    auth:
-      server:
-        url: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/token
+    server:
+      base-url: ${SSO_BASE_URL}
+      realm: ${SSO_REALM}
+      user-name-attribute: email
     client:
-      enabled: true
-      clientId: ${SSO_WORKER_CLIENT_ID}
-      clientSecret: ${SSO_WORKER_CLIENT_SECRET}
+      clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
+      clientSecret: ${SSO_INQUIRY_WORKER_CLIENT_SECRET}
     permittedUrls:
       - "/error"
       - "/actuator/**"

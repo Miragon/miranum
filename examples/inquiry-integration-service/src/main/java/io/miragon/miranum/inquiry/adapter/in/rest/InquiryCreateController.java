@@ -5,7 +5,6 @@ import io.miragon.miranum.inquiry.adapter.in.rest.model.NewInquiryResponseDto;
 import io.miragon.miranum.inquiry.application.port.in.InquiryReceived;
 import io.miragon.miranum.inquiry.application.port.in.model.NewInquiryCommand;
 import io.miragon.miranum.inquiry.domain.InquiryId;
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

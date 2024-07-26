@@ -1,5 +1,4 @@
 # Use this only in dev environments. It's not intended for production usage.
-version: '3.9'
 services:
 
   keycloak:
@@ -12,7 +11,7 @@ services:
       - '9090:9090'
     command: 'start-dev --http-relative-path /auth --http-port=9090'
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:9090/auth/realms/miranum/.well-known/openid-configuration" ]
+      test: [ "CMD", "curl", "-f", "http://keycloak:9090/auth/health" ]
       interval: 5s
       timeout: 2s
       retries: 30
@@ -21,11 +20,12 @@ services:
     environment:
       KC_HOSTNAME: keycloak # this hostname must be resolved to 127.0.0.1 locally. Add it to your hosts file.
       KC_HOSTNAME_STRICT: 'false'
+      KC_HEALTH_ENABLED: 'true'
       KC_DB: ${LOCAL_KEYCLOAK_DB_VENDOR}
-      KC_TRANSACTION_XA_ENABLED: 'false'
       KC_DB_URL: ${SSO_DATASOURCE_URL}
       KC_DB_USERNAME: ${SSO_DATASOURCE_USERNAME}
       KC_DB_PASSWORD: ${SSO_DATASOURCE_PASSWORD}
+      KC_TRANSACTION_XA_ENABLED: 'false'
       KEYCLOAK_ADMIN: ${SSO_ADMIN:-admin}
       KEYCLOAK_ADMIN_PASSWORD: ${SSO_ADMIN_PASSWORD:-admin}
     networks:

@@ -16,7 +16,7 @@ public class TaskInfoListener {
     private final TaskInfoUseCase taskInfoInPort;
 
     @EventListener
-    public void taskInfoListeners(final DelegateTask delegateTask) throws Exception {
+    public void taskInfoListeners(final DelegateTask delegateTask) {
         switch (delegateTask.getEventName()) {
             case "create":
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());

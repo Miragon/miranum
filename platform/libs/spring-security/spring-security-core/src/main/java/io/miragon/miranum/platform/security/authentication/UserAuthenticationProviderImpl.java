@@ -1,6 +1,5 @@
 package io.miragon.miranum.platform.security.authentication;
 
-import io.miragon.miranum.platform.security.SecurityConfiguration;
 import io.miragon.miranum.platform.security.SpringSecurityProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -20,34 +19,20 @@ import java.util.List;
  * Extracts the username from the token.
  */
 @Component
-@Profile(SecurityConfiguration.SECURITY)
+@Profile("!no-security")
 @RequiredArgsConstructor
 @Slf4j
 public class UserAuthenticationProviderImpl implements UserAuthenticationProvider {
 
     public static final String NAME_UNAUTHENTICATED_USER = "unauthenticated";
     private final SpringSecurityProperties springSecurityProperties;
-    private final ClientRegistrationRepository clientRegistrationRepository;
-    private String userNameAttribute;
-
-    @PostConstruct
-    public void getUsernameAttributeName() {
-        try {
-            userNameAttribute = clientRegistrationRepository.findByRegistrationId(springSecurityProperties.getClientRegistration())
-                    .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-        } catch (Exception e) {
-            userNameAttribute = "user_name";
-            log.error("Error reading username attribute for configured client registration "
-                    + springSecurityProperties.getClientRegistration() + ". Falling back to " + userNameAttribute, e);
-        }
-    }
 
     @Override
     @NonNull
     public String getLoggedInUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof Jwt jwt) {
-            return (String) jwt.getClaims().get(userNameAttribute);
+            return (String) jwt.getClaims().get(springSecurityProperties.getServer().getUserNameAttribute());
         }
         return NAME_UNAUTHENTICATED_USER;
     }

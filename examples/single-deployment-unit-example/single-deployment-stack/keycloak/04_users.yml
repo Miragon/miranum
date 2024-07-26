@@ -1,7 +1,8 @@
 id: users
-author: Miranum
+author: Miragon
 realm: ${SSO_REALM}
 changes:
+
   - addUser:
       name: alex
       firstName: Alex
@@ -9,21 +10,15 @@ changes:
       enabled: true
       emailVerified: true
       email: alex.admin@example.com
-      attributes:
-        user_name:
-          - alex.admin
       clientRoles:
         - client: ${SSO_ENGINE_CLIENT_ID}
-          role: clientrole_deployer
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: clientrole_task_importer
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: admin
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: group1
+          role: ${SSO_ENGINE_WEBAPPS_REQUIRED_ROLE}
+        - client: ${SSO_INQUIRY_CLIENT_ID}
+          role: sales-department
   - updateUserPassword:
       name: alex
       password: "test"
+
   - addUser:
       name: oliver
       firstName: Oliver
@@ -31,17 +26,13 @@ changes:
       enabled: true
       emailVerified: true
       email: oliver.office@example.com
-      attributes:
-        user_name:
-          - oliver.office
       clientRoles:
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: office
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: group1
+        - client: ${SSO_INQUIRY_CLIENT_ID}
+          role: sales-department
   - updateUserPassword:
       name: oliver
       password: "test"
+
   - addUser:
       name: olga
       firstName: Olga
@@ -49,14 +40,9 @@ changes:
       enabled: true
       emailVerified: true
       email: olga.office@example.com
-      attributes:
-        user_name:
-          - olga.office
       clientRoles:
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: office
-        - client: ${SSO_ENGINE_CLIENT_ID}
-          role: group1
+        - client: ${SSO_INQUIRY_CLIENT_ID}
+          role: sales-department
   - updateUserPassword:
       name: olga
       password: "test"

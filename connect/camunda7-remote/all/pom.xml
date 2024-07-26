@@ -39,11 +39,6 @@
             <artifactId>element-templates-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
-            <artifactId>oauth-camunda7-remote</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>

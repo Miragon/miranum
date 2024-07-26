@@ -1,0 +1,39 @@
+id: engine
+author: Miragon
+realm: ${SSO_REALM}
+changes:
+
+  # Service Account for Inquiry Backend
+  - addSimpleClient:
+      clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
+      secret: ${SSO_INQUIRY_WORKER_CLIENT_SECRET}
+      publicClient: false
+      redirectUris:
+        - '*'
+  - updateClient:
+      clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
+      serviceAccountsEnabled: true
+      webOrigins:
+        - "*"
+  - assignRoleToClient:
+      clientId: ${SSO_INQUIRY_WORKER_CLIENT_ID}
+      role: ${SSO_ENGINE_WORKER_REQUIRED_ROLE}
+      roleClientId: ${SSO_ENGINE_CLIENT_ID}
+
+  # Inquiry Frontend users will be verified by this client
+  - addSimpleClient:
+      clientId: ${SSO_INQUIRY_CLIENT_ID}
+      secret: ${SSO_ENGINE_CLIENT_SECRET}
+      redirectUris:
+        - '*'
+  - updateClient:
+      clientId: ${SSO_INQUIRY_CLIENT_ID}
+      webOrigins:
+        - "*"
+
+  - addRole:
+      clientId: ${SSO_INQUIRY_CLIENT_ID}
+      clientRole: true
+      name: sales-department
+      description: Sales Department
+

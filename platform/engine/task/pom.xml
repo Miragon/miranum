@@ -52,7 +52,7 @@
         <dependency>
             <groupId>io.miragon.miranum.platform</groupId>
             <artifactId>spring-security-starter</artifactId>
-            <scope>provided</scope>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- miranum connect -->

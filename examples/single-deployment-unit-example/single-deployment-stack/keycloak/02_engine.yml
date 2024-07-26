@@ -1,5 +1,5 @@
 id: engine
-author: Miranum
+author: Miragon
 realm: ${SSO_REALM}
 changes:
   - addSimpleClient:
@@ -11,28 +11,28 @@ changes:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       webOrigins:
         - "*"
+  - addClientMapper:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      name: userClientRole
+      protocolMapper: oidc-usermodel-client-role-mapper
+      config:
+        access.token.claim: true
+        id.token.claim: true
+        userinfo.token.claim: true
+        jsonType.label: String
+        multivalued: true
+        claim.name: "roles"
+
+  # Camunda Webapp users will need this role
   - addRole:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       clientRole: true
-      name: clientrole_deployer
-      description: Can deploy, assigns BACKEND_DEPLOY_RESOURCE authority on other stages then local.
+      name: ${SSO_ENGINE_WEBAPPS_REQUIRED_ROLE}
+      description: Administrates the camunda webapps
+
+  # Engine Worker (Service Accounts) will need this role
   - addRole:
       clientId: ${SSO_ENGINE_CLIENT_ID}
       clientRole: true
-      name: clientrole_task_importer
-      description: Can import user task from the engine to Polyflow.
-  - addRole:
-      clientId: ${SSO_ENGINE_CLIENT_ID}
-      clientRole: true
-      name: admin
-      description: Role Admin
-  - addRole:
-      clientId: ${SSO_ENGINE_CLIENT_ID}
-      clientRole: true
-      name: office
-      description: Office office
-  - addRole:
-      clientId: ${SSO_ENGINE_CLIENT_ID}
-      clientRole: true
-      name: group1
-      description: Group 1
+      name: ${SSO_ENGINE_WORKER_REQUIRED_ROLE}
+      description: Allows workers to work on service tasks

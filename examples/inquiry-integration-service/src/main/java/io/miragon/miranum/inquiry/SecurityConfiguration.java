@@ -1,5 +1,7 @@
-package io.miragon.miranum.platform.security;
+package io.miragon.miranum.inquiry;
 
+import io.miragon.miranum.platform.security.JwtAuthenticationConverter;
+import io.miragon.miranum.platform.security.SpringSecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,37 +16,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static io.miragon.miranum.platform.security.SecurityConfiguration.SECURITY;
-
 /**
  * The central class for configuration of all security aspects.
  */
+@Profile("!no-security")
 @Configuration
-@Profile(SECURITY)
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
-    /**
-     * Activates security.
-     */
-    public static final String SECURITY = "!no-security";
 
     private final SpringSecurityProperties springSecurityProperties;
 
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http, Converter<Jwt, AbstractAuthenticationToken> converter) throws Exception {
         http.authorizeHttpRequests(auth ->
-                        auth.requestMatchers(springSecurityProperties.getPermittedUrls())
+                        auth.requestMatchers(springSecurityProperties.getPermittedUrls().toArray(new String[0]))
                                 .permitAll()
                                 .anyRequest()
-                                .authenticated()
-                )
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt ->
-                                jwt.jwtAuthenticationConverter(converter)
-                        )
-                )
+                                .authenticated())
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
@@ -57,4 +48,5 @@ public class SecurityConfiguration {
 
 
 }
+
 

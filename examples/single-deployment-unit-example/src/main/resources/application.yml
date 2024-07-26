@@ -3,13 +3,19 @@ info:
     name: '@project.artifactId@'
     version: '@project.version@'
 
-camunda:
-  authorization:
-    enabled: true
+camunda: # https://docs.camunda.org/manual/7.21/user-guide/spring-boot-integration/configuration
+  sso:
+    webapps-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WEBAPPS_REQUIRED_ROLE}"
+    worker-role: "${SSO_ENGINE_CLIENT_ID}:${SSO_ENGINE_WORKER_REQUIRED_ROLE}"
   bpm:
     authorization:
-      enabled: false
+      enabled: true
     job-executor-acquire-by-priority: true
+    webapp:
+      index-redirect-enabled: true
+      header-security:
+        xss-protection-option: SANITIZE # to show keycloak logout page
+        content-security-policy-disabled: true # to show keycloak logout page
     generic-properties:
       properties:
         history-time-to-live: '185'
@@ -21,16 +27,12 @@ camunda:
         enable-exceptions-after-unhandled-bpmn-error: true
     database:
       schema-update: false
-    auto-deployment-enabled: true
-    admin-user:
-      id: ${CAMUNDA_COCKPIT_USERNAME:demo}
-      password: ${CAMUNDA_COCKPIT_PASSWORD:demo}
-      firstName: ${CAMUNDA_COCKPIT_USER_FIRSTNAME:Demo}
     filter:
       create: All tasks
     metrics:
       enabled: false
       db-reporter-activate: false
+    auto-deployment-enabled: false
     deployment-resource-pattern: "processes/*.bpmn"
 
 management:
@@ -88,25 +90,6 @@ spring:
     enabled: true
     locations: "classpath:db/migration/{vendor}"
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: ${SSO_ISSUER_URL}
-      client:
-        provider:
-          keycloak:
-            issuer-uri: ${SSO_ISSUER_URL}
-            user-info-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/userinfo
-            # jwk-set-uri: ${SSO_BASE_URL}/realms/${SSO_REALM}/protocol/openid-connect/certs
-            user-name-attribute: user_name
-        registration:
-          keycloak:
-            provider: keycloak
-            client-id: ${SSO_ENGINE_CLIENT_ID}
-            client-secret: ${SSO_ENGINE_CLIENT_SECRET}
-            scope: email, profile, openid
-
 springdoc:
   packagesToScan: io.miragon.miranum.platform
   pathsToMatch: /**
@@ -117,25 +100,23 @@ springdoc:
       realm: ${SSO_REALM}
       appName: Engine
     csrf:
-      enabled: false
+      enabled: true
   writer-with-default-pretty-printer: true
 
 miranum:
-  # override default security settings
   security:
-    permittedUrls:
-      - "/error"
-      - "/actuator/**"
-      - "/engine-rest/deployment"
-      - "/api/deployment"
-      - "/swagger-ui/index.html" # allow access to swagger
-      - "/swagger-ui*/*swagger-initializer.js" # allow access to swagger
-      - "/swagger-ui*/**" # allow access to swagger
-      - "/v3/api-docs/*" # allow access to swagger
-      - "/v3/api-docs" # allow access to swagger
-      - "/camunda/**" # allow camunda webapps
+    server:
+      base-url: ${SSO_BASE_URL}
+      realm: ${SSO_REALM}
+      user-name-attribute: email
+    client:
+      clientId: ${SSO_ENGINE_CLIENT_ID}
+      clientSecret: ${SSO_ENGINE_CLIENT_SECRET}
   tasklist:
     # if you want to disable the tasklist, set this to false
     enabled: true
     # if you want a custom prefix for the tasklist custom fields, set this to your desired prefix
     customFieldsPrefix: "miranum_task_"
+logging:
+  level:
+    root: debug
