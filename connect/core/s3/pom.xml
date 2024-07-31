@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-core</artifactId>
         <version>${revision}</version>
     </parent>

@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-platform</artifactId>
         <version>${revision}</version>
     </parent>

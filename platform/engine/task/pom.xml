@@ -6,14 +6,10 @@
     <name>miranum-engine-task</name>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-engine</artifactId>
         <version>${revision}</version>
     </parent>
-
-    <properties>
-
-    </properties>
 
     <dependencies>
         <dependency>
@@ -35,31 +31,30 @@
         <dependency>
             <groupId>io.holunda.data</groupId>
             <artifactId>camunda-bpm-data</artifactId>
-            <version>1.5.0</version>
         </dependency>
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>spring-security-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- miranum connect -->
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-task-api</artifactId>
-            <version>0.7.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Feign -->
@@ -74,7 +69,7 @@
 
         <!-- Test -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-unit-test</artifactId>
             <scope>test</scope>
         </dependency>

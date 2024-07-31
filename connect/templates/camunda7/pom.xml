@@ -8,20 +8,20 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-element-templates-maven-plugin</artifactId>
         <version>${revision}</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-generator-maven-plugin-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-element-template-api</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -39,7 +39,7 @@
                 <version>1.2.1</version>
                 <configuration>
                     <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-                    <targetPackage>io.miragon.miranum.platform.connect.c7.elementtemplates.gen</targetPackage>
+                    <targetPackage>io.miragon.miranum.connect.c7.elementtemplates.gen</targetPackage>
                     <generateBuilders>true</generateBuilders>
                     <useJakartaValidation>true</useJakartaValidation>
                 </configuration>
