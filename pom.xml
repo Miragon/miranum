@@ -32,6 +32,7 @@
     </properties>
 
     <modules>
+        <module>libs</module>
         <module>connect</module>
         <module>platform</module>
         <module>examples</module>
@@ -93,11 +94,6 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash.encoder.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.miragon.miranum</groupId>
-                <artifactId>miranum-unit-test</artifactId>
-                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
