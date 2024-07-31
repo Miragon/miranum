@@ -1,5 +1,0 @@
-package io.miragon.miranum.connect.s3.application.port.in;
-
-public interface CleanUpExpiredFilesApi {
-    void cleanUpExpiredFolders();
-}
