@@ -8,14 +8,14 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-core</artifactId>
         <version>${revision}</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-shared</artifactId>
             <version>${project.version}</version>
         </dependency>

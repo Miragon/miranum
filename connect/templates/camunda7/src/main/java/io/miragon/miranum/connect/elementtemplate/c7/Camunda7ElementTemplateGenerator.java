@@ -3,10 +3,10 @@ package io.miragon.miranum.connect.elementtemplate.c7;
 import io.miragon.miranum.connect.elementtemplate.api.BPMNElementType;
 import io.miragon.miranum.connect.elementtemplate.api.PropertyType;
 import io.miragon.miranum.connect.elementtemplate.core.*;
-import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Binding;
-import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
-import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Constraints;
-import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.Property;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.Binding;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.Constraints;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.Property;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

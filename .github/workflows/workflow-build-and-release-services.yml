@@ -22,16 +22,6 @@ on:
         type: boolean
         required: true
         default: true
-      release-connect:
-        description: 'Release miranum connect'
-        type: boolean
-        required: true
-        default: false
-      release-platform:
-        description: 'Release miranum platform'
-        type: boolean
-        required: true
-        default: false
 
 jobs:
   build-and-test:
@@ -55,15 +45,15 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
-          files: ./connect/coverage/target/coverage/jacoco.xml,./platform/coverage/target/coverage/jacoco.xml
+          files: ./coverage/target/coverage/jacoco.xml
           flags: unittests
           name: miranum
           verbose: true
 
-  release-connect:
+  release:
     runs-on: ubuntu-latest
     needs: build-and-test
-    if: inputs.release-connect == true
+    if: inputs.maven-release == true
     steps:
       - name: PREP / Check out Git repository
         uses: actions/checkout@v4
@@ -82,95 +72,12 @@ jobs:
         if: inputs.snapshot-release == false
         run: |
           chmod +x ./mvnw
-          ./mvnw -f connect versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
+          ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
 
       - name: RELEASE / Build and Release Maven
-        if: inputs.maven-release == true
         run: |
-          ./mvnw -f connect --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
+          ./mvnw --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.nexus_username }}
           MAVEN_PASSWORD: ${{ secrets.nexus_password }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-
-
-  release-platform:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: inputs.release-platform == true
-    steps:
-      - name: PREP / Check out Git repository
-        uses: actions/checkout@v4
-      - name: PREP / Install Java and Maven
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          server-id: "ossrh"
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.PGP_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
-      - name: PREP / Set up QEMU
-        if: inputs.docker-release == true
-        uses: docker/setup-qemu-action@v3
-      - name: PREP / Set up Docker Buildx
-        if: inputs.docker-release == true
-        uses: docker/setup-buildx-action@v3
-      - name: PREP / Login to DockerHub
-        if: inputs.docker-release == true
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_MIRAGON_USERNAME }}
-          password: ${{ secrets.DOCKER_MIRAGON_PASSWORD }}
-
-      - name: RELEASE / Remove SNAPSHOT
-        if: inputs.snapshot-release == false
-        run: |
-          chmod +x ./mvnw
-          ./mvnw -f platform versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
-
-      - name: BUILD / Build Maven
-        run: |
-          ./mvnw -f platform --batch-mode install -DskipTests
-        env:
-          MAVEN_USERNAME: ${{ secrets.nexus_username }}
-          MAVEN_PASSWORD: ${{ secrets.nexus_password }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-
-      - name: RELEASE / Release Maven
-        if: inputs.maven-release == true
-        run: |
-          ./mvnw -f platform --batch-mode --no-transfer-progress deploy --activate-profiles deploy -DskipTests
-        env:
-          MAVEN_USERNAME: ${{ secrets.nexus_username }}
-          MAVEN_PASSWORD: ${{ secrets.nexus_password }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_SECRET }}
-
-      # deployment examples
-      #- name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-embedded-example
-      #  if: inputs.docker-release == true
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./platform/deployment/examples/embedded-example/.
-      #    push: true
-      #    tags: miragon/miranum-deployment-embedded-example:${{ inputs.docker-release-version }}
-      #    platforms: linux/amd64, linux/arm64/v8
-      #- name: DOCKER / BUILD & PUBLISH / miragon/miranum-deployment-rest-example
-      #  if: inputs.docker-release == true
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./platform/deployment/examples/rest-example/.
-      #    push: true
-      #    tags: miragon/miranum-deployment-rest-example:${{ inputs.docker-release-version }}
-      #    platforms: linux/amd64, linux/arm64/v8
-
-      ## miranum-examples
-      #- name: DOCKER / BUILD & PUBLISH / miragon/miranum-single-deployment-unit-example
-      #  if: inputs.docker-release == true
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    context: ./examples/single-deployment-unit-example/.
-      #    push: true
-      #    tags: miragon/miranum-single-deployment-unit-example:${{ inputs.docker-release-version }}
-      #    platforms: linux/amd64, linux/arm64/v8

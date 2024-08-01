@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-core</artifactId>
         <version>${revision}</version>
     </parent>

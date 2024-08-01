@@ -3,25 +3,8 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      release-tag:
-        description: 'Release Tag'
-        required: false
-        default: 'platform_XXX_connect_XXX'
-      release-connect:
-        description: 'Release miranum connect?'
-        type: boolean
-        required: true
-        default: false
-      connect-maven-new-version:
-        description: '(Optional) Specify new connect maven version - SNAPSHOT will be added to the version'
-        required: false
-      release-platform:
-        description: 'Release miranum platform?'
-        type: boolean
-        required: true
-        default: false
-      platform-maven-new-version:
-        description: '(Optional) Specify new platform maven version - SNAPSHOT will be added to the version'
+      new-maven-version:
+        description: '(Optional) Specify new maven version - SNAPSHOT will be added to the version'
         required: false
 
 jobs:
@@ -36,37 +19,30 @@ jobs:
         run: ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
       - name: PREP / Set services release version env variables
         run: |
-          echo "CONNECT_RELEASE_VERSION=$(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-          echo "PLATFORM_RELEASE_VERSION=$(./mvnw -f platform help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
     outputs:
-      connect-release-version: ${{ env.CONNECT_RELEASE_VERSION }}
-      platform-release-version: ${{ env.PLATFORM_RELEASE_VERSION }}
+      release-version: ${{ env.RELEASE_VERSION }}
 
   release:
     needs: release-version
     uses: ./.github/workflows/workflow-build-and-release-services.yml
     with:
-      docker-release-version: ${{ needs.release-version.outputs.platform-release-version }}
+      docker-release-version: ${{ needs.release-version.outputs.release-version }}
       snapshot-release: false
       maven-release: true
       docker-release: true
-      release-connect: ${{ inputs.release-connect }}
-      release-platform: ${{ inputs.release-platform }}
     secrets: inherit
 
   github-release:
     needs: release
     uses: ./.github/workflows/workflow-github-release.yaml
     with:
-      release-tag: ${{ github.event.inputs.release-tag }}
+      release-version: ${{ needs.release-version.outputs.release-version }}
     secrets: inherit
 
   bump-versions:
     needs: github-release
     uses: ./.github/workflows/workflow-bump-version.yaml
     with:
-      connect-bump-version: ${{ github.event.inputs.release-connect == true }}
-      connect-new-maven-version: ${{ github.event.inputs.connect-maven-new-version }}
-      platform-bump-version: ${{ github.event.inputs.release-platform == true }}
-      platform-new-maven-version: ${{ github.event.inputs.platform-maven-new-version }}
+      new-maven-version: ${{ github.event.inputs.new-maven-version }}
     secrets: inherit

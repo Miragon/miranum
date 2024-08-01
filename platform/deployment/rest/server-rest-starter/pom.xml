@@ -8,7 +8,7 @@
     <name>miranum-deployment-server-rest-starter</name>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-deployment-rest</artifactId>
         <version>${revision}</version>
     </parent>
@@ -58,7 +58,7 @@
 
         <!-- miranum-deployment -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-server-core</artifactId>
             <version>${project.version}</version>
         </dependency>

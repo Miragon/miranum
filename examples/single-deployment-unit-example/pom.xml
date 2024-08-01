@@ -11,35 +11,6 @@
         <version>${revision}</version>
     </parent>
 
-    <properties>
-        <revision>1.0.0</revision>
-        <spring-boot.version>3.1.9</spring-boot.version>
-        <lombok.version>1.18.34</lombok.version>
-        <camunda7.version>7.20.0</camunda7.version>
-        <miranum-connect.version>0.7.4-SNAPSHOT</miranum-connect.version>
-        <miranum-platform.version>0.3.7-SNAPSHOT</miranum-platform.version>
-        <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.camunda.bpm</groupId>
-                <artifactId>camunda-bom</artifactId>
-                <version>${camunda7.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -74,7 +45,6 @@
         <dependency>
             <groupId>io.holunda.data</groupId>
             <artifactId>camunda-bpm-data</artifactId>
-            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm</groupId>
@@ -91,42 +61,42 @@
 
         <!-- miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-core</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-task</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-server-embedded-starter</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- miranum libs -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>spring-security-starter</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>schema-registry</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- miranum connect -->
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-message-api</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-process-api</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!--- Libs -->
@@ -143,9 +113,9 @@
 
         <!-- Test -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-unit-test</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

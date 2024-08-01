@@ -6,7 +6,7 @@
     <name>miranum-engine-core</name>
 
     <parent>
-        <groupId>io.miragon.miranum.platform</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>miranum-engine</artifactId>
         <version>${revision}</version>
     </parent>
@@ -52,26 +52,26 @@
 
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-receiver-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- Miranum Connect -->
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-message-api</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-process-api</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

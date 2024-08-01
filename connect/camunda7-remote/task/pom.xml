@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-camunda7-remote</artifactId>
         <version>${revision}</version>
     </parent>
@@ -35,7 +35,7 @@
 
         <!-- miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-task-api</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -48,7 +48,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>utils-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>

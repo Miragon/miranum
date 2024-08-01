@@ -3,38 +3,14 @@ name: Bump version
 on:
   workflow_call:
     inputs:
-      connect-bump-version:
-        description: 'Bump connect version?'
-        type: boolean
-        default: true
-      connect-new-maven-version:
+      new-maven-version:
         description: 'Connect new maven version'
-        type: string
-        required: false
-      platform-bump-version:
-        description: 'Bump platform version?'
-        type: boolean
-        default: true
-      platform-new-maven-version:
-        description: 'Platform new maven version'
         type: string
         required: false
   workflow_dispatch:
     inputs:
-      connect-bump-version:
-        description: 'Bump connect version?'
-        type: boolean
-        default: true
-      connect-new-maven-version:
+      new-maven-version:
         description: 'Connect new maven version'
-        type: string
-        required: false
-      platform-bump-version:
-        description: 'Bump platform version?'
-        type: boolean
-        default: true
-      platform-new-maven-version:
-        description: 'Platform new maven version'
         type: string
         required: false
 
@@ -57,44 +33,26 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: BUMP CONNECT VERSION / Raise mvn version
-        if: inputs.connect-new-maven-version != '' && inputs.connect-bump-version == true
+      - name: BUMP VERSION / Raise mvn version
+        if: inputs.new-maven-version != ''
         run: |
           sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.connect-new-maven-version }}-SNAPSHOT<\/revision>/" connect/pom.xml
-      - name: BUMP CONNECT VERSION / Raise mvn version
-        if: inputs.connect-new-maven-version == '' && inputs.connect-bump-version == true
+      - name: BUMP VERSION / Raise mvn version
+        if: inputs.new-maven-version == ''
         run: |
           # increment minor version
           sed -i "s/<revision>.*<\/revision>/<revision>$(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout |  awk -F'.' '{print $1"."$2+1".0-SNAPSHOT"}' |  sed s/[.]$//)<\/revision>/" connect/pom.xml
       - name: GIT / Git commit
-        if: inputs.connect-bump-version == true
         run: |
           git add .
           git commit -m "chore: mvn auto version bump connect to $(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout)"
 
-      - name: BUMP PLATFORM VERSION / Raise mvn version
-        if: inputs.platform-new-maven-version != '' && inputs.platform-bump-version == true
-        run: |
-          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.platform-new-maven-version }}-SNAPSHOT<\/revision>/" platform/pom.xml
-      - name: BUMP PLATFORM VERSION / Raise mvn version
-        if: inputs.platform-new-maven-version == '' && inputs.platform-bump-version == true
-        run: |
-          # increment minor version
-          sed -i "s/<revision>.*<\/revision>/<revision>$(./mvnw -f platform help:evaluate -Dexpression=project.version -q -DforceStdout |  awk -F'.' '{print $1"."$2+1".0-SNAPSHOT"}' |  sed s/[.]$//)<\/revision>/" platform/pom.xml
-      - name: GIT / Git commit
-        if: inputs.platform-bump-version == true
-        run: |
-          git add .
-          git commit -m "chore: mvn auto version bump platform to $(./mvnw -f platform help:evaluate -Dexpression=project.version -q -DforceStdout)"
-
       - name: GIT / Push changes to new branch
-        if: inputs.platform-bump-version == true || inputs.connect-bump-version == true
         run: |
           git checkout -b ${{ github.ref_name }}-version-bump
           git push --force origin ${{ github.ref_name }}-version-bump
       - name: GIT / Create pull request
         uses: actions/github-script@v7
-        if: inputs.platform-bump-version == true || inputs.connect-bump-version == true
         with:
           script: |
             const { repo, owner } = context.repo;

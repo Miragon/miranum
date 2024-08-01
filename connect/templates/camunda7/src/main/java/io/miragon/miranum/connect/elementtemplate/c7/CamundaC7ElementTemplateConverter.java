@@ -3,7 +3,7 @@ package io.miragon.miranum.connect.elementtemplate.c7;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import io.miragon.miranum.platform.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
+import io.miragon.miranum.connect.c7.elementtemplates.gen.CamundaC7ElementTemplate;
 
 public class CamundaC7ElementTemplateConverter {
 

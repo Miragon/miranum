@@ -11,30 +11,6 @@
         <version>${revision}</version>
     </parent>
 
-    <properties>
-        <revision>1.0.0</revision>
-        <spring-boot.version>3.1.9</spring-boot.version>
-        <camunda7.version>7.20.0</camunda7.version>
-        <miranum-connect.version>0.7.4-SNAPSHOT</miranum-connect.version>
-        <miranum-platform.version>0.3.7-SNAPSHOT</miranum-platform.version>
-        <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
-        <lombok.version>1.18.34</lombok.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -50,18 +26,6 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-openapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.community</groupId>
@@ -71,28 +35,28 @@
 
         <!-- miranum libs -->
         <dependency>
-            <groupId>io.miragon.miranum.platform</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>spring-security-starter</artifactId>
-            <version>${miranum-platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>oauth-camunda7-remote</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-camunda7-remote-all</artifactId>
-            <version>${miranum-connect.version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>io.miragon.miranum.connect</groupId>
+                <groupId>io.miragon.miranum</groupId>
                 <artifactId>element-templates-generator-maven-plugin</artifactId>
-                <version>${miranum-connect.version}</version>
+                <version>${project.version}</version>
                 <configuration>
                     <targetPlatform>C7</targetPlatform>
                     <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
@@ -129,7 +93,7 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>

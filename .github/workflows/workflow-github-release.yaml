@@ -3,8 +3,8 @@ name: Github Release
 on:
   workflow_call:
     inputs:
-      release-tag:
-        description: 'Release tag'
+      release-version:
+        description: 'Release version'
         type: string
         required: true
 
@@ -23,14 +23,14 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/${{ inputs.release-tag }}',
+              ref: 'refs/tags/${{ inputs.release-version }}',
               sha: context.sha
             })
       - name: GIT / Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ inputs.release-tag }}
+          tag_name: ${{ inputs.release-version }}
           draft: false
           prerelease: false
           generate_release_notes: true

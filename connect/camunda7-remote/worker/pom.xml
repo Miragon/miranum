@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>io.miragon.miranum.connect</groupId>
+        <groupId>io.miragon.miranum</groupId>
         <artifactId>connect-camunda7-remote</artifactId>
         <version>${revision}</version>
     </parent>
@@ -16,12 +16,12 @@
     <dependencies>
         <!-- Miranum -->
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-worker-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum.connect</groupId>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>utils-camunda7-remote</artifactId>
             <version>${project.version}</version>
         </dependency>
