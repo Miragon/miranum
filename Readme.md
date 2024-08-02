@@ -89,6 +89,13 @@ A more in
 depth [miranum-stack-showcase](https://miranum.com/docs/guides/showcases/miranum-stack/miranum-stack-showcase/)
 can be found in our documentation.
 
+## Engage with the Miranum team
+
+If you have any questions or need support, feel free to reach out to us via email ([info@miragon.io](mailto:info@miragon.io)).
+We are here to help you, especially if you are considering introducing Miranum in your organization.
+
+For inquiries and professional support, please contact us at: [info@miragon.io](mailto:info@miragon.io)
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
@@ -122,7 +129,7 @@ Please report unacceptable behavior to info@miragon.io.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) file for more information.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
