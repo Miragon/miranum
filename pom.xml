@@ -27,7 +27,7 @@
         <camunda8.version>8.4.0</camunda8.version>
         <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
         <kotlin.version>1.9.24</kotlin.version>
-        <logstash.encoder.version>7.4</logstash.encoder.version>
+        <logstash.encoder.version>8.0</logstash.encoder.version>
         <apache.commons.lang.version>3.15.0</apache.commons.lang.version>
     </properties>
 
