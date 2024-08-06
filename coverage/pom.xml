@@ -131,11 +131,6 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-connect-s3</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
             <artifactId>connect-shared</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -245,6 +240,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
