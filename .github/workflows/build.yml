@@ -14,8 +14,8 @@ jobs:
     uses: ./.github/workflows/workflow-build-and-release-services.yml
     with:
       docker-release-version: dev
-      snapshot-release: true
-      maven-release: true
+      snapshot-release: false
+      maven-release: false
       docker-release: ${{ github.ref_name == 'main' }}
     secrets: inherit
 
