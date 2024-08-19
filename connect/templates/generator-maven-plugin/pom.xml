@@ -23,7 +23,7 @@
         <org.apache.maven.version>3.9.8</org.apache.maven.version>
         <org.apache.maven.plugin-tools.version>3.13.1</org.apache.maven.plugin-tools.version>
         <org.reflections.version>0.10.2</org.reflections.version>
-        <org.apache.maven-plugins.version>3.13.1</org.apache.maven-plugins.version>
+        <org.apache.maven-plugins.version>3.14.0</org.apache.maven-plugins.version>
     </properties>
 
     <dependencies>
