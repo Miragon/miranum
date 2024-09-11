@@ -28,7 +28,7 @@
         <springdoc-openapi.version>2.6.0</springdoc-openapi.version>
         <kotlin.version>1.9.24</kotlin.version>
         <logstash.encoder.version>8.0</logstash.encoder.version>
-        <apache.commons.lang.version>3.16.0</apache.commons.lang.version>
+        <apache.commons.lang.version>3.17.0</apache.commons.lang.version>
     </properties>
 
     <modules>
