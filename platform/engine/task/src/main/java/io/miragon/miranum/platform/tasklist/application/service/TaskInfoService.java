@@ -10,6 +10,7 @@ import io.miragon.miranum.platform.tasklist.domain.TaskAuthorities;
 import io.miragon.miranum.platform.tasklist.domain.TaskCustomFields;
 import io.miragon.miranum.platform.tasklist.domain.TaskInfo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static io.holunda.camunda.bpm.data.CamundaBpmData.stringVariable;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TaskInfoService implements TaskInfoUseCase {
@@ -76,10 +78,14 @@ public class TaskInfoService implements TaskInfoUseCase {
                         .build())
                 .toList();
 
+        if (miranumProcessDefinition.getName() == null) {
+            log.warn("The process {} has no name! Miranum Tasklist is falling back to the process definition key as the definition name", miranumProcessDefinition.getKey());
+        }
+
         final TaskInfo taskInfo = TaskInfo.builder()
             .id(task.getId())
             .description(TASK_DESCRIPTION_VARIABLE.from(task).getOrDefault(""))
-            .definitionName(miranumProcessDefinition.getName())
+            .definitionName(miranumProcessDefinition.getName() != null ? miranumProcessDefinition.getName() : miranumProcessDefinition.getKey())
             .instanceId(task.getProcessInstanceId())
             .assignee(task.getAssignee())
             .authorities(authorities)
