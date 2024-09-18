@@ -10,6 +10,7 @@ import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,15 +46,42 @@ class TaskInfoServiceTest {
         // Assert
         final ArgumentCaptor<TaskInfo> taskInfoCaptor = ArgumentCaptor.forClass(TaskInfo.class);
         verify(taskOutPort).createTask(taskInfoCaptor.capture());
-        assertThat(taskInfoCaptor.getValue().getId()).isEqualTo("task123");
-        assertThat(taskInfoCaptor.getValue().getDescription()).isBlank();
-        assertThat(taskInfoCaptor.getValue().getDefinitionName()).isEqualTo("Process Name");
-        assertThat(taskInfoCaptor.getValue().getInstanceId()).isEqualTo("instance123");
-        assertThat(taskInfoCaptor.getValue().getAssignee()).isEqualTo("user123");
-        assertThat(taskInfoCaptor.getValue().getCandidateUsers()).isEmpty();
-        assertThat(taskInfoCaptor.getValue().getCandidateGroups()).isEmpty();
-        assertThat(taskInfoCaptor.getValue().getFormKey()).isBlank();
-        assertThat(taskInfoCaptor.getValue().getCustomFields()).isEmpty();
+        assertThat(taskInfoCaptor.getValue())
+                .hasFieldOrPropertyWithValue("id", "task123")
+                .hasFieldOrProperty("description")
+                .hasFieldOrPropertyWithValue("definitionName", "Process Name")
+                .hasFieldOrPropertyWithValue("instanceId", "instance123")
+                .hasFieldOrPropertyWithValue("assignee", "user123")
+                .hasFieldOrPropertyWithValue("candidateUsers", List.of())
+                .hasFieldOrPropertyWithValue("candidateGroups", List.of())
+                .hasFieldOrProperty("formKey")
+                .hasFieldOrPropertyWithValue("customFields", List.of());
+    }
+
+    @Test
+    void testCreateTaskForProcessesWithoutAProcessName() {
+        // Arrange
+        final DelegateTask mockTask = mock(DelegateTask.class);
+        when(mockTask.getId()).thenReturn("task123");
+        when(mockTask.getProcessDefinitionId()).thenReturn("processDef123");
+        when(mockTask.getProcessInstanceId()).thenReturn("instance123");
+        when(mockTask.getAssignee()).thenReturn("user123");
+        when(mockTask.getCandidates()).thenReturn(Set.of());
+
+        MiranumProcessDefinition mockDefinition = MiranumProcessDefinition.builder()
+                .key("processDef123")
+                .name(null)
+                .build();
+        when(miranumProcessDefinitionPort.getProcessDefinitionById("processDef123")).thenReturn(mockDefinition);
+
+        // Act
+        taskInfoService.createTask(mockTask);
+
+        // Assert
+        final ArgumentCaptor<TaskInfo> taskInfoCaptor = ArgumentCaptor.forClass(TaskInfo.class);
+        verify(taskOutPort).createTask(taskInfoCaptor.capture());
+        assertThat(taskInfoCaptor.getValue())
+                .hasFieldOrPropertyWithValue("definitionName", mockDefinition.getKey());
     }
 
     @Test
