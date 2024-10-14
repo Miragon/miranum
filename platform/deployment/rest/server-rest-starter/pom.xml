@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <feign.version>13.4</feign.version>
+        <feign.version>13.5</feign.version>
     </properties>
 
     <dependencies>
