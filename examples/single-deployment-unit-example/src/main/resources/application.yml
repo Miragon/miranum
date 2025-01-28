@@ -119,4 +119,4 @@ miranum:
     customFieldsPrefix: "miranum_task_"
 logging:
   level:
-    root: debug
+    root: info
