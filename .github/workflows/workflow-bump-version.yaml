@@ -30,7 +30,7 @@ jobs:
       - name: PREP / Install Java and Maven
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'corretto'
 
       - name: BUMP VERSION / Raise mvn version
