@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 
 public class WorkerExecuteApiImplTest {
 
-    private final WorkerInterceptor interceptor = Mockito.spy(Mockito.mock(WorkerInterceptor.class));
+    private final WorkerInterceptor interceptor = Mockito.mock(WorkerInterceptor.class);
     private final WorkerExecutor workerExecutor = Mockito.mock(WorkerExecutor.class);
     private final WorkerExecuteApi workerExecuteApi = new WorkerExecuteApiImpl(List.of());
 

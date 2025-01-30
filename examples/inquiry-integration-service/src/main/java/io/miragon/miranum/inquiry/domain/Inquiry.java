@@ -5,8 +5,8 @@ import io.miragon.miranum.inquiry.application.port.in.model.NewCustomerMailComma
 import io.miragon.miranum.inquiry.application.port.in.model.NewInquiryCommand;
 import io.miragon.miranum.inquiry.application.port.in.model.OfferCreatedCommand;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.annotation.Validated;
 
 @Validated

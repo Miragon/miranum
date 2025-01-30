@@ -1,7 +1,7 @@
 package io.miragon.miranum.inquiry.application.port.in.model;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 
 public record NewInquiryCommand(
         @NotNull String customerMail,

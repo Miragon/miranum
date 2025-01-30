@@ -1,9 +1,11 @@
 package io.miragon.miranum.connect;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import okhttp3.Interceptor;
-import okhttp3.Request;
-import okhttp3.Response;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.EntityDetails;
+import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.protocol.HttpContext;
 import org.camunda.bpm.client.interceptor.ClientRequestInterceptor;
 import org.camunda.community.rest.client.invoker.ApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -41,21 +42,20 @@ public class Camunda7oAuthAutoConfiguration {
     private final ReentrantLock lock = new ReentrantLock();
 
     @Bean
-    public ClientRequestInterceptor interceptor() {
-        return context -> context.addHeader("Authorization", this.getAccessToken());
+    public ClientRequestInterceptor createOAuthInterceptor() {
+        return (request) -> request.addHeader("Authorization", getAccessToken());
     }
 
     @Autowired
     public void addOAuthInterceptor(final ApiClient apiClient) {
-        apiClient.setHttpClient(apiClient.getHttpClient().newBuilder().addInterceptor(this::intercept).build());
+        apiClient.setHttpClient(createHttpClientWithInterceptor());
     }
 
-    public Response intercept(final Interceptor.Chain chain) throws IOException {
-        final Request originalRequest = chain.request();
-        final Request requestWithToken = originalRequest.newBuilder()
-                .header("Authorization", this.getAccessToken())
-                .build();
-        return chain.proceed(requestWithToken);
+    private CloseableHttpClient createHttpClientWithInterceptor() {
+        return HttpClients.custom().addRequestInterceptorFirst((HttpRequest request, EntityDetails entityDetails, HttpContext context) -> {
+            // Add the Authorization header with token
+            request.addHeader("Authorization", getAccessToken());
+        }).build();
     }
 
     public String getAccessToken() {
