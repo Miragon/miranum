@@ -1,7 +1,7 @@
 package io.miragon.miranum.inquiry.adapter.in.engine;
 
+import dev.bpmcrafters.processengine.worker.ProcessEngineWorker;
 import io.miragon.miranum.connect.elementtemplate.api.ElementTemplate;
-import io.miragon.miranum.connect.worker.api.Worker;
 import io.miragon.miranum.inquiry.adapter.in.engine.model.InquiryDto;
 import io.miragon.miranum.inquiry.application.port.in.SendOffer;
 import io.miragon.miranum.inquiry.application.port.in.model.SendCommand;
@@ -17,12 +17,12 @@ public class SendRejectionWorker {
 
     private final SendOffer sendOffer;
 
-    @Worker(type = "send-rejection")
+    @ProcessEngineWorker(topic = "send-rejection")
     @ElementTemplate(name = "Inquiry - Send Rejection")
     public void sendRejection(InquiryDto dto) {
         this.sendOffer.handle(new SendCommand(
-                dto.getInquiryId(),
-                SendType.REJECTION
+            dto.getInquiryId(),
+            SendType.REJECTION
         ));
     }
 }
