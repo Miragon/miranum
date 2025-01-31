@@ -1,5 +1,6 @@
 package io.miragon.miranum.inquiry.application;
 
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.connect.process.api.ProcessApi;
 import io.miragon.miranum.connect.process.api.StartProcessCommand;
 import io.miragon.miranum.inquiry.application.port.in.InquiryReceived;
@@ -7,7 +8,6 @@ import io.miragon.miranum.inquiry.application.port.in.model.NewInquiryCommand;
 import io.miragon.miranum.inquiry.application.port.out.InquiryRepository;
 import io.miragon.miranum.inquiry.domain.Inquiry;
 import io.miragon.miranum.inquiry.domain.InquiryId;
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

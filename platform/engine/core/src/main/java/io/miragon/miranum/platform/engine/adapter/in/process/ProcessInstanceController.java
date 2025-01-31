@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.engine.adapter.in.process;
 
-import io.miragon.miranum.platform.engine.api.AppAuthenticationProvider;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.platform.engine.application.port.in.process.ProcessInstanceQuery;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Nullable;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ProcessInstanceController {
 
     private final ProcessInstanceQuery instanceQuery;
-    private final AppAuthenticationProvider authenticationProvider;
+    private final UserAuthenticationProvider authenticationProvider;
 
     //Mapper
     private final ProcessInstanceApiMapper serviceInstanceApiMapper;
@@ -39,7 +39,7 @@ public class ProcessInstanceController {
     public List<ProcessInstanceDto> getAssignedInstances(
             @RequestParam(value = "query", required = false) @Nullable final String query
     ) {
-        val userId = this.authenticationProvider.getCurrentUserId();
+        val userId = this.authenticationProvider.getLoggedInUser();
         val startedInstances = this.instanceQuery.getProcessInstanceByUser(userId, query);
         return startedInstances.stream().map(this.serviceInstanceApiMapper::map2TO).toList();
     }
