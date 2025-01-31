@@ -7,6 +7,12 @@ on:
         description: 'Release version'
         type: string
         required: true
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: 'Release version'
+        type: string
+        required: true
 
 jobs:
   github-release:
