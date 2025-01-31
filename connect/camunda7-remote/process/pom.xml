@@ -20,9 +20,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <!-- Version 7.22.0 does not exist at the moment -->
             <groupId>org.camunda.community</groupId>
             <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
-            <version>${camunda7.version}</version>
+            <version>7.21.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
