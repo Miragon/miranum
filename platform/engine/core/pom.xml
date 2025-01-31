@@ -53,12 +53,6 @@
         <!-- Miranum -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-core</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-user</artifactId>
             <version>${project.version}</version>
         </dependency>

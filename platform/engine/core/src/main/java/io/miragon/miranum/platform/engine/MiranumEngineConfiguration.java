@@ -1,9 +1,6 @@
 package io.miragon.miranum.platform.engine;
 
-import io.miragon.miranum.platform.deployment.receiver.application.ports.out.MiranumDeploymentReceiver;
-import io.miragon.miranum.platform.engine.adapter.in.deployment.EngineDeploymentReceiver;
 import io.miragon.miranum.platform.engine.adapter.out.schema.SchemaClient;
-import io.miragon.miranum.platform.engine.application.port.in.deployment.ArtifactDeploymentUseCase;
 import io.miragon.miranum.platform.user.adapter.mock.UserMockAdapter;
 import io.miragon.miranum.platform.user.application.port.out.UserPort;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,12 +17,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"io.miragon.miranum.platform.engine"})
 @EnableFeignClients(clients = {SchemaClient.class})
 public class MiranumEngineConfiguration {
-
-    @Bean
-    @ConditionalOnMissingBean
-    public MiranumDeploymentReceiver miranumDeploymentReceiver(final ArtifactDeploymentUseCase artifactDeploymentUseCase) {
-        return new EngineDeploymentReceiver(artifactDeploymentUseCase);
-    }
 
     /**
      * Example implementation of the UserPort. Provide your own implementation.

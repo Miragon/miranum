@@ -1,6 +1,6 @@
-package io.miragon.miranum.platform.engine.adapter.out.engine;
+package io.miragon.miranum.platform.deployment.adapter.out.engine;
 
-import io.miragon.miranum.platform.engine.application.port.out.engine.ArtifactDeploymentPort;
+import io.miragon.miranum.platform.deployment.application.ports.out.engine.ArtifactDeploymentOutPort;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.model.bpmn.Bpmn;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class DeploymentAdapter implements ArtifactDeploymentPort {
+public class DeploymentAdapter implements ArtifactDeploymentOutPort {
 
     private final RepositoryService repositoryService;
 
