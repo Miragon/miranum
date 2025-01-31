@@ -36,16 +36,16 @@ jobs:
       - name: BUMP VERSION / Raise mvn version
         if: inputs.new-maven-version != ''
         run: |
-          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.connect-new-maven-version }}-SNAPSHOT<\/revision>/" connect/pom.xml
+          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.connect-new-maven-version }}-SNAPSHOT<\/revision>/" pom.xml
       - name: BUMP VERSION / Raise mvn version
         if: inputs.new-maven-version == ''
         run: |
           # increment minor version
-          sed -i "s/<revision>.*<\/revision>/<revision>$(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout |  awk -F'.' '{print $1"."$2+1".0-SNAPSHOT"}' |  sed s/[.]$//)<\/revision>/" connect/pom.xml
+          sed -i "s/<revision>.*<\/revision>/<revision>$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout |  awk -F'.' '{print $1"."$2+1".0-SNAPSHOT"}' |  sed s/[.]$//)<\/revision>/" pom.xml
       - name: GIT / Git commit
         run: |
           git add .
-          git commit -m "chore: mvn auto version bump connect to $(./mvnw -f connect help:evaluate -Dexpression=project.version -q -DforceStdout)"
+          git commit -m "chore: mvn auto version bump to $(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)"
 
       - name: GIT / Push changes to new branch
         run: |
