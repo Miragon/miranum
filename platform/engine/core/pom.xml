@@ -50,12 +50,6 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
-        <!-- Miranum -->
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-engine-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!-- Miranum Connect -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
