@@ -72,6 +72,11 @@
         </dependency>
         <dependency>
             <groupId>io.miragon.miranum</groupId>
+            <artifactId>miranum-engine-deployment</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-deployment-server-embedded-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -79,7 +84,7 @@
         <!-- miranum libs -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>spring-security-starter</artifactId>
+            <artifactId>miranum-spring-security</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

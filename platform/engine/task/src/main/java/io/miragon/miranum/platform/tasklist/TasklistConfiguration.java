@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.tasklist;
 
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.connect.task.api.TaskApi;
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskMapper;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskPersistenceAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRepository;

@@ -14,6 +14,8 @@
 
     <modules>
         <module>unit-test</module>
+        <module>auth-core</module>
+        <module>spring-security</module>
     </modules>
 
 

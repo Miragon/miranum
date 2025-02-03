@@ -1,7 +1,7 @@
 package io.miragon.miranum.inquiry;
 
-import io.miragon.miranum.platform.security.JwtAuthenticationConverter;
-import io.miragon.miranum.platform.security.SpringSecurityProperties;
+import io.miragon.miranum.security.JwtAuthenticationConverter;
+import io.miragon.miranum.security.SpringSecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

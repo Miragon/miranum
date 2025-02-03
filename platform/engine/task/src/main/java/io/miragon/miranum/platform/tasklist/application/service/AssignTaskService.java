@@ -1,8 +1,8 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.connect.task.api.TaskApi;
 import io.miragon.miranum.connect.task.api.command.AssignUserTaskCommand;
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;

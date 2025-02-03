@@ -12,7 +12,6 @@
     </parent>
 
     <dependencies>
-
         <!-- Camunda -->
         <dependency>
             <groupId>org.camunda.bpm</groupId>
@@ -53,15 +52,10 @@
         <!-- Miranum -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-core</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-engine-user</artifactId>
+            <artifactId>miranum-auth-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <!-- Miranum Connect -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>

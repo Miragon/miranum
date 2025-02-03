@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
