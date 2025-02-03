@@ -30,7 +30,6 @@ public class WorkerAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
     public BeanPostProcessor workerAnnotationProcessor(final WorkerRegistry workerRegistry) {
         return new WorkerAnnotationBeanPostProcessor(workerRegistry);
     }
