@@ -68,7 +68,7 @@
             <dependency>
                 <groupId>io.holunda.data</groupId>
                 <artifactId>camunda-bpm-data</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1</version>
             </dependency>
 
             <dependency>
