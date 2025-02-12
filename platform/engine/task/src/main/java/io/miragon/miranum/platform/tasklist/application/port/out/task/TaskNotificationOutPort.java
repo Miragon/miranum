@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface TaskNotificationOutPort {
 
-    void notifyAssignee(final String assignee, final DelegateTask task);
+    void notifyAssignee(final String assignee, final String eventName, final DelegateTask task);
 
-    void notifyCandidateUsers(final List<String> candidateUsers, final DelegateTask task);
+    void notifyCandidateUsers(final List<String> candidateUsers, final String eventName, final DelegateTask task);
 
-    void notifyCandidateGroups(final List<String> candidateGroups, final DelegateTask delegateTask);
+    void notifyCandidateGroups(final List<String> candidateGroups, final String eventName, final DelegateTask delegateTask);
 
 }

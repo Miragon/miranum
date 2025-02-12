@@ -12,17 +12,17 @@ import java.util.List;
 public class TaskNotificationAdapter implements TaskNotificationOutPort {
 
     @Override
-    public void notifyAssignee(final String assignee, final DelegateTask task) {
+    public void notifyAssignee(final String assignee, final String eventName, final DelegateTask task) {
         log.warn("Notify users for task: {} is not possible. Make sure to implement a custom TaskNotificationOutPort or disable task notifications", task.getName());
     }
 
     @Override
-    public void notifyCandidateUsers(final List<String> candidateUsers, final DelegateTask task) {
+    public void notifyCandidateUsers(final List<String> candidateUsers, final String eventName, final DelegateTask task) {
         log.warn("Notify users for task: {} is not possible. Make sure to implement a custom TaskNotificationOutPort or disable task notifications", task.getName());
     }
 
     @Override
-    public void notifyCandidateGroups(final List<String> candidateGroups, final DelegateTask task) {
+    public void notifyCandidateGroups(final List<String> candidateGroups, final String eventName, final DelegateTask task) {
         log.warn("Notify users for task: {} is not possible. Make sure to implement a custom TaskNotificationOutPort or disable task notifications", task.getName());
     }
 }

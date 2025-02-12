@@ -25,11 +25,6 @@ public class TaskListener {
             case "create":
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
                 this.taskInfoInPort.createTask(delegateTask);
-
-                if(this.taskProperties.isNotificationsEnabled()) {
-                    this.taskNotificationUseCase.notifyUsers(delegateTask);
-                }
-
                 break;
             case "assignment":
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
@@ -40,6 +35,11 @@ public class TaskListener {
                 log.debug("TaskInfo Listener: {}, Event: {}", delegateTask.getName(), delegateTask.getEventName());
                 this.taskInfoInPort.deleteTask(delegateTask.getId());
                 break;
+        }
+
+        // Notify users if notifications are enabled
+        if(this.taskProperties.isNotificationsEnabled()) {
+            this.taskNotificationUseCase.notifyUsers(delegateTask);
         }
     }
 }

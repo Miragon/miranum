@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
@@ -60,14 +61,14 @@ class TaskInfoListenerTest {
     }
 
     @Test
-    void testCreateTaskNotifiesUsers() {
-        when(delegateTask.getEventName()).thenReturn("create");
-        when(taskProperties.isNotificationsEnabled()).thenReturn(true);
+    void testTaskNotifiesUsers() {
+        List.of("create", "assignment", "complete", "delete").forEach(eventName -> {
+            when(delegateTask.getEventName()).thenReturn(eventName);
+            when(taskProperties.isNotificationsEnabled()).thenReturn(true);
 
-        taskInfoListener.taskListeners(delegateTask);
-
-        verify(taskInfoService).createTask(delegateTask);
-        verify(taskNotificationUseCase).notifyUsers(eq(delegateTask));
+            taskInfoListener.taskListeners(delegateTask);
+        });
+        verify(taskNotificationUseCase, times(4)).notifyUsers(eq(delegateTask));
     }
 
 }

@@ -17,7 +17,8 @@
 
 **Task Notifications**
 
-To notify users or groups about tasks, you can implement the `TaskNotificationOutPort` interface and enable tasklist notifications `miranum.tasklist.notificationsEnabled: true`.
+To notify users or groups about tasks (create, assignment, complete, delete, ... events),
+you can implement the `TaskNotificationOutPort` interface and enable tasklist notifications `miranum.tasklist.notificationsEnabled: true`.
 This interface provides methods to notify assignees, candidate users, and candidate groups.
 
 ```java
@@ -26,24 +27,24 @@ This interface provides methods to notify assignees, candidate users, and candid
 public class UsertaskNotificationAdapter implements TaskNotificationOutPort {
 
     @Override
-    public void notifyAssignee(final String assignee, final DelegateTask task) {
+    public void notifyAssignee(final String assignee, final String eventName, final DelegateTask task) {
         // example implementation
         // you may want to create an email notification here
-        log.info("Notify assignee: {} for task: {}", assignee, task.getName());
+        log.info("Notify assignee: {} for task: {} and event {}", assignee, task.getName(), eventName);
     }
 
     @Override
-    public void notifyCandidateUsers(final List<String> candidateUsers, final DelegateTask task) {
+    public void notifyCandidateUsers(final List<String> candidateUsers, final String eventName, final DelegateTask task) {
         // example implementation
         // you may want to create an email notification here
-        log.info("Notify candidate users: {} for task: {}", candidateUsers, task.getName());
+        log.info("Notify candidate users: {} for task: {} and event {}", candidateUsers, task.getName(), eventName);
     }
 
     @Override
-    public void notifyCandidateGroups(final List<String> candidateGroups, final DelegateTask delegateTask) {
+    public void notifyCandidateGroups(final List<String> candidateGroups, final String eventName, final DelegateTask delegateTask) {
         // example implementation
         // you may want to create an email notification here
-        log.info("Notify candidate groups: {} for task: {}", candidateGroups, delegateTask.getName());
+        log.info("Notify candidate groups: {} for task: {} and event {}", candidateGroups, delegateTask.getName(), eventName);
     }
 
 }

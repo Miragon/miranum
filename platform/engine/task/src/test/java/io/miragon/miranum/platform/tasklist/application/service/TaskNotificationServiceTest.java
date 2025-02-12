@@ -24,16 +24,20 @@ class TaskNotificationServiceTest {
     @Test
     void testNotifyUsers_withAssignee() {
         when(delegateTask.getAssignee()).thenReturn("assigneeUser");
+        when(delegateTask.getEventName()).thenReturn("create");
 
         taskNotificationService.notifyUsers(delegateTask);
 
         final ArgumentCaptor<String> assigneeCaptor = ArgumentCaptor.forClass(String.class);
+        final ArgumentCaptor<String> taskEventCaptor = ArgumentCaptor.forClass(String.class);
         final ArgumentCaptor<DelegateTask> taskCaptor = ArgumentCaptor.forClass(DelegateTask.class);
 
-        verify(taskNotificationOutPort).notifyAssignee(assigneeCaptor.capture(), taskCaptor.capture());
+        verify(taskNotificationOutPort).notifyAssignee(assigneeCaptor.capture(), taskEventCaptor.capture(), taskCaptor.capture());
 
         assertThat(assigneeCaptor.getValue())
                 .isEqualTo("assigneeUser");
+        assertThat(taskEventCaptor.getValue())
+                .isEqualTo(delegateTask.getEventName());
         assertThat(taskCaptor.getValue())
                 .isEqualTo(delegateTask);
     }
@@ -43,16 +47,22 @@ class TaskNotificationServiceTest {
         final IdentityLink candidateUser = mock(IdentityLink.class);
         when(candidateUser.getUserId()).thenReturn("candidateUser");
         when(delegateTask.getCandidates()).thenReturn(Set.of(candidateUser));
+        when(delegateTask.getEventName()).thenReturn("create");
 
         taskNotificationService.notifyUsers(delegateTask);
 
         final ArgumentCaptor<List<String>> candidateUsersCaptor = ArgumentCaptor.forClass(List.class);
+        final ArgumentCaptor<String> taskEventCaptor = ArgumentCaptor.forClass(String.class);
         final ArgumentCaptor<DelegateTask> taskCaptor = ArgumentCaptor.forClass(DelegateTask.class);
 
-        verify(taskNotificationOutPort).notifyCandidateUsers(candidateUsersCaptor.capture(), taskCaptor.capture());
+        verify(taskNotificationOutPort).notifyCandidateUsers(candidateUsersCaptor.capture(), taskEventCaptor.capture(), taskCaptor.capture());
 
-        assertThat(candidateUsersCaptor.getValue()).containsExactly("candidateUser");
-        assertThat(taskCaptor.getValue()).isEqualTo(delegateTask);
+        assertThat(candidateUsersCaptor.getValue())
+                .containsExactly("candidateUser");
+        assertThat(taskEventCaptor.getValue())
+                .isEqualTo(delegateTask.getEventName());
+        assertThat(taskCaptor.getValue())
+                .isEqualTo(delegateTask);
     }
 
     @Test
@@ -60,16 +70,20 @@ class TaskNotificationServiceTest {
         final IdentityLink candidateGroup = mock(IdentityLink.class);
         when(candidateGroup.getGroupId()).thenReturn("candidateGroup");
         when(delegateTask.getCandidates()).thenReturn(Set.of(candidateGroup));
+        when(delegateTask.getEventName()).thenReturn("create");
 
         taskNotificationService.notifyUsers(delegateTask);
 
         final ArgumentCaptor<List<String>> candidateGroupsCaptor = ArgumentCaptor.forClass(List.class);
+        final ArgumentCaptor<String> taskEventCaptor = ArgumentCaptor.forClass(String.class);
         final ArgumentCaptor<DelegateTask> taskCaptor = ArgumentCaptor.forClass(DelegateTask.class);
 
-        verify(taskNotificationOutPort).notifyCandidateGroups(candidateGroupsCaptor.capture(), taskCaptor.capture());
+        verify(taskNotificationOutPort).notifyCandidateGroups(candidateGroupsCaptor.capture(), taskEventCaptor.capture(), taskCaptor.capture());
 
         assertThat(candidateGroupsCaptor.getValue())
                 .containsExactly("candidateGroup");
+        assertThat(taskEventCaptor.getValue())
+                .isEqualTo(delegateTask.getEventName());
         assertThat(taskCaptor.getValue())
                 .isEqualTo(delegateTask);
     }
