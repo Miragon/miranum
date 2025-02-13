@@ -8,10 +8,10 @@
 
 1. Run the infrastructure components (stack)
 ```bash
-cd stack && docker compose up -d
+cd ../stack && docker compose up -d
 ```
 2. Build the project
-3. Run the application `MiranumSingleDeploymentUnitExample`
+3. Run the application `MiranumPlatformSDU`
 
 **Example Users**
 
