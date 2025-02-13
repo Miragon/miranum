@@ -21,22 +21,21 @@ public class TaskNotificationService implements TaskNotificationUseCase {
         if (delegateTask.getAssignee() != null && !delegateTask.getAssignee().isEmpty()) {
             this.taskNotificationOutPort.notifyAssignee(delegateTask.getAssignee(), delegateTask.getEventName(), delegateTask);
         }
-        if (!delegateTask.getCandidates().isEmpty()) {
-            final List<String> candidateUsers = delegateTask.getCandidates().stream()
-                    .map(IdentityLink::getUserId)
-                    .filter(Objects::nonNull)
-                    .toList();
-            if (!candidateUsers.isEmpty()) {
-                this.taskNotificationOutPort.notifyCandidateUsers(candidateUsers, delegateTask.getEventName(), delegateTask);
-            }
 
-            final List<String> candidateGroups = delegateTask.getCandidates().stream()
-                    .map(IdentityLink::getGroupId)
-                    .filter(Objects::nonNull)
-                    .toList();
-            if (!candidateGroups.isEmpty()) {
-                this.taskNotificationOutPort.notifyCandidateGroups(candidateGroups, delegateTask.getEventName(), delegateTask);
-            }
+        final List<String> candidateUsers = delegateTask.getCandidates().stream()
+                .map(IdentityLink::getUserId)
+                .filter(Objects::nonNull)
+                .toList();
+        if (!candidateUsers.isEmpty()) {
+            this.taskNotificationOutPort.notifyCandidateUsers(candidateUsers, delegateTask.getEventName(), delegateTask);
+        }
+
+        final List<String> candidateGroups = delegateTask.getCandidates().stream()
+                .map(IdentityLink::getGroupId)
+                .filter(Objects::nonNull)
+                .toList();
+        if (!candidateGroups.isEmpty()) {
+            this.taskNotificationOutPort.notifyCandidateGroups(candidateGroups, delegateTask.getEventName(), delegateTask);
         }
     }
 }
