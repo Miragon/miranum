@@ -79,15 +79,7 @@ Components:
 
 ## Get Started
 
-To get started with Miranum Platform please navigate to the [platform-stack](platform/platform-stack) folder and follow
-the
-instructions in the [README.md](platform/platform-stack/README.md). Once the infrastructure components have started you
-can run the
-`local` run configuration. Make sure that you have performed a `mvn clean build` before doing so.
-
-A more in
-depth [miranum-stack-showcase](https://miranum.com/docs/guides/showcases/miranum-stack/miranum-stack-showcase/)
-can be found in our documentation.
+Checkout the examples in the [examples](examples) folder to see how to use Miranum Platform and create your own process application using miranum connect.
 
 ## Engage with the Miranum team
 
