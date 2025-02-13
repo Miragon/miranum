@@ -3,7 +3,7 @@
 This project shows how to use miranum connect and miranum plaform. 
 To execute the example start the service in the following way:
 
-1. single-deployment-stack
+1. stack
 2. Miranum Platform SDU 
 3. Inquiry Integration Service
 
