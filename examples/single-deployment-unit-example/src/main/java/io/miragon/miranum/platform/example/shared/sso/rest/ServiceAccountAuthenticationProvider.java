@@ -1,6 +1,6 @@
 
 
-package io.miragon.miranum.platform.example.engine.sso.rest;
+package io.miragon.miranum.platform.example.shared.sso.rest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -10,9 +10,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
-import static io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesExtractor.SPRING_ROLE_PREFIX;
+import static io.miragon.miranum.platform.example.shared.sso.GrantedAuthoritiesExtractor.SPRING_ROLE_PREFIX;
 
 /**
  * User authentication provider.

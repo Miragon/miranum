@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.init;
+package io.miragon.miranum.platform.example.shared.sso.init;
 
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.AuthorizationService;

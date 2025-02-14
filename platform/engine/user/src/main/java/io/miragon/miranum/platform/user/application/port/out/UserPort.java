@@ -12,4 +12,6 @@ public interface UserPort {
 
     List<User> findByNamesLike(String filter);
 
+    List<User> getUsersByGroup(String group);
+
 }

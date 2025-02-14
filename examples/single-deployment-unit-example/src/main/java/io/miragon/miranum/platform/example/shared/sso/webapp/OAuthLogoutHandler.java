@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.webapp;
+package io.miragon.miranum.platform.example.shared.sso.webapp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

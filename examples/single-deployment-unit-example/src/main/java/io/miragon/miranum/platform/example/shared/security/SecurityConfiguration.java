@@ -1,11 +1,11 @@
 package io.miragon.miranum.platform.example.shared.security;
 
-import io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesExtractor;
-import io.miragon.miranum.platform.example.engine.sso.TokenParsingOAuth2UserService;
-import io.miragon.miranum.platform.example.engine.sso.TokenParsingOidcUserService;
-import io.miragon.miranum.platform.example.engine.sso.rest.RestExceptionHandler;
-import io.miragon.miranum.platform.example.engine.sso.webapp.OAuthContainerBasedAuthenticationProvider;
-import io.miragon.miranum.platform.example.engine.sso.webapp.OAuthLogoutHandler;
+import io.miragon.miranum.platform.example.shared.sso.GrantedAuthoritiesExtractor;
+import io.miragon.miranum.platform.example.shared.sso.TokenParsingOAuth2UserService;
+import io.miragon.miranum.platform.example.shared.sso.TokenParsingOidcUserService;
+import io.miragon.miranum.platform.example.shared.sso.rest.RestExceptionHandler;
+import io.miragon.miranum.platform.example.shared.sso.webapp.OAuthContainerBasedAuthenticationProvider;
+import io.miragon.miranum.platform.example.shared.sso.webapp.OAuthLogoutHandler;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;

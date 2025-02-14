@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso;
+package io.miragon.miranum.platform.example.shared.sso;
 
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

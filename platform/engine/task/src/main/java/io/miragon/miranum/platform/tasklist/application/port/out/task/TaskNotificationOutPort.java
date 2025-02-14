@@ -10,6 +10,6 @@ public interface TaskNotificationOutPort {
 
     void notifyCandidateUsers(final List<String> candidateUsers, final String eventName, final DelegateTask task);
 
-    void notifyCandidateGroups(final List<String> candidateGroups, final String eventName, final DelegateTask delegateTask);
+    void notifyCandidateGroups(final List<String> candidateGroups, final String eventName, final DelegateTask task);
 
 }

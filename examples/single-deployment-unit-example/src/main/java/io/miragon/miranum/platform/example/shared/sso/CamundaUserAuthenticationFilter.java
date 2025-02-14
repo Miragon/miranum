@@ -1,6 +1,6 @@
-package io.miragon.miranum.platform.example.engine.sso;
+package io.miragon.miranum.platform.example.shared.sso;
 
-import io.miragon.miranum.platform.example.engine.sso.rest.ServiceAccountAuthenticationProvider;
+import io.miragon.miranum.platform.example.shared.sso.rest.ServiceAccountAuthenticationProvider;
 import jakarta.servlet.*;
 import org.camunda.bpm.engine.IdentityService;
 
