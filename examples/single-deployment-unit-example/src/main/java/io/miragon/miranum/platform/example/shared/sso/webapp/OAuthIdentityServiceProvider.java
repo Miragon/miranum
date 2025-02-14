@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.webapp;
+package io.miragon.miranum.platform.example.shared.sso.webapp;
 
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.identity.*;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesExtractor.SPRING_ROLE_PREFIX;
+import static io.miragon.miranum.platform.example.shared.sso.GrantedAuthoritiesExtractor.SPRING_ROLE_PREFIX;
 import static java.util.stream.Collectors.toList;
 
 /**

@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class TaskProperties {
 
+    private boolean notificationsEnabled = false;
     private String customFieldsPrefix = "miranum_task_";
 
 }

@@ -12,7 +12,6 @@ public interface TaskOutPort {
 
     List<Task> getTasksForUser(String user);
 
-
     List<Task> getTasksForUserGroup(String user, String group);
 
     Task getTask(String taskId) throws TaskNotFoundException;

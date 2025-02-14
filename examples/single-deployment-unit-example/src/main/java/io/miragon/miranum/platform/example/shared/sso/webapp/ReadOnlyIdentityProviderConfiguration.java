@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.webapp;
+package io.miragon.miranum.platform.example.shared.sso.webapp;
 
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.GenericManagerFactory;

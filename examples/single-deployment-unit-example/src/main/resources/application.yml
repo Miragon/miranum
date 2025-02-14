@@ -89,6 +89,10 @@ spring:
   flyway:
     enabled: true
     locations: "classpath:db/migration/{vendor}"
+  mail:
+    host: localhost
+    port: 1025
+    protocol: smtp
 
 springdoc:
   packagesToScan: io.miragon.miranum.platform
@@ -115,6 +119,7 @@ miranum:
   tasklist:
     # if you want to disable the tasklist, set this to false
     enabled: true
+    notificationsEnabled: true
     # if you want a custom prefix for the tasklist custom fields, set this to your desired prefix
     customFieldsPrefix: "miranum_task_"
 logging:

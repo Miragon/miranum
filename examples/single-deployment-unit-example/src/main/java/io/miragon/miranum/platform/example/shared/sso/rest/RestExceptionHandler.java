@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.rest;
+package io.miragon.miranum.platform.example.shared.sso.rest;
 
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

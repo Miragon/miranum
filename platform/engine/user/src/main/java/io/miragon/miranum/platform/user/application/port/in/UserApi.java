@@ -10,4 +10,6 @@ public interface UserApi {
     List<User> searchUser(String query);
 
     User getUserByUserName(String username);
+
+    List<User> getUsersByGroup(String group);
 }

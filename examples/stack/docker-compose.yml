@@ -70,6 +70,13 @@ services:
     networks:
       - internal
 
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
 networks:
   local-keycloak:
   internal:

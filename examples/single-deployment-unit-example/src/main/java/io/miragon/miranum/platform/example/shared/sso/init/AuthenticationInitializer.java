@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso.init;
+package io.miragon.miranum.platform.example.shared.sso.init;
 
 import org.camunda.bpm.engine.AuthorizationService;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,5 +46,5 @@ public class AuthenticationInitializer {
         AuthorizationHelper.setupGroupDeploymentPermissions(authorizationService, workerRole);
 
     }
-    
+
 }

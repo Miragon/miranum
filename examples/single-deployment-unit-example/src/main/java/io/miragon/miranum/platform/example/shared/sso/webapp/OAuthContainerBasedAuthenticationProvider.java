@@ -1,6 +1,6 @@
-package io.miragon.miranum.platform.example.engine.sso.webapp;
+package io.miragon.miranum.platform.example.shared.sso.webapp;
 
-import io.miragon.miranum.platform.example.engine.sso.GrantedAuthoritiesExtractor;
+import io.miragon.miranum.platform.example.shared.sso.GrantedAuthoritiesExtractor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.camunda.bpm.engine.ProcessEngine;

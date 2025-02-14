@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.example.engine.sso;
+package io.miragon.miranum.platform.example.shared.sso;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.core.ClaimAccessor;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.security.Principal;
 import java.util.*;
