@@ -21,12 +21,8 @@ public class EmailAdapter implements SendNotificationOutPort {
 
     public EmailAdapter() throws jakarta.mail.MessagingException {
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("localhost");
-        mailSender.setPort(1025);
-        mailSender.setProtocol("smtp");
 
         final int timeout = 30000; // 30 seconds
-
         Properties properties = mailSender.getJavaMailProperties();
         properties.put("mail.smtp.connectiontimeout", timeout);
         properties.put("mail.smtp.timeout", timeout);
