@@ -19,7 +19,7 @@ jobs:
         run: ./mvnw versions:set --batch-mode -DremoveSnapshot -DprocessAllModules
       - name: PREP / Set services release version env variables
         run: |
-          echo "RELEASE_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(./mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_ENV
     outputs:
       release-version: ${{ env.RELEASE_VERSION }}
 
