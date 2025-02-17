@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <dependencies>
+        <!-- platform -->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-core</artifactId>
@@ -28,33 +29,6 @@
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>miranum-engine-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- platform -->
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-receiver-rest-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-rest-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>miranum-deployment-server-embedded-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
