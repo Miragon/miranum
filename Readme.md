@@ -55,27 +55,15 @@ choice.
 
 ## Platform Overview
 
-Miranum Platform uses Camunda 7 as process engine with Polyflow for task handling.
-In addition, system components such as Keycloak, Nginx, PostgreSQL and Minio are being used.
-The latter tools are interchangeable but work best in the current version.
-![Platform Overview](./images/miranum-platform.png)
+Miranum Platform uses Camunda 7 as process engine and provides a set of components to build a complete process automation application.
+The platform is designed to be modular and can be used as a whole or in parts.
+Each component is build as a hexagonal module that enables the user to replace the default implementation with a custom one. 
 
 Components:
 
-* Engine Tasklist Service:
-  Includes [Camunda Platform 7](https://github.com/camunda/camunda-bpm-platform), [Polyflow](https://github.com/holunda-io/camunda-bpm-taskpool)
-  and the Miranum Tasklist Backend.
-* Miranum Tasklist Webapp: Single-page application build with vue.js which renders the forms and tasklist.
-* Miranum IDE: Collection
-  of [vs-code plugins](https://marketplace.visualstudio.com/items?itemName=miragon-gmbh.miranum-ide) to model bpmn
-  processes, dmn decisions and forms
-  using [vuetify-jsonschema-forms](https://github.com/koumoul-dev/vuetify-jsonschema-form).
-* Schema Registry Service:
-* Deployment Service:
-* Keycloak:Open Source Identity and Access Management tool
-* Nginx: Ingress controller
-* PostgreSQL: Relational database
-* Minio: MinIO is a High Performance Object Storage which is API compatible with Amazon S3 cloud storage service.
+- **Engine-Core** includes [Camunda Platform 7](https://github.com/camunda/camunda-bpm-platform) and providers core APIs for process execution.
+- **Engine-Task** contains task management apis.
+- **Engine-User** contains a user management abstraction layer.
 
 ## Get Started
 

@@ -16,7 +16,6 @@
         <module>user</module>
         <module>core</module>
         <module>task</module>
-        <module>deployment</module>
     </modules>
 
 </project>
