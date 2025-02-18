@@ -63,7 +63,7 @@ Components:
 
 - **Engine-Core** includes [Camunda Platform 7](https://github.com/camunda/camunda-bpm-platform) and providers core APIs for process execution.
 - **Engine-Task** contains task management apis.
-- **Engine-User**: contains a user management abstraction layer.
+- **Engine-User** contains a user management abstraction layer.
 
 ## Get Started
 
