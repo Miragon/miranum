@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.engine.adapter.in.process;
 
-import io.miragon.miranum.platform.engine.api.AppAuthenticationProvider;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.platform.engine.application.port.in.process.ProcessDefinitionQuery;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class ProcessDefinitionController {
 
     private final ProcessDefinitionQuery processDefinitionQuery;
 
-    private final AppAuthenticationProvider authenticationProvider;
+    private final UserAuthenticationProvider authenticationProvider;
 
     private final ProcessDefinitionApiMapper serviceDefinitionApiMapper;
 
@@ -38,8 +38,8 @@ public class ProcessDefinitionController {
             @RequestParam(value = "query", required = false) @Nullable final String query
     ) {
         final List<MiranumProcessDefinition> definitions = this.processDefinitionQuery.getProcessDefinitions(
-                this.authenticationProvider.getCurrentUserId(),
-                this.authenticationProvider.getCurrentUserGroups(),
+                this.authenticationProvider.getLoggedInUser(),
+                this.authenticationProvider.getLoggedInUserRoles(),
                 query
         );
         return definitions.stream().map(this.serviceDefinitionApiMapper::map2TO).toList();

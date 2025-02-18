@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.tasklist.application.accesscontrol;
 
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.domain.Task;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import org.junit.jupiter.api.Test;

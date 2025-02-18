@@ -1,5 +1,6 @@
 package io.miragon.miranum.inquiry.application;
 
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import dev.bpmcrafters.processengineapi.task.CompleteTaskCmd;
 import dev.bpmcrafters.processengineapi.task.UserTaskCompletionApi;
 import io.miragon.miranum.inquiry.application.port.in.CapacityChecked;

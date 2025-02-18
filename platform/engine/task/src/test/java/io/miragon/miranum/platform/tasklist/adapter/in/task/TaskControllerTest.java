@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.tasklist.adapter.in.task;
 
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.platform.tasklist.adapter.in.task.dto.AssignTaskDto;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
 import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;

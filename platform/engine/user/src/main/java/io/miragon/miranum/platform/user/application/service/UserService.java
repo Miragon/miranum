@@ -1,8 +1,8 @@
 package io.miragon.miranum.platform.user.application.service;
 
-import io.miragon.miranum.platform.user.domain.User;
 import io.miragon.miranum.platform.user.application.port.in.UserApi;
 import io.miragon.miranum.platform.user.application.port.out.UserPort;
+import io.miragon.miranum.platform.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +22,13 @@ class UserService implements UserApi {
 
     @Override
     public User getUserByUserName(String username) {
-        return this.userPort.findByUsername(username).orElseThrow();
+        return userPort.findByUsername(username).orElseThrow();
     }
+
+    @Override
+    public List<User> getUsersByGroup(String group) {
+        return userPort.getUsersByGroup(group);
+    }
+
+
 }
