@@ -1,4 +1,4 @@
-package io.miragon.miranum.inquiry;
+package io.miragon.miranum.inquiry.shared.security;
 
 import io.miragon.miranum.security.JwtAuthenticationConverter;
 import io.miragon.miranum.security.SpringSecurityProperties;

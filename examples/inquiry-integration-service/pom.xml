@@ -27,12 +27,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
-        <dependency>
-            <!-- Version 7.22.0 does not exist at the moment -->
-            <groupId>org.camunda.community</groupId>
-            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
-            <version>7.21.1</version>
-        </dependency>
 
         <!-- miranum libs -->
         <dependency>
@@ -40,11 +34,11 @@
             <artifactId>miranum-spring-security</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>oauth-camunda7-remote</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.miragon.miranum</groupId>-->
+<!--            <artifactId>oauth-camunda7-remote</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c7</artifactId>
@@ -60,34 +54,44 @@
             <artifactId>process-engine-worker-spring-boot-starter</artifactId>
             <version>0.1.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.camunda.community.rest</groupId>
+            <artifactId>camunda-platform-7-rest-client-spring-boot-starter</artifactId>
+            <version>7.22.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
+            <version>7.22.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>io.miragon.miranum</groupId>
-                <artifactId>element-templates-generator-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <configuration>
-                    <targetPlatform>C7</targetPlatform>
-                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
-                    <clean>true</clean>
-                    <outputDirectory>src/main/resources/processes/element-templates/service</outputDirectory>
-                    <platformSpecificConfig>
-                        <c7>
-                            <asyncAfterDefaultValue>true</asyncAfterDefaultValue>
-                        </c7>
-                    </platformSpecificConfig>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>process-classes</phase>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>io.miragon.miranum</groupId>-->
+<!--                <artifactId>element-templates-generator-maven-plugin</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--                <configuration>-->
+<!--                    <targetPlatform>C7</targetPlatform>-->
+<!--                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>-->
+<!--                    <clean>true</clean>-->
+<!--                    <outputDirectory>src/main/resources/processes/element-templates/service</outputDirectory>-->
+<!--                    <platformSpecificConfig>-->
+<!--                        <c7>-->
+<!--                            <asyncAfterDefaultValue>true</asyncAfterDefaultValue>-->
+<!--                        </c7>-->
+<!--                    </platformSpecificConfig>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>process-classes</phase>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
