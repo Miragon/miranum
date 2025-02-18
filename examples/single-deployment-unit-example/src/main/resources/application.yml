@@ -93,6 +93,9 @@ spring:
     host: localhost
     port: 1025
     protocol: smtp
+    username: ""
+    password: ""
+    from: "no-reply@miragon.io"
 
 springdoc:
   packagesToScan: io.miragon.miranum.platform

@@ -1,19 +1,17 @@
 package io.miragon.miranum.inquiry.application;
 
-import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import dev.bpmcrafters.processengineapi.task.CompleteTaskCmd;
 import dev.bpmcrafters.processengineapi.task.UserTaskCompletionApi;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.inquiry.application.port.in.CapacityChecked;
 import io.miragon.miranum.inquiry.application.port.in.model.CapacityCheckedCommand;
 import io.miragon.miranum.inquiry.application.port.out.InquiryRepository;
 import io.miragon.miranum.inquiry.domain.Inquiry;
-import io.miragon.miranum.platform.security.authentication.UserAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.Map;
 
 @Slf4j
