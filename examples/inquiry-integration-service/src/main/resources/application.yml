@@ -56,6 +56,10 @@ miranum:
       - "/v3/api-docs/*" # allow access to swagger
       - "/v3/api-docs" # allow access to swagger
 
+io.miragon.miranum.inquiry:
+  deployment:
+    deployment-resource-pattern: "classpath:processes/**/*.bpmn"
+
 logging:
   level:
     root: info

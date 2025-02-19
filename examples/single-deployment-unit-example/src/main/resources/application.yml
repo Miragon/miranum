@@ -32,8 +32,6 @@ camunda: # https://docs.camunda.org/manual/7.21/user-guide/spring-boot-integrati
     metrics:
       enabled: false
       db-reporter-activate: false
-    auto-deployment-enabled: true
-    deployment-resource-pattern: "processes/**/*.bpmn"
 
 management:
   server:
