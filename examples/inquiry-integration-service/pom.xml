@@ -68,30 +68,30 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>io.miragon.miranum</groupId>-->
-<!--                <artifactId>element-templates-generator-maven-plugin</artifactId>-->
-<!--                <version>${project.version}</version>-->
-<!--                <configuration>-->
-<!--                    <targetPlatform>C7</targetPlatform>-->
-<!--                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>-->
-<!--                    <clean>true</clean>-->
-<!--                    <outputDirectory>src/main/resources/processes/element-templates/service</outputDirectory>-->
-<!--                    <platformSpecificConfig>-->
-<!--                        <c7>-->
-<!--                            <asyncAfterDefaultValue>true</asyncAfterDefaultValue>-->
-<!--                        </c7>-->
-<!--                    </platformSpecificConfig>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>process-classes</phase>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>io.miragon.miranum</groupId>
+                <artifactId>element-templates-generator-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <configuration>
+                    <targetPlatform>C7</targetPlatform>
+                    <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
+                    <clean>true</clean>
+                    <outputDirectory>src/main/resources/processes/element-templates/service</outputDirectory>
+                    <platformSpecificConfig>
+                        <c7>
+                            <asyncAfterDefaultValue>true</asyncAfterDefaultValue>
+                        </c7>
+                    </platformSpecificConfig>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
