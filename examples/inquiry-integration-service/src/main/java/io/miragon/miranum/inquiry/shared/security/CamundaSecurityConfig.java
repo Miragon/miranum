@@ -52,7 +52,7 @@ public class CamundaSecurityConfig {
             if (cachedToken == null || Instant.now().isAfter(tokenExpiry)) {
                 fetchAndCacheToken();
             }
-            return "Bearer " + cachedToken;
+            return cachedToken;
         } finally {
             lock.unlock();
         }
