@@ -1,3 +1,8 @@
+info:
+  application:
+    name: '@project.artifactId@'
+    version: '@project.version@'
+
 server:
   port: ${MIRANUM_PROCESS_INTEGRATION_EXAMPLE_PORT}
 
@@ -33,10 +38,6 @@ feign:
       default:
         url: "http://localhost:8083/engine-rest/"
 
-spring:
-  application:
-    name: '@project.artifactId@'
-
 miranum:
   security:
     server:
@@ -57,4 +58,4 @@ miranum:
 
 logging:
   level:
-    root: debug
+    root: info
