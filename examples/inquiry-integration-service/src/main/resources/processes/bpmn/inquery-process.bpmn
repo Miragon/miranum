@@ -41,7 +41,7 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0f10hlq" sourceRef="Activity_0iahoe8" targetRef="Activity_0dedoqm" />
     <bpmn:sequenceFlow id="Flow_159b25c" sourceRef="Activity_0dedoqm" targetRef="Gateway_1gflkuj" />
-    <bpmn:intermediateCatchEvent id="Event_1cpfhel" name="Offer accepted">
+    <bpmn:intermediateCatchEvent id="Event_1cpfhel" name="Offer accepted" camunda:asyncAfter="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="correlationKey">${inquiryId}</camunda:inputParameter>
@@ -62,7 +62,7 @@
       <bpmn:incoming>Flow_0mhp1yh</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0mhp1yh" sourceRef="Event_1cpfhel" targetRef="Event_183k8vj" />
-    <bpmn:intermediateCatchEvent id="Event_1lli2js" name="Offer declined">
+    <bpmn:intermediateCatchEvent id="Event_1lli2js" name="Offer declined" camunda:asyncAfter="true">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="correlationKey">${inquiryId}</camunda:inputParameter>
