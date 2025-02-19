@@ -16,7 +16,7 @@ password = test
 ### Create new Inquiry
 POST http://localhost:8084/rest/inquiry/create
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 {
   "customerMail": "cio@customer.com",
@@ -33,7 +33,7 @@ Authorization: Bearer {{ access_token }}
 ### Get Group Tasks for sales-department
 GET http://localhost:8083/rest/task/group/sales-department
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 > {%
     var firstTaskId = response.body[0].id;
@@ -44,7 +44,7 @@ Authorization: Bearer {{ access_token }}
 ### Claim Task for user Alex Admin
 POST http://localhost:8083/rest/task/{{group_task_id}}/assign
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 {
   "assignee": "alex.admin@example.com"
@@ -54,19 +54,19 @@ Authorization: Bearer {{ access_token }}
 ### Complete Capacity Check Task
 POST http://localhost:8084/rest/inquiry/capacity-checked
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 {
-  "inquiryId": "{{ inquiryId }}",
+  "inquiryId": "{{inquiryId}}",
   "enoughCapacity": true,
-  "userTaskId": "{{ group_task_id }}"
+  "userTaskId": "{{group_task_id}}"
 }
 
 
 ### Get assigned Tasks for user Alex Admin
 GET http://localhost:8083/rest/task/user
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 > {%
     var firstTask = response.body[0].id;
@@ -77,21 +77,21 @@ Authorization: Bearer {{ access_token }}
 ### Complete Create Offer Task
 POST http://localhost:8084/rest/inquiry/create-offer
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 {
-  "inquiryId": "{{ inquiryId }}",
+  "inquiryId": "{{inquiryId}}",
   "offerInEuros": 12000,
-  "userTaskId": "{{ user_task_id }}"
+  "userTaskId": "{{user_task_id}}"
 }
 
 
 ### Simulate Customer Mail Response
 POST http://localhost:8084/rest/mail/receive
 Content-Type: application/json
-Authorization: Bearer {{ access_token }}
+Authorization: Bearer {{access_token}}
 
 {
-  "inquiryId": "{{ inquiryId }}",
+  "inquiryId": "{{inquiryId}}",
   "isAccepted": true
 }

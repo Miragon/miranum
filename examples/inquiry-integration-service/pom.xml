@@ -27,12 +27,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
-        <dependency>
-            <!-- Version 7.22.0 does not exist at the moment -->
-            <groupId>org.camunda.community</groupId>
-            <artifactId>camunda-engine-rest-client-complete-springboot-starter</artifactId>
-            <version>7.21.1</version>
-        </dependency>
 
         <!-- miranum libs -->
         <dependency>
@@ -40,15 +34,35 @@
             <artifactId>miranum-spring-security</artifactId>
             <version>${project.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.miragon.miranum</groupId>-->
+<!--            <artifactId>oauth-camunda7-remote</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
-            <artifactId>oauth-camunda7-remote</artifactId>
+            <artifactId>element-templates-c7</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-camunda7-remote-all</artifactId>
-            <version>${project.version}</version>
+            <groupId>dev.bpm-crafters.process-engine-api</groupId>
+            <artifactId>process-engine-api-adapter-camunda-platform-c7-remote-spring-boot-starter</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.bpm-crafters.process-engine-worker</groupId>
+            <artifactId>process-engine-worker-spring-boot-starter</artifactId>
+            <version>0.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.community.rest</groupId>
+            <artifactId>camunda-platform-7-rest-client-spring-boot-starter</artifactId>
+            <version>7.22.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
+            <version>7.22.0</version>
         </dependency>
     </dependencies>
 

@@ -1,13 +1,14 @@
 package io.miragon.miranum.inquiry.application;
 
+import dev.bpmcrafters.processengineapi.task.CompleteTaskCmd;
+import dev.bpmcrafters.processengineapi.task.UserTaskCompletionApi;
 import io.miragon.miranum.auth.api.UserAuthenticationProvider;
-import io.miragon.miranum.connect.task.api.TaskApi;
-import io.miragon.miranum.connect.task.api.command.CompleteTaskCommand;
 import io.miragon.miranum.inquiry.application.port.in.CapacityChecked;
 import io.miragon.miranum.inquiry.application.port.in.model.CapacityCheckedCommand;
 import io.miragon.miranum.inquiry.application.port.out.InquiryRepository;
 import io.miragon.miranum.inquiry.domain.Inquiry;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CapacityCheckedUseCase implements CapacityChecked {
 
-    private final TaskApi taskApi;
+    private final UserTaskCompletionApi taskCompletionApi;
     private final UserAuthenticationProvider authenticationProvider;
     private final InquiryRepository inquiryRepository;
 
+    @SneakyThrows
     @Override
     public void handle(CapacityCheckedCommand command) {
         // 1. load and update inquiry
@@ -31,11 +33,12 @@ public class CapacityCheckedUseCase implements CapacityChecked {
         Inquiry saved = this.inquiryRepository.save(updated);
 
         // 2. complete Task
-        CompleteTaskCommand completeTaskCommand = CompleteTaskCommand.builder()
-                .taskId(command.userTaskId())
-                .variables(Map.of("enough_capacity", saved.enoughCapacity()))
-                .build();
-        this.taskApi.completeTask(completeTaskCommand, currentUser);
+        taskCompletionApi.completeTask(
+                new CompleteTaskCmd(
+                        command.userTaskId(),
+                        () -> Map.of("enough_capacity", saved.enoughCapacity())
+                )
+        ).get();
 
         log.info("[{}] Inquiry updated by capacity check: {}", saved.id(), saved);
     }

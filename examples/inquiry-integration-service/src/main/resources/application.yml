@@ -1,3 +1,8 @@
+info:
+  application:
+    name: '@project.artifactId@'
+    version: '@project.version@'
+
 server:
   port: ${MIRANUM_PROCESS_INTEGRATION_EXAMPLE_PORT}
 
@@ -9,9 +14,29 @@ camunda:
       base-url: http://localhost:8083/engine-rest
       disable-backoff-strategy: ${WORKER_BACKOFF_STRATEGIE_DISABLED:false}
 
-spring:
-  application:
-    name: '@project.artifactId@'
+dev:
+  bpm-crafters:
+    process-api:
+      adapter:
+        c7remote:
+          enabled: true
+          service-tasks:
+            delivery-strategy: remote_scheduled
+            schedule-delivery-fixed-rate-in-seconds: 1
+            worker-id: embedded-worker
+            lock-time-in-seconds: 10
+          user-tasks:
+            schedule-delivery-fixed-rate-in-seconds: 1
+            delivery-strategy: remote_scheduled
+
+camunda.bpm.client:
+  base-url: http://localhost:8083/engine-rest/
+
+feign:
+  client:
+    config:
+      default:
+        url: "http://localhost:8083/engine-rest/"
 
 miranum:
   security:
@@ -30,3 +55,11 @@ miranum:
       - "/swagger-ui*/**" # allow access to swagger
       - "/v3/api-docs/*" # allow access to swagger
       - "/v3/api-docs" # allow access to swagger
+
+io.miragon.miranum.inquiry:
+  deployment:
+    deployment-resource-pattern: "classpath:processes/**/*.bpmn"
+
+logging:
+  level:
+    root: info

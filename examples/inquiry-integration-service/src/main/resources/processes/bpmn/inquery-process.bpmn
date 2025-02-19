@@ -41,13 +41,19 @@
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0f10hlq" sourceRef="Activity_0iahoe8" targetRef="Activity_0dedoqm" />
     <bpmn:sequenceFlow id="Flow_159b25c" sourceRef="Activity_0dedoqm" targetRef="Gateway_1gflkuj" />
-    <bpmn:intermediateCatchEvent id="Event_1cpfhel" name="Offer accepted">
+    <bpmn:intermediateCatchEvent id="Event_1cpfhel" name="Offer accepted" camunda:asyncAfter="true">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="correlationKey">${inquiryId}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_18yguzf</bpmn:incoming>
       <bpmn:outgoing>Flow_0mhp1yh</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_13bpyvz" messageRef="Message_1oj9rin" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_18yguzf" sourceRef="Gateway_1gflkuj" targetRef="Event_1cpfhel" />
     <bpmn:eventBasedGateway id="Gateway_1gflkuj">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_159b25c</bpmn:incoming>
       <bpmn:outgoing>Flow_18yguzf</bpmn:outgoing>
       <bpmn:outgoing>Flow_10bvner</bpmn:outgoing>
@@ -56,7 +62,12 @@
       <bpmn:incoming>Flow_0mhp1yh</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0mhp1yh" sourceRef="Event_1cpfhel" targetRef="Event_183k8vj" />
-    <bpmn:intermediateCatchEvent id="Event_1lli2js" name="Offer declined">
+    <bpmn:intermediateCatchEvent id="Event_1lli2js" name="Offer declined" camunda:asyncAfter="true">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="correlationKey">${inquiryId}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_10bvner</bpmn:incoming>
       <bpmn:outgoing>Flow_1wuvmm4</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1vrizal" messageRef="Message_0g1d831" />

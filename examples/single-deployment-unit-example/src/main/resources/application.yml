@@ -32,8 +32,6 @@ camunda: # https://docs.camunda.org/manual/7.21/user-guide/spring-boot-integrati
     metrics:
       enabled: false
       db-reporter-activate: false
-    auto-deployment-enabled: true
-    deployment-resource-pattern: "processes/*.bpmn"
 
 management:
   server:
@@ -93,6 +91,9 @@ spring:
     host: localhost
     port: 1025
     protocol: smtp
+    username: ""
+    password: ""
+    from: "no-reply@miragon.io"
 
 springdoc:
   packagesToScan: io.miragon.miranum.platform
@@ -122,6 +123,7 @@ miranum:
     notificationsEnabled: true
     # if you want a custom prefix for the tasklist custom fields, set this to your desired prefix
     customFieldsPrefix: "miranum_task_"
+
 logging:
   level:
     root: info
