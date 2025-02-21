@@ -1,7 +1,6 @@
 package io.miragon.miranum.platform.engine.adapter.in.process;
 
 import io.miragon.miranum.platform.engine.domain.process.HistoryTask;
-import io.miragon.miranum.platform.engine.domain.process.ProcessConfig;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,11 +57,6 @@ public class ProcessInstanceDetailDto {
     private String description;
 
     /**
-     * Config of the corresponding process definition.
-     */
-    private ProcessConfig processConfig;
-
-    /**
      * Tasks that have been completed so far.
      */
     private List<HistoryTask> historyTasks;
@@ -72,10 +66,5 @@ public class ProcessInstanceDetailDto {
      * Provided data of the instance.
      */
     private Map<String, Object> data;
-
-    /**
-     * json schema
-     */
-    private Map<String, Object> jsonSchema;
 
 }

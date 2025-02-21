@@ -46,11 +46,6 @@ public class MiranumProcessInstanceWithData {
      */
     private String instanceId;
     /**
-     * Config of the corresponding process definition.
-     */
-    private ProcessConfig processConfig;
-
-    /**
      * Tasks that have been completed so far.
      */
     private List<HistoryTask> historyTasks;
@@ -60,15 +55,6 @@ public class MiranumProcessInstanceWithData {
      */
     private Map<String, Object> data;
 
-    /**
-     * json schema
-     */
-    private Map<String, Object> jsonSchema;
-
-
-    public void setConfig(final ProcessConfig config) {
-        this.processConfig = config;
-    }
 
     public void setHistoryTasks(final List<HistoryTask> historyTasks) {
         this.historyTasks = historyTasks;
@@ -76,10 +62,6 @@ public class MiranumProcessInstanceWithData {
 
     public void setData(final Map<String, Object> data) {
         this.data = data;
-    }
-
-    public void setJsonSchema(final Map<String, Object> jsonSchema) {
-        this.jsonSchema = jsonSchema;
     }
 
 }
