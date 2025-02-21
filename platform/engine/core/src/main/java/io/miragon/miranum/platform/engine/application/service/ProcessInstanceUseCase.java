@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.engine.application.service;
 
-import io.miragon.miranum.platform.engine.application.port.in.process.ProcessInstanceQuery;
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessInstancePort;
+import io.miragon.miranum.platform.engine.application.port.in.process.ProcessInstanceInPort;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessInstanceOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MiranumProcessInstanceQueryService implements ProcessInstanceQuery {
+public class ProcessInstanceUseCase implements ProcessInstanceInPort {
 
 
-    private final MiranumProcessInstancePort miranumProcessInstancePort;
+    private final ProcessInstanceOutPort miranumProcessInstancePort;
 
 
     /**

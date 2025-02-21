@@ -1,5 +1,6 @@
-package io.miragon.miranum.platform.engine.adapter.out.persistance.process;
+package io.miragon.miranum.platform.engine.adapter.out.persistance.process.mapper;
 
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa.MiranumProcessInstanceEntity;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;
 import org.mapstruct.Mapper;

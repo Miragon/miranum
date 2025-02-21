@@ -1,6 +1,7 @@
 package io.miragon.miranum.platform.engine.adapter.out.engine;
 
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
+import io.miragon.miranum.platform.engine.adapter.out.engine.mapper.MiranumProcessDefinitionMapper;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessDefinitionOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import lombok.RequiredArgsConstructor;
 import org.camunda.bpm.engine.AuthorizationService;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MiranumProcessDefinitionAdapter implements MiranumProcessDefinitionPort {
+public class MiranumProcessDefinitionAdapter implements ProcessDefinitionOutPort {
 
     private final RepositoryService repositoryService;
     private final AuthorizationService authorizationService;

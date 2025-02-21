@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.engine.adapter.in.process;
+package io.miragon.miranum.platform.engine.adapter.in.process.dto;
 
 import io.miragon.miranum.platform.engine.domain.process.HistoryTask;
 import lombok.AllArgsConstructor;

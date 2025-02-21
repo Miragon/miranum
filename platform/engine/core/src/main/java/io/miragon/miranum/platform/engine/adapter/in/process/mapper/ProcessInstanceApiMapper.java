@@ -1,5 +1,7 @@
-package io.miragon.miranum.platform.engine.adapter.in.process;
+package io.miragon.miranum.platform.engine.adapter.in.process.mapper;
 
+import io.miragon.miranum.platform.engine.adapter.in.process.dto.ProcessInstanceDetailDto;
+import io.miragon.miranum.platform.engine.adapter.in.process.dto.ProcessInstanceDto;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;
 import org.mapstruct.Mapper;

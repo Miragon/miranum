@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.engine.adapter.out.engine;
+package io.miragon.miranum.platform.engine.adapter.out.engine.mapper;
 
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import org.camunda.bpm.engine.repository.ProcessDefinition;

@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.engine.application.service;
 
-import io.miragon.miranum.platform.engine.application.port.in.process.ProcessDefinitionQuery;
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
+import io.miragon.miranum.platform.engine.application.port.in.process.ProcessDefinitionInPort;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessDefinitionOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class ProcessDefinitionQueryService implements ProcessDefinitionQuery {
+public class ProcessDefinitionUseCase implements ProcessDefinitionInPort {
 
-    private final MiranumProcessDefinitionPort miranumProcessDefinitionPort;
+    private final ProcessDefinitionOutPort miranumProcessDefinitionPort;
 
     @Override
     public List<MiranumProcessDefinition> getProcessDefinitions(

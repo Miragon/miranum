@@ -1,6 +1,6 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessDefinitionOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.miragon.miranum.platform.tasklist.TaskProperties;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class TaskInfoServiceTest {
 
     private final TaskOutPort taskOutPort = mock(TaskOutPort.class);
-    private final MiranumProcessDefinitionPort miranumProcessDefinitionPort = mock(MiranumProcessDefinitionPort.class);
+    private final ProcessDefinitionOutPort miranumProcessDefinitionPort = mock(ProcessDefinitionOutPort.class);
     private final TaskProperties taskProperties = new TaskProperties();
 
     private final TaskInfoUseCase taskInfoService = new TaskInfoService(taskOutPort, miranumProcessDefinitionPort, taskProperties);

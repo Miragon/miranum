@@ -6,7 +6,7 @@ import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstanceW
 import java.util.List;
 import java.util.Optional;
 
-public interface MiranumProcessInstancePort {
+public interface ProcessInstanceOutPort {
 
     void save(MiranumProcessInstance processInstance);
 

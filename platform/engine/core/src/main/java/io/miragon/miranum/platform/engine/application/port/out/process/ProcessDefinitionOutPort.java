@@ -4,7 +4,7 @@ import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinitio
 
 import java.util.List;
 
-public interface MiranumProcessDefinitionPort {
+public interface ProcessDefinitionOutPort {
 
     MiranumProcessDefinition getProcessDefinition(final String definitionKey);
 

@@ -1,10 +1,14 @@
 package io.miragon.miranum.platform.engine.adapter.out.persistance.process;
 
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessInstancePort;
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa.MiranumProcessInstanceEntity;
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa.MiranumProcessInstanceRepository;
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa.ProcessInstanceAuthorizationEntity;
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa.ProcessInstanceAuthorizationRepository;
+import io.miragon.miranum.platform.engine.adapter.out.persistance.process.mapper.MiranumProcessInstanceMapper;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessInstanceOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstance;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessInstanceWithData;
 import lombok.RequiredArgsConstructor;
-import org.camunda.bpm.engine.HistoryService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,12 +17,11 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class MiranumProcessInstancePersistenceAdapter implements MiranumProcessInstancePort {
+public class MiranumProcessInstancePersistenceAdapter implements ProcessInstanceOutPort {
 
     private final MiranumProcessInstanceRepository miranumProcessInstanceRepository;
     private final MiranumProcessInstanceMapper miranumProcessInstanceMapper;
     private final ProcessInstanceAuthorizationRepository processInstanceAuthorizationRepository;
-    private final HistoryService historyService;
 
 
     @Override

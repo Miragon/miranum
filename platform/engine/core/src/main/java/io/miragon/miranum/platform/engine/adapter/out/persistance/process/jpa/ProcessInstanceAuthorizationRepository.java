@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.engine.adapter.out.persistance.process;
+package io.miragon.miranum.platform.engine.adapter.out.persistance.process.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

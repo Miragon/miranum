@@ -4,7 +4,7 @@ import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinitio
 
 import java.util.List;
 
-public interface ProcessDefinitionQuery {
+public interface ProcessDefinitionInPort {
 
     List<MiranumProcessDefinition> getProcessDefinitions(String userId, List<String> groups, String query);
 

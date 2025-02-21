@@ -1,7 +1,9 @@
 package io.miragon.miranum.platform.engine.adapter.in.process;
 
 import io.miragon.miranum.auth.api.UserAuthenticationProvider;
-import io.miragon.miranum.platform.engine.application.port.in.process.ProcessInstanceQuery;
+import io.miragon.miranum.platform.engine.adapter.in.process.dto.ProcessInstanceDto;
+import io.miragon.miranum.platform.engine.adapter.in.process.mapper.ProcessInstanceApiMapper;
+import io.miragon.miranum.platform.engine.application.port.in.process.ProcessInstanceInPort;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,7 @@ import java.util.List;
 @Tag(name = "ProcessInstanceController", description = "API to interact with process instances")
 public class ProcessInstanceController {
 
-    private final ProcessInstanceQuery instanceQuery;
+    private final ProcessInstanceInPort instanceQuery;
     private final UserAuthenticationProvider authenticationProvider;
 
     //Mapper

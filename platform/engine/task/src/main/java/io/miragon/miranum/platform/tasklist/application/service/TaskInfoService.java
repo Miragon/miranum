@@ -1,7 +1,7 @@
 package io.miragon.miranum.platform.tasklist.application.service;
 
 import io.holunda.camunda.bpm.data.factory.VariableFactory;
-import io.miragon.miranum.platform.engine.application.port.out.process.MiranumProcessDefinitionPort;
+import io.miragon.miranum.platform.engine.application.port.out.process.ProcessDefinitionOutPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.miragon.miranum.platform.tasklist.TaskProperties;
 import io.miragon.miranum.platform.tasklist.application.port.in.TaskInfoUseCase;
@@ -24,7 +24,7 @@ import static io.holunda.camunda.bpm.data.CamundaBpmData.stringVariable;
 public class TaskInfoService implements TaskInfoUseCase {
 
     private final TaskOutPort taskOutPort;
-    private final MiranumProcessDefinitionPort miranumProcessDefinitionPort;
+    private final ProcessDefinitionOutPort miranumProcessDefinitionPort;
     private final TaskProperties properties;
 
     public static final String TASK_DESCRIPTION = "miranum_task_description";

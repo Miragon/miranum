@@ -1,5 +1,6 @@
 package io.miragon.miranum.platform.engine.adapter.out.engine;
 
+import io.miragon.miranum.platform.engine.adapter.out.engine.mapper.HistoryTaskMapper;
 import io.miragon.miranum.platform.engine.application.port.out.history.GetHistoricTasksByInstanceIdPort;
 import io.miragon.miranum.platform.engine.domain.process.HistoryTask;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Service to interact with process instances.
  */
-public interface ProcessInstanceQuery {
+public interface ProcessInstanceInPort {
 
     List<MiranumProcessInstance> getProcessInstanceByUser(final String userId, String query);
 

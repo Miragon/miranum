@@ -1,7 +1,9 @@
 package io.miragon.miranum.platform.engine.adapter.in.process;
 
 import io.miragon.miranum.auth.api.UserAuthenticationProvider;
-import io.miragon.miranum.platform.engine.application.port.in.process.ProcessDefinitionQuery;
+import io.miragon.miranum.platform.engine.adapter.in.process.dto.ProcessDefinitionDto;
+import io.miragon.miranum.platform.engine.adapter.in.process.mapper.ProcessDefinitionApiMapper;
+import io.miragon.miranum.platform.engine.application.port.in.process.ProcessDefinitionInPort;
 import io.miragon.miranum.platform.engine.domain.process.MiranumProcessDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,7 +27,7 @@ import java.util.List;
 @Tag(name = "ProcessDefinitionController", description = "API to interact with service definitions")
 public class ProcessDefinitionController {
 
-    private final ProcessDefinitionQuery processDefinitionQuery;
+    private final ProcessDefinitionInPort processDefinitionQuery;
 
     private final UserAuthenticationProvider authenticationProvider;
 
