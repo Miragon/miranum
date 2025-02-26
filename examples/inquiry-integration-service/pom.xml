@@ -47,7 +47,7 @@
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-api</groupId>
             <artifactId>process-engine-api-adapter-camunda-platform-c7-remote-spring-boot-starter</artifactId>
-            <version>0.4.0</version>
+            <version>0.4.3</version>
         </dependency>
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-worker</groupId>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.camunda.community.rest</groupId>
             <artifactId>camunda-platform-7-rest-client-spring-boot-starter</artifactId>
-            <version>7.22.1</version>
+            <version>7.22.3</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>io.miragon.miranum</groupId>
                 <artifactId>element-templates-generator-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>0.10.0</version>
                 <configuration>
                     <targetPlatform>C7</targetPlatform>
                     <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>
