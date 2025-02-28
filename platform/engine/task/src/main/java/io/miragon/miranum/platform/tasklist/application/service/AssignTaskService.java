@@ -6,8 +6,10 @@ import io.miragon.miranum.platform.tasklist.application.port.out.task.AssignTask
 import io.miragon.miranum.platform.tasklist.domain.AssignUserTask;
 import io.miragon.miranum.platform.tasklist.exception.TaskAccessDeniedException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
+@Component
 public class AssignTaskService implements WorkOnTaskUseCase {
 
     private final AssignTaskOutPort assignTaskOutPort;
