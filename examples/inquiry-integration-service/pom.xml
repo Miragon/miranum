@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>io.miragon.miranum</groupId>
                 <artifactId>element-templates-generator-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>0.10.0</version>
                 <configuration>
                     <targetPlatform>C7</targetPlatform>
                     <inputValueNamingPolicy>ATTRIBUTE_NAME</inputValueNamingPolicy>

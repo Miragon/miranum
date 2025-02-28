@@ -86,22 +86,6 @@
             <artifactId>miranum-spring-security</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>schema-registry</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!-- miranum connect -->
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-message-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-process-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!--- Libs -->
         <dependency>
