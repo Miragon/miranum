@@ -1,4 +1,4 @@
-package io.miragon.miranum.platform.engine.domain.process;
+package io.miragon.miranum.platform.engine.api;
 
 import lombok.*;
 
