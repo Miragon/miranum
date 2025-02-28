@@ -1,36 +1,29 @@
 package io.miragon.miranum.platform.tasklist.adapter.out.task.miranum;
 
-import io.miragon.miranum.connect.task.api.command.AssignUserTaskCommand;
-import io.miragon.miranum.connect.task.api.command.CompleteTaskCommand;
-import io.miragon.miranum.connect.task.api.exception.TaskOperationFailedException;
-import io.miragon.miranum.connect.task.impl.TaskOutPort;
+import io.miragon.miranum.platform.tasklist.application.port.out.task.AssignTaskOutPort;
+import io.miragon.miranum.platform.tasklist.domain.AssignUserTask;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.NotImplementedException;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
-public class MiranumTaskAdapter implements TaskOutPort {
+public class MiranumTaskAdapter implements AssignTaskOutPort {
 
     private final TaskService taskService;
 
     @Override
-    public void completeTask(CompleteTaskCommand command) throws TaskOperationFailedException {
-        throw new NotImplementedException("Not implemented");
+    public void assignUserTask(final AssignUserTask assignUserTask, final String user, final List<String> userGroups) {
+        taskService.claim(assignUserTask.taskId(), assignUserTask.assignee());
     }
 
     @Override
-    public void assignUserTask(AssignUserTaskCommand command) throws TaskOperationFailedException {
-        try {
-            taskService.claim(command.getTaskId(), command.getAssignee());
-        } catch (final RuntimeException e) {
-            throw new TaskOperationFailedException(e.getMessage());
-        }
-    }
-
-    @Override
-    public void cancelUserTask(String taskId) throws TaskOperationFailedException {
-        throw new NotImplementedException("Not implemented");
+    public void unassignUserTask(String taskId, String user, List<String> userGroups) {
+        assignUserTask(AssignUserTask.builder()
+                .taskId(taskId)
+                .assignee(null)
+                .build(), user, userGroups);
     }
 }
