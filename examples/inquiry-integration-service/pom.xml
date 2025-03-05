@@ -47,7 +47,7 @@
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-api</groupId>
             <artifactId>process-engine-api-adapter-camunda-platform-c7-remote-spring-boot-starter</artifactId>
-            <version>0.4.3</version>
+            <version>0.4.4</version>
         </dependency>
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-worker</groupId>
