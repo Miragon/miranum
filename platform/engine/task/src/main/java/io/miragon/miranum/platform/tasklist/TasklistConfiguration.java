@@ -1,7 +1,6 @@
 package io.miragon.miranum.platform.tasklist;
 
 import io.miragon.miranum.auth.api.UserAuthenticationProvider;
-import io.miragon.miranum.connect.task.api.TaskApi;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskMapper;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskNotificationAdapter;
 import io.miragon.miranum.platform.tasklist.adapter.out.task.TaskPersistenceAdapter;
@@ -9,10 +8,8 @@ import io.miragon.miranum.platform.tasklist.adapter.out.task.taskinfo.TaskInfoRe
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProvider;
 import io.miragon.miranum.platform.tasklist.application.accesscontrol.UserTaskAccessProviderImpl;
 import io.miragon.miranum.platform.tasklist.application.port.in.UserTaskQuery;
-import io.miragon.miranum.platform.tasklist.application.port.in.WorkOnTaskUseCase;
 import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskNotificationOutPort;
 import io.miragon.miranum.platform.tasklist.application.port.out.task.TaskOutPort;
-import io.miragon.miranum.platform.tasklist.application.service.AssignTaskService;
 import io.miragon.miranum.platform.tasklist.application.service.UserTaskQueryImpl;
 import org.camunda.bpm.engine.TaskService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -40,12 +37,6 @@ public class TasklistConfiguration {
     @ConditionalOnMissingBean
     public UserTaskAccessProvider userTaskAccessProvider(final UserAuthenticationProvider authenticationProvider) {
         return new UserTaskAccessProviderImpl(authenticationProvider);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public WorkOnTaskUseCase workOnTaskUseCase(final TaskApi connectTaskApi, final UserAuthenticationProvider userAuthenticationProvider) {
-        return new AssignTaskService(connectTaskApi, userAuthenticationProvider);
     }
 
     @Bean

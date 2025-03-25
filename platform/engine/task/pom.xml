@@ -50,13 +50,6 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- miranum connect -->
-        <dependency>
-            <groupId>io.miragon.miranum</groupId>
-            <artifactId>connect-task-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>
