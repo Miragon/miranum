@@ -34,11 +34,6 @@
             <artifactId>miranum-spring-security</artifactId>
             <version>${project.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.miragon.miranum</groupId>-->
-<!--            <artifactId>oauth-camunda7-remote</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.miragon.miranum</groupId>
             <artifactId>element-templates-c7</artifactId>
@@ -52,7 +47,7 @@
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-worker</groupId>
             <artifactId>process-engine-worker-spring-boot-starter</artifactId>
-            <version>0.1.3</version>
+            <version>0.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.community.rest</groupId>
@@ -62,7 +57,7 @@
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
-            <version>7.22.0</version>
+            <version>7.23.0</version>
         </dependency>
     </dependencies>
 
