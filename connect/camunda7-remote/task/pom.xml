@@ -42,7 +42,6 @@
 
         <!-- camunda -->
         <dependency>
-            <!-- Version 7.22.0 does not exist at the moment -->
             <groupId>org.camunda.community</groupId>
             <artifactId>camunda-engine-rest-client-openapi-springboot</artifactId>
             <version>7.23.0</version>
