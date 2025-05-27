@@ -1,8 +1,8 @@
 package io.miragon.miranum.inquiry.application;
 
-import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import dev.bpmcrafters.processengineapi.process.StartProcessApi;
 import dev.bpmcrafters.processengineapi.process.StartProcessByDefinitionCmd;
+import io.miragon.miranum.auth.api.UserAuthenticationProvider;
 import io.miragon.miranum.inquiry.application.port.in.InquiryReceived;
 import io.miragon.miranum.inquiry.application.port.in.model.NewInquiryCommand;
 import io.miragon.miranum.inquiry.application.port.out.InquiryRepository;
@@ -35,7 +35,7 @@ public class InquiryReceivedUseCase implements InquiryReceived {
         startProcessApi.startProcess(
                 new StartProcessByDefinitionCmd(
                         INQUIRY_PROCESS_KEY,
-                        () -> Map.of("inquiryId", saved.id().toString())
+                        Map.of("inquiryId", saved.id().toString())
                 )
         ).get();
 

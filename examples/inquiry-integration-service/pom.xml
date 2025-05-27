@@ -47,7 +47,7 @@
         <dependency>
             <groupId>dev.bpm-crafters.process-engine-worker</groupId>
             <artifactId>process-engine-worker-spring-boot-starter</artifactId>
-            <version>0.4.0</version>
+            <version>0.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.community.rest</groupId>

@@ -12,8 +12,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -38,8 +36,7 @@ public class CustomerMailReceivedUseCase implements CustomerMailReceived {
                 saved.offerAccepted()
                         ? OFFER_ACCEPTED_MESSAGE_NAME
                         : OFFER_DECLINED_MESSAGE_NAME,
-                Collections::emptyMap,
-                () -> Correlation.withKey(saved.id().toString())
+                Correlation.withKey(saved.id().toString())
             )
         ).get();
 
