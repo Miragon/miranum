@@ -3,10 +3,6 @@ name: Release services
 on:
   workflow_call:
     inputs:
-      docker-release-version:
-        description: 'Services release version'
-        type: string
-        required: false
       snapshot-release:
         description: 'Snapshot release?'
         type: boolean
@@ -14,11 +10,6 @@ on:
         default: false
       maven-release:
         description: 'Release maven'
-        type: boolean
-        required: true
-        default: true
-      docker-release:
-        description: 'Release docker images'
         type: boolean
         required: true
         default: true
