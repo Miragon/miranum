@@ -36,7 +36,7 @@ jobs:
       - name: BUMP VERSION / Raise mvn version
         if: inputs.new-maven-version != ''
         run: |
-          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.connect-new-maven-version }}-SNAPSHOT<\/revision>/" pom.xml
+          sed -i "s/<revision>.*<\/revision>/<revision>${{ inputs.new-maven-version }}-SNAPSHOT<\/revision>/" pom.xml
       - name: BUMP VERSION / Raise mvn version
         if: inputs.new-maven-version == ''
         run: |
