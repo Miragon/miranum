@@ -28,7 +28,7 @@
 
 ## ⚠️ Deprecation Notice
 
-This project is no longer under active feature development. It will only receive maintenance updates to ensure compatibility with Camunda 7 Community Edition as long as updates are published by Camunda. We recommend considering bpm-crafters [process-engine-api](https://github.com/bpm-crafters/process-engine-api) and [process-engine-worker](https://github.com/bpm-crafters/process-engine-worker) for new projects.
+This project is no longer under active feature development. We recommend considering bpm-crafters [process-engine-api](https://github.com/bpm-crafters/process-engine-api) and [process-engine-worker](https://github.com/bpm-crafters/process-engine-worker) for new projects.
 
 ## About The Project
 
