@@ -25,6 +25,11 @@
     </p>
 </div>
 
+
+## ⚠️ Deprecation Notice
+
+This project is no longer under active feature development. We recommend considering bpm-crafters [process-engine-api](https://github.com/bpm-crafters/process-engine-api) and [process-engine-worker](https://github.com/bpm-crafters/process-engine-worker) for new projects.
+
 ## About The Project
 
 Miranum Platform is an open source production ready process automation platform with a focus on human-task driven
